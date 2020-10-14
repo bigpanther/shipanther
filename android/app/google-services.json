@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "219386321464",
+    "firebase_url": "https://shiped-7b848.firebaseio.com",
+    "project_id": "shiped-7b848",
+    "storage_bucket": "shiped-7b848.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219386321464:android:0f3126fa06305ead5924cd",
+        "android_client_info": {
+          "package_name": "ca.bigpanther.shipanther"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "219386321464-qofuqs9js0ochunq8klpkbe6cncjfktj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACOGa3_NT-OpThOi6RwxRyl0QnzyGPHLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "219386321464-qofuqs9js0ochunq8klpkbe6cncjfktj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
