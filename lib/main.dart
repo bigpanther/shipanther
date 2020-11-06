@@ -17,7 +17,7 @@ class ShipantherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Shipanther',
+        title: 'Shipantherr',
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
         home: Scaffold(
