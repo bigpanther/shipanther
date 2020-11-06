@@ -140,7 +140,6 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
     super.dispose();
   }
 
-  // Example code of how to sign in with email and password.
   void _signInWithEmailAndPassword() async {
     try {
       final User user = (await _auth.signInWithEmailAndPassword(

@@ -30,6 +30,13 @@ dependencies:
   firebase_core: ^0.5.0
   firebase_auth: ^0.18.1+1
   flutter_signin_button: ^1.0.0
+  smart_select: ^4.3.2
+  intl:
+  rxdart: ^0.23.1
+  key_value_store_flutter:
+  key_value_store_web:
+  shared_preferences:
+  path_provider:
 
 dev_dependencies:
   flutter_test:
