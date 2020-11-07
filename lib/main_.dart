@@ -15,7 +15,24 @@ import 'package:shipanther/tasks_repository_local_storage/key_value_storage.dart
 import 'package:shipanther/tasks_repository_local_storage/reactive_repository.dart';
 import 'package:shipanther/tasks_repository_local_storage/repository.dart';
 
-Future<void> main() async {
+// Future<void> main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+
+//   runApp(BlocApp(
+//     tasksInteractor: TasksInteractor(
+//       ReactiveLocalStorageRepository(
+//         repository: LocalStorageRepository(
+//           localStorage: KeyValueStorage(
+//             'bloc_tasks',
+//             FlutterKeyValueStore(await SharedPreferences.getInstance()),
+//           ),
+//         ),
+//       ),
+//     ),
+//     userRepository: AnonymousUserRepository(),
+//   ));
+// }
+Future<void> driverHomeSceen() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(BlocApp(

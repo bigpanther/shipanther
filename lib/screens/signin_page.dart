@@ -8,6 +8,15 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 //import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
+import '../app.dart';
+import '../main.dart';
+import '../main_.dart';
+import '../main_.dart';
+import '../main_.dart';
+import '../main_.dart';
+import '../main_.dart';
+import '../main_.dart';
+
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 /// Entrypoint example for various sign-in flows with Firebase.
@@ -150,9 +159,13 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
       var token = await user.getIdToken(/* forceRefresh */ true);
       print(token);
 
-      Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text("${user.email} signed in"),
-      ));
+      // redirecte to driver home screen
+
+      driverHomeSceen();
+
+      // Scaffold.of(context).showSnackBar(SnackBar(
+      //   content: Text("${user.email} signed in"),
+      // ));
     } catch (e) {
       Scaffold.of(context).showSnackBar(SnackBar(
         content: Text("Failed to sign in with Email & Password"),
