@@ -13,8 +13,9 @@ class Task {
   final String containerName;
   final String from;
   final String to;
+  final DateTime pickingTime;
 
-  Task(this.containerName,
+  Task(this.containerName, this.pickingTime,
       {this.complete = false, String from = '', String to = '', String id})
       : this.from = from ?? '',
         this.to = to ?? '',
@@ -25,9 +26,11 @@ class Task {
       String id,
       String containerName,
       String from,
-      String to}) {
+      String to,
+      DateTime pickingTime}) {
     return Task(
       containerName ?? this.containerName,
+      pickingTime ?? this.pickingTime,
       complete: complete ?? this.complete,
       id: id ?? this.id,
       from: from ?? this.from,
@@ -41,7 +44,8 @@ class Task {
       containerName.hashCode ^
       from.hashCode ^
       to.hashCode ^
-      id.hashCode;
+      id.hashCode ^
+      pickingTime.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -52,20 +56,22 @@ class Task {
           containerName == other.containerName &&
           from == other.from &&
           to == other.to &&
-          id == other.id;
+          id == other.id &&
+          pickingTime == other.pickingTime;
 
   @override
   String toString() {
-    return 'Task{complete: $complete, containerName: $containerName, from: $from, to: $to, id: $id}';
+    return 'Task{complete: $complete, containerName: $containerName, from: $from, to: $to, id: $id,pickingTime: $pickingTime}';
   }
 
   TaskEntity toEntity() {
-    return TaskEntity(containerName, id, from, to, complete);
+    return TaskEntity(containerName, id, from, to, complete, pickingTime);
   }
 
   static Task fromEntity(TaskEntity entity) {
     return Task(
       entity.containerName,
+      entity.pickingTime,
       complete: entity.complete ?? false,
       from: entity.from,
       to: entity.to,

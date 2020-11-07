@@ -149,6 +149,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
             } else {
               widget.addTask(Task(
                 _containerName,
+                DateTime.now(),
                 from: _from,
                 to: _to,
               ));

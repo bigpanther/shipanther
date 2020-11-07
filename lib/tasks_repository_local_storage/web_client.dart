@@ -24,41 +24,16 @@ class WebClient implements TasksRepository {
     return Future.delayed(
         delay,
         () => [
-              TaskEntity(
-                'CANC1234561',
-                '1',
-                'Delta Port',
-                'Delta Yard 1',
-                false,
-              ),
-              TaskEntity(
-                'CANC1234562',
-                '2',
-                'Vancouver Port',
-                'Delta Yard 2',
-                false,
-              ),
-              TaskEntity(
-                'CANC1234563',
-                '3',
-                'Delta Yard 1',
-                'Vancouver Port',
-                true,
-              ),
-              TaskEntity(
-                'CANC1234564',
-                '4',
-                'CANRAIL Terminal',
-                'Delta port',
-                false,
-              ),
-              TaskEntity(
-                'CANC1234565',
-                '5',
-                'Delta port',
-                'Delta yard 3',
-                true,
-              ),
+              TaskEntity('CANC1234561', '1', 'Delta Port', 'Delta Yard 1',
+                  false, DateTime.now()),
+              TaskEntity('CANC1234562', '2', 'Vancouver Port', 'Delta Yard 2',
+                  false, DateTime.now()),
+              TaskEntity('CANC1234563', '3', 'Delta Yard 1', 'Vancouver Port',
+                  true, DateTime.now()),
+              TaskEntity('CANC1234564', '4', 'CANRAIL Terminal', 'Delta port',
+                  false, DateTime.now()),
+              TaskEntity('CANC1234565', '5', 'Delta port', 'Delta yard 3', true,
+                  DateTime.now()),
             ]);
   }
 

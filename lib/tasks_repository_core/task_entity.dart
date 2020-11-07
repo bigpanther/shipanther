@@ -8,8 +8,10 @@ class TaskEntity {
   final String from;
   final String to;
   final String containerName;
+  final DateTime pickingTime;
 
-  TaskEntity(this.containerName, this.id, this.from, this.to, this.complete);
+  TaskEntity(this.containerName, this.id, this.from, this.to, this.complete,
+      this.pickingTime);
 
   @override
   int get hashCode =>
@@ -37,21 +39,22 @@ class TaskEntity {
       'from': from,
       'to': to,
       'id': id,
+      'pickingTime': pickingTime
     };
   }
 
   @override
   String toString() {
-    return 'TaskEntity{complete: $complete, containerName: $containerName, from: $from, to: $to, id: $id}';
+    return 'TaskEntity{complete: $complete, containerName: $containerName, from: $from, to: $to, id: $id,pickingTime: $pickingTime}';
   }
 
   static TaskEntity fromJson(Map<String, Object> json) {
     return TaskEntity(
-      json['containerName'] as String,
-      json['id'] as String,
-      json['from'] as String,
-      json['to'] as String,
-      json['complete'] as bool,
-    );
+        json['containerName'] as String,
+        json['id'] as String,
+        json['from'] as String,
+        json['to'] as String,
+        json['complete'] as bool,
+        json['pickingTime'] as DateTime);
   }
 }

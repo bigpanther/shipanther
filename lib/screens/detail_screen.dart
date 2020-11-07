@@ -111,7 +111,7 @@ class DetailScreenState extends State<DetailScreen> {
                             task.to,
                             key: ArchSampleKeys.detailsTaskItemTo,
                             style: Theme.of(context).textTheme.subhead,
-                          )
+                          ),
                         ],
                       ),
                     ),
