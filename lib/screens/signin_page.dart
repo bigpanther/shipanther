@@ -5,9 +5,17 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:key_value_store_flutter/key_value_store_flutter.dart';
 //import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:openapi_dart_common/openapi.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shipanther/blocs/tasks_interactor.dart';
+import 'package:shipanther/tasks_repository_core/user_entity.dart';
+import 'package:shipanther/tasks_repository_core/user_repository.dart';
+import 'package:shipanther/tasks_repository_local_storage/key_value_storage.dart';
+import 'package:shipanther/tasks_repository_local_storage/reactive_repository.dart';
+import 'package:shipanther/tasks_repository_local_storage/repository.dart';
 import 'package:trober_api/api.dart' as api;
 import 'package:shipanther/screens/driver_home_page.dart';
 
@@ -160,8 +168,22 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
       auth.apiKey = token;
       d.apiDelegate.apiClient.setAuthentication('implicit', auth);
       print(await d.tenantsGet());
+      var prefs = await SharedPreferences.getInstance();
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute<void>(builder: (_) => DriverHomeScreen()),
+        MaterialPageRoute<void>(
+            builder: (_) => DriverHomeScreen(
+                  tasksInteractor: TasksInteractor(
+                    ReactiveLocalStorageRepository(
+                      repository: LocalStorageRepository(
+                        localStorage: KeyValueStorage(
+                          'trober_tasks',
+                          FlutterKeyValueStore(prefs),
+                        ),
+                      ),
+                    ),
+                  ),
+                  userRepository: AnonymousUserRepository(),
+                )),
       );
     } catch (e) {
       Scaffold.of(context).showSnackBar(SnackBar(
@@ -171,6 +193,12 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
   }
 }
 
+class AnonymousUserRepository implements UserRepository {
+  @override
+  Future<UserEntity> login() {
+    return Future.value(UserEntity(id: 'anonymous'));
+  }
+}
 // class _EmailLinkSignInSection extends StatefulWidget {
 //   @override
 //   State<StatefulWidget> createState() => _EmailLinkSignInSectionState();
