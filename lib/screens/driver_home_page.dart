@@ -10,10 +10,6 @@ import 'package:shipanther/dependency_injection.dart';
 import 'package:shipanther/localization.dart';
 import 'package:shipanther/screens/add_edit_screen.dart';
 import 'package:shipanther/screens/home_screen.dart';
-import 'package:shipanther/tasks_repository_core/user_entity.dart';
-import 'package:shipanther/tasks_repository_local_storage/key_value_storage.dart';
-import 'package:shipanther/tasks_repository_local_storage/reactive_repository.dart';
-import 'package:shipanther/tasks_repository_local_storage/repository.dart';
 import 'package:shipanther/widgets/tasks_bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:shipanther/tasks_app_core/localization.dart';
@@ -22,18 +18,14 @@ import 'package:shipanther/tasks_app_core/routes.dart';
 import 'package:shipanther/tasks_repository_core/user_repository.dart';
 
 class DriverHomeScreen extends StatelessWidget {
-  final TasksInteractor tasksInteractor = TasksInteractor(
-    ReactiveLocalStorageRepository(
-      repository: LocalStorageRepository(
-        localStorage: KeyValueStorage(
-          'bloc_tasks',
-          FlutterKeyValueStore(await SharedPreferences.getInstance()),
-        ),
-      ),
-    ),
-  );
+  final TasksInteractor tasksInteractor;
+  final UserRepository userRepository;
 
-  final UserRepository userRepository = AnonymousUserRepository();
+  const DriverHomeScreen({
+    Key key,
+    @required this.tasksInteractor,
+    @required this.userRepository,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +56,5 @@ class DriverHomeScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class AnonymousUserRepository implements UserRepository {
-  @override
-  Future<UserEntity> login() {
-    return Future.value(UserEntity(id: 'anonymous'));
   }
 }
