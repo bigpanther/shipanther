@@ -1,0 +1,634 @@
+---
+openapi: 3.0.3
+info:
+  title: Trober API
+  description: The trober API
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/harsimranmaan/jober/1.0.0
+  description: SwaggerHub API Auto Mocking
+security:
+- implicit:
+  - read
+  - write
+  - admin
+paths:
+  /tenants:
+    get:
+      summary: List all tenants
+      description: List all tenants
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tenants'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new tenant
+      description: Create a new tenant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tenant'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tenant'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /tenants/{id}:
+    get:
+      summary: Get tenant details
+      description: Get tenant details
+      parameters:
+      - name: id
+        in: path
+        description: The id of the tenant
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tenant'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      summary: Update an existing tenant
+      description: Update an existing tenant
+      parameters:
+      - name: id
+        in: path
+        description: The id of the tenant
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tenant'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tenant'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users:
+    get:
+      summary: List all users
+      description: List all users
+      parameters:
+      - name: name
+        in: query
+        description: The name of the user
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: role
+        in: query
+        description: The role of the user
+        required: false
+        style: form
+        explode: true
+        schema:
+          $ref: '#/components/schemas/UserRole'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new user
+      description: Create a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/{id}:
+    get:
+      summary: Get user details
+      description: Get user details
+      parameters:
+      - name: id
+        in: path
+        description: The id of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete the user
+      description: Delete the user
+      parameters:
+      - name: id
+        in: path
+        description: The id of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "204":
+          description: No Content
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      summary: Update an existing user
+      description: Update an existing user
+      parameters:
+      - name: id
+        in: path
+        description: The id of the user
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /health:
+    get:
+      summary: Get server health
+      description: Get server health status
+      responses:
+        "200":
+          description: OK
+      security: []
+components:
+  schemas:
+    Tenants:
+      type: array
+      description: A list of Tenants
+      items:
+        $ref: '#/components/schemas/Tenant'
+    Tenant:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        created_by:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          maxLength: 50
+          minLength: 3
+          type: string
+        type:
+          $ref: '#/components/schemas/TenantType'
+      description: A Tenant in the system
+    Users:
+      type: array
+      description: A list of Users
+      items:
+        $ref: '#/components/schemas/User'
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        created_by:
+          type: string
+          format: uuid
+          readOnly: true
+        tenant_id:
+          type: string
+          format: uuid
+        customer_id:
+          type: string
+          format: uuid
+        name:
+          maxLength: 50
+          minLength: 3
+          type: string
+        username:
+          maxLength: 50
+          minLength: 3
+          type: string
+        role:
+          $ref: '#/components/schemas/UserRole'
+      description: A user in the system
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        created_by:
+          type: string
+          format: uuid
+          readOnly: true
+        tenant_id:
+          type: string
+          format: uuid
+        name:
+          maxLength: 50
+          minLength: 3
+          type: string
+    Terminal:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        created_by:
+          type: string
+          format: uuid
+          readOnly: true
+        tenant_id:
+          type: string
+          format: uuid
+        name:
+          maxLength: 50
+          minLength: 3
+          type: string
+        type:
+          $ref: '#/components/schemas/TerminalType'
+      description: A terminal that used for logistics
+    Yard:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        created_by:
+          type: string
+          format: uuid
+          readOnly: true
+        tenant_id:
+          type: string
+          format: uuid
+        name:
+          maxLength: 50
+          minLength: 3
+          type: string
+      description: A yard that the tenant uses for logistics
+    Carrier:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        created_by:
+          type: string
+          format: uuid
+          readOnly: true
+        tenant_id:
+          type: string
+          format: uuid
+        name:
+          maxLength: 50
+          minLength: 3
+          type: string
+        eta:
+          type: string
+          format: date-time
+          readOnly: true
+        type:
+          $ref: '#/components/schemas/CarrierType'
+      description: A carrier that ships the containers
+    Container:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        created_by:
+          type: string
+          format: uuid
+          readOnly: true
+        tenant_id:
+          type: string
+          format: uuid
+        carrier_id:
+          type: string
+          format: uuid
+        terminal_id:
+          type: string
+          format: uuid
+        yard_id:
+          type: string
+          format: uuid
+        order_id:
+          type: string
+          format: uuid
+        serial_number:
+          maxLength: 11
+          minLength: 7
+          type: string
+        origin:
+          maxLength: 20
+          minLength: 7
+          type: string
+        destination:
+          maxLength: 20
+          minLength: 7
+          type: string
+        lfd:
+          type: string
+          format: date-time
+          readOnly: true
+        reservation_time:
+          type: string
+          format: date-time
+          readOnly: true
+        size:
+          $ref: '#/components/schemas/ContainerSize'
+        type:
+          $ref: '#/components/schemas/ContainerType'
+        status:
+          $ref: '#/components/schemas/ContainerStatus'
+        driver_id:
+          type: string
+          format: uuid
+        gps_url:
+          type: string
+          format: url
+      description: A container that is being shipped
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        created_by:
+          type: string
+          format: uuid
+          readOnly: true
+        tenant_id:
+          type: string
+          format: uuid
+        customer_id:
+          type: string
+          format: uuid
+        serial_number:
+          maxLength: 25
+          minLength: 7
+          type: string
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+      description: A container that is being shipped
+    Customers:
+      type: array
+      description: A list of Customers for the tenants
+      items:
+        $ref: '#/components/schemas/Customer'
+    TenantType:
+      type: string
+      enum:
+      - System
+      - Test
+      - Production
+    TerminalType:
+      type: string
+      enum:
+      - Rail
+      - Port
+      - Custom
+    CarrierType:
+      type: string
+      enum:
+      - Air
+      - Rail
+      - Vessel
+      - Road
+    UserRole:
+      type: string
+      enum:
+      - SuperAdmin
+      - Admin
+      - BackOffice
+      - Driver
+      - Customer
+    ContainerStatus:
+      type: string
+      enum:
+      - New
+      - In Transit
+      - Arrived at terminal
+      - Assigned for transport
+      - Ready for transport
+      - Rejected
+      - Loaded
+      - Unloaded
+      - Abandoned
+    ContainerSize:
+      type: string
+      enum:
+      - 40ST
+      - 20ST
+      - 40HC
+      - 40HW
+      - Custom
+    OrderStatus:
+      type: string
+      enum:
+      - New
+      - Accepted
+      - Cancelled
+      - In Progress
+      - Delivered
+      - Invoiced
+      - Payment Received
+    ContainerType:
+      type: string
+      enum:
+      - Incoming
+      - OutGoing
+    Error:
+      required:
+      - code
+      - id
+      - message
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        id:
+          type: string
+          format: uuid
+  securitySchemes:
+    implicit:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://example.com/oauth/auth
+          scopes:
+            write: allows modifying resources
+            read: allows reading resources
+            admin: allows reading and modifying resources
