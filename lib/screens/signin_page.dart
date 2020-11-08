@@ -7,6 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 //import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:openapi_dart_common/openapi.dart';
+
+import 'package:trober_api/api.dart' as api;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -148,8 +151,15 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
       ))
           .user;
       var token = await user.getIdToken(/* forceRefresh */ true);
-      print(token);
 
+      print(token);
+      api.DefaultApi d = api.DefaultApi(
+          ApiClient(basePath: "https://trober-test.herokuapp.com"));
+      d.apiDelegate.apiClient.setDefaultHeader("X-TOKEN", token);
+      var auth = ApiKeyAuth("header", "X-TOKEN");
+      auth.apiKey = token;
+      d.apiDelegate.apiClient.setAuthentication('implicit', auth);
+      print(await d.tenantsGet());
       Scaffold.of(context).showSnackBar(SnackBar(
         content: Text("${user.email} signed in"),
       ));
