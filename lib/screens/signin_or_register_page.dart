@@ -1,0 +1,225 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_signin_button/button_builder.dart';
+import 'package:key_value_store_flutter/key_value_store_flutter.dart';
+import 'package:openapi_dart_common/openapi.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shipanther/blocs/tasks_interactor.dart';
+import 'package:shipanther/tasks_repository_core/user_entity.dart';
+import 'package:shipanther/tasks_repository_core/user_repository.dart';
+import 'package:shipanther/tasks_repository_local_storage/key_value_storage.dart';
+import 'package:shipanther/tasks_repository_local_storage/reactive_repository.dart';
+import 'package:shipanther/tasks_repository_local_storage/repository.dart';
+import 'package:trober_api/api.dart' as api;
+import 'package:shipanther/screens/driver_home_page.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
+
+enum AuthTypeSelector {
+  signIn,
+  register,
+}
+
+class SignInOrRegistrationPage extends StatefulWidget {
+  final AuthTypeSelector authTypeSelector;
+  SignInOrRegistrationPage(this.authTypeSelector);
+  final String title = 'Register';
+
+  @override
+  State<StatefulWidget> createState() => _SignInOrRegistrationPageState();
+}
+
+class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  bool _success;
+  String _userEmail;
+  String _password;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Form(
+          key: _formKey,
+          child: Card(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: 'Email'),
+                    autocorrect: false,
+                    enableSuggestions: false,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (String value) {
+                      if (value.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      return null;
+                    },
+                    onSaved: (val) => setState(() => _userEmail = val),
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(labelText: 'Password'),
+                    validator: (String value) {
+                      if (value.isEmpty) {
+                        return 'Please enter a password';
+                      }
+                      return null;
+                    },
+                    obscureText: true,
+                    onSaved: (val) => setState(() => _password = val),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    alignment: Alignment.center,
+                    child: SignInButtonBuilder(
+                      icon:
+                          (widget.authTypeSelector == AuthTypeSelector.register)
+                              ? Icons.person_add
+                              : Icons.verified_user,
+                      backgroundColor:
+                          (widget.authTypeSelector == AuthTypeSelector.register)
+                              ? Colors.blueGrey
+                              : Colors.orange,
+                      onPressed: () async {
+                        if (_formKey.currentState.validate()) {
+                          _formKey.currentState.save();
+                          if (widget.authTypeSelector ==
+                              AuthTypeSelector.register) {
+                            var success =
+                                await _register(context, _userEmail, _password);
+                            if (success) {
+                              _signInWithEmailAndPassword(
+                                  context, _userEmail, _password);
+                            } else {
+                              setState(() => _success = success);
+                            }
+                          } else {
+                            _signInWithEmailAndPassword(
+                                context, _userEmail, _password);
+                          }
+                        }
+                      },
+                      text:
+                          (widget.authTypeSelector == AuthTypeSelector.register)
+                              ? 'Register'
+                              : "Sign In",
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: RichText(
+                      text: TextSpan(
+                          text: (widget.authTypeSelector ==
+                                  AuthTypeSelector.register)
+                              ? "Sign In"
+                              : 'Register',
+                          style: TextStyle(color: Colors.blue),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute<void>(
+                                    builder: (_) => SignInOrRegistrationPage(
+                                        widget.authTypeSelector ==
+                                                AuthTypeSelector.register
+                                            ? AuthTypeSelector.signIn
+                                            : AuthTypeSelector.register)),
+                              );
+                            }),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: Text(_success == null
+                        ? ''
+                        : (_success
+                            ? 'Successfully registered ' + _userEmail
+                            : 'Registration failed')),
+                  )
+                ],
+              ),
+            ),
+          )),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+}
+
+Future<bool> _register(
+    BuildContext context, String username, String password) async {
+  try {
+    final User user = (await _auth.createUserWithEmailAndPassword(
+      email: username,
+      password: password,
+    ))
+        .user;
+    if (user != null) {
+      return true;
+    }
+  } catch (e) {
+    print(e);
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text("Registration failed"),
+    ));
+  }
+  return false;
+}
+
+void _signInWithEmailAndPassword(
+    BuildContext context, String username, String password) async {
+  try {
+    final User user = (await _auth.signInWithEmailAndPassword(
+      email: username,
+      password: password,
+    ))
+        .user;
+    var token = await user.getIdToken(/* forceRefresh */ true);
+
+    print(token);
+    api.DefaultApi d = api.DefaultApi(
+        ApiClient(basePath: "https://trober-test.herokuapp.com"));
+    d.apiDelegate.apiClient.setDefaultHeader("X-TOKEN", token);
+    var auth = ApiKeyAuth("header", "X-TOKEN");
+    auth.apiKey = token;
+    d.apiDelegate.apiClient.setAuthentication('ApiKeyAuth', auth);
+    print(await d.tenantsGet());
+    var prefs = await SharedPreferences.getInstance();
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute<void>(
+          builder: (_) => DriverHomeScreen(
+                tasksInteractor: TasksInteractor(
+                  ReactiveLocalStorageRepository(
+                    repository: LocalStorageRepository(
+                      localStorage: KeyValueStorage(
+                        'trober_tasks',
+                        FlutterKeyValueStore(prefs),
+                      ),
+                    ),
+                  ),
+                ),
+                userRepository: AnonymousUserRepository(),
+              )),
+    );
+  } catch (e) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text("Failed to sign in with Email & Password"),
+    ));
+  }
+}
+
+class AnonymousUserRepository implements UserRepository {
+  @override
+  Future<UserEntity> login() {
+    return Future.value(UserEntity(id: 'anonymous'));
+  }
+}
