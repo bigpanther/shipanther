@@ -1,7 +1,7 @@
 part of trober_api.api;
 
 enum ContainerStatus {
-  new_,
+  unassigned,
   inTransit,
   arrivedAtTerminal,
   assignedForTransport,
@@ -14,22 +14,22 @@ enum ContainerStatus {
 
 class ContainerStatusTypeTransformer {
   static Map<String, ContainerStatus> fromJsonMap = {
-    "New": ContainerStatus.new_,
-    "In Transit": ContainerStatus.inTransit,
-    "Arrived at terminal": ContainerStatus.arrivedAtTerminal,
-    "Assigned for transport": ContainerStatus.assignedForTransport,
-    "Ready for transport": ContainerStatus.readyForTransport,
+    "Unassigned": ContainerStatus.unassigned,
+    "InTransit": ContainerStatus.inTransit,
+    "ArrivedAtTerminal": ContainerStatus.arrivedAtTerminal,
+    "AssignedForTransport": ContainerStatus.assignedForTransport,
+    "ReadyForTransport": ContainerStatus.readyForTransport,
     "Rejected": ContainerStatus.rejected,
     "Loaded": ContainerStatus.loaded,
     "Unloaded": ContainerStatus.unloaded,
     "Abandoned": ContainerStatus.abandoned
   };
   static Map<ContainerStatus, String> toJsonMap = {
-    ContainerStatus.new_: "New",
-    ContainerStatus.inTransit: "In Transit",
-    ContainerStatus.arrivedAtTerminal: "Arrived at terminal",
-    ContainerStatus.assignedForTransport: "Assigned for transport",
-    ContainerStatus.readyForTransport: "Ready for transport",
+    ContainerStatus.unassigned: "Unassigned",
+    ContainerStatus.inTransit: "InTransit",
+    ContainerStatus.arrivedAtTerminal: "ArrivedAtTerminal",
+    ContainerStatus.assignedForTransport: "AssignedForTransport",
+    ContainerStatus.readyForTransport: "ReadyForTransport",
     ContainerStatus.rejected: "Rejected",
     ContainerStatus.loaded: "Loaded",
     ContainerStatus.unloaded: "Unloaded",
