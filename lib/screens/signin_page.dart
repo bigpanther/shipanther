@@ -166,7 +166,7 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
       d.apiDelegate.apiClient.setDefaultHeader("X-TOKEN", token);
       var auth = ApiKeyAuth("header", "X-TOKEN");
       auth.apiKey = token;
-      d.apiDelegate.apiClient.setAuthentication('implicit', auth);
+      d.apiDelegate.apiClient.setAuthentication('ApiKeyAuth', auth);
       print(await d.tenantsGet());
       var prefs = await SharedPreferences.getInstance();
       Navigator.of(context).pushReplacement(

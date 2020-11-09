@@ -251,7 +251,7 @@ class DefaultApiDelegate {
       headerParams['Accept'] = 'application/json';
     }
 
-    final authNames = <String>['implicit'];
+    final authNames = <String>['ApiKeyAuth'];
     final opt = options ?? Options();
 
     final contentTypes = [];
@@ -301,7 +301,7 @@ class DefaultApiDelegate {
       headerParams['Accept'] = 'application/json';
     }
 
-    final authNames = <String>['implicit'];
+    final authNames = <String>['ApiKeyAuth'];
     final opt = options ?? Options();
 
     final contentTypes = [];
@@ -350,7 +350,7 @@ class DefaultApiDelegate {
       headerParams['Accept'] = 'application/json';
     }
 
-    final authNames = <String>['implicit'];
+    final authNames = <String>['ApiKeyAuth'];
     final opt = options ?? Options();
 
     final contentTypes = ['application/json'];
@@ -395,7 +395,7 @@ class DefaultApiDelegate {
       headerParams['Accept'] = 'application/json';
     }
 
-    final authNames = <String>['implicit'];
+    final authNames = <String>['ApiKeyAuth'];
     final opt = options ?? Options();
 
     final contentTypes = ['application/json'];
@@ -450,7 +450,7 @@ class DefaultApiDelegate {
           LocalApiClient.parameterToString, '', 'role', role));
     }
 
-    final authNames = <String>['implicit'];
+    final authNames = <String>['ApiKeyAuth'];
     final opt = options ?? Options();
 
     final contentTypes = [];
@@ -500,7 +500,7 @@ class DefaultApiDelegate {
       headerParams['Accept'] = 'application/json';
     }
 
-    final authNames = <String>['implicit'];
+    final authNames = <String>['ApiKeyAuth'];
     final opt = options ?? Options();
 
     final contentTypes = [];
@@ -545,7 +545,7 @@ class DefaultApiDelegate {
       headerParams['Accept'] = 'application/json';
     }
 
-    final authNames = <String>['implicit'];
+    final authNames = <String>['ApiKeyAuth'];
     final opt = options ?? Options();
 
     final contentTypes = [];
@@ -594,7 +594,7 @@ class DefaultApiDelegate {
       headerParams['Accept'] = 'application/json';
     }
 
-    final authNames = <String>['implicit'];
+    final authNames = <String>['ApiKeyAuth'];
     final opt = options ?? Options();
 
     final contentTypes = ['application/json'];
@@ -639,7 +639,7 @@ class DefaultApiDelegate {
       headerParams['Accept'] = 'application/json';
     }
 
-    final authNames = <String>['implicit'];
+    final authNames = <String>['ApiKeyAuth'];
     final opt = options ?? Options();
 
     final contentTypes = ['application/json'];

@@ -1,7 +1,7 @@
 part of trober_api.api;
 
 enum OrderStatus {
-  new_,
+  open,
   accepted,
   cancelled,
   inProgress,
@@ -12,22 +12,22 @@ enum OrderStatus {
 
 class OrderStatusTypeTransformer {
   static Map<String, OrderStatus> fromJsonMap = {
-    "New": OrderStatus.new_,
+    "Open": OrderStatus.open,
     "Accepted": OrderStatus.accepted,
     "Cancelled": OrderStatus.cancelled,
-    "In Progress": OrderStatus.inProgress,
+    "InProgress": OrderStatus.inProgress,
     "Delivered": OrderStatus.delivered,
     "Invoiced": OrderStatus.invoiced,
-    "Payment Received": OrderStatus.paymentReceived
+    "PaymentReceived": OrderStatus.paymentReceived
   };
   static Map<OrderStatus, String> toJsonMap = {
-    OrderStatus.new_: "New",
+    OrderStatus.open: "Open",
     OrderStatus.accepted: "Accepted",
     OrderStatus.cancelled: "Cancelled",
-    OrderStatus.inProgress: "In Progress",
+    OrderStatus.inProgress: "InProgress",
     OrderStatus.delivered: "Delivered",
     OrderStatus.invoiced: "Invoiced",
-    OrderStatus.paymentReceived: "Payment Received"
+    OrderStatus.paymentReceived: "PaymentReceived"
   };
 
   static OrderStatus fromJson(dynamic data) {
