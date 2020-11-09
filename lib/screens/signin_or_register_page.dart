@@ -33,7 +33,6 @@ class SignInOrRegistrationPage extends StatefulWidget {
 class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  bool _success;
   String _userEmail;
   String _password;
 
@@ -97,8 +96,6 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
                             if (success) {
                               _signInWithEmailAndPassword(
                                   context, _userEmail, _password);
-                            } else {
-                              setState(() => _success = success);
                             }
                           } else {
                             _signInWithEmailAndPassword(
@@ -134,14 +131,6 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
                             }),
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: Text(_success == null
-                        ? ''
-                        : (_success
-                            ? 'Successfully registered ' + _userEmail
-                            : 'Registration failed')),
-                  )
                 ],
               ),
             ),
