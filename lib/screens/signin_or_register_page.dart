@@ -23,8 +23,11 @@ enum AuthTypeSelector {
 
 class SignInOrRegistrationPage extends StatefulWidget {
   final AuthTypeSelector authTypeSelector;
-  SignInOrRegistrationPage(this.authTypeSelector);
-  final String title = 'Register';
+  SignInOrRegistrationPage(this.authTypeSelector)
+      : this.title = (authTypeSelector == AuthTypeSelector.register)
+            ? 'Register'
+            : 'Sign In';
+  final String title;
 
   @override
   State<StatefulWidget> createState() => _SignInOrRegistrationPageState();
