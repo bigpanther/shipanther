@@ -26,6 +26,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  flutter_local_notifications: ^3.0.1+2
   cupertino_icons: ^1.0.0
   firebase_core: ^0.5.0
   firebase_auth: ^0.18.1+1
@@ -42,7 +43,8 @@ dependencies:
   trober_api:
     path: api/trober_api
   openapi_dart_common: ^3.1.0
-
+  
+  
 dev_dependencies:
   openapi_generator: ^1.1.0
   build_runner:

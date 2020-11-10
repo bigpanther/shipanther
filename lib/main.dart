@@ -1,19 +1,15 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/button_builder.dart';
-import 'package:shipanther/screens/register_page.dart';
-import 'package:shipanther/screens/signin_page.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shipanther/screens/notifications/notification_test.dart';
+import 'package:shipanther/screens/notifications/task_list.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(ShipantherApp());
+
+  runApp(Notification());
 }
 
-/// The entry point of the application.
-///
-/// Returns a [MaterialApp].
-class ShipantherApp extends StatelessWidget {
+class Notification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,51 +17,89 @@ class ShipantherApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),
         home: Scaffold(
-          body: AuthTypeSelector(),
+          body: Home(),
         ));
   }
 }
 
-/// Provides a UI to select a authentication type page
-class AuthTypeSelector extends StatelessWidget {
-  // Navigates to a new page
-  void _pushPage(BuildContext context, Widget page) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(builder: (_) => page),
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  var taskNum = 4;
+  FlutterLocalNotificationsPlugin notification =
+      FlutterLocalNotificationsPlugin();
+
+  @override
+  void initState() {
+    super.initState();
+    var andriodInit = new AndroidInitializationSettings('shipanther_icon');
+    var iOSinit = new IOSInitializationSettings();
+    var initSetting =
+        new InitializationSettings(android: andriodInit, iOS: iOSinit);
+    var flutterNotification = new FlutterLocalNotificationsPlugin();
+    flutterNotification.initialize(
+      initSetting,
+      onSelectNotification: selectNotification,
     );
+  }
+
+  Future _showNotification() async {
+    try {
+      taskNum++;
+      var androidDetail = new AndroidNotificationDetails(
+          '4', 'Task4', 'Pick from A drop to B at 9 AM',
+          importance: Importance.max);
+      var iOSDetails = new IOSNotificationDetails();
+      var generalNotificationDetails =
+          new NotificationDetails(android: androidDetail, iOS: iOSDetails);
+      await notification.show(taskNum, 'Task$taskNum',
+          'Pick from A drop to B at 9 AM', generalNotificationDetails,
+          payload: 'Task$taskNum');
+    } catch (e) {
+      print('eroorrrrr');
+      print(e);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Shipanther"),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            child: SignInButtonBuilder(
-              icon: Icons.person_add,
-              backgroundColor: Colors.indigo,
-              text: 'Registration',
-              onPressed: () => _pushPage(context, RegisterPage()),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            RaisedButton(
+                child: Text('TASKS'),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(builder: (_) => Tasks()),
+                  );
+                }),
+            SizedBox(
+              height: 20,
             ),
-            padding: const EdgeInsets.all(16),
-            alignment: Alignment.center,
-          ),
-          Container(
-            child: SignInButtonBuilder(
-              icon: Icons.verified_user,
-              backgroundColor: Colors.orange,
-              text: 'Sign In',
-              onPressed: () => _pushPage(context, SignInPage()),
-            ),
-            padding: const EdgeInsets.all(16),
-            alignment: Alignment.center,
-          ),
-        ],
+            RaisedButton(
+              child: Text('Add Task and Notify'),
+              onPressed: _showNotification,
+            )
+          ],
+        ),
       ),
+    );
+  }
+
+  Future selectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: $payload');
+    }
+    // Task().addTask(payload);
+    await Navigator.push(
+      context,
+      MaterialPageRoute<void>(
+          builder: (context) => NotificationTestScreen(payload)),
     );
   }
 }

@@ -168,6 +168,7 @@ class _EmailPasswordFormState extends State<_EmailPasswordForm> {
       auth.apiKey = token;
       d.apiDelegate.apiClient.setAuthentication('ApiKeyAuth', auth);
       print(await d.tenantsGet());
+
       var prefs = await SharedPreferences.getInstance();
       Navigator.of(context).pushReplacement(
         MaterialPageRoute<void>(
