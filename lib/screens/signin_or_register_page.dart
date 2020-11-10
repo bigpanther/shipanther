@@ -119,24 +119,20 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: RichText(
-                    text: TextSpan(
-                        text: (widget.authTypeSelector ==
-                                AuthTypeSelector.register)
-                            ? "Sign In"
-                            : 'Register',
-                        style: TextStyle(color: Colors.blue),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute<void>(
-                                  builder: (_) => SignInOrRegistrationPage(
-                                      widget.authTypeSelector ==
-                                              AuthTypeSelector.register
-                                          ? AuthTypeSelector.signIn
-                                          : AuthTypeSelector.register)),
-                            );
-                          }),
+                  child: TextButton(
+                    child: Text(
+                      (widget.authTypeSelector == AuthTypeSelector.register)
+                          ? "Already registered? Sign In"
+                          : 'Not registered? Register now',
+                    ),
+                    onPressed: () => Navigator.of(context).pushReplacement(
+                      MaterialPageRoute<void>(
+                          builder: (_) => SignInOrRegistrationPage(
+                              widget.authTypeSelector ==
+                                      AuthTypeSelector.register
+                                  ? AuthTypeSelector.signIn
+                                  : AuthTypeSelector.register)),
+                    ),
                   ),
                 ),
               ],
