@@ -9,6 +9,7 @@ info:
   description: >-
     The trober API
 
+
 security:
   - ApiKeyAuth: []
 paths:
@@ -17,6 +18,7 @@ paths:
       summary: List all tenants
       description: >-
         List all tenants
+
 
       responses:
         "200":
@@ -35,6 +37,7 @@ paths:
       summary: Create a new tenant
       description: >-
         Create a new tenant
+
 
       requestBody:
         content:
@@ -68,6 +71,7 @@ paths:
       description: >-
         Update an existing tenant
 
+
       requestBody:
         content:
           application/json:
@@ -99,6 +103,7 @@ paths:
       description: >-
         Get tenant details
 
+
       responses:
         "200":
           description: OK
@@ -112,11 +117,633 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /containers:
+    get:
+      summary: List all Containers
+      description: >-
+        List all Containers
+
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Containers"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a new Container
+      description: >-
+        Create a new Container
+
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Container"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Container"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/containers/{id}":
+    patch:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the container
+          schema:
+            type: string
+            format: uuid
+      summary: Update an existing container
+      description: >-
+        Update an existing container
+
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Container"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Container"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the container
+          schema:
+            type: string
+            format: uuid
+      summary: Get container details
+      description: >-
+        Get container details
+
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Container"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /terminals:
+    get:
+      summary: List all Terminals
+      description: >-
+        List all Terminals
+
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Terminals"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a new Terminal
+      description: >-
+        Create a new Terminal
+
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Terminal"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Terminal"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/terminals/{id}":
+    patch:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the terminal
+          schema:
+            type: string
+            format: uuid
+      summary: Update an existing terminal
+      description: >-
+        Update an existing terminal
+
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Terminal"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Terminal"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the terminal
+          schema:
+            type: string
+            format: uuid
+      summary: Get terminal details
+      description: >-
+        Get terminal details
+
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Terminal"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /yards:
+    get:
+      summary: List all Yards
+      description: >-
+        List all Yards
+
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Yards"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a new Yard
+      description: >-
+        Create a new Yard
+
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Yard"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Yard"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/yards/{id}":
+    patch:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the yard
+          schema:
+            type: string
+            format: uuid
+      summary: Update an existing yard
+      description: >-
+        Update an existing yard
+
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Yard"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Yard"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the yard
+          schema:
+            type: string
+            format: uuid
+      summary: Get yard details
+      description: >-
+        Get yard details
+
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Yard"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /orders:
+    get:
+      summary: List all Orders
+      description: >-
+        List all Orders
+
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Orders"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a new Order
+      description: >-
+        Create a new Order
+
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/orders/{id}":
+    patch:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+            format: uuid
+      summary: Update an existing order
+      description: >-
+        Update an existing order
+
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+            format: uuid
+      summary: Get order details
+      description: >-
+        Get order details
+
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /carriers:
+    get:
+      summary: List all Carriers
+      description: >-
+        List all Carriers
+
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Carriers"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a new Carrier
+      description: >-
+        Create a new Carrier
+
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Carrier"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Carrier"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/carriers/{id}":
+    patch:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the carrier
+          schema:
+            type: string
+            format: uuid
+      summary: Update an existing carrier
+      description: >-
+        Update an existing carrier
+
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Carrier"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Carrier"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the carrier
+          schema:
+            type: string
+            format: uuid
+      summary: Get carrier details
+      description: >-
+        Get carrier details
+
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Carrier"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /customers:
+    get:
+      summary: List all Customers
+      description: >-
+        List all Customers
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customers"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a new Customer
+      description: >-
+        Create a new Customer
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Customer"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  "/customers/{id}":
+    patch:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+            format: uuid
+      summary: Update an existing customer
+      description: >-
+        Update an existing customer
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Customer"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+            format: uuid
+      summary: Get customer details
+      description: >-
+        Get customer details
+
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        default:
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
   /users:
     get:
       summary: List all users
       description: >-
         List all users
+
 
       parameters:
         - name: name
@@ -146,6 +773,7 @@ paths:
       summary: Create a new user
       description: >-
         Create a new user
+
 
       requestBody:
         content:
@@ -179,6 +807,7 @@ paths:
       description: >-
         Update an existing user
 
+
       requestBody:
         content:
           application/json:
@@ -210,6 +839,7 @@ paths:
       description: >-
         Get user details
 
+
       responses:
         "200":
           description: OK
@@ -236,6 +866,7 @@ paths:
       description: >-
         Delete the user
 
+
       responses:
         "204":
           description: No Content
@@ -250,6 +881,7 @@ paths:
       summary: Get server health
       description: >-
         Get server health status
+
 
       security: []
       responses:
@@ -329,6 +961,11 @@ components:
         role:
           $ref: "#/components/schemas/UserRole"
       description: A user in the system
+    Customers:
+      type: array
+      items:
+        $ref: "#/components/schemas/Customer"
+      description: A list of Customers for the tenants
     Customer:
       type: object
       properties:
@@ -355,6 +992,11 @@ components:
           type: string
           minLength: 3
           maxLength: 50
+    Terminals:
+      type: array
+      items:
+        $ref: "#/components/schemas/Terminal"
+      description: A list of Terminals
     Terminal:
       type: object
       properties:
@@ -384,6 +1026,11 @@ components:
         type:
           $ref: "#/components/schemas/TerminalType"
       description: A terminal that used for logistics
+    Yards:
+      type: array
+      items:
+        $ref: "#/components/schemas/Yard"
+      description: A list of Yards
     Yard:
       type: object
       properties:
@@ -411,6 +1058,11 @@ components:
           minLength: 3
           maxLength: 50
       description: A yard that the tenant uses for logistics
+    Carriers:
+      type: array
+      items:
+        $ref: "#/components/schemas/Carrier"
+      description: A list of Carriers
     Carrier:
       type: object
       properties:
@@ -444,6 +1096,11 @@ components:
         type:
           $ref: "#/components/schemas/CarrierType"
       description: A carrier that ships the containers
+    Containers:
+      type: array
+      items:
+        $ref: "#/components/schemas/Container"
+      description: A list of Containers
     Container:
       type: object
       properties:
@@ -511,6 +1168,11 @@ components:
           type: string
           format: url
       description: A container that is being shipped
+    Orders:
+      type: array
+      items:
+        $ref: "#/components/schemas/Order"
+      description: A list of Orders
     Order:
       type: object
       properties:
@@ -543,11 +1205,6 @@ components:
         status:
           $ref: "#/components/schemas/OrderStatus"
       description: A container that is being shipped
-    Customers:
-      type: array
-      items:
-        $ref: "#/components/schemas/Customer"
-      description: A list of Customers for the tenants
     TenantType:
       type: string
       enum:

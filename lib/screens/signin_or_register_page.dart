@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_signin_button/button_builder.dart';
@@ -11,8 +10,8 @@ import 'package:shipanther/tasks_repository_core/user_repository.dart';
 import 'package:shipanther/tasks_repository_local_storage/key_value_storage.dart';
 import 'package:shipanther/tasks_repository_local_storage/reactive_repository.dart';
 import 'package:shipanther/tasks_repository_local_storage/repository.dart';
-import 'package:trober_api/api.dart' as api;
 import 'package:shipanther/screens/driver_home_page.dart';
+import 'package:trober_sdk/api.dart' as api;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
