@@ -58,7 +58,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
         padding: EdgeInsets.all(16.0),
         child: Form(
           key: formKey,
-          autovalidate: false,
+          autovalidateMode: AutovalidateMode.disabled,
           onWillPop: () {
             return Future(() => true);
           },
@@ -69,7 +69,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     widget.task != null ? widget.task.containerName : '',
                 key: ArchSampleKeys.containerNameField,
                 autofocus: isEditing ? false : true,
-                style: Theme.of(context).textTheme.headline,
+                style: Theme.of(context).textTheme.headline5,
                 decoration: InputDecoration(
                   hintText:
                       ArchSampleLocalizations.of(context).containerNameHint,
