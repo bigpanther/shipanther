@@ -9,23 +9,19 @@ import 'package:flutter/material.dart';
 import 'package:shipanther/tasks_app_core/localization.dart';
 import 'package:shipanther/tasks_app_core/theme.dart';
 import 'package:shipanther/tasks_app_core/routes.dart';
-import 'package:shipanther/tasks_repository_core/user_repository.dart';
 
 class DriverHomeScreen extends StatelessWidget {
   final TasksInteractor tasksInteractor;
-  final UserRepository userRepository;
 
   const DriverHomeScreen({
     Key key,
     @required this.tasksInteractor,
-    @required this.userRepository,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Injector(
       tasksInteractor: tasksInteractor,
-      userRepository: userRepository,
       child: TasksBlocProvider(
         bloc: TasksListBloc(tasksInteractor),
         child: MaterialApp(
@@ -37,9 +33,7 @@ class DriverHomeScreen extends StatelessWidget {
           ],
           routes: {
             ArchSampleRoutes.home: (context) {
-              return HomeScreen(
-                repository: Injector.of(context).userRepository,
-              );
+              return HomeScreen();
             },
             ArchSampleRoutes.addTask: (context) {
               return AddEditScreen(

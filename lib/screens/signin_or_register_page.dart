@@ -5,8 +5,6 @@ import 'package:key_value_store_flutter/key_value_store_flutter.dart';
 import 'package:openapi_dart_common/openapi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shipanther/blocs/tasks_interactor.dart';
-import 'package:shipanther/tasks_repository_core/user_entity.dart';
-import 'package:shipanther/tasks_repository_core/user_repository.dart';
 import 'package:shipanther/tasks_repository_local_storage/key_value_storage.dart';
 import 'package:shipanther/tasks_repository_local_storage/reactive_repository.dart';
 import 'package:shipanther/tasks_repository_local_storage/repository.dart';
@@ -195,7 +193,6 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                       ),
                     ),
                   ),
-                  userRepository: AnonymousUserRepository(),
                 )),
       );
     } catch (e) {
@@ -204,12 +201,5 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
         content: Text("Failed to sign in with Email & Password"),
       ));
     }
-  }
-}
-
-class AnonymousUserRepository implements UserRepository {
-  @override
-  Future<UserEntity> login() {
-    return Future.value(UserEntity(id: 'anonymous'));
   }
 }
