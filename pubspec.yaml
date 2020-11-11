@@ -38,7 +38,7 @@ dependencies:
   shared_preferences:
   path_provider:
   flutter_launcher_icons: ^0.8.1
-  trober_sdk: 0.0.1
+  trober_sdk: 0.0.3
 
 dev_dependencies:
   openapi_generator: ^1.1.0

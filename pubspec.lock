@@ -706,7 +706,7 @@ packages:
       name: trober_sdk
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1"
+    version: "0.0.3"
   typed_data:
     dependency: transitive
     description:
