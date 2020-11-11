@@ -1,0 +1,2 @@
+run:
+	flutter run
