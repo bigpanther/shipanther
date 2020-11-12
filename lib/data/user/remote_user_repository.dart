@@ -17,7 +17,7 @@ class RemoteUserRepository extends UserRepository {
   Future<List<User>> fetchUnAssignedUsers() async {
     var client = await _apiRepository.apiClient();
     List<User> users = await client.usersGet();
-    return users.where((u) => u.role == UserRole.admin);
+    return users.where((u) => u.role == UserRole.none);
   }
 
   @override
