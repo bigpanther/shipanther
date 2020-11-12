@@ -69,24 +69,24 @@ class _ApiLoginState extends State<ApiLogin> {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
-          if (state is UserLoggedIn) {
-            var prefs = await SharedPreferences.getInstance();
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute<void>(
-                  builder: (_) => DriverHomeScreen(
-                        tasksInteractor: TasksInteractor(
-                          ReactiveLocalStorageRepository(
-                            repository: LocalStorageRepository(
-                              localStorage: KeyValueStorage(
-                                'trober_tasks',
-                                FlutterKeyValueStore(prefs),
-                              ),
+        }
+        if (state is UserLoggedIn) {
+          var prefs = await SharedPreferences.getInstance();
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute<void>(
+                builder: (_) => DriverHomeScreen(
+                      tasksInteractor: TasksInteractor(
+                        ReactiveLocalStorageRepository(
+                          repository: LocalStorageRepository(
+                            localStorage: KeyValueStorage(
+                              'trober_tasks',
+                              FlutterKeyValueStore(prefs),
                             ),
                           ),
                         ),
-                      )),
-            );
-          }
+                      ),
+                    )),
+          );
         }
       },
       builder: (context, state) {
