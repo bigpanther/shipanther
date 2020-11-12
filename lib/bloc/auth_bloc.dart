@@ -40,5 +40,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is AuthTypeOtherRequest) {
       yield AuthRequested(event.authType.other);
     }
+    if (event is AuthLogout) {
+      await authRepository.logout();
+      yield AuthInitial();
+    }
   }
 }

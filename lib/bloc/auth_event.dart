@@ -11,9 +11,9 @@ class AuthTypeOtherRequest extends AuthEvent {
   const AuthTypeOtherRequest(this.authType) : super(authType);
 }
 
-// class AuthRequestSignIn extends AuthEvent {
-//   const AuthRequestSignIn() : super(AuthTypeSelector.signIn);
-// }
+class AuthLogout extends AuthEvent {
+  const AuthLogout() : super(AuthTypeSelector.signIn);
+}
 
 class AuthRegister extends AuthEvent {
   final String username;

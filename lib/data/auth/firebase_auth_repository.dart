@@ -39,6 +39,11 @@ class FireBaseAuthRepository extends AuthRepository {
     _loggedInUser = user;
     return user;
   }
+
+  @override
+  Future<void> logout() {
+    _loggedInUser = null;
+  }
 }
 
 class AuthenticationException implements Exception {}
