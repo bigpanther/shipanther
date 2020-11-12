@@ -13,46 +13,49 @@ import 'package:shipanther/tasks_repository_local_storage/repository.dart';
 class SignInOrRegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) async {
-        if (state is AuthError) {
-          Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text(state.message),
-          ));
-        }
-        if (state is AuthFinished) {
-          var prefs = await SharedPreferences.getInstance();
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute<void>(
-                builder: (_) => DriverHomeScreen(
-                      tasksInteractor: TasksInteractor(
-                        ReactiveLocalStorageRepository(
-                          repository: LocalStorageRepository(
-                            localStorage: KeyValueStorage(
-                              'trober_tasks',
-                              FlutterKeyValueStore(prefs),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Welcome to Shipanther"),
+      ),
+      body: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) async {
+          if (state is AuthError) {
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text(state.message),
+            ));
+          }
+          if (state is AuthFinished) {
+            var prefs = await SharedPreferences.getInstance();
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute<void>(
+                  builder: (_) => DriverHomeScreen(
+                        tasksInteractor: TasksInteractor(
+                          ReactiveLocalStorageRepository(
+                            repository: LocalStorageRepository(
+                              localStorage: KeyValueStorage(
+                                'trober_tasks',
+                                FlutterKeyValueStore(prefs),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    )),
-          );
-        }
-      },
-      builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(state.authType.text),
-          ),
-          body: _body(context, state),
-        );
-      },
+                      )),
+            );
+          }
+        },
+        builder: (context, state) {
+          return _body(context, state);
+        },
+      ),
     );
   }
 
   Widget _body(BuildContext context, AuthState state) {
-    if (state is AuthRequested || state is AuthInitial) {
+    if (state is AuthRequested || state is AuthInitial || state is AuthError) {
       return SignInOrRegistrationForm(state.authType);
+    }
+    if (state is AuthFinished) {
+      return Container();
     }
     if (state is AuthLoading) {
       return const Center(child: const CircularProgressIndicator());
@@ -155,48 +158,4 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
   void dispose() {
     super.dispose();
   }
-
-  // Future<bool> _register(BuildContext context, String username, String password) async {
-  //   try {
-  //     final User user = (
-  //     if (user != null) {
-  //       return true;
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //     Scaffold.of(context).showSnackBar(SnackBar(
-  //       content: Text("Registration failed"),
-  //     ));
-  //   }
-  //   return false;
-  // }
-
-  // void _signInWithEmailAndPasswordBuildContext context,String username, String password) {
-  //   //try {
-
-  //     context.read<AuthBloc>().add(AuthSignIn(username, password));
-  //   //   print(await d.tenantsGet());
-  //   //   var prefs = await SharedPreferences.getInstance();
-  //   //   Navigator.of(context).pushReplacement(
-  //   //     MaterialPageRoute<void>(
-  //   //         builder: (_) => DriverHomeScreen(
-  //   //               tasksInteractor: TasksInteractor(
-  //   //                 ReactiveLocalStorageRepository(
-  //   //                   repository: LocalStorageRepository(
-  //   //                     localStorage: KeyValueStorage(
-  //   //                       'trober_tasks',
-  //   //                       FlutterKeyValueStore(prefs),
-  //   //                     ),
-  //   //                   ),
-  //   //                 ),
-  //   //               ),
-  //   //             )),
-  //   //   );
-  //   // } catch (e) {
-  //   //   print(e);
-  //   //   Scaffold.of(context).showSnackBar(SnackBar(
-  //   //     content: Text("Failed to sign in with Email & Password"),
-  //   //   ));
-  //   // }
-  // }
 }
