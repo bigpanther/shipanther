@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shipanther/bloc/auth_bloc.dart';
-import 'package:shipanther/bloc/tenant_bloc.dart';
-import 'package:shipanther/bloc/user_bloc.dart';
+import 'package:shipanther/bloc/auth/auth_bloc.dart';
+import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
+import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/data/api/api_repository.dart';
 import 'package:shipanther/data/api/remote_api_repository.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
