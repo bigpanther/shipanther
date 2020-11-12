@@ -6,7 +6,7 @@ import 'package:shipanther/blocs/models/task.dart';
 import 'package:shipanther/blocs/task_bloc.dart';
 import 'package:shipanther/dependency_injection.dart';
 import 'package:shipanther/screens/detail_screen.dart';
-import 'package:shipanther/widgets/loading.dart';
+import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/widgets/task_item.dart';
 import 'package:shipanther/widgets/tasks_bloc_provider.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class TaskList extends StatelessWidget {
       stream: TasksBlocProvider.of(context).visibleTasks,
       builder: (context, snapshot) => snapshot.hasData
           ? _buildList(snapshot.data)
-          : LoadingSpinner(key: ArchSampleKeys.tasksLoading),
+          : CenteredLoading(key: ArchSampleKeys.tasksLoading),
     );
   }
 

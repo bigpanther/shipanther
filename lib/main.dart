@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/auth_bloc.dart';
 import 'package:shipanther/bloc/tenant_bloc.dart';
+import 'package:shipanther/bloc/user_bloc.dart';
 import 'package:shipanther/data/api/api_repository.dart';
 import 'package:shipanther/data/api/remote_api_repository.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
@@ -44,6 +45,9 @@ class ShipantherApp extends StatelessWidget {
                 BlocProvider(
                     create: (context) =>
                         TenantBloc(context.read<TenantRepository>())),
+                BlocProvider(
+                    create: (context) =>
+                        UserBloc(context.read<UserRepository>())),
               ],
               child: MaterialApp(
                 title: 'Shipanther',
