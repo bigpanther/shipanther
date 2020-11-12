@@ -1,38 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_signin_button/button_builder.dart';
 import 'package:key_value_store_flutter/key_value_store_flutter.dart';
-import 'package:openapi_dart_common/openapi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shipanther/bloc/auth_bloc.dart';
 import 'package:shipanther/blocs/tasks_interactor.dart';
+import 'package:shipanther/screens/driver_home_page.dart';
 import 'package:shipanther/tasks_repository_local_storage/key_value_storage.dart';
 import 'package:shipanther/tasks_repository_local_storage/reactive_repository.dart';
 import 'package:shipanther/tasks_repository_local_storage/repository.dart';
-import 'package:shipanther/screens/driver_home_page.dart';
-import 'package:trober_sdk/api.dart' as api;
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
-
-enum AuthTypeSelector {
-  signIn,
-  register,
-}
 
 class SignInOrRegistrationPage extends StatelessWidget {
-  final AuthTypeSelector authTypeSelector;
-  final String title;
-  SignInOrRegistrationPage(this.authTypeSelector)
-      : this.title = (authTypeSelector == AuthTypeSelector.register)
-            ? 'Register'
-            : 'Sign In';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: SignInOrRegistrationForm(authTypeSelector),
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) async {
+        if (state is AuthError) {
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text(state.message),
+          ));
+        }
+        if (state is AuthFinished) {
+          var prefs = await SharedPreferences.getInstance();
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute<void>(
+                builder: (_) => DriverHomeScreen(
+                      tasksInteractor: TasksInteractor(
+                        ReactiveLocalStorageRepository(
+                          repository: LocalStorageRepository(
+                            localStorage: KeyValueStorage(
+                              'trober_tasks',
+                              FlutterKeyValueStore(prefs),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )),
+          );
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(state.authType.text),
+          ),
+          body: _body(context, state),
+        );
+      },
     );
+  }
+
+  Widget _body(BuildContext context, AuthState state) {
+    if (state is AuthRequested || state is AuthInitial) {
+      return SignInOrRegistrationForm(state.authType);
+    }
+    if (state is AuthLoading) {
+      return const Center(child: const CircularProgressIndicator());
+    }
   }
 }
 
@@ -100,37 +124,26 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                         _formKey.currentState.save();
                         if (widget.authTypeSelector ==
                             AuthTypeSelector.register) {
-                          var success = await _register(_userEmail, _password);
-                          if (success) {
-                            _signInWithEmailAndPassword(_userEmail, _password);
-                          }
+                          context
+                              .read<AuthBloc>()
+                              .add(AuthRegister(_userEmail, _password));
                         } else {
-                          _signInWithEmailAndPassword(_userEmail, _password);
+                          context
+                              .read<AuthBloc>()
+                              .add(AuthSignIn(_userEmail, _password));
                         }
                       }
                     },
-                    text: (widget.authTypeSelector == AuthTypeSelector.register)
-                        ? 'Register'
-                        : "Sign In",
+                    text: widget.authTypeSelector.text,
                   ),
                 ),
                 Container(
                   alignment: Alignment.center,
                   child: TextButton(
-                    child: Text(
-                      (widget.authTypeSelector == AuthTypeSelector.register)
-                          ? "Already registered? Sign In"
-                          : 'Not registered? Register now',
-                    ),
-                    onPressed: () => Navigator.of(context).pushReplacement(
-                      MaterialPageRoute<void>(
-                          builder: (_) => SignInOrRegistrationPage(
-                              widget.authTypeSelector ==
-                                      AuthTypeSelector.register
-                                  ? AuthTypeSelector.signIn
-                                  : AuthTypeSelector.register)),
-                    ),
-                  ),
+                      child: Text(widget.authTypeSelector.otherText),
+                      onPressed: () => context
+                          .read<AuthBloc>()
+                          .add(AuthTypeOtherRequest(widget.authTypeSelector))),
                 ),
               ],
             ),
@@ -143,63 +156,47 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
     super.dispose();
   }
 
-  Future<bool> _register(String username, String password) async {
-    try {
-      final User user = (await _auth.createUserWithEmailAndPassword(
-        email: username,
-        password: password,
-      ))
-          .user;
-      if (user != null) {
-        return true;
-      }
-    } catch (e) {
-      print(e);
-      Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text("Registration failed"),
-      ));
-    }
-    return false;
-  }
+  // Future<bool> _register(BuildContext context, String username, String password) async {
+  //   try {
+  //     final User user = (
+  //     if (user != null) {
+  //       return true;
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //     Scaffold.of(context).showSnackBar(SnackBar(
+  //       content: Text("Registration failed"),
+  //     ));
+  //   }
+  //   return false;
+  // }
 
-  void _signInWithEmailAndPassword(String username, String password) async {
-    try {
-      final User user = (await _auth.signInWithEmailAndPassword(
-        email: username,
-        password: password,
-      ))
-          .user;
-      var token = await user.getIdToken(/* forceRefresh */ true);
+  // void _signInWithEmailAndPasswordBuildContext context,String username, String password) {
+  //   //try {
 
-      print(token);
-      api.DefaultApi d = api.DefaultApi(
-          ApiClient(basePath: "https://trober-test.herokuapp.com"));
-      d.apiDelegate.apiClient.setDefaultHeader("X-TOKEN", token);
-      var auth = ApiKeyAuth("header", "X-TOKEN");
-      auth.apiKey = token;
-      d.apiDelegate.apiClient.setAuthentication('ApiKeyAuth', auth);
-      print(await d.tenantsGet());
-      var prefs = await SharedPreferences.getInstance();
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute<void>(
-            builder: (_) => DriverHomeScreen(
-                  tasksInteractor: TasksInteractor(
-                    ReactiveLocalStorageRepository(
-                      repository: LocalStorageRepository(
-                        localStorage: KeyValueStorage(
-                          'trober_tasks',
-                          FlutterKeyValueStore(prefs),
-                        ),
-                      ),
-                    ),
-                  ),
-                )),
-      );
-    } catch (e) {
-      print(e);
-      Scaffold.of(context).showSnackBar(SnackBar(
-        content: Text("Failed to sign in with Email & Password"),
-      ));
-    }
-  }
+  //     context.read<AuthBloc>().add(AuthSignIn(username, password));
+  //   //   print(await d.tenantsGet());
+  //   //   var prefs = await SharedPreferences.getInstance();
+  //   //   Navigator.of(context).pushReplacement(
+  //   //     MaterialPageRoute<void>(
+  //   //         builder: (_) => DriverHomeScreen(
+  //   //               tasksInteractor: TasksInteractor(
+  //   //                 ReactiveLocalStorageRepository(
+  //   //                   repository: LocalStorageRepository(
+  //   //                     localStorage: KeyValueStorage(
+  //   //                       'trober_tasks',
+  //   //                       FlutterKeyValueStore(prefs),
+  //   //                     ),
+  //   //                   ),
+  //   //                 ),
+  //   //               ),
+  //   //             )),
+  //   //   );
+  //   // } catch (e) {
+  //   //   print(e);
+  //   //   Scaffold.of(context).showSnackBar(SnackBar(
+  //   //     content: Text("Failed to sign in with Email & Password"),
+  //   //   ));
+  //   // }
+  // }
 }
