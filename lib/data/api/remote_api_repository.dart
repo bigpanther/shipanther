@@ -13,13 +13,13 @@ class RemoteApiRepository extends ApiRepository {
   }
 
   @override
-  Future<DefaultApi> apiClient() async {
+  Future<ApiWithUserId> apiClient() async {
     var authUser = _authRepository.loggedInUser();
     var token = await authUser.getIdToken(false);
     _d.apiDelegate.apiClient.setDefaultHeader("X-TOKEN", token);
     var auth = ApiKeyAuth("header", "X-TOKEN");
     auth.apiKey = token;
     _d.apiDelegate.apiClient.setAuthentication('ApiKeyAuth', auth);
-    return _d;
+    return ApiWithUserId(_d.apiDelegate.apiClient, authUser.uid);
   }
 }

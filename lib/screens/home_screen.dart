@@ -14,7 +14,7 @@ import 'package:shipanther/tasks_app_core/localization.dart';
 import 'package:shipanther/tasks_app_core/routes.dart';
 import 'package:shipanther/widgets/extra_actions_button.dart';
 import 'package:shipanther/widgets/filter_button.dart';
-import 'package:shipanther/widgets/loading.dart';
+import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/widgets/stats_counter.dart';
 import 'package:shipanther/widgets/task_list.dart';
 import 'package:shipanther/widgets/tasks_bloc_provider.dart';
@@ -72,7 +72,7 @@ class HomeScreenState extends State<HomeScreen> {
                       buildBloc: () =>
                           StatsBloc(Injector.of(context).tasksInteractor),
                     )
-              : LoadingSpinner(
+              : CenteredLoading(
                   key: ArchSampleKeys.tasksLoading,
                 ),
           floatingActionButton: FloatingActionButton(

@@ -4,11 +4,13 @@ import 'package:flutter_signin_button/button_builder.dart';
 import 'package:key_value_store_flutter/key_value_store_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shipanther/bloc/auth_bloc.dart';
+import 'package:shipanther/bloc/user_bloc.dart';
 import 'package:shipanther/blocs/tasks_interactor.dart';
 import 'package:shipanther/screens/driver_home_page.dart';
 import 'package:shipanther/tasks_repository_local_storage/key_value_storage.dart';
 import 'package:shipanther/tasks_repository_local_storage/reactive_repository.dart';
 import 'package:shipanther/tasks_repository_local_storage/repository.dart';
+import 'package:shipanther/widgets/centered_loading.dart';
 
 class SignInOrRegistrationPage extends StatelessWidget {
   @override
@@ -24,7 +26,50 @@ class SignInOrRegistrationPage extends StatelessWidget {
               content: Text(state.message),
             ));
           }
-          if (state is AuthFinished) {
+        },
+        builder: (context, state) {
+          return _body(context, state);
+        },
+      ),
+    );
+  }
+
+  Widget _body(BuildContext context, AuthState state) {
+    if (state is AuthRequested || state is AuthInitial || state is AuthError) {
+      return SignInOrRegistrationForm(state.authType);
+    }
+    if (state is AuthFinished) {
+      return const ApiLogin();
+    }
+    if (state is AuthLoading) {
+      return const CenteredLoading();
+    }
+  }
+}
+
+class ApiLogin extends StatefulWidget {
+  const ApiLogin({Key key}) : super(key: key);
+
+  @override
+  _ApiLoginState createState() => _ApiLoginState();
+}
+
+class _ApiLoginState extends State<ApiLogin> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<UserBloc>().add(UserLogin());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<UserBloc, UserState>(
+      listener: (context, state) async {
+        if (state is UserFailure) {
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text(state.message),
+          ));
+          if (state is UserLoggedIn) {
             var prefs = await SharedPreferences.getInstance();
             Navigator.of(context).pushReplacement(
               MaterialPageRoute<void>(
@@ -42,24 +87,25 @@ class SignInOrRegistrationPage extends StatelessWidget {
                       )),
             );
           }
-        },
-        builder: (context, state) {
-          return _body(context, state);
-        },
-      ),
+        }
+      },
+      builder: (context, state) {
+        if (state is UserFailure) {
+          return Container(
+            child: Center(
+                child: Column(
+              children: [
+                Text("An error occured during log-in. Please retry."),
+                FlatButton(
+                    onPressed: () => context.read<AuthBloc>().add(AuthLogout()),
+                    child: const Text("Logout"))
+              ],
+            )),
+          );
+        }
+        return const CenteredLoading();
+      },
     );
-  }
-
-  Widget _body(BuildContext context, AuthState state) {
-    if (state is AuthRequested || state is AuthInitial || state is AuthError) {
-      return SignInOrRegistrationForm(state.authType);
-    }
-    if (state is AuthFinished) {
-      return Container();
-    }
-    if (state is AuthLoading) {
-      return const Center(child: const CircularProgressIndicator());
-    }
   }
 }
 

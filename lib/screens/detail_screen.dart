@@ -7,7 +7,7 @@ import 'package:shipanther/blocs/task_bloc.dart';
 import 'package:shipanther/screens/add_edit_screen.dart';
 import 'package:shipanther/tasks_app_core/keys.dart';
 import 'package:shipanther/tasks_app_core/localization.dart';
-import 'package:shipanther/widgets/loading.dart';
+import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +46,7 @@ class DetailScreenState extends State<DetailScreen> {
     return StreamBuilder<Task>(
       stream: taskBloc.task(widget.taskId).where((task) => task != null),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return LoadingSpinner();
+        if (!snapshot.hasData) return CenteredLoading();
 
         final task = snapshot.data;
 

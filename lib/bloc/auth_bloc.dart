@@ -10,9 +10,9 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthRepository authRepository;
+  final AuthRepository _authRepository;
 
-  AuthBloc(this.authRepository) : super(AuthInitial());
+  AuthBloc(this._authRepository) : super(AuthInitial());
 
   @override
   Stream<AuthState> mapEventToState(
@@ -22,7 +22,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is AuthRegister) {
       try {
         final user =
-            await authRepository.registerUser(event.username, event.password);
+            await _authRepository.registerUser(event.username, event.password);
         yield AuthFinished(user, event.authType);
       } catch (e) {
         yield AuthError("Registration failed: $e", event.authType);
@@ -31,7 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is AuthSignIn) {
       try {
         final user =
-            await authRepository.fetchAuthUser(event.username, event.password);
+            await _authRepository.fetchAuthUser(event.username, event.password);
         yield AuthFinished(user, event.authType);
       } catch (e) {
         yield AuthError("Authentication failed: $e", event.authType);
@@ -41,7 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield AuthRequested(event.authType.other);
     }
     if (event is AuthLogout) {
-      await authRepository.logout();
+      await _authRepository.logout();
       yield AuthInitial();
     }
   }
