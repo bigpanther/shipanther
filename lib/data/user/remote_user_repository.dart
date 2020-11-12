@@ -1,5 +1,4 @@
 import 'package:shipanther/data/api/api_repository.dart';
-import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:trober_sdk/api.dart';
 
