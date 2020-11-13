@@ -25,7 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             await _authRepository.registerUser(event.username, event.password);
         yield AuthFinished(user, event.authType);
       } catch (e) {
-        yield AuthError("Registration failed: $e", event.authType);
+        yield AuthFailure("Registration failed: $e", event.authType);
       }
     }
     if (event is AuthSignIn) {
@@ -34,7 +34,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             await _authRepository.fetchAuthUser(event.username, event.password);
         yield AuthFinished(user, event.authType);
       } catch (e) {
-        yield AuthError("Authentication failed: $e", event.authType);
+        yield AuthFailure("Authentication failed: $e", event.authType);
       }
     }
     if (event is AuthTypeOtherRequest) {

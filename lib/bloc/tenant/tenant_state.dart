@@ -14,7 +14,13 @@ class TenantLoaded extends TenantState {
   const TenantLoaded(this.tenant);
 }
 
-class TenantError extends TenantState {
+class TenantsLoaded extends TenantState {
+  final List<Tenant> tenants;
+  final TenantType tenantType;
+  const TenantsLoaded(this.tenants, this.tenantType);
+}
+
+class TenantFailure extends TenantState {
   final String message;
-  const TenantError(this.message);
+  const TenantFailure(this.message);
 }
