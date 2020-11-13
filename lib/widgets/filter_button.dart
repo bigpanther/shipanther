@@ -1,32 +1,36 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
-import 'package:shipanther/blocs/models/visibility_filter.dart';
-import 'package:shipanther/tasks_app_core/localization.dart';
-import 'package:shipanther/tasks_app_core/keys.dart';
 
-class FilterButton extends StatelessWidget {
-  final PopupMenuItemSelected<VisibilityFilter> onSelected;
-  final VisibilityFilter activeFilter;
+class FilterButton<T> extends StatelessWidget {
+  final List<T> possibleValues;
+  final PopupMenuItemSelected<T> onSelected;
+  final T activeFilter;
   final bool isActive;
+  final String tooltip;
 
-  FilterButton({this.onSelected, this.activeFilter, this.isActive, Key key})
-      : super(key: key);
+  FilterButton({
+    this.onSelected,
+    this.activeFilter,
+    this.isActive,
+    Key key,
+    @required this.possibleValues,
+    @required this.tooltip,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final defaultStyle = theme.textTheme.body1;
-    final activeStyle = theme.textTheme.body1.copyWith(
+    final defaultStyle = theme.textTheme.bodyText2;
+    final activeStyle = theme.textTheme.bodyText2.copyWith(
       color: theme.accentColor,
     );
-    final button = _Button(
+    final button = _Button<T>(
       onSelected: onSelected,
       activeFilter: activeFilter,
       activeStyle: activeStyle,
       defaultStyle: defaultStyle,
+      possibleValues: possibleValues,
+      tooltip: tooltip,
     );
 
     return AnimatedOpacity(
@@ -37,59 +41,39 @@ class FilterButton extends StatelessWidget {
   }
 }
 
-class _Button extends StatelessWidget {
+class _Button<T> extends StatelessWidget {
   const _Button({
     Key key,
     @required this.onSelected,
     @required this.activeFilter,
     @required this.activeStyle,
     @required this.defaultStyle,
+    @required this.possibleValues,
+    @required this.tooltip,
   }) : super(key: key);
 
-  final PopupMenuItemSelected<VisibilityFilter> onSelected;
-  final VisibilityFilter activeFilter;
+  final PopupMenuItemSelected<T> onSelected;
+  final T activeFilter;
   final TextStyle activeStyle;
   final TextStyle defaultStyle;
+  final List<T> possibleValues;
+  final String tooltip;
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<VisibilityFilter>(
-      key: ArchSampleKeys.filterButton,
-      tooltip: ArchSampleLocalizations.of(context).filterTasks,
+    return PopupMenuButton<T>(
+      tooltip: tooltip,
       onSelected: onSelected,
       itemBuilder: (BuildContext context) {
-        return <PopupMenuItem<VisibilityFilter>>[
-          PopupMenuItem<VisibilityFilter>(
-            key: ArchSampleKeys.allFilter,
-            value: VisibilityFilter.all,
-            child: Text(
-              ArchSampleLocalizations.of(context).showAll,
-              style: activeFilter == VisibilityFilter.all
-                  ? activeStyle
-                  : defaultStyle,
-            ),
-          ),
-          PopupMenuItem<VisibilityFilter>(
-            key: ArchSampleKeys.activeFilter,
-            value: VisibilityFilter.active,
-            child: Text(
-              ArchSampleLocalizations.of(context).showActive,
-              style: activeFilter == VisibilityFilter.active
-                  ? activeStyle
-                  : defaultStyle,
-            ),
-          ),
-          PopupMenuItem<VisibilityFilter>(
-            key: ArchSampleKeys.completedFilter,
-            value: VisibilityFilter.completed,
-            child: Text(
-              ArchSampleLocalizations.of(context).showCompleted,
-              style: activeFilter == VisibilityFilter.completed
-                  ? activeStyle
-                  : defaultStyle,
-            ),
-          ),
-        ];
+        return possibleValues
+            .map((e) => PopupMenuItem<T>(
+                  value: e,
+                  child: Text(
+                    EnumToString.convertToString(e, camelCase: true),
+                    style: activeFilter == e ? activeStyle : defaultStyle,
+                  ),
+                ))
+            .toList();
       },
       icon: Icon(Icons.filter_list),
     );
