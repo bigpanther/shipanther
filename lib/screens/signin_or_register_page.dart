@@ -7,10 +7,12 @@ import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/blocs/tasks_interactor.dart';
 import 'package:shipanther/screens/driver_home_page.dart';
+import 'package:shipanther/screens/home.dart';
 import 'package:shipanther/tasks_repository_local_storage/key_value_storage.dart';
 import 'package:shipanther/tasks_repository_local_storage/reactive_repository.dart';
 import 'package:shipanther/tasks_repository_local_storage/repository.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
+import 'package:trober_sdk/api.dart' as api;
 
 class SignInOrRegistrationPage extends StatelessWidget {
   @override
@@ -21,7 +23,7 @@ class SignInOrRegistrationPage extends StatelessWidget {
       ),
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) async {
-          if (state is AuthError) {
+          if (state is AuthFailure) {
             Scaffold.of(context).showSnackBar(SnackBar(
               content: Text(state.message),
             ));
@@ -35,7 +37,9 @@ class SignInOrRegistrationPage extends StatelessWidget {
   }
 
   Widget _body(BuildContext context, AuthState state) {
-    if (state is AuthRequested || state is AuthInitial || state is AuthError) {
+    if (state is AuthRequested ||
+        state is AuthInitial ||
+        state is AuthFailure) {
       return SignInOrRegistrationForm(state.authType);
     }
     if (state is AuthFinished) {
@@ -73,19 +77,24 @@ class _ApiLoginState extends State<ApiLogin> {
         if (state is UserLoggedIn) {
           var prefs = await SharedPreferences.getInstance();
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute<void>(
-                builder: (_) => DriverHomeScreen(
-                      tasksInteractor: TasksInteractor(
-                        ReactiveLocalStorageRepository(
-                          repository: LocalStorageRepository(
-                            localStorage: KeyValueStorage(
-                              'trober_tasks',
-                              FlutterKeyValueStore(prefs),
-                            ),
-                          ),
+            MaterialPageRoute<void>(builder: (_) {
+              if (state.user.role == api.UserRole.superAdmin) {
+                return Home();
+              } else {
+                return DriverHomeScreen(
+                  tasksInteractor: TasksInteractor(
+                    ReactiveLocalStorageRepository(
+                      repository: LocalStorageRepository(
+                        localStorage: KeyValueStorage(
+                          'trober_tasks',
+                          FlutterKeyValueStore(prefs),
                         ),
                       ),
-                    )),
+                    ),
+                  ),
+                );
+              }
+            }),
           );
         }
       },
