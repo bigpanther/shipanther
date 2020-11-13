@@ -24,9 +24,9 @@ class AuthRequested extends AuthState {
   AuthRequested(this.authType) : super(authType);
 }
 
-class AuthError extends AuthState {
+class AuthFailure extends AuthState {
   final String message;
-  const AuthError(this.message, AuthTypeSelector authType) : super(authType);
+  const AuthFailure(this.message, AuthTypeSelector authType) : super(authType);
 }
 
 enum AuthTypeSelector {
