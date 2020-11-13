@@ -121,10 +121,12 @@ class HomeScreenState extends State<HomeScreen> {
       StreamBuilder<VisibilityFilter>(
         stream: tasksBloc.activeFilter,
         builder: (context, snapshot) {
-          return FilterButton(
+          return FilterButton<VisibilityFilter>(
+            possibleValues: VisibilityFilter.values,
             isActive: activeTabSnapshot.data == AppTab.tasks,
             activeFilter: snapshot.data ?? VisibilityFilter.all,
             onSelected: tasksBloc.updateFilter.add,
+            tooltip: ArchSampleLocalizations.of(context).filterTasks,
           );
         },
       ),
@@ -141,8 +143,7 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         builder: (context, snapshot) {
           return ExtraActionsButton(
-            allComplete: snapshot.data?.allComplete ?? false,
-            hasCompletedTasks: snapshot.data?.hasCompletedTasks ?? false,
+            possibleValues: ExtraAction.values,
             onSelected: (action) {
               if (action == ExtraAction.toggleAllComplete) {
                 tasksBloc.toggleAll.add(null);
@@ -155,4 +156,13 @@ class HomeScreenState extends State<HomeScreen> {
       )
     ];
   }
+}
+
+enum ExtraAction { toggleAllComplete, clearCompleted }
+
+class ExtraActionsButtonViewModel {
+  final bool allComplete;
+  final bool hasCompletedTasks;
+
+  ExtraActionsButtonViewModel(this.allComplete, this.hasCompletedTasks);
 }

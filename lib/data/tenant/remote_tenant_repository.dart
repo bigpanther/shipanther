@@ -29,4 +29,13 @@ class RemoteTenantRepository extends TenantRepository {
     var client = await _apiRepository.apiClient();
     return await client.tenantsIdPatch(id, tenant: tenant);
   }
+
+  @override
+  Future<List<Tenant>> filterTenants(TenantType tenantType) async {
+    var tenants = await fetchTenants();
+    if (tenantType == null) {
+      return tenants;
+    }
+    return tenants.where((e) => e.type == tenantType).toList();
+  }
 }
