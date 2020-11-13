@@ -1,57 +1,27 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
-import 'package:shipanther/tasks_app_core/localization.dart';
-import 'package:shipanther/tasks_app_core/keys.dart';
 
-class ExtraActionsButton extends StatelessWidget {
-  final PopupMenuItemSelected<ExtraAction> onSelected;
-  final bool allComplete;
-  final bool hasCompletedTasks;
+class ExtraActionsButton<T> extends StatelessWidget {
+  final List<T> possibleValues;
+  final PopupMenuItemSelected<T> onSelected;
 
   ExtraActionsButton({
     this.onSelected,
-    this.allComplete = false,
-    this.hasCompletedTasks = true,
     Key key,
+    @required this.possibleValues,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<ExtraAction>(
-      key: ArchSampleKeys.extraActionsButton,
+    return PopupMenuButton<T>(
       onSelected: onSelected,
       itemBuilder: (BuildContext context) {
-        return <PopupMenuItem<ExtraAction>>[
-          PopupMenuItem<ExtraAction>(
-            key: ArchSampleKeys.toggleAll,
-            value: ExtraAction.toggleAllComplete,
-            child: Text(
-              allComplete
-                  ? ArchSampleLocalizations.of(context).markAllIncomplete
-                  : ArchSampleLocalizations.of(context).markAllComplete,
-            ),
-          ),
-          PopupMenuItem<ExtraAction>(
-            key: ArchSampleKeys.clearCompleted,
-            value: ExtraAction.clearCompleted,
-            child: Text(
-              ArchSampleLocalizations.of(context).clearCompleted,
-            ),
-          ),
-        ];
+        return possibleValues
+            .map((e) => PopupMenuItem<T>(
+                  value: e,
+                  child: Text(e.toString()),
+                ))
+            .toList();
       },
     );
   }
 }
-
-class ExtraActionsButtonViewModel {
-  final bool allComplete;
-  final bool hasCompletedTasks;
-
-  ExtraActionsButtonViewModel(this.allComplete, this.hasCompletedTasks);
-}
-
-enum ExtraAction { toggleAllComplete, clearCompleted }
