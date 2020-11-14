@@ -6,7 +6,6 @@ import 'package:shipanther/data/auth/auth_repository.dart';
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class FireBaseAuthRepository extends AuthRepository {
-  User _loggedInUser;
   @override
   Future<User> registerUser(String username, String password) async {
     var userCreds = await _auth.createUserWithEmailAndPassword(
@@ -17,13 +16,12 @@ class FireBaseAuthRepository extends AuthRepository {
     if (user == null) {
       throw AuthenticationException();
     }
-    _loggedInUser = user;
     return user;
   }
 
   @override
   User loggedInUser() {
-    return _loggedInUser;
+    return _auth.currentUser;
   }
 
   @override
@@ -36,13 +34,12 @@ class FireBaseAuthRepository extends AuthRepository {
     if (user == null) {
       throw AuthenticationException();
     }
-    _loggedInUser = user;
     return user;
   }
 
   @override
-  Future<void> logout() {
-    _loggedInUser = null;
+  Future<void> logout() async {
+    await _auth.signOut();
   }
 }
 
