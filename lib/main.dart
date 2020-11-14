@@ -54,6 +54,12 @@ class ShipantherApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData.dark(),
                 home: SignInOrRegistrationPage(),
+                // routes: {
+                //   '/login': (context) => BlocProvider.value(
+                //         value: context.read<AuthRepository>(),
+                //         child: SignInOrRegistrationPage(),
+                //       ),
+                // },
               ),
             ),
           ),
