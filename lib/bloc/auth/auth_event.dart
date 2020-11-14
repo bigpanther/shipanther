@@ -22,6 +22,10 @@ class AuthRegister extends AuthEvent {
   AuthRegister(this.username, this.password) : super(AuthTypeSelector.register);
 }
 
+class AuthCheck extends AuthEvent {
+  AuthCheck() : super(AuthTypeSelector.signIn);
+}
+
 class AuthSignIn extends AuthEvent {
   final String username;
   final String password;
