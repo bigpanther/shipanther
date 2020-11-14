@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
           return TenantList(tenantBloc: bloc, tenantLoadedState: state);
         }
         if (state is TenantLoaded) {
-          return TenantDetail(state: state);
+          return TenantDetail(tenantBloc: bloc, state: state);
         }
         return Scaffold(
           appBar: AppBar(

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
+import 'package:shipanther/screens/tenant/add_edit.dart';
 
 class TenantDetail extends StatelessWidget {
   final TenantLoaded state;
-  const TenantDetail({Key key, this.state}) : super(key: key);
+  final TenantBloc tenantBloc;
+
+  const TenantDetail({Key key, this.state, this.tenantBloc}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +78,16 @@ class TenantDetail extends StatelessWidget {
         tooltip: "Edit tenant",
         child: Icon(Icons.edit),
         onPressed: () {
-          //context.read<TenantBloc>().add()
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => TenantAddEdit(
+                isEdit: true,
+                tenantBloc: tenantBloc,
+                tenant: state.tenant,
+              ),
+            ),
+          );
         },
       ),
     );

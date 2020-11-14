@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
+import 'package:shipanther/screens/tenant/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:trober_sdk/api.dart';
 
@@ -40,6 +41,22 @@ class TenantList extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.subtitle1,
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: "Add tenant",
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => TenantAddEdit(
+                isEdit: false,
+                tenantBloc: tenantBloc,
+                tenant: Tenant(),
+              ),
             ),
           );
         },

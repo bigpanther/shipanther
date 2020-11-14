@@ -25,6 +25,16 @@ class TenantBloc extends Bloc<TenantEvent, TenantState> {
       var tenants = await _tenantRepository.filterTenants(event.tenantType);
       yield TenantsLoaded(tenants, event.tenantType);
     }
+    if (event is UpdateTenant) {
+      await _tenantRepository.updateTenant(event.id, event.tenant);
+      var tenants = await _tenantRepository.filterTenants(null);
+      yield TenantsLoaded(tenants, null);
+    }
+    if (event is CreateTenant) {
+      await _tenantRepository.createTenant(event.tenant);
+      var tenants = await _tenantRepository.filterTenants(null);
+      yield TenantsLoaded(tenants, null);
+    }
     if (event is DeleteTenant) {
       yield TenantFailure("Tenant deletion is not supported");
     }
