@@ -44,5 +44,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await _authRepository.logout();
       yield AuthInitial();
     }
+    if (event is AuthCheck) {
+      var user = _authRepository.loggedInUser();
+      if (user != null) {
+        yield AuthFinished(user, AuthTypeSelector.signIn);
+      } else {
+        yield AuthInitial();
+      }
+    }
   }
 }
