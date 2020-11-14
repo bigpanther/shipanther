@@ -14,7 +14,19 @@ import 'package:shipanther/tasks_repository_local_storage/repository.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:trober_sdk/api.dart' as api;
 
-class SignInOrRegistrationPage extends StatelessWidget {
+class SignInOrRegistrationPage extends StatefulWidget {
+  @override
+  _SignInOrRegistrationPageState createState() =>
+      _SignInOrRegistrationPageState();
+}
+
+class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthBloc>().add(AuthCheck());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
