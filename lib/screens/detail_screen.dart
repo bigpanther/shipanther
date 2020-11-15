@@ -2,9 +2,11 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shipanther/blocs/models/task.dart';
 import 'package:shipanther/blocs/task_bloc.dart';
 import 'package:shipanther/screens/add_edit_screen.dart';
+import 'package:shipanther/screens/task_detail_test.dart';
 import 'package:shipanther/tasks_app_core/keys.dart';
 import 'package:shipanther/tasks_app_core/localization.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
@@ -33,12 +35,100 @@ class DetailScreenState extends State<DetailScreen> {
   void initState() {
     super.initState();
     taskBloc = widget.initBloc();
+
+    taskList = List<TaskSample>();
+    _getToken();
+    _configureFirebaseListeners();
   }
 
   @override
   void dispose() {
     taskBloc.close();
     super.dispose();
+  }
+
+  //Notifications starts here
+
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  _getToken() {
+    _firebaseMessaging.getToken().then((token) {
+      print("Device Token: $token");
+    });
+  }
+
+  List<TaskSample> taskList;
+
+  _configureFirebaseListeners() {
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> task) async {
+        print('onMessage: $task');
+        _setTask(task);
+      },
+      onLaunch: (Map<String, dynamic> task) async {
+        print('onLaunch: $task');
+        _setTaskAndNavigate(task);
+      },
+      onResume: (Map<String, dynamic> task) async {
+        print('onResume: $task');
+        _setTaskAndNavigate(task);
+      },
+    );
+    _firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(sound: true, badge: true, alert: true),
+    );
+  }
+
+  //TODO: Create a dialog box
+
+  _setTask(Map<String, dynamic> task) {
+    final notification = task['notification'];
+    final data = task['data'];
+    final String title = notification['title'];
+    final String body = notification['body'];
+    String taskId = data['id'];
+    String from = data['from'];
+    String to = data['to'];
+    String containerName = data['containerName'];
+    DateTime pickupTime = data['pickupTime'];
+    print(
+        "Title: $title, body: $body, from : $from, to: $to, taskId: $taskId, pickupTime: $pickupTime,containerName: $containerName");
+    setState(() {
+      TaskSample newTask =
+          TaskSample(taskId, from, to, pickupTime, containerName);
+      taskList.add(newTask);
+    });
+  }
+
+  // this function is created to navigate user to task detail screen as soon as
+  // he clicks on the notification when app is not running
+  // two cases are possible
+  //when user is not logged in navigate to login page
+  // when user is logged in navigate to task detail page
+
+  _setTaskAndNavigate(Map<String, dynamic> task) {
+    final notification = task['notification'];
+    final data = task['data'];
+    final String title = notification['title'];
+    final String body = notification['body'];
+    String taskId = data['id'];
+    String from = data['from'];
+    String to = data['to'];
+    String containerName = data['containerName'];
+    DateTime pickupTime = data['pickupTime'];
+    print(
+        "Title: $title, body: $body, from : $from, to: $to, taskId: $taskId, pickupTime: $pickupTime,containerName: $containerName");
+    setState(() {
+      TaskSample newTask =
+          TaskSample(taskId, from, to, pickupTime, containerName);
+      taskList.add(newTask);
+    });
+    // checkif logged in or not
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              TaskDetailTest(taskId, from, to, pickupTime, containerName),
+        ));
   }
 
   @override
@@ -141,5 +231,21 @@ class DetailScreenState extends State<DetailScreen> {
         );
       },
     );
+  }
+}
+
+class TaskSample {
+  String taskId;
+  String from;
+  String to;
+  String containerName;
+  DateTime pickupTime;
+
+  TaskSample(taskId, from, to, pickupTime, containerName) {
+    this.taskId = taskId;
+    this.from = from;
+    this.to = to;
+    this.containerName = containerName;
+    this.pickupTime = pickupTime;
   }
 }
