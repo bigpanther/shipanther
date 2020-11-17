@@ -26,7 +26,7 @@ class DriverHomeScreen extends StatelessWidget {
         bloc: TasksListBloc(tasksInteractor),
         child: MaterialApp(
           onGenerateTitle: (context) => BlocLocalizations.of(context).appTitle,
-          theme: ArchSampleTheme.theme,
+          theme: ShipantherTheme.theme,
           localizationsDelegates: [
             ArchSampleLocalizationsDelegate(),
             InheritedWidgetLocalizationsDelegate(),
