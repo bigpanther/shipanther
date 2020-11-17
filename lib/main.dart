@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
+import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/data/api/api_repository.dart';
 import 'package:shipanther/data/api/remote_api_repository.dart';
@@ -14,6 +15,8 @@ import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/data/auth/firebase_auth_repository.dart';
 import 'package:shipanther/data/tenant/remote_tenant_repository.dart';
 import 'package:shipanther/data/tenant/tenant_repository.dart';
+import 'package:shipanther/data/terminal/remote_terminal_repository.dart';
+import 'package:shipanther/data/terminal/terminal_repository.dart';
 import 'package:shipanther/data/user/remote_user_repository.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
@@ -52,44 +55,52 @@ class ShipantherApp extends StatelessWidget {
       child: RepositoryProvider<ApiRepository>(
         create: (context) => RemoteApiRepository(context.read<AuthRepository>(),
             "https://trober-test.herokuapp.com"),
-        child: RepositoryProvider<UserRepository>(
-          create: (context) =>
-              RemoteUserRepository(context.read<ApiRepository>()),
-          child: RepositoryProvider<TenantRepository>(
-            create: (context) =>
-                RemoteTenantRepository(context.read<ApiRepository>()),
-            child: MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                    create: (context) =>
-                        AuthBloc(context.read<AuthRepository>())),
-                BlocProvider(
-                    create: (context) =>
-                        TenantBloc(context.read<TenantRepository>())),
-                BlocProvider(
-                    create: (context) =>
-                        UserBloc(context.read<UserRepository>())),
+        child: MultiRepositoryProvider(
+          providers: [
+            RepositoryProvider<UserRepository>(
+                create: (context) =>
+                    RemoteUserRepository(context.read<ApiRepository>())),
+            RepositoryProvider<TenantRepository>(
+                create: (context) =>
+                    RemoteTenantRepository(context.read<ApiRepository>())),
+            RepositoryProvider<TerminalRepository>(
+                create: (context) =>
+                    RemoteTerminalRepository(context.read<ApiRepository>())),
+          ],
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                  create: (context) =>
+                      AuthBloc(context.read<AuthRepository>())),
+              BlocProvider(
+                  create: (context) =>
+                      TenantBloc(context.read<TenantRepository>())),
+              BlocProvider(
+                  create: (context) =>
+                      UserBloc(context.read<UserRepository>())),
+              BlocProvider(
+                  create: (context) =>
+                      TerminalBloc(context.read<TerminalRepository>())),
+            ],
+            child: MaterialApp(
+              title: 'Shipanther',
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData.dark(),
+              home: SignInOrRegistrationPage(),
+              // routes: {
+              //   '/login': (context) => BlocProvider.value(
+              //         value: context.read<AuthRepository>(),
+              //         child: SignInOrRegistrationPage(),
+              //       ),
+              // },
+              localizationsDelegates: [
+                ShipantherLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
               ],
-              child: MaterialApp(
-                title: 'Shipanther',
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData.dark(),
-                home: SignInOrRegistrationPage(),
-                // routes: {
-                //   '/login': (context) => BlocProvider.value(
-                //         value: context.read<AuthRepository>(),
-                //         child: SignInOrRegistrationPage(),
-                //       ),
-                // },
-                localizationsDelegates: [
-                  ShipantherLocalizationsDelegate(),
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: ShipantherLocalizations.supportedLocales
-                    .map((e) => Locale(e)),
-              ),
+              supportedLocales: ShipantherLocalizations.supportedLocales
+                  .map((e) => Locale(e)),
             ),
           ),
         ),
