@@ -2,7 +2,6 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shipanther/blocs/models/task.dart';
 import 'package:shipanther/blocs/task_bloc.dart';
 import 'package:shipanther/screens/add_edit_screen.dart';
@@ -37,8 +36,8 @@ class DetailScreenState extends State<DetailScreen> {
     taskBloc = widget.initBloc();
 
     taskList = List<TaskSample>();
-    _getToken();
-    _configureFirebaseListeners();
+    //  _getToken();
+    //  _configureFirebaseListeners();
   }
 
   @override
@@ -49,34 +48,13 @@ class DetailScreenState extends State<DetailScreen> {
 
   //Notifications starts here
 
-  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-  _getToken() {
-    _firebaseMessaging.getToken().then((token) {
-      print("Device Token: $token");
-    });
-  }
+  // _getToken() {
+  //   _firebaseMessaging.getToken().then((token) {
+  //     print("Device Token: $token");
+  //   });
+  // }
 
   List<TaskSample> taskList;
-
-  _configureFirebaseListeners() {
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> task) async {
-        print('onMessage: $task');
-        _setTask(task);
-      },
-      onLaunch: (Map<String, dynamic> task) async {
-        print('onLaunch: $task');
-        _setTaskAndNavigate(task);
-      },
-      onResume: (Map<String, dynamic> task) async {
-        print('onResume: $task');
-        _setTaskAndNavigate(task);
-      },
-    );
-    _firebaseMessaging.requestNotificationPermissions(
-      const IosNotificationSettings(sound: true, badge: true, alert: true),
-    );
-  }
 
   //TODO: Create a dialog box
 
