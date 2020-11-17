@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
@@ -17,6 +18,21 @@ import 'package:shipanther/screens/signin_or_register_page.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  _firebaseMessaging.configure(
+    onMessage: (Map<String, dynamic> task) async {
+      print('onMessage: $task');
+    },
+    onLaunch: (Map<String, dynamic> task) async {
+      print('onLaunch: $task');
+    },
+    onResume: (Map<String, dynamic> task) async {
+      print('onResume: $task');
+    },
+  );
+  _firebaseMessaging.requestNotificationPermissions(
+    const IosNotificationSettings(sound: true, badge: true, alert: true),
+  );
   runApp(ShipantherApp());
 }
 
