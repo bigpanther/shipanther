@@ -7,8 +7,8 @@ import 'package:shipanther/screens/home_screen.dart';
 import 'package:shipanther/widgets/tasks_bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:shipanther/tasks_app_core/localization.dart';
-import 'package:shipanther/tasks_app_core/theme.dart';
 import 'package:shipanther/tasks_app_core/routes.dart';
+import 'package:shipanther/widgets/theme.dart';
 
 class DriverHomeScreen extends StatelessWidget {
   final TasksInteractor tasksInteractor;
