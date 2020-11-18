@@ -34,7 +34,7 @@ class ShipantherLocalizationsDelegate extends LocalizationsDelegate {
   @override
   bool isSupported(Locale locale) {
     return ShipantherLocalizations.supportedLocales
-        .contains(locale.scriptCode.toLowerCase());
+        .contains(locale.languageCode.toLowerCase());
   }
 
   @override
