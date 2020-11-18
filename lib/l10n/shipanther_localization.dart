@@ -29,10 +29,12 @@ class ShipantherLocalizations {
   }
 }
 
-class ShipantherLocalizationsDelegate extends LocalizationsDelegate {
+class ShipantherLocalizationsDelegate
+    extends LocalizationsDelegate<ShipantherLocalizations> {
   const ShipantherLocalizationsDelegate();
   @override
   bool isSupported(Locale locale) {
+    print(locale);
     return ShipantherLocalizations.supportedLocales
         .contains(locale.languageCode.toLowerCase());
   }
