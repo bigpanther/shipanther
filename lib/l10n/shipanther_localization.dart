@@ -19,14 +19,19 @@ class ShipantherLocalizations {
   }
 
   static List<String> supportedLocales = ['en', 'pa'];
-  String get tenantsTitle {
-    return Intl.message(
-      'Tenants',
-      name: 'tenantsTitle',
-      desc: 'Title for the Tenants page',
-      locale: locale.toString(),
-    );
-  }
+  String get tenantsTitle => Intl.message(
+        'Tenants',
+        name: 'tenantsTitle',
+        desc: 'Title for the Tenants page',
+        locale: locale.toString(),
+      );
+
+  String get terminalsTitle => Intl.message(
+        'Terminals',
+        name: 'terminalsTitle',
+        desc: 'Title for the Terminals page',
+        locale: locale.toString(),
+      );
 }
 
 class ShipantherLocalizationsDelegate
