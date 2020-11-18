@@ -8,7 +8,6 @@ import 'package:shipanther/blocs/models/visibility_filter.dart';
 import 'package:shipanther/blocs/stats_bloc.dart';
 import 'package:shipanther/blocs/tasks_list_bloc.dart';
 import 'package:shipanther/dependency_injection.dart';
-import 'package:shipanther/localization.dart';
 import 'package:shipanther/tasks_app_core/keys.dart';
 import 'package:shipanther/tasks_app_core/localization.dart';
 import 'package:shipanther/tasks_app_core/routes.dart';
@@ -58,7 +57,7 @@ class HomeScreenState extends State<HomeScreen> {
       builder: (context, activeTabSnapshot) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(BlocLocalizations.of(context).appTitle),
+            title: Text('Shipanther driver'),
             actions: _buildActions(
               tasksBloc,
               activeTabSnapshot,

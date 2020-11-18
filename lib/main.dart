@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
@@ -77,6 +78,16 @@ class ShipantherApp extends StatelessWidget {
                 //         child: SignInOrRegistrationPage(),
                 //       ),
                 // },
+                localizationsDelegates: [
+                  // ... app-specific localization delegate[s] here
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: [
+                  const Locale('en', ''), // English, no country code
+                  const Locale('pa', ''), // Punjabi, no country code
+                ],
               ),
             ),
           ),
