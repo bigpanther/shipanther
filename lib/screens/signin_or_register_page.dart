@@ -8,7 +8,6 @@ import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/blocs/tasks_interactor.dart';
 import 'package:shipanther/screens/driver_home_page.dart';
 import 'package:shipanther/screens/home.dart';
-import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/tasks_repository_local_storage/key_value_storage.dart';
 import 'package:shipanther/tasks_repository_local_storage/reactive_repository.dart';
 import 'package:shipanther/tasks_repository_local_storage/repository.dart';
@@ -94,7 +93,7 @@ class _ApiLoginState extends State<ApiLogin> {
               print(state.user);
               //context.read<AuthBloc>().add(AuthLogout());
               if (state.user.role == api.UserRole.superAdmin) {
-                return SuperAdminHomePage();
+                return Home();
               } else {
                 return DriverHomeScreen(
                   tasksInteractor: TasksInteractor(
