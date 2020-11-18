@@ -14,6 +14,7 @@ import 'package:shipanther/data/tenant/remote_tenant_repository.dart';
 import 'package:shipanther/data/tenant/tenant_repository.dart';
 import 'package:shipanther/data/user/remote_user_repository.dart';
 import 'package:shipanther/data/user/user_repository.dart';
+import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
 
 Future<void> main() async {
@@ -79,15 +80,13 @@ class ShipantherApp extends StatelessWidget {
                 //       ),
                 // },
                 localizationsDelegates: [
-                  // ... app-specific localization delegate[s] here
+                  ShipantherLocalizationsDelegate(),
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
                 ],
-                supportedLocales: [
-                  const Locale('en', ''), // English, no country code
-                  const Locale('pa', ''), // Punjabi, no country code
-                ],
+                supportedLocales: ShipantherLocalizations.supportedLocales
+                    .map((e) => Locale(e)),
               ),
             ),
           ),

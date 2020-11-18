@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import 'messages_all.dart';
+import 'package:shipanther/l10n/locales/messages_all.dart';
 
 class ShipantherLocalizations {
   final Locale locale;
@@ -20,6 +19,14 @@ class ShipantherLocalizations {
   }
 
   static List<String> supportedLocales = ['en', 'pa'];
+  String get tenantsTitle {
+    return Intl.message(
+      'Tenants',
+      name: 'tenantsTitle',
+      desc: 'Title for the Tenants page',
+      locale: locale.toString(),
+    );
+  }
 }
 
 class ShipantherLocalizationsDelegate extends LocalizationsDelegate {

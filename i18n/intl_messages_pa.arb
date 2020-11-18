@@ -1,0 +1,10 @@
+{
+  "@@locale": "pa",
+  "@@last_modified": "2020-11-17T22:52:51.683224",
+  "tenantsTitle": "ਕਿਰਾਏਦਾਰ",
+  "@tenantsTitle": {
+    "description": "Title for the Tenants page",
+    "type": "text",
+    "placeholders": {}
+  }
+}
