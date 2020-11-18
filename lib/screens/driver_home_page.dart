@@ -1,7 +1,6 @@
 import 'package:shipanther/blocs/tasks_interactor.dart';
 import 'package:shipanther/blocs/tasks_list_bloc.dart';
 import 'package:shipanther/dependency_injection.dart';
-import 'package:shipanther/localization.dart';
 import 'package:shipanther/screens/add_edit_screen.dart';
 import 'package:shipanther/screens/home_screen.dart';
 import 'package:shipanther/tasks_app_core/localization.dart';
@@ -25,11 +24,10 @@ class DriverHomeScreen extends StatelessWidget {
       child: TasksBlocProvider(
         bloc: TasksListBloc(tasksInteractor),
         child: MaterialApp(
-          onGenerateTitle: (context) => BlocLocalizations.of(context).appTitle,
+          onGenerateTitle: (context) => 'Shipanther driver',
           theme: ShipantherTheme.theme,
           localizationsDelegates: [
             ArchSampleLocalizationsDelegate(),
-            InheritedWidgetLocalizationsDelegate(),
           ],
           routes: {
             ArchSampleRoutes.home: (context) {
