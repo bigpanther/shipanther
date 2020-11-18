@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
+import 'package:shipanther/screens/terminal/terminalScreen.dart';
 
 class ShipantherScaffold extends StatelessWidget {
   const ShipantherScaffold(
@@ -36,6 +38,13 @@ class ShipantherScaffold extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
+            ),
+            ListTile(
+              title: ShipantherLocalizations.of(context).terminalsTitle,
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (_) => TerminalScreen()));
+              },
             ),
             ListTile(
               title: Text('Logout'),
