@@ -90,6 +90,8 @@ class _ApiLoginState extends State<ApiLogin> {
           var prefs = await SharedPreferences.getInstance();
           Navigator.of(context).pushReplacement(
             MaterialPageRoute<void>(builder: (_) {
+              print(state.user);
+              //context.read<AuthBloc>().add(AuthLogout());
               if (state.user.role == api.UserRole.superAdmin) {
                 return Home();
               } else {
