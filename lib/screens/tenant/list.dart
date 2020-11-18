@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
+import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/tenant/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
@@ -14,7 +15,7 @@ class TenantList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var title = "Tenants";
+    var title = ShipantherLocalizations.of(context).tenantsTitle;
     List<Widget> actions = [
       FilterButton<TenantType>(
         possibleValues: TenantType.values,
