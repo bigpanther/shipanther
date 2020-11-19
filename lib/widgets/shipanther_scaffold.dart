@@ -23,39 +23,74 @@ class ShipantherScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title), actions: actions),
+      appBar: AppBar(
+        title: Text(title),
+        actions: actions,
+        centerTitle: true,
+      ),
       body: body,
       floatingActionButton: floatingActionButton,
       drawer: Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
         // space to fit everything.
+
         child: ListView(
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
-              child: Text('Shipanther'),
-              decoration: BoxDecoration(
-                color: Colors.blue,
+            // _createHeader(),
+            UserAccountsDrawerHeader(
+              accountEmail: Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  'Shipanther',
+                  style: TextStyle(fontSize: 22),
+                ),
+              ),
+              accountName: Row(
+                children: <Widget>[
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(shape: BoxShape.circle),
+                    child: CircleAvatar(
+                      // iamge of the person is to be user here
+                      child: Icon(Icons.person),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('User Name'),
+                      Text('shipanther@gmail.com'),
+                    ],
+                  ),
+                ],
               ),
             ),
-            ListTile(
-              title: Text(ShipantherLocalizations.of(context).tenantsTitle),
-              onTap: () {
-                Navigator.of(context)
-                    .pushReplacement(MaterialPageRoute(builder: (_) => Home()));
-              },
+            SizedBox(
+              height: 10,
             ),
-            ListTile(
-              title: Text(ShipantherLocalizations.of(context).terminalsTitle),
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => TerminalScreen()));
-              },
+            _createDrawerItem(
+              icon: Icons.local_shipping,
+              text: ShipantherLocalizations.of(context).tenantsTitle,
+              onTap: () => Navigator.of(context)
+                  .pushReplacement(MaterialPageRoute(builder: (_) => Home())),
             ),
-            ListTile(
-              title: Text('Logout'),
+            Divider(),
+            _createDrawerItem(
+                icon: Icons.local_shipping,
+                text: ShipantherLocalizations.of(context).terminalsTitle,
+                onTap: () => Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (_) => TerminalScreen()))),
+            Divider(),
+            _createDrawerItem(
+              icon: Icons.logout,
+              text: 'Log Out',
               onTap: () {
                 context.read<AuthBloc>().add(AuthLogout());
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -67,4 +102,54 @@ class ShipantherScaffold extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _createDrawerItem(
+    {IconData icon, String text, GestureTapCallback onTap}) {
+  return ListTile(
+    title: Row(
+      children: <Widget>[
+        Icon(icon),
+        Padding(
+          padding: EdgeInsets.only(left: 8.0),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 18),
+          ),
+        )
+      ],
+    ),
+    onTap: onTap,
+  );
+}
+
+Widget _createHeader() {
+  return DrawerHeader(
+    curve: Curves.slowMiddle,
+    margin: EdgeInsets.zero,
+    padding: EdgeInsets.zero,
+    decoration: BoxDecoration(
+      // image: DecorationImage(
+      //   fit: BoxFit.fill,
+      //   image: AssetImage('path/to/header_background.png'),
+      // ),
+      color: Colors.blue,
+    ),
+    child: Stack(
+      children: <Widget>[
+        Positioned(
+          bottom: 12.0,
+          left: 16.0,
+          child: Text(
+            "Shipanther",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 22.0,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 }
