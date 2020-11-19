@@ -29,8 +29,6 @@ class RemoteUserRepository extends UserRepository {
   @override
   Future<User> self() async {
     var client = await _apiRepository.apiClient();
-    List<User> users = await client.usersGet();
-    return users.firstWhere((u) => u.username == client.userId);
-    //return fetchUser(client.userId);
+    return client.selfGet();
   }
 }
