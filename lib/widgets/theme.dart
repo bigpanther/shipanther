@@ -11,6 +11,7 @@ class ShipantherTheme {
       primaryColor: Colors.grey[800],
       accentColor: Colors.cyan[300],
       buttonColor: Colors.grey[800],
+      // buttonColor: Color.fromRGBO(236, 77, 55, 1),
       textSelectionColor: Colors.cyan[100],
       toggleableActiveColor: Colors.cyan[300],
       floatingActionButtonTheme: FloatingActionButtonThemeData(
