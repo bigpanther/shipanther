@@ -104,7 +104,9 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
             form.save();
             widget.terminal.name = _terminalName;
             widget.terminal.type = _terminalType;
-            widget.terminal.tenantId = _tenant.id;
+            if (_tenant != null) {
+              widget.terminal.tenantId = _tenant.id;
+            }
             widget.terminal.createdBy =
                 (await context.read<UserRepository>().self()).id;
             if (widget.isEdit) {
