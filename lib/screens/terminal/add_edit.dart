@@ -37,6 +37,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
         title: Text(
           widget.isEdit ? "Edit terminal" : "Add new terminal",
         ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),

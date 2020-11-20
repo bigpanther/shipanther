@@ -32,6 +32,7 @@ class _TenantAddEditState extends State<TenantAddEdit> {
         title: Text(
           widget.isEdit ? "Edit tenant" : "Add new tenant",
         ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),

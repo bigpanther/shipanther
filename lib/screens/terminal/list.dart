@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/terminal/add_edit.dart';
@@ -17,6 +18,7 @@ class TerminalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DateFormat formatter = DateFormat('dd-MM-yyyy');
     var title = ShipantherLocalizations.of(context).terminalsTitle;
     List<Widget> actions = [
       FilterButton<TerminalType>(
@@ -27,21 +29,72 @@ class TerminalList extends StatelessWidget {
         tooltip: "Filter Terminal type",
       )
     ];
+
     Widget body = ListView.builder(
       itemCount: terminalLoadedState.terminals.length,
       itemBuilder: (BuildContext context, int index) {
         var t = terminalLoadedState.terminals.elementAt(index);
-        return ListTile(
-          onTap: () => terminalBloc.add(GetTerminal(t.id)),
-          title: Text(
-            t.name,
-            style: Theme.of(context).textTheme.headline6,
-          ),
-          subtitle: Text(
-            "Created: ${t.createdAt}",
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.subtitle1,
+        return Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Card(
+            elevation: 1,
+            shape: RoundedRectangleBorder(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(8.0),
+              ),
+            ),
+            child: ExpansionTile(
+              childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
+              // subtitle: Text(t.id),
+              // tilePadding: EdgeInsets.all(5),
+              leading: Icon((t.type == TerminalType.rail)
+                  ? Icons.train
+                  : (t.type == TerminalType.port)
+                      ? Icons.directions_boat
+                      : (t.type == TerminalType.warehouse)
+                          ? Icons.house
+                          : (t.type == TerminalType.custom)
+                              ? Icons.local_shipping
+                              : Icons.directions_boat),
+              trailing: IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => TerminalAddEdit(
+                        isEdit: true,
+                        terminalBloc: terminalBloc,
+                        terminal: t,
+                      ),
+                    ),
+                  );
+                },
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+              title: Text(
+                t.name,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              children: [
+                Text(
+                  "Created At: ${formatter.format(t.createdAt).toString()}",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Text(
+                  "Created By: ${t.createdBy}",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Text(
+                  "Last Update: ${formatter.format(t.updatedAt).toString()}",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Text(
+                  "Tenant ID: ${t.tenantId}",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+              ],
+            ),
           ),
         );
       },
