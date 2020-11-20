@@ -38,7 +38,6 @@ dependencies:
   key_value_store_web:
   shared_preferences:
   path_provider:
-  flutter_launcher_icons: ^0.8.1
   enum_to_string: ^1.0.13
   trober_sdk: 0.0.9
   firebase_messaging: ^7.0.3
@@ -46,6 +45,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.8.1
   intl_translation: ^0.17.10+1
 
 # For information on the generic Dart part of this file, see the
