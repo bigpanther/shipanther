@@ -17,7 +17,7 @@ class TenantList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
-    final String todayDate = formatter.format(DateTime.now()).toString();
+
     var title = ShipantherLocalizations.of(context).tenantsTitle;
     List<Widget> actions = [
       FilterButton<TenantType>(
