@@ -31,10 +31,6 @@ class ShipantherScaffold extends StatelessWidget {
       body: body,
       floatingActionButton: floatingActionButton,
       drawer: Drawer(
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-
         child: ListView(
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
@@ -55,7 +51,6 @@ class ShipantherScaffold extends StatelessWidget {
                     height: 50,
                     decoration: BoxDecoration(shape: BoxShape.circle),
                     child: CircleAvatar(
-                      // iamge of the person is to be user here
                       child: Icon(Icons.person),
                     ),
                   ),
@@ -66,7 +61,7 @@ class ShipantherScaffold extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text('User Name'),
-                      Text('shipanther@gmail.com'),
+                      Text('info@bigpanther.ca'),
                     ],
                   ),
                 ],
@@ -76,7 +71,7 @@ class ShipantherScaffold extends StatelessWidget {
               height: 10,
             ),
             _createDrawerItem(
-              icon: Icons.local_shipping,
+              icon: Icons.business,
               text: ShipantherLocalizations.of(context).tenantsTitle,
               onTap: () => Navigator.of(context)
                   .pushReplacement(MaterialPageRoute(builder: (_) => Home())),

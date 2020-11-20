@@ -32,19 +32,6 @@ class TenantList extends StatelessWidget {
       itemCount: tenantLoadedState.tenants.length,
       itemBuilder: (BuildContext context, int index) {
         var t = tenantLoadedState.tenants.elementAt(index);
-        // return ListTile(
-        //   onTap: () => tenantBloc.add(GetTenant(t.id)),
-        //   title: Text(
-        //     t.name,
-        //     style: Theme.of(context).textTheme.headline6,
-        //   ),
-        //   subtitle: Text(
-        //     "Created: ${t.createdAt}",
-        //     maxLines: 1,
-        //     overflow: TextOverflow.ellipsis,
-        //     style: Theme.of(context).textTheme.subtitle1,
-        //   ),
-        // );
         return Padding(
           padding: const EdgeInsets.all(3.0),
           child: Card(
@@ -58,10 +45,24 @@ class TenantList extends StatelessWidget {
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
               // subtitle: Text(t.id),
               // tilePadding: EdgeInsets.all(5),
-              leading: Icon(Icons.local_shipping),
+              leading: Icon((t.type == TenantType.production)
+                  ? Icons.money
+                  : Icons.home_work),
               trailing: IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: () => tenantBloc.add(GetTenant(t.id))),
+                icon: Icon(Icons.edit),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => TenantAddEdit(
+                        isEdit: true,
+                        tenantBloc: tenantBloc,
+                        tenant: t,
+                      ),
+                    ),
+                  );
+                },
+              ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
               title: Text(
                 t.name,
