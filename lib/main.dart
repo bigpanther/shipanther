@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
+import 'package:shipanther/bloc/container/container_bloc.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
@@ -16,6 +17,8 @@ import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/data/auth/firebase_auth_repository.dart';
 import 'package:shipanther/data/customer/customer_repository.dart';
 import 'package:shipanther/data/customer/remote_customer_repository.dart';
+import 'package:shipanther/data/container/container_repository.dart';
+import 'package:shipanther/data/container/remote_container_repository.dart';
 import 'package:shipanther/data/tenant/remote_tenant_repository.dart';
 import 'package:shipanther/data/tenant/tenant_repository.dart';
 import 'package:shipanther/data/terminal/remote_terminal_repository.dart';
@@ -72,6 +75,9 @@ class ShipantherApp extends StatelessWidget {
             RepositoryProvider<CustomerRepository>(
                 create: (context) =>
                     RemoteCustomerRepository(context.read<ApiRepository>())),
+            RepositoryProvider<ContainerRepository>(
+                create: (context) =>
+                    RemoteContainerRepository(context.read<ApiRepository>())),
           ],
           child: MultiBlocProvider(
             providers: [
@@ -90,6 +96,9 @@ class ShipantherApp extends StatelessWidget {
               BlocProvider(
                   create: (context) =>
                       CustomerBloc(context.read<CustomerRepository>())),
+              BlocProvider(
+                  create: (context) =>
+                      ContainerBloc(context.read<ContainerRepository>())),
             ],
             child: MaterialApp(
               title: 'Shipanther',
