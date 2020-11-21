@@ -6,8 +6,8 @@ abstract class ContainerEvent {
 }
 
 class GetContainer extends ContainerEvent {
-  final User user;
-  const GetContainer(this.user);
+  final String id;
+  const GetContainer(this.id);
 }
 
 class UpdateContainer extends ContainerEvent {
@@ -30,4 +30,3 @@ class GetContainers extends ContainerEvent {
   final User user;
   const GetContainers(this.user);
 }
-
