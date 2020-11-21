@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0" viewBox="95.7 95.7 233.8 233.8" zoomAndPan="magnify" style="fill: rgb(0, 0, 0);" role="img" aria-label="Shipanther Logo">
+  <g id="crossHair" stroke="#0896c9" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="7" style="fill: rgb(163, 217, 236);">
+    <path d="M212.601 99.214L212.601 325.985" style="fill: inherit;"></path>
+    <path d="M325.985 212.601L99.214 212.601" style="fill: inherit;"></path>
+    <path d="M286.677 298.444L138.524 126.759" style="fill: inherit;"></path>
+    <path d="M138.524 298.444L286.677 126.759" style="fill: inherit;"></path>
+  </g>
+  <g id="outerRing">
+    <path d="M212.601,127.911c-46.773,0-84.689,37.916-84.689,84.689c0,46.773,37.916,84.689,84.689,84.689 c46.773,0,84.689-37.916,84.689-84.689C297.29,165.827,259.374,127.911,212.601,127.911z M212.601,268.233 c-30.727,0-55.633-24.908-55.633-55.633c0-30.727,24.906-55.633,55.633-55.633c30.725,0,55.633,24.906,55.633,55.633 C268.233,243.325,243.325,268.233,212.601,268.233z" stroke="#0896c9" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="7" style="fill: rgb(163, 217, 236);"></path>
+  </g>
+
+  <g id="whiteRing">
+    <path d="M212.601,138.649c-40.842,0-73.951,33.109-73.951,73.951s33.109,73.951,73.951,73.951 s73.951-33.109,73.951-73.951S253.442,138.649,212.601,138.649z M212.601,271.415c-32.482,0-58.814-26.332-58.814-58.814 s26.332-58.814,58.814-58.814c32.482,0,58.814,26.332,58.814,58.814S245.083,271.415,212.601,271.415z" style="fill: rgb(255, 255, 255);"></path>
+  </g>
+  <g>
+    <linearGradient gradientTransform="rotate(90)" id="innerCircleGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" style="stop-color: rgb(186, 222, 247);"></stop>
+      <stop offset="63.5%" style="stop-color: rgb(92, 225, 230);"></stop>
+      <stop offset="99.2%" style="stop-color: rgb(56, 182, 255);"></stop>
+    </linearGradient>
+
+    <circle cx="212.601" cy="212.601" r="52.869" fill="url(#innerCircleGradient)"></circle>
+  </g>
+  <g transform="translate(234 202) scale(-0.3 0.3) rotate(20)">
+    <linearGradient gradientTransform="matrix(0 -1 -1 0 800 1)" id="pawGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" style="stop-color: rgb(255, 22, 22);"></stop>
+      <stop offset="100%" style="stop-color: rgb(184, 43, 43);"></stop>
+    </linearGradient>
+    <path d="M95.71,29.21c46-22.82,62.31-15.61,62.82,8.89s-23.75,94-74.61,96S-24.53,47.98,11,13.51 C54.53-28.73,68.25,42.84,95.71,29.21z" fill="url(#pawGradient)"></path>
+  </g>
+
+  <g transform="translate(165 208) scale(0.14 -0.14) rotate(-80) ">
+    <linearGradient gradientTransform="matrix(0 -1 -1 0 800 1)" id="firstFinger" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" style="stop-color: rgb(184, 43, 43);"></stop>
+      <stop offset="64.5%" style="stop-color: rgb(255, 87, 87);"></stop>
+      <stop offset="100%" style="stop-color: rgb(244, 122, 47);"></stop>
+    </linearGradient>
+    <path d="M128.93,85.9c0-24.5-42.26-83.85-93.13-85.85s-42.74,62.41-5.55,98.46 C111.12,176.91,128.94,146.18,128.93,85.9z" fill="url(#firstFinger)"></path>
+  </g>
+  <g transform="translate(182 184) scale(0.175 -0.170) rotate(-100) ">
+    <linearGradient gradientTransform="matrix(0 -1 -1 0 800 1)" id="secondFinger" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" style="stop-color: rgb(184, 43, 43);"></stop>
+      <stop offset="64.5%" style="stop-color: rgb(255, 87, 87);"></stop>
+      <stop offset="100%" style="stop-color: rgb(244, 122, 47);"></stop>
+    </linearGradient>
+    <path d="M128.93,85.9c0-24.5-42.26-83.85-93.13-85.85s-42.74,62.41-5.55,98.46 C111.12,176.91,128.94,146.18,128.93,85.9z" fill="url(#secondFinger)"></path>
+  </g>
+  <g transform="translate(212 172) scale(0.170) rotate(30) ">
+    <linearGradient gradientTransform="matrix(0 -1 -1 0 800 1)" id="thirdFinger" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" style="stop-color: rgb(184, 43, 43);"></stop>
+      <stop offset="64.5%" style="stop-color: rgb(255, 87, 87);"></stop>
+      <stop offset="100%" style="stop-color: rgb(244, 122, 47);"></stop>
+    </linearGradient>
+    <path d="M128.93,85.9c0-24.5-42.26-83.85-93.13-85.85s-42.74,62.41-5.55,98.46 C111.12,176.91,128.94,146.18,128.93,85.9z" fill="url(#thirdFinger)"></path>
+  </g>
+  <g transform="translate(242 178) scale(0.13) rotate(55)">
+    <linearGradient gradientTransform="matrix(0 -1 -1 0 800 1)" id="fourthFinger" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" style="stop-color: rgb(184, 43, 43);"></stop>
+      <stop offset="64.5%" style="stop-color: rgb(255, 87, 87);"></stop>
+      <stop offset="100%" style="stop-color: rgb(244, 122, 47);"></stop>
+    </linearGradient>
+    <path d="M128.93,85.9c0-24.5-42.26-83.85-93.13-85.85s-42.74,62.41-5.55,98.46 C111.12,176.91,128.94,146.18,128.93,85.9z" fill="url(#fourthFinger)"></path>
+  </g>
+</svg>
