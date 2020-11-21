@@ -11,8 +11,13 @@ import 'package:trober_sdk/api.dart';
 class TenantList extends StatelessWidget {
   final TenantBloc tenantBloc;
   final TenantsLoaded tenantLoadedState;
-  const TenantList({Key key, @required this.tenantLoadedState, this.tenantBloc})
-      : super(key: key);
+  final User user;
+  const TenantList(
+    this.user, {
+    Key key,
+    @required this.tenantLoadedState,
+    this.tenantBloc,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +110,7 @@ class TenantList extends StatelessWidget {
       },
     );
 
-    return ShipantherScaffold(
+    return ShipantherScaffold(user,
         title: title,
         actions: actions,
         body: body,

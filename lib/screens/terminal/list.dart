@@ -12,7 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class TerminalList extends StatelessWidget {
   final TerminalBloc terminalBloc;
   final TerminalsLoaded terminalLoadedState;
-  const TerminalList(
+  final User user;
+  const TerminalList(this.user,
       {Key key, @required this.terminalLoadedState, this.terminalBloc})
       : super(key: key);
 
@@ -116,7 +117,7 @@ class TerminalList extends StatelessWidget {
       },
     );
 
-    return ShipantherScaffold(
+    return ShipantherScaffold(user,
         title: title,
         actions: actions,
         body: body,

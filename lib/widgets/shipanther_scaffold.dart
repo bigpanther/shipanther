@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/screens/home.dart';
+import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:shipanther/screens/terminal/terminalScreen.dart';
+import 'package:trober_sdk/api.dart' as api;
 
 class ShipantherScaffold extends StatelessWidget {
-  const ShipantherScaffold(
+  const ShipantherScaffold(this.user,
       {Key key,
       @required this.title,
       @required this.actions,
@@ -19,6 +20,7 @@ class ShipantherScaffold extends StatelessWidget {
   final List<Widget> actions;
   final Widget body;
   final Widget floatingActionButton;
+  final api.User user;
 
   @override
   Widget build(BuildContext context) {
@@ -35,68 +37,136 @@ class ShipantherScaffold extends StatelessWidget {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-            // _createHeader(),
-            UserAccountsDrawerHeader(
-              accountEmail: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  'Shipanther',
-                  style: TextStyle(fontSize: 22),
-                ),
-              ),
-              accountName: Row(
-                children: <Widget>[
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(shape: BoxShape.circle),
-                    child: CircleAvatar(
-                      child: Icon(Icons.person),
+                // _createHeader(),
+                UserAccountsDrawerHeader(
+                  accountEmail: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      'Shipanther',
+                      style: TextStyle(fontSize: 22),
                     ),
                   ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  accountName: Row(
                     children: <Widget>[
-                      Text('User Name'),
-                      Text('info@bigpanther.ca'),
+                      Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(shape: BoxShape.circle),
+                        child: CircleAvatar(
+                          child: Icon(Icons.person),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('User Name'),
+                          Text(user.name),
+                        ],
+                      ),
                     ],
                   ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            _createDrawerItem(
-              icon: Icons.business,
-              text: ShipantherLocalizations.of(context).tenantsTitle,
-              onTap: () => Navigator.of(context)
-                  .pushReplacement(MaterialPageRoute(builder: (_) => Home())),
-            ),
-            Divider(),
-            _createDrawerItem(
-                icon: Icons.local_shipping,
-                text: ShipantherLocalizations.of(context).terminalsTitle,
-                onTap: () => Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (_) => TerminalScreen()))),
-            Divider(),
-            _createDrawerItem(
-              icon: Icons.logout,
-              text: 'Log Out',
-              onTap: () {
-                context.read<AuthBloc>().add(AuthLogout());
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (_) => SignInOrRegistrationPage()));
-              },
-            ),
-          ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+              ] +
+              drawerItemsFor(context, user),
         ),
       ),
     );
   }
+}
+
+List<Widget> drawerItemsFor(BuildContext context, api.User user) {
+  List<Widget> widgets = [];
+
+  if (user.role == api.UserRole.superAdmin) {
+    widgets.add(
+      _createDrawerItem(
+        icon: Icons.business,
+        text: ShipantherLocalizations.of(context).tenantsTitle,
+        onTap: () => Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => SuperAdminHome(user),
+          ),
+        ),
+      ),
+    );
+    widgets.add(Divider());
+  }
+
+  if (user.role == api.UserRole.superAdmin || user.role == api.UserRole.admin) {
+    widgets.add(
+      _createDrawerItem(
+        icon: Icons.verified_user,
+        text: ShipantherLocalizations.of(context).usersTitle,
+        onTap: () => print("Users"),
+      ),
+    );
+    widgets.add(Divider());
+  }
+
+  if (user.role != api.UserRole.driver) {
+    widgets.add(
+      _createDrawerItem(
+        icon: Icons.local_shipping,
+        text: ShipantherLocalizations.of(context).terminalsTitle,
+        onTap: () => Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => TerminalScreen(user),
+          ),
+        ),
+      ),
+    );
+    widgets.add(Divider());
+    widgets.add(
+      _createDrawerItem(
+        icon: Icons.verified_user,
+        text: ShipantherLocalizations.of(context).ordersTitle,
+        onTap: () => print("Orders"),
+      ),
+    );
+    widgets.add(Divider());
+    widgets.add(
+      _createDrawerItem(
+        icon: Icons.verified_user,
+        text: ShipantherLocalizations.of(context).carriersTitle,
+        onTap: () => print("Carriers"),
+      ),
+    );
+    widgets.add(Divider());
+    widgets.add(
+      _createDrawerItem(
+        icon: Icons.connect_without_contact,
+        text: ShipantherLocalizations.of(context).containersTitle,
+        onTap: () => print("Containers"),
+      ),
+    );
+    widgets.add(Divider());
+  }
+  widgets.add(
+    _createDrawerItem(
+      icon: Icons.settings,
+      text: ShipantherLocalizations.of(context).settings,
+      onTap: () => print("Settings"),
+    ),
+  );
+  widgets.add(Divider());
+  widgets.add(
+    _createDrawerItem(
+      icon: Icons.logout,
+      text: ShipantherLocalizations.of(context).logout,
+      onTap: () {
+        context.read<AuthBloc>().add(AuthLogout());
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => SignInOrRegistrationPage()));
+      },
+    ),
+  );
+  return widgets;
 }
 
 Widget _createDrawerItem(
