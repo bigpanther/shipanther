@@ -87,4 +87,6 @@ flutter:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/shipanther_icon.png"
+  image_path: "assets/images/shipanther_logo.png"
+  adaptive_icon_background: "#0896c9"
+  adaptive_icon_foreground: assets/images/shipanther_logo.png

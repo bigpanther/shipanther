@@ -1,10 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" version="1.0" viewBox="95.7 95.7 233.8 233.8" zoomAndPan="magnify" style="fill: rgb(0, 0, 0);" role="img" aria-label="Shipanther Logo">
-  <g id="crossHair" stroke="#0896c9" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="7" style="fill: rgb(163, 217, 236);">
-    <path d="M212.601 99.214L212.601 325.985" style="fill: inherit;"></path>
-    <path d="M325.985 212.601L99.214 212.601" style="fill: inherit;"></path>
-    <path d="M286.677 298.444L138.524 126.759" style="fill: inherit;"></path>
-    <path d="M138.524 298.444L286.677 126.759" style="fill: inherit;"></path>
-  </g>
   <g id="outerRing">
     <path d="M212.601,127.911c-46.773,0-84.689,37.916-84.689,84.689c0,46.773,37.916,84.689,84.689,84.689 c46.773,0,84.689-37.916,84.689-84.689C297.29,165.827,259.374,127.911,212.601,127.911z M212.601,268.233 c-30.727,0-55.633-24.908-55.633-55.633c0-30.727,24.906-55.633,55.633-55.633c30.725,0,55.633,24.906,55.633,55.633 C268.233,243.325,243.325,268.233,212.601,268.233z" stroke="#0896c9" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="7" style="fill: rgb(163, 217, 236);"></path>
   </g>
