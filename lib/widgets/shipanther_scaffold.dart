@@ -82,7 +82,14 @@ class ShipantherScaffold extends StatelessWidget {
 
 List<Widget> drawerItemsFor(BuildContext context, api.User user) {
   List<Widget> widgets = [];
-
+  widgets.add(
+    _createDrawerItem(
+      icon: Icons.home,
+      text: ShipantherLocalizations.of(context).home,
+      onTap: () => print("Home"),
+    ),
+  );
+  widgets.add(Divider());
   if (user.role == api.UserRole.superAdmin) {
     widgets.add(
       _createDrawerItem(
