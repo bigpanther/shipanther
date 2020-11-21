@@ -49,11 +49,9 @@ class RemoteContainerRepository extends ContainerRepository {
     var containers = await fetchContainers(null);
     if (user.role == UserRole.admin) {
       return containers.where((e) => e.tenantId == user.id).toList();
-    }
-    if (user.role == UserRole.driver) {
+    } else {
       return containers.where((e) => e.driverId == user.id).toList();
     }
-    return null;
   }
 
   // @override
