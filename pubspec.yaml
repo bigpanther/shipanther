@@ -33,11 +33,6 @@ dependencies:
   smart_select: ^4.3.2
   intl: ^0.16.1
   flutter_typeahead: ^1.8.8
-  rxdart: ^0.23.1
-  key_value_store_flutter:
-  key_value_store_web:
-  shared_preferences:
-  path_provider:
   enum_to_string: ^1.0.13
   trober_sdk: 0.0.9
   firebase_messaging: ^7.0.3
