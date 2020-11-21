@@ -1,30 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
-
 import 'package:shipanther/screens/terminal/details.dart';
 import 'package:shipanther/screens/terminal/list.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 
-class TerminalScreen extends StatefulWidget {
-  final api.User user;
-
-  const TerminalScreen(this.user, {Key key}) : super(key: key);
+class BackOfficeHome extends StatefulWidget {
+  final User user;
+  const BackOfficeHome(this.user, {Key key}) : super(key: key);
 
   @override
-  _TerminalScreenState createState() => _TerminalScreenState();
+  _BackOfficeHomeState createState() => _BackOfficeHomeState();
 }
 
-class _TerminalScreenState extends State<TerminalScreen> {
+class _BackOfficeHomeState extends State<BackOfficeHome> {
   TerminalBloc bloc;
   @override
   void initState() {
     super.initState();
     bloc = context.read<TerminalBloc>();
-    bloc.add(GetTerminals(null));
+    bloc.add(GetTerminal(widget.user.tenantId));
   }
 
   @override
@@ -36,7 +32,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
             content: Text(state.message),
           ));
           // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => TerminalScreen()));
+          //     context, MaterialPageRoute(builder: (context) => Home()));
         }
       },
       builder: (context, state) {
@@ -50,7 +46,8 @@ class _TerminalScreenState extends State<TerminalScreen> {
         }
         return Scaffold(
           appBar: AppBar(
-            title: Text(ShipantherLocalizations.of(context).terminalsTitle),
+            title: Text("Terminals"),
+            centerTitle: true,
           ),
           body: CenteredLoading(),
         );

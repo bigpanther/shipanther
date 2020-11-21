@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_signin_button/button_builder.dart';
-import 'package:key_value_store_flutter/key_value_store_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
-import 'package:shipanther/blocs/tasks_interactor.dart';
-import 'package:shipanther/screens/driver_home_page.dart';
-import 'package:shipanther/screens/home.dart';
-import 'package:shipanther/tasks_repository_local_storage/key_value_storage.dart';
-import 'package:shipanther/tasks_repository_local_storage/reactive_repository.dart';
-import 'package:shipanther/tasks_repository_local_storage/repository.dart';
+import 'package:shipanther/screens/none_home.dart';
+import 'package:shipanther/screens/super_admin_home.dart';
+import 'package:shipanther/screens/terminal/terminalScreen.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:trober_sdk/api.dart' as api;
 
@@ -87,26 +82,19 @@ class _ApiLoginState extends State<ApiLogin> {
           ));
         }
         if (state is UserLoggedIn) {
-          var prefs = await SharedPreferences.getInstance();
           Navigator.of(context).pushReplacement(
             MaterialPageRoute<void>(builder: (_) {
-              print(state.user);
-              //context.read<AuthBloc>().add(AuthLogout());
               if (state.user.role == api.UserRole.superAdmin) {
-                return Home();
-              } else {
-                return DriverHomeScreen(
-                  tasksInteractor: TasksInteractor(
-                    ReactiveLocalStorageRepository(
-                      repository: LocalStorageRepository(
-                        localStorage: KeyValueStorage(
-                          'trober_tasks',
-                          FlutterKeyValueStore(prefs),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
+                return SuperAdminHome(state.user);
+              }
+              if (state.user.role == api.UserRole.backOffice) {
+                return TerminalScreen(state.user);
+              }
+              if (state.user.role == api.UserRole.driver) {
+                return TerminalScreen(state.user);
+              }
+              if (state.user.role == api.UserRole.none) {
+                return NoneHome(state.user);
               }
             }),
           );

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
-import 'package:shipanther/screens/tenant/detail.dart';
+import 'package:shipanther/screens/tenant/home.dart';
 import 'package:shipanther/screens/tenant/list.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
+import 'package:trober_sdk/api.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key key}) : super(key: key);
+class SuperAdminHome extends StatefulWidget {
+  final User user;
+  const SuperAdminHome(this.user, {Key key}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _SuperAdminHomeState createState() => _SuperAdminHomeState();
 }
 
-class _HomeState extends State<Home> {
+class _SuperAdminHomeState extends State<SuperAdminHome> {
   TenantBloc bloc;
   @override
   void initState() {
@@ -36,7 +38,8 @@ class _HomeState extends State<Home> {
       builder: (context, state) {
         print(state);
         if (state is TenantsLoaded) {
-          return TenantList(tenantBloc: bloc, tenantLoadedState: state);
+          return TenantList(widget.user,
+              tenantBloc: bloc, tenantLoadedState: state);
         }
         if (state is TenantLoaded) {
           return TenantDetail(tenantBloc: bloc, state: state);

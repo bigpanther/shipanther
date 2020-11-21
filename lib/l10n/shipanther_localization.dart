@@ -32,6 +32,70 @@ class ShipantherLocalizations {
         desc: 'Title for the Terminals page',
         locale: locale.toString(),
       );
+  String get tenantLessUserMessage => Intl.message(
+        'Thanks for signing up. We will review your registration. We are in a limited beta at the moment. Please check back later.',
+        name: 'tenantLessUserMessage',
+        desc: 'Message to display when a new user signs up',
+        locale: locale.toString(),
+      );
+  String get home => Intl.message(
+        'Home',
+        name: 'home',
+        desc: 'Home',
+        locale: locale.toString(),
+      );
+  String get logout => Intl.message(
+        'Logout',
+        name: 'logout',
+        desc: 'Logout',
+        locale: locale.toString(),
+      );
+  String get signIn => Intl.message(
+        'Sign In',
+        name: 'signIn',
+        desc: 'Sign In',
+        locale: locale.toString(),
+      );
+  String get register => Intl.message(
+        'Register',
+        name: 'register',
+        desc: 'Register',
+        locale: locale.toString(),
+      );
+  String get settings => Intl.message(
+        'Settings',
+        name: 'settings',
+        desc: 'Settings',
+        locale: locale.toString(),
+      );
+
+  String get ordersTitle => Intl.message(
+        'Orders',
+        name: 'ordersTitle',
+        desc: 'Orders',
+        locale: locale.toString(),
+      );
+
+  String get usersTitle => Intl.message(
+        'Users',
+        name: 'usersTitle',
+        desc: 'Users',
+        locale: locale.toString(),
+      );
+
+  String get carriersTitle => Intl.message(
+        'Carriers',
+        name: 'carriersTitle',
+        desc: 'Carriers',
+        locale: locale.toString(),
+      );
+
+  String get containersTitle => Intl.message(
+        'Containers',
+        name: 'containersTitle',
+        desc: 'Containers',
+        locale: locale.toString(),
+      );
 }
 
 class ShipantherLocalizationsDelegate
