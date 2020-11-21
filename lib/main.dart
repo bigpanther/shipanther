@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
+import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
@@ -13,6 +14,8 @@ import 'package:shipanther/data/api/api_repository.dart';
 import 'package:shipanther/data/api/remote_api_repository.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/data/auth/firebase_auth_repository.dart';
+import 'package:shipanther/data/customer/customer_repository.dart';
+import 'package:shipanther/data/customer/remote_customer_repository.dart';
 import 'package:shipanther/data/tenant/remote_tenant_repository.dart';
 import 'package:shipanther/data/tenant/tenant_repository.dart';
 import 'package:shipanther/data/terminal/remote_terminal_repository.dart';
@@ -66,6 +69,9 @@ class ShipantherApp extends StatelessWidget {
             RepositoryProvider<TerminalRepository>(
                 create: (context) =>
                     RemoteTerminalRepository(context.read<ApiRepository>())),
+            RepositoryProvider<CustomerRepository>(
+                create: (context) =>
+                    RemoteCustomerRepository(context.read<ApiRepository>())),
           ],
           child: MultiBlocProvider(
             providers: [
@@ -81,6 +87,9 @@ class ShipantherApp extends StatelessWidget {
               BlocProvider(
                   create: (context) =>
                       TerminalBloc(context.read<TerminalRepository>())),
+              BlocProvider(
+                  create: (context) =>
+                      CustomerBloc(context.read<CustomerRepository>())),
             ],
             child: MaterialApp(
               title: 'Shipanther',
