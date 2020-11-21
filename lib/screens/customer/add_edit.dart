@@ -51,14 +51,11 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
               children: [
                     TextFormField(
                       initialValue: widget.customer.name ?? '',
-                      //key: ArchSampleKeys.containerNameField,
                       autofocus: widget.isEdit ? false : true,
                       style: Theme.of(context).textTheme.headline5,
-                      decoration: InputDecoration(hintText: 'Customer Name'
-                          //ArchSampleLocalizations.of(context).containerNameHint,
-                          ),
+                      decoration: InputDecoration(hintText: 'Customer Name'),
                       validator: (val) => val.trim().isEmpty
-                          ? "Customer name should not be empty" //ArchSampleLocalizations.of(context).emptyTenantError
+                          ? "Customer name should not be empty"
                           : null,
                       onSaved: (value) => _customerName = value,
                     ),
@@ -72,12 +69,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        // key: isEditing
-        //     ? ArchSampleKeys.saveTenantFab
-        //     : ArchSampleKeys.saveNewTenant,
-        tooltip: widget.isEdit
-            ? "Edit" //ArchSampleLocalizations.of(context).saveChanges
-            : "Create", //ArchSampleLocalizations.of(context).addTenant,
+        tooltip: widget.isEdit ? "Edit" : "Create",
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () async {
           final form = formKey.currentState;
