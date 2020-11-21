@@ -96,6 +96,12 @@ class ShipantherLocalizations {
         desc: 'Containers',
         locale: locale.toString(),
       );
+  String get customersTitle => Intl.message(
+        'Customers',
+        name: 'customersTitle',
+        desc: 'Customers',
+        locale: locale.toString(),
+      );
 }
 
 class ShipantherLocalizationsDelegate

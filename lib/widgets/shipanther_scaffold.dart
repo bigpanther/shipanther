@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/screens/customer/home.dart';
 import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:shipanther/screens/terminal/terminalScreen.dart';
@@ -117,6 +118,18 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
   }
 
   if (user.role != api.UserRole.driver) {
+    widgets.add(
+      _createDrawerItem(
+        icon: Icons.people,
+        text: ShipantherLocalizations.of(context).customersTitle,
+        onTap: () => Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => CustomerHome(user),
+          ),
+        ),
+      ),
+    );
+    widgets.add(Divider());
     widgets.add(
       _createDrawerItem(
         icon: Icons.local_shipping,
