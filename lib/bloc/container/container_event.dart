@@ -26,12 +26,8 @@ class DeleteContainer extends ContainerEvent {
   const DeleteContainer(this.id);
 }
 
-class GetContainersForDriver extends ContainerEvent {
-  final String driverId;
-  const GetContainersForDriver(this.driverId);
+class GetContainers extends ContainerEvent {
+  final User user;
+  const GetContainers(this.user);
 }
 
-class GetContainersForTenant extends ContainerEvent {
-  final String tenantId;
-  const GetContainersForTenant(this.tenantId);
-}

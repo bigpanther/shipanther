@@ -21,15 +21,14 @@ class ContainerBloc extends Bloc<ContainerEvent, ContainerState> {
       yield ContainerLoaded(
           await _containerRepository.fetchContainer(event.id));
     }
-    if (event is GetContainersForDriver) {
-      var containers =
-          await _containerRepository.fetchContainersForDriver(event.driverId);
-      yield ContainersLoadedForDriver(containers, event.driverId);
+   
     }
-    if (event is GetContainersForTenant) {
+    if (event is GetContainers) {
       var containers =
-          await _containerRepository.fetchContainersForDriver(event.tenantId);
-      yield ContainersLoadedForTenant(containers, event.tenantId);
+          await _containerRepository.fetchContainersForDriver(event.user);
+      event.user.role==UserRole.admin?
+      yield ContainersLoadedForTenant(containers, event.user.id):
+      yield ContainersLoadedForDriver(containers, event.user.id);
     }
     if (event is UpdateContainer) {
       await _containerRepository.updateContainer(event.id, event.container);
