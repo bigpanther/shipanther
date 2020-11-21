@@ -13,11 +13,11 @@ class RemoteContainerRepository extends ContainerRepository {
     return await client.containersIdGet(id);
   }
 
-  @override
-  Future<List<Container>> fetchContainers() async {
-    var client = await _apiRepository.apiClient();
-    return await client.containersGet();
-  }
+  // @override
+  // Future<List<Container>> fetchContainers() async {
+  //   var client = await _apiRepository.apiClient();
+  //   return await client.containersGet();
+  // }
 
   @override
   Future<Container> createContainer(Container container) async {
@@ -31,18 +31,29 @@ class RemoteContainerRepository extends ContainerRepository {
     return await client.containersIdPatch(id, container: container);
   }
 
+  // @override
+  // Future<List<Container>> fetchContainersForDriver(String driverId) async {
+  //   var containers = await fetchContainers();
+
+  //   return containers.where((e) => e.driverId == driverId).toList();
+  // }
+
+  // @override
+  // Future<List<Container>> fetchContainersForTenant(String tenantId) async {
+  //   var containers = await fetchContainers();
+
+  //   return containers.where((e) => e.tenantId == tenantId).toList();
+  // }
   @override
-  Future<List<Container>> fetchContainersForDriver(String driverId) async {
-    var containers = await fetchContainers();
-
-    return containers.where((e) => e.driverId == driverId).toList();
-  }
-
-  @override
-  Future<List<Container>> fetchContainersForTenant(String tenantId) async {
-    var containers = await fetchContainers();
-
-    return containers.where((e) => e.tenantId == tenantId).toList();
+  Future<List<Container>> fetchContainers(User user) async {
+    var containers = await fetchContainers(null);
+    if (user.role == UserRole.admin) {
+      return containers.where((e) => e.tenantId == user.id).toList();
+    }
+    if (user.role == UserRole.driver) {
+      return containers.where((e) => e.driverId == user.id).toList();
+    }
+    return null;
   }
 
   // @override

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_signin_button/button_builder.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
+import 'package:shipanther/screens/container/container_screen.dart';
 import 'package:shipanther/screens/none_home.dart';
 import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/screens/terminal/terminalScreen.dart';
@@ -91,7 +92,7 @@ class _ApiLoginState extends State<ApiLogin> {
                 return TerminalScreen(state.user);
               }
               if (state.user.role == api.UserRole.driver) {
-                return TerminalScreen(state.user);
+                return ContainerScreen(state.user);
               }
               if (state.user.role == api.UserRole.none) {
                 return NoneHome(state.user);
