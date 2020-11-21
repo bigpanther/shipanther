@@ -28,10 +28,14 @@ class _ContainerScreenState extends State<ContainerScreen> {
     return BlocConsumer<ContainerBloc, ContainerState>(
       builder: (context, state) {
         if (state is ContainerLoaded) {
-          print(widget.user);
+          return Container(
+            child: Text('helll'),
+          );
         }
         if (state is ContainersLoaded) {
-          print(widget.user);
+          return Container(
+            child: Text('helll'),
+          );
         }
         return Scaffold(
           appBar: AppBar(
