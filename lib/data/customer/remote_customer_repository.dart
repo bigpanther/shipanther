@@ -27,6 +27,6 @@ class RemoteCustomerRepository extends CustomerRepository {
   @override
   Future<Customer> updateCustomer(String id, Customer customer) async {
     var client = await _apiRepository.apiClient();
-    return await client.customersIdPatch(id, customer: customer);
+    return await client.customersIdPut(id, customer: customer);
   }
 }

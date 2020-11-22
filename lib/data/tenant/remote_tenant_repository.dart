@@ -27,7 +27,7 @@ class RemoteTenantRepository extends TenantRepository {
   @override
   Future<Tenant> updateTenant(String id, Tenant tenant) async {
     var client = await _apiRepository.apiClient();
-    return await client.tenantsIdPatch(id, tenant: tenant);
+    return await client.tenantsIdPut(id, tenant: tenant);
   }
 
   @override
