@@ -64,8 +64,8 @@ class ShipantherScaffold extends StatelessWidget {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text('User Name'),
                           Text(user.name),
+                          Text(user.email),
                         ],
                       ),
                     ],
