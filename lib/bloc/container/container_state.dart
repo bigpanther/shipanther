@@ -14,21 +14,9 @@ class ContainerLoaded extends ContainerState {
   const ContainerLoaded(this.container);
 }
 
-// class ContainersLoadedForDriver extends ContainerState {
-//   final List<Container> containers;
-//   final String driverId;
-//   const ContainersLoadedForDriver(this.containers, this.driverId);
-// }
-
-// class ContainersLoadedForTenant extends ContainerState {
-//   final List<Container> containers;
-//   final String tenantId;
-//   const ContainersLoadedForTenant(this.containers, this.tenantId);
-// }
 class ContainersLoaded extends ContainerState {
   final List<Container> containers;
-  final User user;
-  const ContainersLoaded(this.containers, this.user);
+  const ContainersLoaded(this.containers);
 }
 
 class ContainerFailure extends ContainerState {

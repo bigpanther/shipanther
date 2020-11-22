@@ -20,7 +20,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
   void initState() {
     super.initState();
     bloc = context.read<ContainerBloc>();
-    bloc.add(GetContainers(null));
+    bloc.add(GetContainers(widget.user));
   }
 
   @override
@@ -29,12 +29,12 @@ class _ContainerScreenState extends State<ContainerScreen> {
       builder: (context, state) {
         if (state is ContainerLoaded) {
           return Container(
-            child: Text('helll'),
+            child: Text('container loaded'),
           );
         }
         if (state is ContainersLoaded) {
           return Container(
-            child: Text('helll'),
+            child: Text('Should show list here'),
           );
         }
         return ShipantherScaffold(
