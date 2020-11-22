@@ -22,21 +22,24 @@ class ContainerBloc extends Bloc<ContainerEvent, ContainerState> {
           await _containerRepository.fetchContainer(event.id));
     }
     if (event is GetContainers) {
-      var containers = await _containerRepository.fetchContainers(null);
-      if (event.user.role == UserRole.admin)
-        yield ContainersLoaded(containers, event.user);
-      if (event.user.role == UserRole.driver)
-        yield ContainersLoaded(containers, event.user);
+      var containers = await _containerRepository.fetchContainers();
+      var user = event.user;
+      if (user.role == UserRole.driver) {
+        containers = containers.where((e) => e.driverId == user.id).toList();
+      } else {
+        containers = containers.where((e) => e.tenantId == user.id).toList();
+      }
+      yield ContainersLoaded(containers);
     }
     if (event is UpdateContainer) {
       await _containerRepository.updateContainer(event.id, event.container);
-      var containers = await _containerRepository.fetchContainers(null);
-      yield ContainersLoaded(containers, null);
+      var containers = await _containerRepository.fetchContainers();
+      yield ContainersLoaded(containers);
     }
     if (event is CreateContainer) {
       await _containerRepository.createContainer(event.container);
-      var containers = await _containerRepository.fetchContainers(null);
-      yield ContainersLoaded(containers, null);
+      var containers = await _containerRepository.fetchContainers();
+      yield ContainersLoaded(containers);
     }
     if (event is DeleteContainer) {
       yield ContainerFailure("Container deletion is not supported");
