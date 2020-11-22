@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 class NoneHome extends StatelessWidget {
@@ -8,7 +9,14 @@ class NoneHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Text(ShipantherLocalizations.of(context).tenantLessUserMessage));
+    return ShipantherScaffold(
+      user,
+      title: ShipantherLocalizations.of(context).tenantsTitle,
+      actions: [],
+      body: Container(
+          child:
+              Text(ShipantherLocalizations.of(context).tenantLessUserMessage)),
+      floatingActionButton: null,
+    );
   }
 }
