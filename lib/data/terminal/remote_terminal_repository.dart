@@ -27,7 +27,7 @@ class RemoteTerminalRepository extends TerminalRepository {
   @override
   Future<Terminal> updateTerminal(String id, Terminal terminal) async {
     var client = await _apiRepository.apiClient();
-    return await client.terminalsIdPatch(id, terminal: terminal);
+    return await client.terminalsIdPut(id, terminal: terminal);
   }
 
   @override

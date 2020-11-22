@@ -22,7 +22,7 @@ class RemoteContainerRepository extends ContainerRepository {
   @override
   Future<Container> updateContainer(String id, Container container) async {
     var client = await _apiRepository.apiClient();
-    return await client.containersIdPatch(id, container: container);
+    return await client.containersIdPut(id, container: container);
   }
 
   @override
