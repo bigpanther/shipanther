@@ -37,11 +37,12 @@ class _ContainerScreenState extends State<ContainerScreen> {
             child: Text('helll'),
           );
         }
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(ShipantherLocalizations.of(context).containersTitle),
-          ),
+        return ShipantherScaffold(
+          widget.user,
+          title: ShipantherLocalizations.of(context).containersTitle,
+          actions: [],
           body: CenteredLoading(),
+          floatingActionButton: null,
         );
       },
       listener: (context, state) {
