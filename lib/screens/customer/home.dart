@@ -4,6 +4,7 @@ import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/customer/list.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
+import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 class CustomerHome extends StatefulWidget {
@@ -42,11 +43,12 @@ class _CustomerHomeState extends State<CustomerHome> {
           return CustomerList(widget.user,
               customerBloc: bloc, customerLoadedState: state);
         }
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(ShipantherLocalizations.of(context).customersTitle),
-          ),
+        return ShipantherScaffold(
+          widget.user,
+          title: ShipantherLocalizations.of(context).customersTitle,
+          actions: [],
           body: CenteredLoading(),
+          floatingActionButton: null,
         );
       },
     );
