@@ -21,8 +21,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     yield AuthLoading(event.authType);
     if (event is AuthRegister) {
       try {
-        final user =
-            await _authRepository.registerUser(event.username, event.password);
+        final user = await _authRepository.registerUser(
+            event.name, event.username, event.password);
         yield AuthFinished(user, event.authType);
       } catch (e) {
         yield AuthFailure("Registration failed: $e", event.authType);

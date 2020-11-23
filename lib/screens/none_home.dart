@@ -14,8 +14,12 @@ class NoneHome extends StatelessWidget {
       title: ShipantherLocalizations.of(context).tenantsTitle,
       actions: [],
       body: Container(
-          child:
-              Text(ShipantherLocalizations.of(context).tenantLessUserMessage)),
+          child: Column(
+        children: [
+          Text('Hello ${user.name}'),
+          Text(ShipantherLocalizations.of(context).tenantLessUserMessage),
+        ],
+      )),
       floatingActionButton: null,
     );
   }

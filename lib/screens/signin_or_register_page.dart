@@ -135,6 +135,7 @@ class SignInOrRegistrationForm extends StatefulWidget {
 class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  String _userName;
   String _userEmail;
   String _password;
 
@@ -148,6 +149,21 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                widget.authTypeSelector == AuthTypeSelector.register
+                    ? TextFormField(
+                        decoration: const InputDecoration(labelText: 'Name'),
+                        autocorrect: false,
+                        enableSuggestions: false,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (String value) {
+                          if (value.isEmpty) {
+                            return 'Please enter your Name';
+                          }
+                          return null;
+                        },
+                        onSaved: (val) => setState(() => _userName = val),
+                      )
+                    : Container(),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Email'),
                   autocorrect: false,
@@ -188,9 +204,8 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                         _formKey.currentState.save();
                         if (widget.authTypeSelector ==
                             AuthTypeSelector.register) {
-                          context
-                              .read<AuthBloc>()
-                              .add(AuthRegister(_userEmail, _password));
+                          context.read<AuthBloc>().add(
+                              AuthRegister(_userName, _userEmail, _password));
                         } else {
                           context
                               .read<AuthBloc>()
