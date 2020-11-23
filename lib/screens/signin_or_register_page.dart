@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_signin_button/button_builder.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
+import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/container/container_screen.dart';
 import 'package:shipanther/screens/none_home.dart';
@@ -71,7 +72,8 @@ class _ApiLoginState extends State<ApiLogin> {
   @override
   void initState() {
     super.initState();
-    context.read<UserBloc>().add(UserLogin());
+    var deviceToken = context.read<AuthRepository>().deviceToken();
+    context.read<UserBloc>().add(UserLogin(deviceToken));
   }
 
   @override

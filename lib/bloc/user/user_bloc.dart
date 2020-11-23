@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:trober_sdk/api.dart';
@@ -19,7 +20,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     yield UserLoading();
     if (event is UserLogin) {
       try {
-        User u = await _userRepository.self();
+        var deviceToken = await event.deviceToken;
+        print(deviceToken);
+        User u = await _userRepository.registerDeviceToken(deviceToken);
         yield UserLoggedIn(u);
       } catch (e) {
         print(e);
