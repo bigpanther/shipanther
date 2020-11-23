@@ -4,7 +4,7 @@ import 'package:trober_sdk/api.dart';
 
 class RemoteUserRepository extends UserRepository {
   final ApiRepository _apiRepository;
-  RemoteUserRepository(this._apiRepository);
+  const RemoteUserRepository(this._apiRepository);
   @override
   Future<User> assign(UserRole role, String tenantId) async {
     //var client = await _apiRepository.apiClient();
