@@ -23,17 +23,17 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     }
     if (event is GetOrders) {
       var orders = await _orderRepository.fetchOrdersOfTenant(event.tenantId);
-      yield OrdersLoaded(orders, event.tenantId);
+      yield OrdersLoaded(orders);
     }
     if (event is UpdateOrder) {
       await _orderRepository.updateOrder(event.id, event.order);
       var orders = await _orderRepository.fetchOrdersOfTenant(null);
-      yield OrdersLoaded(orders, null);
+      yield OrdersLoaded(orders);
     }
     if (event is CreateOrder) {
       await _orderRepository.createOrder(event.order);
       var orders = await _orderRepository.fetchOrdersOfTenant(null);
-      yield OrdersLoaded(orders, null);
+      yield OrdersLoaded(orders);
     }
     if (event is DeleteOrder) {
       yield OrderFailure("Tenant deletion is not supported");
