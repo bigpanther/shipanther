@@ -4,8 +4,7 @@ import 'package:trober_sdk/api.dart';
 
 class RemoteUserRepository extends UserRepository {
   final ApiRepository _apiRepository;
-
-  const RemoteUserRepository(this._apiRepository);
+  RemoteUserRepository(this._apiRepository);
   @override
   Future<User> assign(UserRole role, String tenantId) async {
     //var client = await _apiRepository.apiClient();
@@ -30,5 +29,14 @@ class RemoteUserRepository extends UserRepository {
   Future<User> self() async {
     var client = await _apiRepository.apiClient();
     return client.selfGet();
+  }
+
+  @override
+  Future<User> registerDeviceToken(String token) async {
+    var me = await self();
+
+    var client = await _apiRepository.apiClient();
+    me.deviceId = token;
+    return client.usersIdPut(me.id, user: me);
   }
 }

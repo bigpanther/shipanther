@@ -28,10 +28,11 @@ import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
 
+FirebaseMessaging _firebaseMessaging;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  _firebaseMessaging = FirebaseMessaging();
   _firebaseMessaging.configure(
     onMessage: (Map<String, dynamic> task) async {
       print('onMessage: $task');
@@ -47,6 +48,7 @@ Future<void> main() async {
   _firebaseMessaging.requestNotificationPermissions(
     const IosNotificationSettings(sound: true, badge: true, alert: true),
   );
+
   runApp(ShipantherApp());
 }
 
@@ -57,7 +59,7 @@ class ShipantherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<AuthRepository>(
-      create: (context) => FireBaseAuthRepository(),
+      create: (context) => FireBaseAuthRepository(_firebaseMessaging),
       child: RepositoryProvider<ApiRepository>(
         create: (context) => RemoteApiRepository(context.read<AuthRepository>(),
             "https://trober-test.herokuapp.com"),
