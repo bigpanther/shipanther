@@ -16,10 +16,12 @@ class AuthLogout extends AuthEvent {
 }
 
 class AuthRegister extends AuthEvent {
+  final String name;
   final String username;
   final String password;
 
-  AuthRegister(this.username, this.password) : super(AuthTypeSelector.register);
+  AuthRegister(this.name, this.username, this.password)
+      : super(AuthTypeSelector.register);
 }
 
 class AuthCheck extends AuthEvent {

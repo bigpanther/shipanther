@@ -11,15 +11,18 @@ class FireBaseAuthRepository extends AuthRepository {
   FireBaseAuthRepository(this._firebaseMessaging);
 
   @override
-  Future<User> registerUser(String username, String password) async {
+  Future<User> registerUser(
+      String name, String username, String password) async {
     var userCreds = await _auth.createUserWithEmailAndPassword(
       email: username,
       password: password,
     );
     User user = userCreds.user;
+
     if (user == null) {
       throw AuthenticationException();
     }
+    user.updateProfile(displayName: name);
     return user;
   }
 
