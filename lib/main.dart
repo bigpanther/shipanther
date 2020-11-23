@@ -9,6 +9,7 @@ import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/bloc/container/container_bloc.dart';
+import 'package:shipanther/bloc/order/order_bloc.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
@@ -22,6 +23,8 @@ import 'package:shipanther/data/customer/customer_repository.dart';
 import 'package:shipanther/data/customer/remote_customer_repository.dart';
 import 'package:shipanther/data/container/container_repository.dart';
 import 'package:shipanther/data/container/remote_container_repository.dart';
+import 'package:shipanther/data/order/order_repository.dart';
+import 'package:shipanther/data/order/remote_order_repository.dart';
 import 'package:shipanther/data/tenant/remote_tenant_repository.dart';
 import 'package:shipanther/data/tenant/tenant_repository.dart';
 import 'package:shipanther/data/terminal/remote_terminal_repository.dart';
@@ -86,6 +89,9 @@ class ShipantherApp extends StatelessWidget {
             RepositoryProvider<CarrierRepository>(
                 create: (context) =>
                     RemoteCarrierRepository(context.read<ApiRepository>())),
+            RepositoryProvider<OrderRepository>(
+                create: (context) =>
+                    RemoteOrderRepository(context.read<ApiRepository>())),
           ],
           child: MultiBlocProvider(
             providers: [
@@ -110,6 +116,9 @@ class ShipantherApp extends StatelessWidget {
               BlocProvider(
                   create: (context) =>
                       CarrierBloc(context.read<CarrierRepository>())),
+              BlocProvider(
+                  create: (context) =>
+                      OrderBloc(context.read<OrderRepository>())),
             ],
             child: MaterialApp(
               title: 'Shipanther',
