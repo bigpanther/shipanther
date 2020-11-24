@@ -1,0 +1,28 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/widgets/shipanther_scaffold.dart';
+import 'package:trober_sdk/api.dart' as api;
+
+class VarifyEmail extends StatelessWidget {
+  final api.User user;
+
+  const VarifyEmail(this.user, {Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ShipantherScaffold(
+      user,
+      title: ShipantherLocalizations.of(context).tenantsTitle,
+      actions: [],
+      body: Container(
+          child: Column(
+        children: [
+          Text('Hello ${user.name}'),
+          Text(ShipantherLocalizations.of(context).varifyEmail),
+        ],
+      )),
+      floatingActionButton: null,
+    );
+  }
+}

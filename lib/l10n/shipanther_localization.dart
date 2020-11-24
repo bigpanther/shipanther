@@ -135,6 +135,14 @@ class ShipantherLocalizations {
         locale: locale.toString(),
         examples: const {'param': 'Name'},
       );
+
+  String get varifyEmail => Intl.message(
+        'An Email has been sent to your Email Id. Please click on it to varify your email.',
+        name: 'varifyEmail',
+        desc:
+            'An Email has been sent to your Email Id. Please click on it to varify your email.',
+        locale: locale.toString(),
+      );
 }
 
 class ShipantherLocalizationsDelegate

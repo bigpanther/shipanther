@@ -22,8 +22,16 @@ class FireBaseAuthRepository extends AuthRepository {
     if (user == null) {
       throw AuthenticationException();
     }
+
     user.updateProfile(displayName: name);
-    return user;
+    try {
+      await user.sendEmailVerification();
+      return user;
+    } catch (e) {
+      print("An error occured while trying to send email verification");
+      print(e.message);
+    }
+    // return user;
   }
 
   @override
@@ -42,7 +50,13 @@ class FireBaseAuthRepository extends AuthRepository {
       throw AuthenticationException();
     }
     await _firebaseMessaging.setAutoInitEnabled(true);
-    return user;
+    if (userCreds.user.emailVerified) {
+      print('user varf');
+      return user;
+    }
+    print('not varified');
+    return null;
+    // return user;
   }
 
   @override

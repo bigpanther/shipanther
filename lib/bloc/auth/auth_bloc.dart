@@ -32,6 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         final user =
             await _authRepository.fetchAuthUser(event.username, event.password);
+        print(user);
         yield AuthFinished(user, event.authType);
       } catch (e) {
         yield AuthFailure("Authentication failed: $e", event.authType);
