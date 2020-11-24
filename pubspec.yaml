@@ -34,7 +34,7 @@ dependencies:
   intl: ^0.16.1
   flutter_typeahead: ^1.8.8
   enum_to_string: ^1.0.13
-  trober_sdk: 0.0.10
+  trober_sdk: 0.0.14
   firebase_messaging: ^7.0.3
 
 dev_dependencies:
