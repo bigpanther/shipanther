@@ -102,6 +102,39 @@ class ShipantherLocalizations {
         desc: 'Customers',
         locale: locale.toString(),
       );
+  String get password => Intl.message(
+        'Password',
+        name: 'password',
+        desc: 'Password',
+        locale: locale.toString(),
+      );
+  String get email => Intl.message(
+        'Email',
+        name: 'email',
+        desc: 'Email',
+        locale: locale.toString(),
+      );
+  String get name => Intl.message(
+        'Name',
+        name: 'name',
+        desc: 'Name',
+        locale: locale.toString(),
+      );
+  String get welcome => Intl.message(
+        'Welcome to Shipanther',
+        name: 'welcome',
+        desc: 'Welcome to Shipanther',
+        locale: locale.toString(),
+      );
+
+  String paramRequired(String param) => Intl.message(
+        '$param is required',
+        name: 'paramRequired',
+        args: [param],
+        desc: 'Param required',
+        locale: locale.toString(),
+        examples: const {'param': 'Name'},
+      );
 }
 
 class ShipantherLocalizationsDelegate

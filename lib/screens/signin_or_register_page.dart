@@ -29,7 +29,7 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Welcome to Shipanther"),
+        title: Text(ShipantherLocalizations.of(context).welcome),
       ),
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) async {
@@ -151,13 +151,17 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
               children: <Widget>[
                 widget.authTypeSelector == AuthTypeSelector.register
                     ? TextFormField(
-                        decoration: const InputDecoration(labelText: 'Name'),
+                        decoration: InputDecoration(
+                            labelText:
+                                ShipantherLocalizations.of(context).name),
                         autocorrect: false,
                         enableSuggestions: false,
                         keyboardType: TextInputType.emailAddress,
                         validator: (String value) {
                           if (value.isEmpty) {
-                            return 'Please enter your Name';
+                            return ShipantherLocalizations.of(context)
+                                .paramRequired(
+                                    ShipantherLocalizations.of(context).name);
                           }
                           return null;
                         },
@@ -165,23 +169,27 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                       )
                     : Container(),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'Email'),
+                  decoration: InputDecoration(
+                      labelText: ShipantherLocalizations.of(context).email),
                   autocorrect: false,
                   enableSuggestions: false,
                   keyboardType: TextInputType.emailAddress,
                   validator: (String value) {
                     if (value.isEmpty) {
-                      return 'Please enter your email';
+                      return ShipantherLocalizations.of(context).paramRequired(
+                          ShipantherLocalizations.of(context).email);
                     }
                     return null;
                   },
                   onSaved: (val) => setState(() => _userEmail = val),
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'Password'),
+                  decoration: InputDecoration(
+                      labelText: ShipantherLocalizations.of(context).password),
                   validator: (String value) {
                     if (value.isEmpty) {
-                      return 'Please enter a password';
+                      return ShipantherLocalizations.of(context).paramRequired(
+                          ShipantherLocalizations.of(context).password);
                     }
                     return null;
                   },
