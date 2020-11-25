@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
 
@@ -14,6 +16,9 @@ class VerifyEmail extends StatefulWidget {
 }
 
 class _VerifyEmailState extends State<VerifyEmail> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final firestoreInstance = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +34,17 @@ class _VerifyEmailState extends State<VerifyEmail> {
               icon: Icons.verified_user,
               backgroundColor: Colors.green,
               onPressed: () {
-                print(widget.user.emailVerified);
+                var firebaseUser = FirebaseAuth.instance.currentUser;
+                print(firebaseUser);
+
+                firestoreInstance.collection('user').doc(widget.user.uid).get();
+                firestoreInstance
+                    .collection("users")
+                    .doc(firebaseUser.uid)
+                    .get()
+                    .then((value) {
+                  print(value.data());
+                });
                 widget.user.emailVerified
                     ? Navigator.pushReplacement(
                         context,
