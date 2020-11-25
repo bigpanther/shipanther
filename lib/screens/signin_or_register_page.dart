@@ -8,7 +8,7 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/container/container_screen.dart';
 import 'package:shipanther/screens/none_home.dart';
 import 'package:shipanther/screens/super_admin_home.dart';
-import 'package:shipanther/screens/terminal/terminalScreen.dart';
+import 'package:shipanther/screens/terminal/home.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:trober_sdk/api.dart' as api;
 
