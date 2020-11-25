@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/screens/terminal/details.dart';
 import 'package:shipanther/screens/terminal/list.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
@@ -42,9 +41,6 @@ class _BackOfficeHomeState extends State<BackOfficeHome> {
         if (state is TerminalsLoaded) {
           return TerminalList(widget.user,
               terminalBloc: bloc, terminalLoadedState: state);
-        }
-        if (state is TerminalLoaded) {
-          return TerminalDetail(terminalBloc: bloc, state: state);
         }
         return ShipantherScaffold(
           widget.user,
