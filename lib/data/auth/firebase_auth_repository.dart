@@ -50,13 +50,8 @@ class FireBaseAuthRepository extends AuthRepository {
       throw AuthenticationException();
     }
     await _firebaseMessaging.setAutoInitEnabled(true);
-    if (userCreds.user.emailVerified) {
-      print('user varf');
-      return user;
-    }
-    print('not varified');
-    return null;
-    // return user;
+
+    return user;
   }
 
   @override

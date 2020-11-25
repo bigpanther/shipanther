@@ -136,11 +136,22 @@ class ShipantherLocalizations {
         examples: const {'param': 'Name'},
       );
 
-  String get varifyEmail => Intl.message(
-        'An Email has been sent to your Email Id. Please click on it to varify your email.',
-        name: 'varifyEmail',
-        desc:
-            'An Email has been sent to your Email Id. Please click on it to varify your email.',
+  String get verifyEmail1 => Intl.message(
+        'An Email has been sent to ',
+        name: 'verifyEmail1',
+        desc: 'An Email has been sent to ',
+        locale: locale.toString(),
+      );
+  String get verifyEmail2 => Intl.message(
+        ' Please click on it to varify your email.',
+        name: 'verifyEmail2',
+        desc: ' Please click on it to varify your email.',
+        locale: locale.toString(),
+      );
+  String get notVerifiedError => Intl.message(
+        'This Email Id is not yet verified. Please try again.',
+        name: 'notVerifiedError',
+        desc: 'This Email Id is not yet verified. Please try again.',
         locale: locale.toString(),
       );
 }
