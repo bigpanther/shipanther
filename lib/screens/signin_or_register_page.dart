@@ -5,7 +5,7 @@ import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/screens/container/container_screen.dart';
+import 'package:shipanther/screens/container/home.dart';
 import 'package:shipanther/screens/none_home.dart';
 import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/screens/terminal/home.dart';

@@ -79,7 +79,10 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                       },
                       value: widget.carrier.type ?? CarrierType.vessel,
                     ),
-                    Text(widget.isEdit ? '' : 'Select a tenant'),
+                    Text(
+                        widget.isEdit || widget.user.role != UserRole.superAdmin
+                            ? ''
+                            : 'Select a tenant'),
                   ] +
                   tenantSelector(context,
                       !widget.isEdit && widget.user.role == UserRole.superAdmin,
