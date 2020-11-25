@@ -92,7 +92,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
       onTap: () => print("Home"),
     ),
   );
-  widgets.add(Divider());
+
   if (user.role == api.UserRole.superAdmin) {
     widgets.add(
       _createDrawerItem(
@@ -105,7 +105,6 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         ),
       ),
     );
-    widgets.add(Divider());
   }
 
   if (user.role == api.UserRole.superAdmin || user.role == api.UserRole.admin) {
@@ -116,7 +115,6 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         onTap: () => print("Users"),
       ),
     );
-    widgets.add(Divider());
   }
 
   if (user.role != api.UserRole.driver && user.role != api.UserRole.none) {
@@ -131,7 +129,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         ),
       ),
     );
-    widgets.add(Divider());
+
     widgets.add(
       _createDrawerItem(
         icon: Icons.local_shipping,
@@ -143,7 +141,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         ),
       ),
     );
-    widgets.add(Divider());
+
     widgets.add(
       _createDrawerItem(
         icon: Icons.verified_user,
@@ -151,7 +149,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         onTap: () => print("Orders"),
       ),
     );
-    widgets.add(Divider());
+
     widgets.add(
       _createDrawerItem(
         icon: Icons.verified_user,
@@ -163,7 +161,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         ),
       ),
     );
-    widgets.add(Divider());
+
     widgets.add(
       _createDrawerItem(
         icon: Icons.connect_without_contact,
@@ -175,7 +173,6 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         ),
       ),
     );
-    widgets.add(Divider());
   }
   widgets.add(
     _createDrawerItem(
@@ -184,7 +181,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
       onTap: () => print("Settings"),
     ),
   );
-  widgets.add(Divider());
+
   widgets.add(
     _createDrawerItem(
       icon: Icons.logout,
