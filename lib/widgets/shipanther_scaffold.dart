@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/screens/carrier/home.dart';
 import 'package:shipanther/screens/container/container_screen.dart';
 import 'package:shipanther/screens/customer/home.dart';
 import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
-import 'package:shipanther/screens/terminal/terminalScreen.dart';
+import 'package:shipanther/screens/terminal/home.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 class ShipantherScaffold extends StatelessWidget {
@@ -155,7 +156,11 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
       _createDrawerItem(
         icon: Icons.verified_user,
         text: ShipantherLocalizations.of(context).carriersTitle,
-        onTap: () => print("Carriers"),
+        onTap: () => Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => CarrierScreen(user),
+          ),
+        ),
       ),
     );
     widgets.add(Divider());

@@ -21,7 +21,7 @@ class _BackOfficeHomeState extends State<BackOfficeHome> {
   void initState() {
     super.initState();
     bloc = context.read<TerminalBloc>();
-    bloc.add(GetTerminal(widget.user.tenantId));
+    bloc.add(GetTerminals(null));
   }
 
   @override
