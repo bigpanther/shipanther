@@ -9,6 +9,8 @@ import 'package:shipanther/screens/container/home.dart';
 import 'package:shipanther/screens/none_home.dart';
 import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/screens/terminal/home.dart';
+// import 'package:shipanther/screens/terminal/terminalScreen.dart';
+import 'package:shipanther/screens/varify_email.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:trober_sdk/api.dart' as api;
 
@@ -53,7 +55,11 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
       return SignInOrRegistrationForm(state.authType);
     }
     if (state is AuthFinished) {
-      return const ApiLogin();
+      print(state.user.emailVerified);
+      if (state.user.emailVerified) {
+        return const ApiLogin();
+      }
+      return VerifyEmail(state.user);
     }
     if (state is AuthLoading) {
       return const CenteredLoading();
@@ -167,7 +173,10 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                         },
                         onSaved: (val) => setState(() => _userName = val),
                       )
-                    : Container(),
+                    : Container(
+                        width: 0,
+                        height: 0,
+                      ),
                 TextFormField(
                   decoration: InputDecoration(
                       labelText: ShipantherLocalizations.of(context).email),
