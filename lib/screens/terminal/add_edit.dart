@@ -80,7 +80,10 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                       },
                       value: widget.terminal.type ?? TerminalType.port,
                     ),
-                    Text(widget.isEdit ? '' : 'Select a tenant'),
+                    Text(
+                        widget.isEdit || widget.user.role != UserRole.superAdmin
+                            ? ''
+                            : 'Select a tenant'),
                   ] +
                   tenantSelector(context,
                       !widget.isEdit && widget.user.role == UserRole.superAdmin,

@@ -58,7 +58,10 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
                           : null,
                       onSaved: (value) => _customerName = value,
                     ),
-                    Text(''),
+                    Text(
+                        widget.isEdit || widget.user.role != UserRole.superAdmin
+                            ? ''
+                            : 'Select a tenant'),
                   ] +
                   tenantSelector(context,
                       !widget.isEdit && widget.user.role == UserRole.superAdmin,

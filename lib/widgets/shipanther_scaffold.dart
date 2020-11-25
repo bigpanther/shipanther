@@ -3,7 +3,7 @@ import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/carrier/home.dart';
-import 'package:shipanther/screens/container/container_screen.dart';
+import 'package:shipanther/screens/container/home.dart';
 import 'package:shipanther/screens/customer/home.dart';
 import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
