@@ -64,6 +64,7 @@ class TerminalList extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (_) => TerminalAddEdit(
+                        user,
                         isEdit: true,
                         terminalBloc: terminalBloc,
                         terminal: t,
@@ -108,6 +109,7 @@ class TerminalList extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (_) => TerminalAddEdit(
+              user,
               isEdit: false,
               terminalBloc: terminalBloc,
               terminal: Terminal(),

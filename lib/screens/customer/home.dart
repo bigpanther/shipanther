@@ -38,7 +38,6 @@ class _CustomerHomeState extends State<CustomerHome> {
         }
       },
       builder: (context, state) {
-        print(state);
         if (state is CustomersLoaded) {
           return CustomerList(widget.user,
               customerBloc: bloc, customerLoadedState: state);

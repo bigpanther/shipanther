@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
-import 'package:shipanther/data/api/api_repository.dart';
 import 'package:shipanther/data/user/user_repository.dart';
+import 'package:shipanther/widgets/tenant_selector.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
 
 class TerminalAddEdit extends StatefulWidget {
+  final User user;
   final Terminal terminal;
   final TerminalBloc terminalBloc;
   final bool isEdit;
 
-  TerminalAddEdit({
+  TerminalAddEdit(
+    this.user, {
     Key key,
     @required this.terminal,
     @required this.terminalBloc,
@@ -60,9 +61,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                       onSaved: (value) => _terminalName = value,
                     ),
                     SmartSelect<TerminalType>.single(
-                      title:
-                          "Terminal type", //ArchSampleLocalizations.of(context).fromHint,
-                      // key: ArchSampleKeys.fromField,
+                      title: "Terminal type",
                       onChange: (state) => _terminalType = state.value,
                       choiceItems:
                           S2Choice.listFrom<TerminalType, TerminalType>(
@@ -83,7 +82,9 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                     ),
                     Text(widget.isEdit ? '' : 'Select a tenant'),
                   ] +
-                  tenantSelector(context, !widget.isEdit, (Tenant suggestion) {
+                  tenantSelector(context,
+                      !widget.isEdit && widget.user.role == UserRole.superAdmin,
+                      (Tenant suggestion) {
                     _tenant = suggestion;
                   })),
         ),
@@ -115,35 +116,4 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
       ),
     );
   }
-}
-
-List<StatefulWidget> tenantSelector(BuildContext context, bool shouldShow,
-    void Function(Tenant) onSuggestionSelected) {
-  if (!shouldShow) return [];
-  return [
-    TypeAheadFormField<Tenant>(
-      textFieldConfiguration: TextFieldConfiguration(
-        decoration: InputDecoration(hintText: 'Select tenant'),
-      ),
-      suggestionsCallback: (pattern) async {
-        var client = await context.read<ApiRepository>().apiClient();
-        return (await client.tenantsGet())
-            .where((element) => element.name.toLowerCase().startsWith(pattern));
-      },
-      itemBuilder: (context, Tenant tenant) {
-        return ListTile(
-          leading: Icon(Icons.business),
-          title: Text(tenant.name),
-          subtitle: Text(tenant.id),
-        );
-      },
-      onSuggestionSelected: onSuggestionSelected,
-      // validator: (value) {
-      //   if (value.isEmpty) {
-      //     return 'Please select a tenant';
-      //   }
-      //   return null;
-      // },
-    ),
-  ];
 }
