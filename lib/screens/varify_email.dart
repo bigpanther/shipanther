@@ -17,7 +17,6 @@ class VerifyEmail extends StatefulWidget {
 
 class _VerifyEmailState extends State<VerifyEmail> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final firestoreInstance = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -34,25 +33,14 @@ class _VerifyEmailState extends State<VerifyEmail> {
               icon: Icons.verified_user,
               backgroundColor: Colors.green,
               onPressed: () {
-                var firebaseUser = FirebaseAuth.instance.currentUser;
-                print(firebaseUser);
-
-                firestoreInstance.collection('user').doc(widget.user.uid).get();
-                firestoreInstance
-                    .collection("users")
-                    .doc(firebaseUser.uid)
-                    .get()
-                    .then((value) {
-                  print(value.data());
-                });
-                widget.user.emailVerified
-                    ? Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => ApiLogin()),
-                      )
-                    : Scaffold.of(context).showSnackBar(SnackBar(
-                        content: Text(ShipantherLocalizations.of(context)
-                            .notVerifiedError)));
+                // widget.user.emailVerified
+                //     ? Navigator.pushReplacement(
+                //         context,
+                //         MaterialPageRoute(builder: (context) => ApiLogin()),
+                //       )
+                //     : Scaffold.of(context).showSnackBar(SnackBar(
+                //         content: Text(ShipantherLocalizations.of(context)
+                //             .notVerifiedError)));
               },
               text: 'I Verified',
             ),
@@ -87,3 +75,68 @@ class _VerifyEmailState extends State<VerifyEmail> {
     );
   }
 }
+
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:shipanther/bloc/auth/auth_bloc.dart';
+// import 'package:shipanther/l10n/shipanther_localization.dart';
+// import 'package:shipanther/widgets/centered_loading.dart';
+
+// class VerifyEmail extends StatefulWidget {
+//   final User user;
+//   VerifyEmail(this.user);
+
+//   @override
+//   _VerifyEmailState createState() => _VerifyEmailState();
+// }
+
+// class _VerifyEmailState extends State<VerifyEmail> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocConsumer<AuthBloc, AuthState>(
+//       listener: (context, state) async {
+//         if (state is AuthFailure) {
+//           Scaffold.of(context).showSnackBar(SnackBar(
+//             content: Text(state.message),
+//           ));
+//         }
+//         // if (state is AuthFinished) {
+//         //   Navigator.of(context).pushReplacement(
+//         //     MaterialPageRoute<void>(builder: (_) {
+//         //       if (state.user.role == api.UserRole.superAdmin) {
+//         //         return SuperAdminHome(state.user);
+//         //       }
+//         //       if (state.user.role == api.UserRole.backOffice) {
+//         //         return TerminalScreen(state.user);
+//         //       }
+//         //       if (state.user.role == api.UserRole.driver) {
+//         //         return ContainerScreen(state.user);
+//         //       }
+//         //       if (state.user.role == api.UserRole.none) {
+//         //         return NoneHome(state.user);
+//         //       }
+//         //     }),
+//         // );
+//         // }
+//       },
+//       builder: (context, state) {
+//         if (state is AuthFailure) {
+//           return Container(
+//             child: Center(
+//                 child: Column(
+//               children: [
+//                 Text("An error occured during log-in. Please retry."),
+//                 FlatButton(
+//                     onPressed: () => context.read<AuthBloc>().add(AuthLogout()),
+//                     child: Text(ShipantherLocalizations.of(context).logout)),
+//               ],
+//             )),
+//           );
+//         }
+//         return const CenteredLoading();
+//       },
+//     );
+//     ;
+//   }
+// }

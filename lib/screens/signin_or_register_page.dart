@@ -49,16 +49,16 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
   }
 
   Widget _body(BuildContext context, AuthState state) {
+    print(state);
     if (state is AuthRequested ||
         state is AuthInitial ||
         state is AuthFailure) {
       return SignInOrRegistrationForm(state.authType);
     }
     if (state is AuthFinished) {
-      print(state.user.emailVerified);
-      if (state.user.emailVerified) {
-        return const ApiLogin();
-      }
+      return const ApiLogin();
+    }
+    if (state is AuthVerification) {
       return VerifyEmail(state.user);
     }
     if (state is AuthLoading) {
