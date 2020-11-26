@@ -82,6 +82,14 @@ class UserList extends StatelessWidget {
               ),
               children: [
                 Text(
+                  "Email Id: ${t.email}",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Text(
+                  "Role: ${t.role}",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Text(
                   "Created At: ${formatter.format(t.createdAt).toString()}",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
