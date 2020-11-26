@@ -1,29 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shipanther/bloc/customer/customer_bloc.dart';
+import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/screens/customer/add_edit.dart';
+import 'package:shipanther/screens/user/add_edit.dart';
+import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
 
-class CustomerList extends StatelessWidget {
-  final CustomerBloc customerBloc;
-  final CustomersLoaded customerLoadedState;
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class UserList extends StatelessWidget {
+  final UserBloc userBloc;
+  final UsersLoaded userLoadedState;
   final User loggedInUser;
-  const CustomerList(this.loggedInUser,
-      {Key key, @required this.customerLoadedState, this.customerBloc})
+  const UserList(this.loggedInUser,
+      {Key key, @required this.userLoadedState, this.userBloc})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
-    var title = ShipantherLocalizations.of(context).customersTitle;
-    List<Widget> actions = [];
+    var title = ShipantherLocalizations.of(context).usersTitle;
+    List<Widget> actions = [
+      FilterButton<UserRole>(
+        possibleValues: UserRole.values,
+        isActive: true,
+        activeFilter: userLoadedState.userRole,
+        onSelected: (t) => context.read<UserBloc>()..add(GetUsers(t)),
+        tooltip: "Filter User type",
+      )
+    ];
 
     Widget body = ListView.builder(
-      itemCount: customerLoadedState.customers.length,
+      itemCount: userLoadedState.users.length,
       itemBuilder: (BuildContext context, int index) {
-        var t = customerLoadedState.customers.elementAt(index);
+        var t = userLoadedState.users.elementAt(index);
         return Padding(
           padding: const EdgeInsets.all(3.0),
           child: Card(
@@ -37,18 +48,28 @@ class CustomerList extends StatelessWidget {
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
               // subtitle: Text(t.id),
               // tilePadding: EdgeInsets.all(5),
-              leading: Icon(Icons.people),
+              leading: Icon((t.role == UserRole.superAdmin)
+                  ? Icons.android
+                  : (t.role == UserRole.admin)
+                      ? Icons.person
+                      : (t.role == UserRole.backOffice)
+                          ? Icons.person_add
+                          : (t.role == UserRole.driver)
+                              ? Icons.local_shipping
+                              : (t.role == UserRole.customer)
+                                  ? Icons.perm_identity
+                                  : Icons.not_accessible),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => CustomerAddEdit(
+                      builder: (_) => UserAddEdit(
                         loggedInUser,
                         isEdit: true,
-                        customerBloc: customerBloc,
-                        customer: t,
+                        userBloc: userBloc,
+                        user: t,
                       ),
                     ),
                   );
@@ -83,17 +104,17 @@ class CustomerList extends StatelessWidget {
       },
     );
     Widget floatingActionButton = FloatingActionButton(
-      tooltip: "Add customer",
+      tooltip: "Add user",
       child: Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => CustomerAddEdit(
+            builder: (_) => UserAddEdit(
               loggedInUser,
               isEdit: false,
-              customerBloc: customerBloc,
-              customer: Customer(),
+              userBloc: userBloc,
+              user: User(),
             ),
           ),
         );

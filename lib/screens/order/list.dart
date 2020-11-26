@@ -12,8 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class OrderList extends StatelessWidget {
   final OrderBloc orderBloc;
   final OrdersLoaded orderLoadedState;
-  final User user;
-  const OrderList(this.user,
+  final User loggedInUser;
+  const OrderList(this.loggedInUser,
       {Key key, @required this.orderLoadedState, this.orderBloc})
       : super(key: key);
 
@@ -58,7 +58,7 @@ class OrderList extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (_) => OrderAddEdit(
-                        user,
+                        loggedInUser,
                         isEdit: true,
                         orderBloc: orderBloc,
                         order: t,
@@ -103,7 +103,7 @@ class OrderList extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (_) => OrderAddEdit(
-              user,
+              loggedInUser,
               isEdit: false,
               orderBloc: orderBloc,
               order: Order(),
@@ -113,7 +113,7 @@ class OrderList extends StatelessWidget {
       },
     );
 
-    return ShipantherScaffold(user,
+    return ShipantherScaffold(loggedInUser,
         title: title,
         actions: actions,
         body: body,

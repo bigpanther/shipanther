@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/container/container_bloc.dart';
-import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
@@ -10,8 +9,8 @@ import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 class ContainerScreen extends StatefulWidget {
-  final api.User user;
-  ContainerScreen(this.user);
+  final api.User loggedInUser;
+  ContainerScreen(this.loggedInUser);
   @override
   _ContainerScreenState createState() => _ContainerScreenState();
 }
@@ -22,7 +21,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
   void initState() {
     super.initState();
     bloc = context.read<ContainerBloc>();
-    bloc.add(GetContainers(widget.user));
+    bloc.add(GetContainers(widget.loggedInUser));
   }
 
   @override
@@ -46,7 +45,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
           );
         }
         return ShipantherScaffold(
-          widget.user,
+          widget.loggedInUser,
           title: ShipantherLocalizations.of(context).containersTitle,
           actions: [],
           body: CenteredLoading(),

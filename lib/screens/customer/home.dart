@@ -8,9 +8,9 @@ import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 class CustomerHome extends StatefulWidget {
-  final api.User user;
+  final api.User loggedInUser;
 
-  const CustomerHome(this.user, {Key key}) : super(key: key);
+  const CustomerHome(this.loggedInUser, {Key key}) : super(key: key);
 
   @override
   _CustomerHomeState createState() => _CustomerHomeState();
@@ -39,11 +39,11 @@ class _CustomerHomeState extends State<CustomerHome> {
       },
       builder: (context, state) {
         if (state is CustomersLoaded) {
-          return CustomerList(widget.user,
+          return CustomerList(widget.loggedInUser,
               customerBloc: bloc, customerLoadedState: state);
         }
         return ShipantherScaffold(
-          widget.user,
+          widget.loggedInUser,
           title: ShipantherLocalizations.of(context).customersTitle,
           actions: [],
           body: CenteredLoading(),

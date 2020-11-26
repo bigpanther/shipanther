@@ -12,8 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class TerminalList extends StatelessWidget {
   final TerminalBloc terminalBloc;
   final TerminalsLoaded terminalLoadedState;
-  final User user;
-  const TerminalList(this.user,
+  final User loggedInUser;
+  const TerminalList(this.loggedInUser,
       {Key key, @required this.terminalLoadedState, this.terminalBloc})
       : super(key: key);
 
@@ -64,7 +64,7 @@ class TerminalList extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (_) => TerminalAddEdit(
-                        user,
+                        loggedInUser,
                         isEdit: true,
                         terminalBloc: terminalBloc,
                         terminal: t,
@@ -109,7 +109,7 @@ class TerminalList extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (_) => TerminalAddEdit(
-              user,
+              loggedInUser,
               isEdit: false,
               terminalBloc: terminalBloc,
               terminal: Terminal(),
@@ -119,7 +119,7 @@ class TerminalList extends StatelessWidget {
       },
     );
 
-    return ShipantherScaffold(user,
+    return ShipantherScaffold(loggedInUser,
         title: title,
         actions: actions,
         body: body,

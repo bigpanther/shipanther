@@ -9,6 +9,7 @@ import 'package:shipanther/screens/order/home.dart';
 import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:shipanther/screens/terminal/home.dart';
+import 'package:shipanther/screens/user/home.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 class ShipantherScaffold extends StatelessWidget {
@@ -113,7 +114,11 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
       _createDrawerItem(
         icon: Icons.verified_user,
         text: ShipantherLocalizations.of(context).usersTitle,
-        onTap: () => print("Users"),
+        onTap: () => Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => UserScreen(user),
+          ),
+        ),
       ),
     );
   }

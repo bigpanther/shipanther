@@ -39,4 +39,31 @@ class RemoteUserRepository extends UserRepository {
     me.deviceId = token;
     return client.usersIdPut(me.id, user: me);
   }
+
+  @override
+  Future<List<User>> fetchUsers() async {
+    var client = await _apiRepository.apiClient();
+    return await client.usersGet();
+  }
+
+  @override
+  Future<User> createUser(User user) async {
+    var client = await _apiRepository.apiClient();
+    return await client.usersPost(user: user);
+  }
+
+  @override
+  Future<User> updateUser(String id, User user) async {
+    var client = await _apiRepository.apiClient();
+    return await client.usersIdPut(id, user: user);
+  }
+
+  @override
+  Future<List<User>> filterUsers(UserRole userRole) async {
+    var users = await fetchUsers();
+    if (userRole == null) {
+      return users;
+    }
+    return users.where((e) => e.role == userRole).toList();
+  }
 }

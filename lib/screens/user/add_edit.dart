@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
+import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/widgets/tenant_selector.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
 
-class TerminalAddEdit extends StatefulWidget {
+class UserAddEdit extends StatefulWidget {
   final User loggedInUser;
-  final Terminal terminal;
-  final TerminalBloc terminalBloc;
+  final User user;
+  final UserBloc userBloc;
   final bool isEdit;
 
-  TerminalAddEdit(
+  UserAddEdit(
     this.loggedInUser, {
     Key key,
-    @required this.terminal,
-    @required this.terminalBloc,
+    @required this.user,
+    @required this.userBloc,
     @required this.isEdit,
   });
 
   @override
-  _TerminalAddEditState createState() => _TerminalAddEditState();
+  _UserAddEditState createState() => _UserAddEditState();
 }
 
-class _TerminalAddEditState extends State<TerminalAddEdit> {
+class _UserAddEditState extends State<UserAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String _terminalName;
-  TerminalType _terminalType;
+  String _userName;
+  UserRole _userRole;
   Tenant _tenant;
 
   @override
@@ -36,7 +36,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? "Edit terminal" : "Add new terminal",
+          widget.isEdit ? "Edit user" : "Add new user",
         ),
         centerTitle: true,
       ),
@@ -51,21 +51,20 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
           child: ListView(
               children: [
                     TextFormField(
-                      initialValue: widget.terminal.name ?? '',
+                      initialValue: widget.user.name ?? '',
                       autofocus: widget.isEdit ? false : true,
                       style: Theme.of(context).textTheme.headline5,
-                      decoration: InputDecoration(hintText: 'Terminal Name'),
+                      decoration: InputDecoration(hintText: 'User Name'),
                       validator: (val) => val.trim().isEmpty
-                          ? "Terminal name should not be empty"
+                          ? "User name should not be empty"
                           : null,
-                      onSaved: (value) => _terminalName = value,
+                      onSaved: (value) => _userName = value,
                     ),
-                    SmartSelect<TerminalType>.single(
-                      title: "Terminal type",
-                      onChange: (state) => _terminalType = state.value,
-                      choiceItems:
-                          S2Choice.listFrom<TerminalType, TerminalType>(
-                        source: TerminalType.values,
+                    SmartSelect<UserRole>.single(
+                      title: "User type",
+                      onChange: (state) => _userRole = state.value,
+                      choiceItems: S2Choice.listFrom<UserRole, UserRole>(
+                        source: UserRole.values,
                         value: (index, item) => item,
                         title: (index, item) => item.toString(),
                       ),
@@ -78,7 +77,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                           isTwoLine: true,
                         );
                       },
-                      value: widget.terminal.type ?? TerminalType.port,
+                      value: widget.user.role ?? UserRole.driver,
                     ),
                     Text(widget.isEdit ||
                             widget.loggedInUser.role != UserRole.superAdmin
@@ -101,18 +100,17 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
           final form = formKey.currentState;
           if (form.validate()) {
             form.save();
-            widget.terminal.name = _terminalName;
-            widget.terminal.type = _terminalType ?? TerminalType.port;
+            widget.user.name = _userName;
+            widget.user.role = _userRole ?? UserRole.driver;
             if (_tenant != null) {
-              widget.terminal.tenantId = _tenant.id;
+              widget.user.tenantId = _tenant.id;
             }
-            widget.terminal.createdBy =
+            widget.user.createdBy =
                 (await context.read<UserRepository>().self()).id;
             if (widget.isEdit) {
-              widget.terminalBloc
-                  .add(UpdateTerminal(widget.terminal.id, widget.terminal));
+              widget.userBloc.add(UpdateUser(widget.user.id, widget.user));
             } else {
-              widget.terminalBloc.add(CreateTerminal(widget.terminal));
+              widget.userBloc.add(CreateUser(widget.user));
             }
 
             Navigator.pop(context);

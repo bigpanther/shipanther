@@ -3,17 +3,14 @@ import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/carrier/add_edit.dart';
-import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CarrierList extends StatelessWidget {
   final CarrierBloc carrierBloc;
   final CarriersLoaded carrierLoadedState;
-  final User user;
-  const CarrierList(this.user,
+  final User loggedInUser;
+  const CarrierList(this.loggedInUser,
       {Key key, @required this.carrierLoadedState, this.carrierBloc})
       : super(key: key);
 
@@ -56,7 +53,7 @@ class CarrierList extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (_) => CarrierAddEdit(
-                        user,
+                        loggedInUser,
                         isEdit: true,
                         carrierBloc: carrierBloc,
                         carrier: t,
@@ -101,7 +98,7 @@ class CarrierList extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (_) => CarrierAddEdit(
-              user,
+              loggedInUser,
               isEdit: false,
               carrierBloc: carrierBloc,
               carrier: Carrier(),
@@ -111,7 +108,7 @@ class CarrierList extends StatelessWidget {
       },
     );
 
-    return ShipantherScaffold(user,
+    return ShipantherScaffold(loggedInUser,
         title: title,
         actions: actions,
         body: body,
