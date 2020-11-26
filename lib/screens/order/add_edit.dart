@@ -99,7 +99,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
           if (form.validate()) {
             form.save();
             widget.order.serialNumber = _orderSerialNumber;
-            widget.order.status = _orderStatus;
+            widget.order.status = _orderStatus ?? OrderStatus.open;
             if (_tenant != null) {
               widget.order.tenantId = _tenant.id;
             }

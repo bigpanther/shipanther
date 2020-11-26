@@ -100,7 +100,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
           if (form.validate()) {
             form.save();
             widget.terminal.name = _terminalName;
-            widget.terminal.type = _terminalType;
+            widget.terminal.type = _terminalType ?? TerminalType.port;
             if (_tenant != null) {
               widget.terminal.tenantId = _tenant.id;
             }

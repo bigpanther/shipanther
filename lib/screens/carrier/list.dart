@@ -47,7 +47,7 @@ class CarrierList extends StatelessWidget {
                       : (t.type == CarrierType.air)
                           ? Icons.airplanemode_active
                           : (t.type == CarrierType.road)
-                              ? Icons.airport_shuttle
+                              ? Icons.local_shipping
                               : Icons.directions_boat),
               trailing: IconButton(
                 icon: Icon(Icons.edit),

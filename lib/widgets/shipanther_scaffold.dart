@@ -133,7 +133,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
 
     widgets.add(
       _createDrawerItem(
-        icon: Icons.local_shipping,
+        icon: Icons.account_balance,
         text: ShipantherLocalizations.of(context).terminalsTitle,
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute(
@@ -157,7 +157,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
 
     widgets.add(
       _createDrawerItem(
-        icon: Icons.verified_user,
+        icon: Icons.local_shipping,
         text: ShipantherLocalizations.of(context).carriersTitle,
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute(
