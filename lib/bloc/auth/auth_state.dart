@@ -7,11 +7,11 @@ abstract class AuthState {
 }
 
 class AuthInitial extends AuthState {
-  AuthInitial() : super(AuthTypeSelector.signIn);
+  const AuthInitial() : super(AuthTypeSelector.signIn);
 }
 
 class AuthLoading extends AuthState {
-  AuthLoading(AuthTypeSelector authType) : super(authType);
+  const AuthLoading(AuthTypeSelector authType) : super(authType);
 }
 
 class AuthFinished extends AuthState {
@@ -21,7 +21,7 @@ class AuthFinished extends AuthState {
 
 class AuthRequested extends AuthState {
   final AuthTypeSelector authType;
-  AuthRequested(this.authType) : super(authType);
+  const AuthRequested(this.authType) : super(authType);
 }
 
 class AuthFailure extends AuthState {
@@ -32,6 +32,11 @@ class AuthFailure extends AuthState {
 class AuthVerification extends AuthState {
   final User user;
   const AuthVerification(this.user) : super(null);
+}
+
+class AuthEmailResent extends AuthVerification {
+  final User user;
+  const AuthEmailResent(this.user) : super(null);
 }
 
 enum AuthTypeSelector {

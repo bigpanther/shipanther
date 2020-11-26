@@ -30,7 +30,12 @@ class AuthCheck extends AuthEvent {
 
 class IsVerified extends AuthEvent {
   final User user;
-  IsVerified(this.user) : super(null);
+  const IsVerified(this.user) : super(null);
+}
+
+class ResendEmail extends AuthEvent {
+  final User user;
+  const ResendEmail(this.user) : super(null);
 }
 
 class AuthSignIn extends AuthEvent {
