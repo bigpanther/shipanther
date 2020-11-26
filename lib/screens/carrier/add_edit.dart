@@ -7,13 +7,13 @@ import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
 
 class CarrierAddEdit extends StatefulWidget {
-  final User user;
+  final User loggedInUser;
   final Carrier carrier;
   final CarrierBloc carrierBloc;
   final bool isEdit;
 
   CarrierAddEdit(
-    this.user, {
+    this.loggedInUser, {
     Key key,
     @required this.carrier,
     @required this.carrierBloc,
@@ -79,13 +79,15 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                       },
                       value: widget.carrier.type ?? CarrierType.vessel,
                     ),
-                    Text(
-                        widget.isEdit || widget.user.role != UserRole.superAdmin
-                            ? ''
-                            : 'Select a tenant'),
+                    Text(widget.isEdit ||
+                            widget.loggedInUser.role != UserRole.superAdmin
+                        ? ''
+                        : 'Select a tenant'),
                   ] +
-                  tenantSelector(context,
-                      !widget.isEdit && widget.user.role == UserRole.superAdmin,
+                  tenantSelector(
+                      context,
+                      !widget.isEdit &&
+                          widget.loggedInUser.role == UserRole.superAdmin,
                       (Tenant suggestion) {
                     _tenant = suggestion;
                   })),

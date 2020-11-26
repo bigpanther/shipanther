@@ -6,13 +6,13 @@ import 'package:shipanther/widgets/tenant_selector.dart';
 import 'package:trober_sdk/api.dart';
 
 class CustomerAddEdit extends StatefulWidget {
-  final User user;
+  final User loggedInUser;
   final Customer customer;
   final CustomerBloc customerBloc;
   final bool isEdit;
 
   CustomerAddEdit(
-    this.user, {
+    this.loggedInUser, {
     Key key,
     @required this.customer,
     @required this.customerBloc,
@@ -58,13 +58,15 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
                           : null,
                       onSaved: (value) => _customerName = value,
                     ),
-                    Text(
-                        widget.isEdit || widget.user.role != UserRole.superAdmin
-                            ? ''
-                            : 'Select a tenant'),
+                    Text(widget.isEdit ||
+                            widget.loggedInUser.role != UserRole.superAdmin
+                        ? ''
+                        : 'Select a tenant'),
                   ] +
-                  tenantSelector(context,
-                      !widget.isEdit && widget.user.role == UserRole.superAdmin,
+                  tenantSelector(
+                      context,
+                      !widget.isEdit &&
+                          widget.loggedInUser.role == UserRole.superAdmin,
                       (Tenant suggestion) {
                     _tenant = suggestion;
                   })),
@@ -81,7 +83,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
             if (_tenant != null) {
               widget.customer.tenantId = _tenant.id;
             } else {
-              widget.customer.tenantId = widget.user.tenantId;
+              widget.customer.tenantId = widget.loggedInUser.tenantId;
             }
             widget.customer.createdBy =
                 (await context.read<UserRepository>().self()).id;

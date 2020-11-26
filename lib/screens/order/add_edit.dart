@@ -7,13 +7,13 @@ import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
 
 class OrderAddEdit extends StatefulWidget {
-  final User user;
+  final User loggedInUser;
   final Order order;
   final OrderBloc orderBloc;
   final bool isEdit;
 
   OrderAddEdit(
-    this.user, {
+    this.loggedInUser, {
     Key key,
     @required this.order,
     @required this.orderBloc,
@@ -80,12 +80,15 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                     },
                     value: widget.order.status ?? OrderStatus.open,
                   ),
-                  Text(widget.isEdit || widget.user.role != UserRole.superAdmin
+                  Text(widget.isEdit ||
+                          widget.loggedInUser.role != UserRole.superAdmin
                       ? ''
                       : 'Select a tenant'),
                 ] +
-                tenantSelector(context,
-                    !widget.isEdit && widget.user.role == UserRole.superAdmin,
+                tenantSelector(
+                    context,
+                    !widget.isEdit &&
+                        widget.loggedInUser.role == UserRole.superAdmin,
                     (Tenant suggestion) {
                   _tenant = suggestion;
                 }) +
