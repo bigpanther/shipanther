@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/data/user/user_repository.dart';
@@ -31,26 +32,19 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
   String _carrierName;
   CarrierType _carrierType;
   Tenant _tenant;
-  DateTime pickedDate;
-  final DateFormat formatter = DateFormat('dd-MM-yyyy');
+  var eta;
+  final DateFormat formatter = DateFormat('dd-MM-yyyy Hm');
 
   @override
   Widget build(BuildContext context) {
-    void _presentDatePicker() {
-      showDatePicker(
-              context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime(2019),
-              lastDate: DateTime(2030))
-          .then((value) {
-        if (value == null) {
-          return;
-        }
-
+    void _presentDateTimePicker() {
+      DatePicker.showDateTimePicker(context, showTitleActions: true,
+          onConfirm: (date) {
         setState(() {
-          pickedDate = value;
+          eta = date;
         });
-      });
+        print('confirm $date');
+      }, currentTime: DateTime.now());
     }
 
     return Scaffold(
@@ -83,20 +77,29 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                   SizedBox(
                     height: 10,
                   ),
-                  GestureDetector(
-                    child: Text(
-                      'Pick a Date',
-                      style: TextStyle(fontSize: 18, color: Colors.blue),
-                    ),
-                    onTap: _presentDatePicker,
-                  ),
-                  Text(
-                    pickedDate == null
-                        ? 'No Date Chosen'
-                        : 'Date: ' + formatter.format(pickedDate),
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text('ETA'),
+                      eta == null
+                          ? FlatButton(
+                              onPressed: _presentDateTimePicker,
+                              child: Text(
+                                'Pick date and Time',
+                              ),
+                              color: Colors.blue,
+                            )
+                          : Row(
+                              children: [
+                                Text(eta.toString()),
+                                FlatButton(
+                                  onPressed: _presentDateTimePicker,
+                                  child: Text('Change'),
+                                  textColor: Colors.blue,
+                                )
+                              ],
+                            )
+                    ],
                   ),
                   SmartSelect<CarrierType>.single(
                     title: "Carrier type",
@@ -117,12 +120,15 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                     },
                     value: widget.carrier.type ?? CarrierType.vessel,
                   ),
-                  Text(widget.isEdit || widget.user.role != UserRole.superAdmin
+                  Text(widget.isEdit ||
+                          widget.loggedInUser.role != UserRole.superAdmin
                       ? ''
                       : 'Select a tenant'),
                 ] +
-                tenantSelector(context,
-                    !widget.isEdit && widget.user.role == UserRole.superAdmin,
+                tenantSelector(
+                    context,
+                    !widget.isEdit &&
+                        widget.loggedInUser.role == UserRole.superAdmin,
                     (Tenant suggestion) {
                   _tenant = suggestion;
                 }),
