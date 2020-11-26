@@ -1,6 +1,5 @@
 import 'package:shipanther/data/api/api_repository.dart';
 import 'package:shipanther/data/order/order_repository.dart';
-
 import 'package:trober_sdk/api.dart';
 
 class RemoteOrderRepository extends OrderRepository {
@@ -32,9 +31,11 @@ class RemoteOrderRepository extends OrderRepository {
   }
 
   @override
-  Future<List<Order>> fetchOrdersOfTenant(String tenantId) async {
+  Future<List<Order>> filterOrders(OrderStatus orderStatus) async {
     var orders = await fetchOrders();
-
-    return orders.where((e) => e.tenantId == tenantId).toList();
+    if (orderStatus == null) {
+      return orders;
+    }
+    return orders.where((e) => e.status == orderStatus).toList();
   }
 }
