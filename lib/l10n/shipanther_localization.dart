@@ -126,6 +126,12 @@ class ShipantherLocalizations {
         desc: 'Welcome to Shipanther',
         locale: locale.toString(),
       );
+  String get noDateChosen => Intl.message(
+        'No date chosen',
+        name: 'noDateChosen',
+        desc: 'No date chosen',
+        locale: locale.toString(),
+      );
 
   String paramRequired(String param) => Intl.message(
         '$param is required',

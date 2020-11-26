@@ -4,6 +4,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/data/user/user_repository.dart';
+import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/tenant_selector.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
@@ -32,8 +33,8 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
   String _carrierName;
   CarrierType _carrierType;
   Tenant _tenant;
-  var eta;
-  final DateFormat formatter = DateFormat('dd-MM-yyyy Hm');
+  DateTime _eta;
+  final DateFormat formatter = DateFormat('dd-MM-yyyy ');
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
       DatePicker.showDateTimePicker(context, showTitleActions: true,
           onConfirm: (date) {
         setState(() {
-          eta = date;
+          _eta = date;
         });
         print('confirm $date');
       }, currentTime: DateTime.now());
@@ -74,32 +75,30 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                         : null,
                     onSaved: (value) => _carrierName = value,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text('ETA'),
-                      eta == null
-                          ? FlatButton(
+                  Padding(
+                    padding: const EdgeInsets.only(left: 13, right: 10, top: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Text('ETA'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(_eta == null
+                                ? ShipantherLocalizations.of(context)
+                                    .noDateChosen
+                                : DateFormat('dd-MM-yy - kk:mm').format(_eta)),
+                            IconButton(
+                              icon: Icon(Icons.calendar_today),
                               onPressed: _presentDateTimePicker,
-                              child: Text(
-                                'Pick date and Time',
-                              ),
-                              color: Colors.blue,
                             )
-                          : Row(
-                              children: [
-                                Text(eta.toString()),
-                                FlatButton(
-                                  onPressed: _presentDateTimePicker,
-                                  child: Text('Change'),
-                                  textColor: Colors.blue,
-                                )
-                              ],
-                            )
-                    ],
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                   SmartSelect<CarrierType>.single(
                     title: "Carrier type",
