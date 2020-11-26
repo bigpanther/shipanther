@@ -7,6 +7,8 @@ import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 class OrderList extends StatelessWidget {
   final OrderBloc orderBloc;
   final OrdersLoaded orderLoadedState;
@@ -20,13 +22,13 @@ class OrderList extends StatelessWidget {
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
     var title = ShipantherLocalizations.of(context).ordersTitle;
     List<Widget> actions = [
-      // FilterButton<TerminalType>(
-      //   possibleValues: TerminalType.values,
-      //   isActive: true,
-      //   activeFilter: terminalLoadedState.terminalType,
-      //   onSelected: (t) => context.read<TerminalBloc>()..add(GetTerminals(t)),
-      //   tooltip: "Filter Terminal type",
-      // )
+      FilterButton<OrderStatus>(
+        possibleValues: OrderStatus.values,
+        isActive: true,
+        activeFilter: orderLoadedState.orderStatus,
+        onSelected: (t) => context.read<OrderBloc>()..add(GetOrders(t)),
+        tooltip: "Filter Order status",
+      )
     ];
 
     Widget body = ListView.builder(
@@ -46,25 +48,28 @@ class OrderList extends StatelessWidget {
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
               // subtitle: Text(t.id),
               // tilePadding: EdgeInsets.all(5),
-              leading: Icon(t.status == 'Open' ? Icons.check : Icons.clear),
+              leading: Icon((t.status == OrderStatus.open)
+                  ? Icons.read_more
+                  : Icons.close),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (_) => OrderAddEdit(
-                  //       isEdit: true,
-                  //       orderBloc: orderBloc,
-                  //       order: t,
-                  //     ),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => OrderAddEdit(
+                        user,
+                        isEdit: true,
+                        orderBloc: orderBloc,
+                        order: t,
+                      ),
+                    ),
+                  );
                 },
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
               title: Text(
-                t.customerId,
+                t.serialNumber,
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
@@ -91,19 +96,20 @@ class OrderList extends StatelessWidget {
       },
     );
     Widget floatingActionButton = FloatingActionButton(
-      tooltip: "Add terminal",
+      tooltip: "Add order",
       child: Icon(Icons.add),
       onPressed: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (_) => OrderAddEdit(
-        //       isEdit: false,
-        //       orderBloc: orderBloc,
-        //       order: Order(),
-        //     ),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => OrderAddEdit(
+              user,
+              isEdit: false,
+              orderBloc: orderBloc,
+              order: Order(),
+            ),
+          ),
+        );
       },
     );
 

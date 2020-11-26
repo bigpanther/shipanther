@@ -1,139 +1,120 @@
-// import 'package:flutter/material.dart';
-// import 'package:shipanther/bloc/order/order_bloc.dart';
-// import 'package:trober_sdk/api.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shipanther/bloc/order/order_bloc.dart';
+import 'package:shipanther/data/user/user_repository.dart';
+import 'package:shipanther/widgets/tenant_selector.dart';
+import 'package:smart_select/smart_select.dart';
+import 'package:trober_sdk/api.dart';
 
-// class OrderAddEdit extends StatefulWidget {
-//   final Order order;
-//   final OrderBloc orderBloc;
-//   final bool isEdit;
+class OrderAddEdit extends StatefulWidget {
+  final User user;
+  final Order order;
+  final OrderBloc orderBloc;
+  final bool isEdit;
 
-//   OrderAddEdit({
-//     Key key,
-//     @required this.order,
-//     @required this.orderBloc,
-//     @required this.isEdit,
-//   });
-//   @override
-//   _OrderAddEditState createState() => _OrderAddEditState();
-// }
+  OrderAddEdit(
+    this.user, {
+    Key key,
+    @required this.order,
+    @required this.orderBloc,
+    @required this.isEdit,
+  });
 
-// class _OrderAddEditState extends State<OrderAddEdit> {
-//   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  @override
+  _OrderAddEditState createState() => _OrderAddEditState();
+}
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(
-//           widget.isEdit ? "Edit order" : "Add new order",
-//         ),
-//         centerTitle: true,
-//       ),
-//       body: Padding(
-//         padding: EdgeInsets.all(16.0),
-//         child: Form(
-//           key: formKey,
-//           autovalidateMode: AutovalidateMode.disabled,
-//           onWillPop: () {
-//             return Future(() => true);
-//           },
-//           child: ListView(
-//               children: [
-//                     TextFormField(
-//                       initialValue: widget.order.customerId ?? '',
-//                       autofocus: widget.isEdit ? false : true,
-//                       style: Theme.of(context).textTheme.headline5,
-//                       decoration: InputDecoration(hintText: 'Customer Id'),
-//                       validator: (val) => val.trim().isEmpty
-//                           ? "Terminal name should not be empty"
-//                           : null,
-//                       onSaved: (value) => _terminalName = value,
-//                     ),
-//                     SmartSelect<TerminalType>.single(
-//                       title:
-//                           "Terminal type", //ArchSampleLocalizations.of(context).fromHint,
-//                       // key: ArchSampleKeys.fromField,
-//                       onChange: (state) => _terminalType = state.value,
-//                       choiceItems:
-//                           S2Choice.listFrom<TerminalType, TerminalType>(
-//                         source: TerminalType.values,
-//                         value: (index, item) => item,
-//                         title: (index, item) => item.toString(),
-//                       ),
-//                       modalType: S2ModalType.popupDialog,
-//                       modalHeader: false,
-//                       tileBuilder: (context, state) {
-//                         return S2Tile.fromState(
-//                           state,
-//                           trailing: const Icon(Icons.arrow_drop_down),
-//                           isTwoLine: true,
-//                         );
-//                       },
-//                       value: widget.terminal.type ?? TerminalType.port,
-//                     ),
-//                     Text(widget.isEdit ? '' : 'Select a tenant'),
-//                   ] +
-//                   tenantSelector(context, !widget.isEdit, (Tenant suggestion) {
-//                     _tenant = suggestion;
-//                   })),
-//         ),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         tooltip: widget.isEdit ? "Edit" : "Create",
-//         child: Icon(widget.isEdit ? Icons.check : Icons.add),
-//         onPressed: () async {
-//           final form = formKey.currentState;
-//           if (form.validate()) {
-//             form.save();
-//             widget.terminal.name = _terminalName;
-//             widget.terminal.type = _terminalType;
-//             if (_tenant != null) {
-//               widget.terminal.tenantId = _tenant.id;
-//             }
-//             widget.terminal.createdBy =
-//                 (await context.read<UserRepository>().self()).id;
-//             if (widget.isEdit) {
-//               widget.terminalBloc
-//                   .add(UpdateTerminal(widget.terminal.id, widget.terminal));
-//             } else {
-//               widget.terminalBloc.add(CreateTerminal(widget.terminal));
-//             }
+class _OrderAddEditState extends State<OrderAddEdit> {
+  static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-//             Navigator.pop(context);
-//           }
-//         },
-//       ),
-//     );
-//   }
-// }
+  String _orderSerialNumber;
+  OrderStatus _orderStatus;
+  Tenant _tenant;
 
-// // List<StatefulWidget> tenantSelector(BuildContext context, bool shouldShow,
-// //     void Function(Tenant) onSuggestionSelected) {
-// //   if (!shouldShow) return [];
-// //   return [
-// //     TypeAheadFormField<Tenant>(
-// //       textFieldConfiguration: TextFieldConfiguration(
-// //         decoration: InputDecoration(hintText: 'Select tenant'),
-// //       ),
-// //       suggestionsCallback: (pattern) async {
-// //         var client = await context.read<ApiRepository>().apiClient();
-// //         return (await client.tenantsGet())
-// //             .where((element) => element.name.toLowerCase().startsWith(pattern));
-// //       },
-// //       itemBuilder: (context, Tenant tenant) {
-// //         return ListTile(
-// //           leading: Icon(Icons.business),
-// //           title: Text(tenant.name),
-// //           subtitle: Text(tenant.id),
-// //         );
-// //       },
-// //       onSuggestionSelected: onSuggestionSelected,
-// //       // validator: (value) {
-// //       //   if (value.isEmpty) {
-// //       //     return 'Please select a tenant';
-// //       //   }
-// //       //   return null;
-// //       // },
-// //     ),
-// //   ];
-// // }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          widget.isEdit ? "Edit order" : "Add new order",
+        ),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Form(
+          key: formKey,
+          autovalidateMode: AutovalidateMode.disabled,
+          onWillPop: () {
+            return Future(() => true);
+          },
+          child: ListView(
+              children: [
+                    TextFormField(
+                      initialValue: widget.order.serialNumber ?? '',
+                      autofocus: widget.isEdit ? false : true,
+                      style: Theme.of(context).textTheme.headline5,
+                      decoration: InputDecoration(hintText: 'Order Number'),
+                      validator: (val) => val.trim().isEmpty
+                          ? "Order number should not be empty"
+                          : null,
+                      onSaved: (value) => _orderSerialNumber = value,
+                    ),
+                    SmartSelect<OrderStatus>.single(
+                      title: "Order status",
+                      onChange: (state) => _orderStatus = state.value,
+                      choiceItems: S2Choice.listFrom<OrderStatus, OrderStatus>(
+                        source: OrderStatus.values,
+                        value: (index, item) => item,
+                        title: (index, item) => item.toString(),
+                      ),
+                      modalType: S2ModalType.popupDialog,
+                      modalHeader: false,
+                      tileBuilder: (context, state) {
+                        return S2Tile.fromState(
+                          state,
+                          trailing: const Icon(Icons.arrow_drop_down),
+                          isTwoLine: true,
+                        );
+                      },
+                      value: widget.order.status ?? OrderStatus.open,
+                    ),
+                    Text(
+                        widget.isEdit || widget.user.role != UserRole.superAdmin
+                            ? ''
+                            : 'Select a tenant'),
+                  ] +
+                  tenantSelector(context,
+                      !widget.isEdit && widget.user.role == UserRole.superAdmin,
+                      (Tenant suggestion) {
+                    _tenant = suggestion;
+                  })),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: widget.isEdit ? "Edit" : "Create",
+        child: Icon(widget.isEdit ? Icons.check : Icons.add),
+        onPressed: () async {
+          final form = formKey.currentState;
+          if (form.validate()) {
+            form.save();
+            widget.order.serialNumber = _orderSerialNumber;
+            widget.order.status = _orderStatus;
+            if (_tenant != null) {
+              widget.order.tenantId = _tenant.id;
+            }
+            widget.order.createdBy =
+                (await context.read<UserRepository>().self()).id;
+            if (widget.isEdit) {
+              widget.orderBloc.add(UpdateOrder(widget.order.id, widget.order));
+            } else {
+              widget.orderBloc.add(CreateOrder(widget.order));
+            }
+
+            Navigator.pop(context);
+          }
+        },
+      ),
+    );
+  }
+}

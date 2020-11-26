@@ -6,5 +6,5 @@ abstract class OrderRepository {
   Future<Order> createOrder(Order order);
   Future<Order> updateOrder(String id, Order order);
   Future<List<Order>> fetchOrders();
-  Future<List<Order>> fetchOrdersOfTenant(String tenantId);
+  Future<List<Order>> filterOrders(OrderStatus orderStatus);
 }
