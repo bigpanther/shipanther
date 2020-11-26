@@ -28,6 +28,11 @@ class AuthCheck extends AuthEvent {
   AuthCheck() : super(AuthTypeSelector.signIn);
 }
 
+class IsVerified extends AuthEvent {
+  final User user;
+  IsVerified(this.user) : super(null);
+}
+
 class AuthSignIn extends AuthEvent {
   final String username;
   final String password;

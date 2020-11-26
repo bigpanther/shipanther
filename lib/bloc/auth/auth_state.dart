@@ -29,6 +29,11 @@ class AuthFailure extends AuthState {
   const AuthFailure(this.message, AuthTypeSelector authType) : super(authType);
 }
 
+class AuthVerification extends AuthState {
+  final User user;
+  const AuthVerification(this.user) : super(null);
+}
+
 enum AuthTypeSelector {
   signIn,
   register,
