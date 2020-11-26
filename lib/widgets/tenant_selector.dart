@@ -25,12 +25,31 @@ List<StatefulWidget> tenantSelector(BuildContext context, bool shouldShow,
         );
       },
       onSuggestionSelected: onSuggestionSelected,
-      // validator: (value) {
-      //   if (value.isEmpty) {
-      //     return 'Please select a tenant';
-      //   }
-      //   return null;
-      // },
+    ),
+  ];
+}
+
+List<StatefulWidget> customerSelector(BuildContext context, bool shouldShow,
+    void Function(Customer) onSuggestionSelected) {
+  if (!shouldShow) return [];
+  return [
+    TypeAheadFormField<Customer>(
+      textFieldConfiguration: TextFieldConfiguration(
+        decoration: InputDecoration(hintText: 'Select customer'),
+      ),
+      suggestionsCallback: (pattern) async {
+        var client = await context.read<ApiRepository>().apiClient();
+        return (await client.customersGet())
+            .where((element) => element.name.toLowerCase().startsWith(pattern));
+      },
+      itemBuilder: (context, Customer customer) {
+        return ListTile(
+          leading: Icon(Icons.business),
+          title: Text(customer.name),
+          subtitle: Text(customer.id),
+        );
+      },
+      onSuggestionSelected: onSuggestionSelected,
     ),
   ];
 }

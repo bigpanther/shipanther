@@ -30,6 +30,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
   String _orderSerialNumber;
   OrderStatus _orderStatus;
   Tenant _tenant;
+  Customer _customer;
 
   @override
   Widget build(BuildContext context) {
@@ -49,46 +50,52 @@ class _OrderAddEditState extends State<OrderAddEdit> {
             return Future(() => true);
           },
           child: ListView(
-              children: [
-                    TextFormField(
-                      initialValue: widget.order.serialNumber ?? '',
-                      autofocus: widget.isEdit ? false : true,
-                      style: Theme.of(context).textTheme.headline5,
-                      decoration: InputDecoration(hintText: 'Order Number'),
-                      validator: (val) => val.trim().isEmpty
-                          ? "Order number should not be empty"
-                          : null,
-                      onSaved: (value) => _orderSerialNumber = value,
+            children: [
+                  TextFormField(
+                    initialValue: widget.order.serialNumber ?? '',
+                    autofocus: widget.isEdit ? false : true,
+                    style: Theme.of(context).textTheme.headline5,
+                    decoration: InputDecoration(hintText: 'Order Number'),
+                    validator: (val) => val.trim().isEmpty
+                        ? "Order number should not be empty"
+                        : null,
+                    onSaved: (value) => _orderSerialNumber = value,
+                  ),
+                  SmartSelect<OrderStatus>.single(
+                    title: "Order status",
+                    onChange: (state) => _orderStatus = state.value,
+                    choiceItems: S2Choice.listFrom<OrderStatus, OrderStatus>(
+                      source: OrderStatus.values,
+                      value: (index, item) => item,
+                      title: (index, item) => item.toString(),
                     ),
-                    SmartSelect<OrderStatus>.single(
-                      title: "Order status",
-                      onChange: (state) => _orderStatus = state.value,
-                      choiceItems: S2Choice.listFrom<OrderStatus, OrderStatus>(
-                        source: OrderStatus.values,
-                        value: (index, item) => item,
-                        title: (index, item) => item.toString(),
-                      ),
-                      modalType: S2ModalType.popupDialog,
-                      modalHeader: false,
-                      tileBuilder: (context, state) {
-                        return S2Tile.fromState(
-                          state,
-                          trailing: const Icon(Icons.arrow_drop_down),
-                          isTwoLine: true,
-                        );
-                      },
-                      value: widget.order.status ?? OrderStatus.open,
-                    ),
-                    Text(
-                        widget.isEdit || widget.user.role != UserRole.superAdmin
-                            ? ''
-                            : 'Select a tenant'),
-                  ] +
-                  tenantSelector(context,
-                      !widget.isEdit && widget.user.role == UserRole.superAdmin,
-                      (Tenant suggestion) {
-                    _tenant = suggestion;
-                  })),
+                    modalType: S2ModalType.popupDialog,
+                    modalHeader: false,
+                    tileBuilder: (context, state) {
+                      return S2Tile.fromState(
+                        state,
+                        trailing: const Icon(Icons.arrow_drop_down),
+                        isTwoLine: true,
+                      );
+                    },
+                    value: widget.order.status ?? OrderStatus.open,
+                  ),
+                  Text(widget.isEdit || widget.user.role != UserRole.superAdmin
+                      ? ''
+                      : 'Select a tenant'),
+                ] +
+                tenantSelector(context,
+                    !widget.isEdit && widget.user.role == UserRole.superAdmin,
+                    (Tenant suggestion) {
+                  _tenant = suggestion;
+                }) +
+                [
+                  Text(widget.isEdit ? '' : 'Select a customer'),
+                ] +
+                customerSelector(context, true, (Customer suggestion) {
+                  _customer = suggestion;
+                }),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -100,6 +107,9 @@ class _OrderAddEditState extends State<OrderAddEdit> {
             form.save();
             widget.order.serialNumber = _orderSerialNumber;
             widget.order.status = _orderStatus ?? OrderStatus.open;
+            if (_customer != null) {
+              widget.order.customerId = _customer.id;
+            }
             if (_tenant != null) {
               widget.order.tenantId = _tenant.id;
             }
@@ -110,7 +120,6 @@ class _OrderAddEditState extends State<OrderAddEdit> {
             } else {
               widget.orderBloc.add(CreateOrder(widget.order));
             }
-
             Navigator.pop(context);
           }
         },
