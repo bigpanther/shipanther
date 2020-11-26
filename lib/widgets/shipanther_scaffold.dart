@@ -109,10 +109,12 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     );
   }
 
-  if (user.role == api.UserRole.superAdmin || user.role == api.UserRole.admin) {
+  if (user.role == api.UserRole.superAdmin ||
+      user.role == api.UserRole.admin ||
+      user.role == api.UserRole.backOffice) {
     widgets.add(
       _createDrawerItem(
-        icon: Icons.verified_user,
+        icon: Icons.people,
         text: ShipantherLocalizations.of(context).usersTitle,
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute(
@@ -121,12 +123,10 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         ),
       ),
     );
-  }
 
-  if (user.role != api.UserRole.driver && user.role != api.UserRole.none) {
     widgets.add(
       _createDrawerItem(
-        icon: Icons.people,
+        icon: Icons.connect_without_contact,
         text: ShipantherLocalizations.of(context).customersTitle,
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute(
@@ -143,18 +143,6 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (_) => TerminalScreen(user),
-          ),
-        ),
-      ),
-    );
-
-    widgets.add(
-      _createDrawerItem(
-        icon: Icons.list,
-        text: ShipantherLocalizations.of(context).ordersTitle,
-        onTap: () => Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (_) => OrderScreen(user),
           ),
         ),
       ),
@@ -179,6 +167,19 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (_) => ContainerScreen(user),
+          ),
+        ),
+      ),
+    );
+  }
+  if (user.role != api.UserRole.driver && user.role == api.UserRole.none) {
+    widgets.add(
+      _createDrawerItem(
+        icon: Icons.list,
+        text: ShipantherLocalizations.of(context).ordersTitle,
+        onTap: () => Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => OrderScreen(user),
           ),
         ),
       ),

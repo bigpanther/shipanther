@@ -103,28 +103,8 @@ class UserList extends StatelessWidget {
         );
       },
     );
-    Widget floatingActionButton = FloatingActionButton(
-      tooltip: "Add user",
-      child: Icon(Icons.add),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => UserAddEdit(
-              loggedInUser,
-              isEdit: false,
-              userBloc: userBloc,
-              user: User(),
-            ),
-          ),
-        );
-      },
-    );
 
     return ShipantherScaffold(loggedInUser,
-        title: title,
-        actions: actions,
-        body: body,
-        floatingActionButton: floatingActionButton);
+        title: title, actions: actions, body: body, floatingActionButton: null);
   }
 }
