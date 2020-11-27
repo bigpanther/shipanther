@@ -21,15 +21,7 @@ class ContainerList extends StatelessWidget {
     final DateFormat formatter = DateFormat('dd-MM-yyyy');
 
     var title = ShipantherLocalizations.of(context).containersTitle;
-    List<Widget> actions = [
-      // FilterButton<ContainerType>(
-      //   possibleValues: ContainerType.values,
-      //   isActive: true,
-      //   activeFilter: containerLoadedState.containerType,
-      //   onSelected: (t) => context.read<ContainerBloc>()..add(GetContainers(t)),
-      //   tooltip: "Filter Container type",
-      // )
-    ];
+    List<Widget> actions = [];
     Widget body = ListView.builder(
       itemCount: containerLoadedState.containers.length,
       itemBuilder: (BuildContext context, int index) {
@@ -68,7 +60,16 @@ class ContainerList extends StatelessWidget {
                 t.serialNumber,
                 style: Theme.of(context).textTheme.headline6,
               ),
+              subtitle: Text(t.origin + ' to ' + t.destination),
               children: [
+                Text(
+                  "LFD: ${t.lfd}",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Text(
+                  "Reservation Time: ${t.reservationTime}",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
                 Text(
                   "Created At: ${formatter.format(t.createdAt).toString()}",
                   style: Theme.of(context).textTheme.subtitle1,
