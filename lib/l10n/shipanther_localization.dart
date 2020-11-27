@@ -168,6 +168,12 @@ class ShipantherLocalizations {
         desc: 'Forgot Password?',
         locale: locale.toString(),
       );
+  String get resetPasswordMessage => Intl.message(
+        'An email with the reset link would be sent to you.',
+        name: 'resetPasswordMessage',
+        desc: 'Reset password message',
+        locale: locale.toString(),
+      );
 }
 
 class ShipantherLocalizationsDelegate

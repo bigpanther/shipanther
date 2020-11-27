@@ -27,6 +27,9 @@ class _ResetPasswordState extends State<ResetPassword> {
               TextFormField(
                 decoration: InputDecoration(
                     labelText: ShipantherLocalizations.of(context).email),
+                autocorrect: false,
+                enableSuggestions: false,
+                keyboardType: TextInputType.emailAddress,
                 validator: (String value) {
                   if (value.isEmpty) {
                     return ShipantherLocalizations.of(context).paramRequired(
@@ -36,6 +39,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 },
                 onSaved: (val) => setState(() => _email = val),
               ),
+              Text(ShipantherLocalizations.of(context).resetPasswordMessage),
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 alignment: Alignment.center,
@@ -46,10 +50,13 @@ class _ResetPasswordState extends State<ResetPassword> {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
 
-                      context.read<AuthBloc>().add(ForgotPassword(_email));
+                      context
+                          .read<AuthBloc>()
+                          .add(ForgotPassword(_email.trim()));
+                      Navigator.pop(context);
                     }
                   },
-                  text: ShipantherLocalizations.of(context).containersTitle,
+                  text: ShipantherLocalizations.of(context).resetPassword,
                 ),
               ),
             ],
