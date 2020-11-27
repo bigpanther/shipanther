@@ -16,7 +16,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Reset password'),
+        title: Text(ShipantherLocalizations.of(context).resetPassword),
       ),
       body: Form(
         key: _formKey,
@@ -49,7 +49,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       context.read<AuthBloc>().add(ForgotPassword(_email));
                     }
                   },
-                  text: 'Reset password',
+                  text: ShipantherLocalizations.of(context).containersTitle,
                 ),
               ),
             ],
