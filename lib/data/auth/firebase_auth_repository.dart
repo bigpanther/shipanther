@@ -9,7 +9,6 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 class FireBaseAuthRepository extends AuthRepository {
   final FirebaseMessaging _firebaseMessaging;
   FireBaseAuthRepository(this._firebaseMessaging);
-  UserCredential _credentials;
 
   @override
   Future<User> registerUser(
@@ -18,7 +17,6 @@ class FireBaseAuthRepository extends AuthRepository {
       email: username,
       password: password,
     );
-    _credentials = userCreds;
     User user = userCreds.user;
 
     if (user == null) {
@@ -41,7 +39,6 @@ class FireBaseAuthRepository extends AuthRepository {
       email: username,
       password: password,
     );
-    _credentials = userCreds;
     User user = userCreds.user;
     if (user == null) {
       throw AuthenticationException();
@@ -53,7 +50,6 @@ class FireBaseAuthRepository extends AuthRepository {
 
   @override
   Future<void> logout() async {
-    _credentials = null;
     await _firebaseMessaging.setAutoInitEnabled(false);
     await _firebaseMessaging.deleteInstanceID();
     await _auth.signOut();
