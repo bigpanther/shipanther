@@ -11,6 +11,7 @@ import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:shipanther/screens/terminal/home.dart';
 import 'package:shipanther/screens/user/home.dart';
 import 'package:trober_sdk/api.dart' as api;
+import 'package:shipanther/extensions/user_extension.dart';
 
 class ShipantherScaffold extends StatelessWidget {
   const ShipantherScaffold(this.user,
@@ -95,7 +96,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     ),
   );
 
-  if (user.role == api.UserRole.superAdmin) {
+  if (user.isSuperAdmin) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.business,
@@ -109,9 +110,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     );
   }
 
-  if (user.role == api.UserRole.superAdmin ||
-      user.role == api.UserRole.admin ||
-      user.role == api.UserRole.backOffice) {
+  if (user.isAtleastBackOffice) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.people,

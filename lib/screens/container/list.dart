@@ -62,7 +62,7 @@ class ContainerList extends StatelessWidget {
                 t.serialNumber,
                 style: Theme.of(context).textTheme.headline6,
               ),
-              subtitle: Text(t.origin + ' to ' + t.destination),
+              subtitle: Text('${t.origin} to ${t.destination}'),
               children: [
                 Text(
                   "LFD: ${t.lfd}",

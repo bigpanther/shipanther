@@ -6,7 +6,7 @@ import 'package:shipanther/screens/user/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
-
+import 'package:shipanther/extensions/user_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserList extends StatelessWidget {
@@ -48,17 +48,7 @@ class UserList extends StatelessWidget {
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
               // subtitle: Text(t.id),
               // tilePadding: EdgeInsets.all(5),
-              leading: Icon((t.role == UserRole.superAdmin)
-                  ? Icons.android
-                  : (t.role == UserRole.admin)
-                      ? Icons.person
-                      : (t.role == UserRole.backOffice)
-                          ? Icons.person_add
-                          : (t.role == UserRole.driver)
-                              ? Icons.local_shipping
-                              : (t.role == UserRole.customer)
-                                  ? Icons.perm_identity
-                                  : Icons.not_accessible),
+              leading: Icon(t.icon),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
