@@ -69,6 +69,10 @@ class CarrierList extends StatelessWidget {
               ),
               children: [
                 Text(
+                  "ETA: ${formatter.format(t.eta).toString()}",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                Text(
                   "Created At: ${formatter.format(t.createdAt).toString()}",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
