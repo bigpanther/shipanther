@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/data/user/user_repository.dart';
-import 'package:shipanther/widgets/tenant_selector.dart';
+import 'package:shipanther/widgets/selectors.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
+import 'package:shipanther/extensions/user_extension.dart';
 
 class TerminalAddEdit extends StatefulWidget {
   final User loggedInUser;
@@ -80,15 +81,12 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                       },
                       value: widget.terminal.type ?? TerminalType.port,
                     ),
-                    Text(widget.isEdit ||
-                            widget.loggedInUser.role != UserRole.superAdmin
+                    Text(widget.isEdit || !widget.loggedInUser.isSuperAdmin
                         ? ''
                         : 'Select a tenant'),
                   ] +
-                  tenantSelector(
-                      context,
-                      !widget.isEdit &&
-                          widget.loggedInUser.role == UserRole.superAdmin,
+                  tenantSelector(context,
+                      !widget.isEdit && widget.loggedInUser.isSuperAdmin,
                       (Tenant suggestion) {
                     _tenant = suggestion;
                   })),

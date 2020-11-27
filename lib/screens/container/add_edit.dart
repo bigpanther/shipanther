@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/container/container_bloc.dart';
-
+import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/widgets/tenant_selector.dart';
+import 'package:shipanther/widgets/selectors.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart' as api;
+import 'package:shipanther/extensions/user_extension.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ContainerAddEdit extends StatefulWidget {
   final api.User loggedInUser;
@@ -29,11 +30,17 @@ class ContainerAddEdit extends StatefulWidget {
 
 class _ContainerAddEditState extends State<ContainerAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  String _terminalName;
+  String _serialNumber;
+  String _origin;
+  String _destination;
+  api.Terminal _terminal;
+  api.Carrier _carrier;
+  api.Order _order;
   api.Tenant _tenant;
   api.ContainerSize _containerSize;
-  api.CarrierType _carrierType;
+  api.ContainerType _containerType;
+  api.ContainerStatus _containerStatus;
+  api.User _driver;
   DateTime _reservationTime;
   DateTime _lfd;
 
@@ -43,7 +50,6 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
       setState(() {
         _reservationTime = date;
       });
-      print('confirm $date');
     }, currentTime: DateTime.now());
   }
 
@@ -53,7 +59,6 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
       setState(() {
         _lfd = date;
       });
-      print('confirm $date');
     }, currentTime: DateTime.now());
   }
 
@@ -75,124 +80,177 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
             return Future(() => true);
           },
           child: ListView(
-              children: [
-                    TextFormField(
-                      initialValue: widget.container.serialNumber ?? '',
-                      autofocus: widget.isEdit ? false : true,
-                      style: Theme.of(context).textTheme.headline5,
-                      decoration: InputDecoration(hintText: 'Serial number'),
-                      validator: (val) => val.trim().isEmpty
-                          ? "Serial number should not be empty"
-                          : null,
-                      onSaved: (value) => _terminalName = value,
+            children: [
+                  TextFormField(
+                    initialValue: widget.container.serialNumber ?? '',
+                    autofocus: widget.isEdit ? false : true,
+                    style: Theme.of(context).textTheme.headline5,
+                    decoration: InputDecoration(hintText: 'Serial number'),
+                    validator: (val) => val.trim().isEmpty
+                        ? "Serial number should not be empty"
+                        : null,
+                    onSaved: (value) => _serialNumber = value,
+                  ),
+                  TextFormField(
+                    initialValue: widget.container.origin ?? '',
+                    autofocus: widget.isEdit ? false : true,
+                    style: Theme.of(context).textTheme.headline5,
+                    decoration: InputDecoration(hintText: 'Origin'),
+                    onSaved: (value) => _origin = value,
+                  ),
+                  TextFormField(
+                    initialValue: widget.container.destination ?? '',
+                    autofocus: widget.isEdit ? false : true,
+                    style: Theme.of(context).textTheme.headline5,
+                    decoration: InputDecoration(hintText: 'Destination'),
+                    onSaved: (value) => _destination = value,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 13, right: 10, top: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Text('Reservation time'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(_reservationTime == null
+                                ? ShipantherLocalizations.of(context)
+                                    .noDateChosen
+                                : DateFormat('dd-MM-yy - kk:mm')
+                                    .format(_reservationTime)),
+                            IconButton(
+                              icon: Icon(Icons.calendar_today),
+                              onPressed: _presentDateTimePickerReservationTime,
+                            )
+                          ],
+                        )
+                      ],
                     ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 13, right: 10, top: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Text('Reservation time'),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Text(_reservationTime == null
-                                  ? ShipantherLocalizations.of(context)
-                                      .noDateChosen
-                                  : DateFormat('dd-MM-yy - kk:mm')
-                                      .format(_reservationTime)),
-                              IconButton(
-                                icon: Icon(Icons.calendar_today),
-                                onPressed:
-                                    _presentDateTimePickerReservationTime,
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 13, right: 10, top: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Text('LFD'),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(_lfd == null
+                                ? ShipantherLocalizations.of(context)
+                                    .noDateChosen
+                                : DateFormat('dd-MM-yy - kk:mm').format(_lfd)),
+                            IconButton(
+                              icon: Icon(Icons.calendar_today),
+                              onPressed: _presentDateTimePickerlfd,
+                            )
+                          ],
+                        )
+                      ],
                     ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 13, right: 10, top: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Text('LFD'),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Text(_lfd == null
-                                  ? ShipantherLocalizations.of(context)
-                                      .noDateChosen
-                                  : DateFormat('dd-MM-yy - kk:mm')
-                                      .format(_lfd)),
-                              IconButton(
-                                icon: Icon(Icons.calendar_today),
-                                onPressed: _presentDateTimePickerlfd,
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+                  ),
+                  SmartSelect<api.ContainerSize>.single(
+                    title: "Container size",
+                    onChange: (state) => _containerSize = state.value,
+                    choiceItems:
+                        S2Choice.listFrom<api.ContainerSize, api.ContainerSize>(
+                      source: api.ContainerSize.values,
+                      value: (index, item) => item,
+                      title: (index, item) => item.toString(),
                     ),
-                    SmartSelect<api.ContainerSize>.single(
-                      title: "Container size",
-                      onChange: (state) => _containerSize = state.value,
-                      choiceItems: S2Choice.listFrom<api.ContainerSize,
-                          api.ContainerSize>(
-                        source: api.ContainerSize.values,
-                        value: (index, item) => item,
-                        title: (index, item) => item.toString(),
-                      ),
-                      modalType: S2ModalType.popupDialog,
-                      modalHeader: false,
-                      tileBuilder: (context, state) {
-                        return S2Tile.fromState(
-                          state,
-                          trailing: const Icon(Icons.arrow_drop_down),
-                          isTwoLine: true,
-                        );
-                      },
-                      value: widget.container.size ?? api.ContainerSize.n20sT,
+                    modalType: S2ModalType.popupDialog,
+                    modalHeader: false,
+                    tileBuilder: (context, state) {
+                      return S2Tile.fromState(
+                        state,
+                        trailing: const Icon(Icons.arrow_drop_down),
+                        isTwoLine: true,
+                      );
+                    },
+                    value: widget.container.size ?? api.ContainerSize.n20sT,
+                  ),
+                  SmartSelect<api.ContainerType>.single(
+                    title: "Container type",
+                    onChange: (state) => _containerType = state.value,
+                    choiceItems:
+                        S2Choice.listFrom<api.ContainerType, api.ContainerType>(
+                      source: api.ContainerType.values,
+                      value: (index, item) => item,
+                      title: (index, item) => item.toString(),
                     ),
-                    SmartSelect<api.CarrierType>.single(
-                      title: "Carrier Type",
-                      onChange: (state) => _carrierType = state.value,
-                      choiceItems:
-                          S2Choice.listFrom<api.CarrierType, api.CarrierType>(
-                        source: api.CarrierType.values,
-                        value: (index, item) => item,
-                        title: (index, item) => item.toString(),
-                      ),
-                      modalType: S2ModalType.popupDialog,
-                      modalHeader: false,
-                      tileBuilder: (context, state) {
-                        return S2Tile.fromState(
-                          state,
-                          trailing: const Icon(Icons.arrow_drop_down),
-                          isTwoLine: true,
-                        );
-                      },
-                      value: widget.container.type ?? api.CarrierType.road,
+                    modalType: S2ModalType.popupDialog,
+                    modalHeader: false,
+                    tileBuilder: (context, state) {
+                      return S2Tile.fromState(
+                        state,
+                        trailing: const Icon(Icons.arrow_drop_down),
+                        isTwoLine: true,
+                      );
+                    },
+                    value: widget.container.type ?? api.ContainerType.incoming,
+                  ),
+                  SmartSelect<api.ContainerStatus>.single(
+                    title: "Container Status",
+                    onChange: (state) => _containerStatus = state.value,
+                    choiceItems: S2Choice.listFrom<api.ContainerStatus,
+                        api.ContainerStatus>(
+                      source: api.ContainerStatus.values,
+                      value: (index, item) => item,
+                      title: (index, item) => item.toString(),
                     ),
-                    Text(widget.isEdit ||
-                            widget.loggedInUser.role != api.UserRole.superAdmin
-                        ? ''
-                        : 'Select a tenant'),
-                  ] +
-                  tenantSelector(
-                      context,
-                      !widget.isEdit &&
-                          widget.loggedInUser.role == api.UserRole.superAdmin,
-                      (api.Tenant suggestion) {
+                    modalType: S2ModalType.popupDialog,
+                    modalHeader: false,
+                    tileBuilder: (context, state) {
+                      return S2Tile.fromState(
+                        state,
+                        trailing: const Icon(Icons.arrow_drop_down),
+                        isTwoLine: true,
+                      );
+                    },
+                    value: widget.container.status ??
+                        api.ContainerStatus.unassigned,
+                  ),
+                  Text(widget.isEdit || !widget.loggedInUser.isSuperAdmin
+                      ? ''
+                      : 'Select a tenant'),
+                ] +
+                tenantSelector(
+                  context,
+                  !widget.isEdit && widget.loggedInUser.isSuperAdmin,
+                  (api.Tenant suggestion) {
                     _tenant = suggestion;
-                  })),
+                  },
+                ) +
+                [
+                  Text(widget.isEdit ? '' : 'Select an order'),
+                ] +
+                orderSelector(context, true, (api.Order suggestion) {
+                  _order = suggestion;
+                }) +
+                [
+                  Text(widget.isEdit ? '' : 'Select a terminal'),
+                ] +
+                terminalSelector(context, true, (api.Terminal suggestion) {
+                  _terminal = suggestion;
+                }) +
+                [
+                  Text(widget.isEdit ? '' : 'Select a driver'),
+                ] +
+                driverSelector(
+                  context,
+                  true,
+                  (api.User suggestion) {
+                    _driver = suggestion;
+                  },
+                ),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -201,22 +259,43 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
         onPressed: () async {
           final form = formKey.currentState;
           if (form.validate()) {
-            // form.save();
-            // widget.terminal.name = _terminalName;
-            // widget.terminal.type = _terminalType ?? TerminalType.port;
-            // if (_tenant != null) {
-            //   widget.terminal.tenantId = _tenant.id;
-            // }
-            // widget.terminal.createdBy =
-            //     (await context.read<UserRepository>().self()).id;
-            // if (widget.isEdit) {
-            //   widget.terminalBloc
-            //       .add(UpdateTerminal(widget.terminal.id, widget.terminal));
-            // } else {
-            //   widget.terminalBloc.add(CreateTerminal(widget.terminal));
-            // }
+            form.save();
+            widget.container.serialNumber = _serialNumber;
+            widget.container.origin = _origin;
+            widget.container.destination = _destination;
+            widget.container.type =
+                _containerType ?? api.ContainerType.incoming;
+            widget.container.status =
+                _containerStatus ?? api.ContainerStatus.unassigned;
+            widget.container.size = _containerSize;
+            if (_tenant != null) {
+              widget.container.tenantId = _tenant.id;
+            }
+            var self = await context.read<UserRepository>().self();
+            if (self.isDriver) {
+              widget.container.driverId = self.id;
+            }
+            if (_driver != null) {
+              widget.container.driverId = _driver.id;
+            }
+            if (_order != null) {
+              widget.container.orderId = _order.id;
+            }
+            if (_carrier != null) {
+              widget.container.carrierId = _carrier.id;
+            }
+            if (_terminal != null) {
+              widget.container.terminalId = _terminal.id;
+            }
+            widget.container.createdBy = self.id;
+            if (widget.isEdit) {
+              widget.containerBloc
+                  .add(UpdateContainer(widget.container.id, widget.container));
+            } else {
+              widget.containerBloc.add(CreateContainer(widget.container));
+            }
 
-            // Navigator.pop(context);
+            Navigator.pop(context);
           }
         },
       ),
