@@ -156,6 +156,18 @@ class ShipantherLocalizations {
         desc: 'This Email Id is not yet verified. Please try again.',
         locale: locale.toString(),
       );
+  String get resetPassword => Intl.message(
+        'Reset Password',
+        name: 'resetPassword',
+        desc: 'Reset Password',
+        locale: locale.toString(),
+      );
+  String get forgotPassword => Intl.message(
+        'Forgot Password?',
+        name: 'forgotPassword',
+        desc: 'Forgot Password?',
+        locale: locale.toString(),
+      );
 }
 
 class ShipantherLocalizationsDelegate

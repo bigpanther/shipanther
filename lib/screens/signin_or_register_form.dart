@@ -118,7 +118,8 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                               AuthTypeOtherRequest(widget.authTypeSelector))),
                       widget.authTypeSelector == AuthTypeSelector.signIn
                           ? TextButton(
-                              child: Text('Forgot password?'),
+                              child: Text(ShipantherLocalizations.of(context)
+                                  .forgotPassword),
                               onPressed: () => Navigator.push(
                                     context,
                                     MaterialPageRoute(
