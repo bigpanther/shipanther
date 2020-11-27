@@ -22,12 +22,19 @@ class _ContainerScreenState extends State<ContainerScreen> {
   void initState() {
     super.initState();
     bloc = context.read<ContainerBloc>();
-    bloc.add(GetContainers(widget.loggedInUser));
+    bloc.add(GetContainers());
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ContainerBloc, ContainerState>(
+      listener: (context, state) {
+        if (state is ContainerFailure) {
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text(state.message),
+          ));
+        }
+      },
       builder: (context, state) {
         if (state is ContainerLoaded) {
           return Container(
@@ -45,13 +52,6 @@ class _ContainerScreenState extends State<ContainerScreen> {
           body: CenteredLoading(),
           floatingActionButton: null,
         );
-      },
-      listener: (context, state) {
-        if (state is ContainerFailure) {
-          Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text(state.message),
-          ));
-        }
       },
     );
   }

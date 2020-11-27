@@ -37,7 +37,6 @@ class _OrderScreenState extends State<OrderScreen> {
         }
       },
       builder: (context, state) {
-        print(state);
         if (state is OrdersLoaded) {
           return OrderList(widget.loggedInUser,
               orderBloc: bloc, orderLoadedState: state);

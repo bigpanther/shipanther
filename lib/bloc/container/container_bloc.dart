@@ -23,12 +23,6 @@ class ContainerBloc extends Bloc<ContainerEvent, ContainerState> {
     }
     if (event is GetContainers) {
       var containers = await _containerRepository.fetchContainers();
-      var user = event.user;
-      if (user.role == UserRole.driver) {
-        containers = containers.where((e) => e.driverId == user.id).toList();
-      } else {
-        containers = containers.where((e) => e.tenantId == user.id).toList();
-      }
       yield ContainersLoaded(containers);
     }
     if (event is UpdateContainer) {
