@@ -136,21 +136,17 @@ class ShipantherLocalizations {
         examples: const {'param': 'Name'},
       );
 
-  String get verifyEmail1 => Intl.message(
-        'An Email has been sent to ',
-        name: 'verifyEmail1',
-        desc: 'An Email has been sent to ',
+  String emailSent(String emailId) => Intl.message(
+        'An Email has been sent to $emailId. Please check your inbox.',
+        name: 'emailSent',
+        desc: 'An Email has been sent',
         locale: locale.toString(),
+        examples: const {'emailId': 'info@bigpanther.ca'},
       );
-  String get verifyEmail2 => Intl.message(
-        ' Please click on it to varify your email.',
-        name: 'verifyEmail2',
-        desc: ' Please click on it to varify your email.',
-        locale: locale.toString(),
-      );
-  String get notVerifiedError => Intl.message(
+
+  String get emailNotVerified => Intl.message(
         'This Email Id is not yet verified. Please try again.',
-        name: 'notVerifiedError',
+        name: 'emailNotVerified',
         desc: 'This Email Id is not yet verified. Please try again.',
         locale: locale.toString(),
       );
@@ -161,7 +157,6 @@ class ShipantherLocalizationsDelegate
   const ShipantherLocalizationsDelegate();
   @override
   bool isSupported(Locale locale) {
-    print(locale);
     return ShipantherLocalizations.supportedLocales
         .contains(locale.languageCode.toLowerCase());
   }
