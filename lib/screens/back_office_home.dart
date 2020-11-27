@@ -37,7 +37,6 @@ class _BackOfficeHomeState extends State<BackOfficeHome> {
         }
       },
       builder: (context, state) {
-        print(state);
         if (state is TerminalsLoaded) {
           return TerminalList(widget.user,
               terminalBloc: bloc, terminalLoadedState: state);
