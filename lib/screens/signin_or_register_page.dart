@@ -33,6 +33,16 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
               content: Text(state.message),
             ));
           }
+          if (state is AuthEmailResent) {
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  ShipantherLocalizations.of(context)
+                      .emailSent(state.user.email),
+                ),
+              ),
+            );
+          }
         },
         builder: (context, state) {
           return _body(context, state);

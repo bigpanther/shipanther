@@ -9,6 +9,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 class FireBaseAuthRepository extends AuthRepository {
   final FirebaseMessaging _firebaseMessaging;
   FireBaseAuthRepository(this._firebaseMessaging);
+  UserCredential _credentials;
 
   @override
   Future<User> registerUser(
@@ -17,21 +18,16 @@ class FireBaseAuthRepository extends AuthRepository {
       email: username,
       password: password,
     );
+    _credentials = userCreds;
     User user = userCreds.user;
 
     if (user == null) {
       throw AuthenticationException();
     }
 
-    user.updateProfile(displayName: name);
-    try {
-      await user.sendEmailVerification();
-      return user;
-    } catch (e) {
-      print("An error occured while trying to send email verification");
-      print(e.message);
-    }
-    // return user;
+    await user.updateProfile(displayName: name);
+    await user.sendEmailVerification();
+    return user;
   }
 
   @override
@@ -45,6 +41,7 @@ class FireBaseAuthRepository extends AuthRepository {
       email: username,
       password: password,
     );
+    _credentials = userCreds;
     User user = userCreds.user;
     if (user == null) {
       throw AuthenticationException();
@@ -56,6 +53,7 @@ class FireBaseAuthRepository extends AuthRepository {
 
   @override
   Future<void> logout() async {
+    _credentials = null;
     await _firebaseMessaging.setAutoInitEnabled(false);
     await _firebaseMessaging.deleteInstanceID();
     await _auth.signOut();
@@ -65,6 +63,13 @@ class FireBaseAuthRepository extends AuthRepository {
   Future<String> deviceToken() async {
     var deviceToken = await _firebaseMessaging.getToken();
     return deviceToken;
+  }
+
+  @override
+  Future<User> refreshUserProfile() async {
+    // See https://github.com/FirebaseExtended/flutterfire/issues/717
+    await _auth.currentUser.reload();
+    return _auth.currentUser;
   }
 }
 

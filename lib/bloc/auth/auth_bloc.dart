@@ -36,7 +36,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         final user =
             await _authRepository.fetchAuthUser(event.username, event.password);
-        print(user);
         if (user.emailVerified) {
           yield AuthFinished(user, event.authType);
         } else {
@@ -56,17 +55,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is AuthCheck) {
       var user = _authRepository.loggedInUser();
       if (user != null) {
-        yield AuthFinished(user, AuthTypeSelector.signIn);
+        if (user.emailVerified) {
+          yield AuthFinished(user, event.authType);
+        } else {
+          yield AuthVerification(user);
+        }
       } else {
         yield AuthInitial();
       }
     }
     if (event is CheckVerified) {
-      await event.user.reload();
-      if (event.user.emailVerified) {
-        yield AuthFinished(event.user, AuthTypeSelector.signIn);
+      var user = await _authRepository.refreshUserProfile();
+      if (user.emailVerified) {
+        yield AuthFinished(user, AuthTypeSelector.signIn);
       } else {
-        yield AuthFailure("Email not verified", event.authType);
+        yield AuthVerification(user);
       }
     }
     if (event is ResendEmail) {

@@ -28,9 +28,9 @@ class AuthCheck extends AuthEvent {
   AuthCheck() : super(AuthTypeSelector.signIn);
 }
 
-class IsVerified extends AuthEvent {
+class CheckVerified extends AuthEvent {
   final User user;
-  const IsVerified(this.user) : super(null);
+  const CheckVerified(this.user) : super(null);
 }
 
 class ResendEmail extends AuthEvent {
