@@ -10,4 +10,5 @@ abstract class AuthRepository {
   User loggedInUser();
   Future<String> deviceToken();
   Future<void> logout();
+  Future<void> resetPassword(String email);
 }

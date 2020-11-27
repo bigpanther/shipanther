@@ -38,6 +38,11 @@ class ResendEmail extends AuthEvent {
   const ResendEmail(this.user) : super(null);
 }
 
+class ForgotPassword extends AuthEvent {
+  final String email;
+  const ForgotPassword(this.email) : super(null);
+}
+
 class AuthSignIn extends AuthEvent {
   final String username;
   final String password;
