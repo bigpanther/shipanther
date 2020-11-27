@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_signin_button/button_builder.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/screens/reset_password.dart';
 
 class SignInOrRegistrationForm extends StatefulWidget {
   final AuthTypeSelector authTypeSelector;
@@ -109,11 +110,26 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: TextButton(
-                      child: Text(widget.authTypeSelector.otherText),
-                      onPressed: () => context
-                          .read<AuthBloc>()
-                          .add(AuthTypeOtherRequest(widget.authTypeSelector))),
+                  child: Column(
+                    children: [
+                      TextButton(
+                          child: Text(widget.authTypeSelector.otherText),
+                          onPressed: () => context.read<AuthBloc>().add(
+                              AuthTypeOtherRequest(widget.authTypeSelector))),
+                      widget.authTypeSelector == AuthTypeSelector.signIn
+                          ? TextButton(
+                              child: Text('Forgot password?'),
+                              onPressed: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ResetPassword()),
+                                  ))
+                          : Container(
+                              height: 0,
+                              width: 0,
+                            )
+                    ],
+                  ),
                 ),
               ],
             ),
