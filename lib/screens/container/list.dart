@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/container/container_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/screens/container/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/api.dart' as api;
 
 class ContainerList extends StatelessWidget {
   final ContainerBloc containerBloc;
   final ContainersLoaded containerLoadedState;
-  final User loggedInUser;
+  final api.User loggedInUser;
   const ContainerList(
     this.loggedInUser, {
     Key key,
@@ -43,16 +44,17 @@ class ContainerList extends StatelessWidget {
               trailing: IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (_) => ContainerAddEdit(
-                  //       isEdit: true,
-                  //       containerBloc: containerBloc,
-                  //       container: t,
-                  //     ),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ContainerAddEdit(
+                        loggedInUser,
+                        isEdit: true,
+                        containerBloc: containerBloc,
+                        container: t,
+                      ),
+                    ),
+                  );
                 },
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
@@ -93,16 +95,17 @@ class ContainerList extends StatelessWidget {
       tooltip: "Add container",
       child: Icon(Icons.add),
       onPressed: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (_) => ContainerAddEdit(
-        //       isEdit: false,
-        //       containerBloc: containerBloc,
-        //       container: Container(),
-        //     ),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ContainerAddEdit(
+              loggedInUser,
+              isEdit: false,
+              containerBloc: containerBloc,
+              container: api.Container(),
+            ),
+          ),
+        );
       },
     );
 
