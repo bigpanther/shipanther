@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
+import 'package:shipanther/data/auth/auth_repository.dart';
 
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/widgets/centered_loading.dart';
+import 'package:shipanther/screens/signin_or_register_form.dart';
 
 class VerifyEmail extends StatelessWidget {
   final User user;
@@ -15,6 +16,17 @@ class VerifyEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(ShipantherLocalizations.of(context).welcome),
+        centerTitle: true,
+        actions: [
+          IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () async {
+                context.read<AuthBloc>().add(AuthLogout());
+              })
+        ],
+      ),
       body: Column(
         children: [
           Text(ShipantherLocalizations.of(context).emailSent(user.email)),
