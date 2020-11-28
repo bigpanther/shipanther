@@ -23,9 +23,6 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(ShipantherLocalizations.of(context).welcome),
-      ),
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) async {
           if (state is AuthFailure) {
