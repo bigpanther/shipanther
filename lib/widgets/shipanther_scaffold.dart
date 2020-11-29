@@ -171,7 +171,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
       ),
     );
   }
-  if (user.role != api.UserRole.driver && user.role == api.UserRole.none) {
+  if (user.role != api.UserRole.driver && user.role != api.UserRole.none) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.list,
