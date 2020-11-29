@@ -266,7 +266,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "PATH_TO_GOOGLE_PLISTS=\"${PROJECT_DIR}/config\"\nX_BUILD_MODE=dev\nif [[ \"$CONFIGURATION\" =~ prod$ ]]; then\nX_BUILD_MODE=prod\nfi\ncp -r \"$PATH_TO_GOOGLE_PLISTS/$X_BUILD_MODE/GoogleService-Info.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n\n";
+			shellScript = "PATH_TO_GOOGLE_PLISTS=\"${PROJECT_DIR}/config\"\nX_BUILD_MODE=dev\nif [[ \"$CONFIGURATION\" =~ prod$ ]]; then\nX_BUILD_MODE=prod\nfi\ncp \"$PATH_TO_GOOGLE_PLISTS/$X_BUILD_MODE/GoogleService-Info.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\"\n\n";
 		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
