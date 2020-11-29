@@ -43,8 +43,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "ca.bigpanther.shipanther"
+        applicationId "ca.bigpanther.shipanthertest"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
@@ -63,6 +62,19 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+        }
+    }
+    flavorDimensions "app"
+    productFlavors{
+        prod{
+            dimension "app"
+            applicationId "ca.bigpanther.shipanther"
+            resValue "string", "app_name", "Shipanther"
+        }
+        dev{
+            dimension "app"
+            applicationId "ca.bigpanther.shipanthertest"
+            resValue "string", "app_name", "Shipanther dev"
         }
     }
 }
