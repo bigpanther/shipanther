@@ -55,9 +55,7 @@ class _TenantAddEditState extends State<TenantAddEdit> {
                 onSaved: (value) => _tenantName = value,
               ),
               SmartSelect<TenantType>.single(
-                title:
-                    "Tenant type", //ArchSampleLocalizations.of(context).fromHint,
-                // key: ArchSampleKeys.fromField,
+                title: "Tenant type",
                 onChange: (state) => _tenantType = state.value,
                 choiceItems: S2Choice.listFrom<TenantType, TenantType>(
                   source: TenantType.values,

@@ -34,6 +34,7 @@ class _UserAddEditState extends State<UserAddEdit> {
 
   @override
   Widget build(BuildContext context) {
+    _userRole = widget.user.role ?? UserRole.driver;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -78,14 +79,11 @@ class _UserAddEditState extends State<UserAddEdit> {
                           isTwoLine: true,
                         );
                       },
-                      value: widget.user.role ?? UserRole.driver,
+                      value: _userRole,
                     ),
-                    Text(widget.isEdit || !widget.loggedInUser.isSuperAdmin
-                        ? ''
-                        : 'Select a tenant'),
                   ] +
                   tenantSelector(context,
-                      !widget.isEdit && widget.loggedInUser.isSuperAdmin,
+                      widget.isEdit && widget.loggedInUser.isSuperAdmin,
                       (Tenant suggestion) {
                     _tenant = suggestion;
                   })),

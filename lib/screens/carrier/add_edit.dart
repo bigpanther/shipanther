@@ -45,7 +45,6 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
         setState(() {
           _eta = date;
         });
-        print('confirm $date');
       }, currentTime: DateTime.now());
     }
 
@@ -120,12 +119,9 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                     },
                     value: widget.carrier.type ?? CarrierType.vessel,
                   ),
-                  Text(widget.isEdit || !widget.loggedInUser.isSuperAdmin
-                      ? ''
-                      : 'Select a tenant'),
                 ] +
                 tenantSelector(
-                    context, !widget.isEdit && widget.loggedInUser.isSuperAdmin,
+                    context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
                     (Tenant suggestion) {
                   _tenant = suggestion;
                 }),

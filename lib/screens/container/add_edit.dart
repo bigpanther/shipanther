@@ -217,9 +217,6 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     value: widget.container.status ??
                         api.ContainerStatus.unassigned,
                   ),
-                  Text(widget.isEdit || !widget.loggedInUser.isSuperAdmin
-                      ? ''
-                      : 'Select a tenant'),
                 ] +
                 tenantSelector(
                   context,
@@ -228,21 +225,12 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     _tenant = suggestion;
                   },
                 ) +
-                [
-                  Text(widget.isEdit ? '' : 'Select an order'),
-                ] +
                 orderSelector(context, true, (api.Order suggestion) {
                   _order = suggestion;
                 }) +
-                [
-                  Text(widget.isEdit ? '' : 'Select a terminal'),
-                ] +
                 terminalSelector(context, true, (api.Terminal suggestion) {
                   _terminal = suggestion;
                 }) +
-                [
-                  Text(widget.isEdit ? '' : 'Select a driver'),
-                ] +
                 driverSelector(
                   context,
                   true,

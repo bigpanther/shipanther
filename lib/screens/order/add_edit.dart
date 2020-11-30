@@ -81,18 +81,12 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                     },
                     value: widget.order.status ?? OrderStatus.open,
                   ),
-                  Text(widget.isEdit || !widget.loggedInUser.isSuperAdmin
-                      ? ''
-                      : 'Select a tenant'),
                 ] +
                 tenantSelector(
-                    context, !widget.isEdit && widget.loggedInUser.isSuperAdmin,
+                    context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
                     (Tenant suggestion) {
                   _tenant = suggestion;
                 }) +
-                [
-                  Text(widget.isEdit ? '' : 'Select a customer'),
-                ] +
                 customerSelector(context, true, (Customer suggestion) {
                   _customer = suggestion;
                 }),
