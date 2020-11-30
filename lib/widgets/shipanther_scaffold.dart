@@ -6,6 +6,7 @@ import 'package:shipanther/screens/carrier/home.dart';
 import 'package:shipanther/screens/container/home.dart';
 import 'package:shipanther/screens/customer/home.dart';
 import 'package:shipanther/screens/order/home.dart';
+import 'package:shipanther/screens/profile.dart';
 import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:shipanther/screens/terminal/home.dart';
@@ -153,6 +154,17 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
       ),
     );
   }
+  widgets.add(
+    _createDrawerItem(
+      icon: Icons.person,
+      text: ShipantherLocalizations.of(context).profile,
+      onTap: () => Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => ProfilePage(user),
+        ),
+      ),
+    ),
+  );
   widgets.add(
     _createDrawerItem(
       icon: Icons.settings,

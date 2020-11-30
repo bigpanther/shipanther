@@ -174,6 +174,12 @@ class ShipantherLocalizations {
         desc: 'Reset password message',
         locale: locale.toString(),
       );
+  String get profile => Intl.message(
+        'Profile',
+        name: 'profile',
+        desc: 'profile',
+        locale: locale.toString(),
+      );
 }
 
 class ShipantherLocalizationsDelegate
