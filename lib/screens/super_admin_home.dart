@@ -38,7 +38,6 @@ class _SuperAdminHomeState extends State<SuperAdminHome> {
         }
       },
       builder: (context, state) {
-        print(state);
         if (state is TenantsLoaded) {
           return TenantList(widget.user,
               tenantBloc: bloc, tenantLoadedState: state);

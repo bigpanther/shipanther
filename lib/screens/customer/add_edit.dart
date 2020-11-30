@@ -59,12 +59,9 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
                           : null,
                       onSaved: (value) => _customerName = value,
                     ),
-                    Text(widget.isEdit || !widget.loggedInUser.isSuperAdmin
-                        ? ''
-                        : 'Select a tenant'),
                   ] +
                   tenantSelector(context,
-                      !widget.isEdit && widget.loggedInUser.isSuperAdmin,
+                      widget.isEdit && widget.loggedInUser.isSuperAdmin,
                       (Tenant suggestion) {
                     _tenant = suggestion;
                   })),

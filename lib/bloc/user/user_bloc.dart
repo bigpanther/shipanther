@@ -21,7 +21,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if (event is UserLogin) {
       try {
         var deviceToken = await event.deviceToken;
-        print(deviceToken);
         User u = await _userRepository.registerDeviceToken(deviceToken);
         yield UserLoggedIn(u);
       } catch (e) {
