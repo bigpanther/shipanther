@@ -8,7 +8,9 @@ extract-arb:
 generate-from-arb:
 	rm -f i18n/intl_messages.arb
 	flutter pub run intl_translation:generate_from_arb --output-dir=lib/l10n/locales --no-use-deferred-loading lib/l10n/shipanther_localization.dart i18n/intl_*.arb
-release: clean
+release-prod: clean
 	flutter build appbundle --flavor prod -t lib/main_prod.dart
+release-dev: clean
+	flutter build appbundle --flavor dev
 clean:
 	flutter clean
