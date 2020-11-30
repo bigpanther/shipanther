@@ -43,6 +43,11 @@ class ForgotPassword extends AuthEvent {
   const ForgotPassword(this.email) : super(null);
 }
 
+class UpdatePassword extends AuthEvent {
+  final String password;
+  const UpdatePassword(this.password) : super(null);
+}
+
 class AuthSignIn extends AuthEvent {
   final String username;
   final String password;
