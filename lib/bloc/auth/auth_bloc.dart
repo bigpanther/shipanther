@@ -79,5 +79,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await event.user.sendEmailVerification();
       yield AuthEmailResent(event.user);
     }
+    if (event is UpdatePassword) {
+      var user = _authRepository.loggedInUser();
+
+      await user.updatePassword(event.password);
+      yield AuthInitial();
+    }
   }
 }
