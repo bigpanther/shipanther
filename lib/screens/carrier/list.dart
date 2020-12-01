@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
+import 'package:shipanther/extensions/carrier_extension.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/carrier/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
@@ -37,15 +38,7 @@ class CarrierList extends StatelessWidget {
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
               // subtitle: Text(t.id),
               // tilePadding: EdgeInsets.all(5),
-              leading: Icon((t.type == CarrierType.rail)
-                  ? Icons.train
-                  : (t.type == CarrierType.vessel)
-                      ? Icons.directions_boat
-                      : (t.type == CarrierType.air)
-                          ? Icons.airplanemode_active
-                          : (t.type == CarrierType.road)
-                              ? Icons.local_shipping
-                              : Icons.directions_boat),
+              leading: Icon(t.icon),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
