@@ -48,6 +48,11 @@ class UpdatePassword extends AuthEvent {
   const UpdatePassword(this.password) : super(null);
 }
 
+class UpdateName extends AuthEvent {
+  final String name;
+  const UpdateName(this.name) : super(null);
+}
+
 class AuthSignIn extends AuthEvent {
   final String username;
   final String password;
