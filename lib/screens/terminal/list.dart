@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
+import 'package:shipanther/extensions/terminal_extension.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/terminal/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
@@ -48,15 +49,7 @@ class TerminalList extends StatelessWidget {
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
               // subtitle: Text(t.id),
               // tilePadding: EdgeInsets.all(5),
-              leading: Icon((t.type == TerminalType.rail)
-                  ? Icons.train
-                  : (t.type == TerminalType.port)
-                      ? Icons.directions_boat
-                      : (t.type == TerminalType.warehouse)
-                          ? Icons.house
-                          : (t.type == TerminalType.custom)
-                              ? Icons.local_shipping
-                              : Icons.directions_boat),
+              leading: Icon(t.icon),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
