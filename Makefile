@@ -10,7 +10,9 @@ generate-from-arb:
 	flutter pub run intl_translation:generate_from_arb --output-dir=lib/l10n/locales --no-use-deferred-loading lib/l10n/shipanther_localization.dart i18n/intl_*.arb
 release-prod: clean
 	flutter build appbundle --flavor prod -t lib/main_prod.dart
+	flutter build ios --flavor prod -t lib/main_prod.dart --release --no-codesign
 release-dev: clean
 	flutter build appbundle --flavor dev
+	flutter build ios --flavor dev --release --no-codesign
 clean:
 	flutter clean
