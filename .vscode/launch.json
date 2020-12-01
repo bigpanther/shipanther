@@ -8,7 +8,10 @@
             "name": "shipanther",
             "request": "launch",
             "type": "dart",
-            "args":["--flavor","dev"]
+            "args": [
+                "--flavor",
+                "dev"
+            ]
         }
     ]
 }
