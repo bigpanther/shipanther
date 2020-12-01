@@ -7,6 +7,7 @@ import 'package:shipanther/screens/tenant/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
+import 'package:shipanther/extensions/tenant_extension.dart';
 
 class TenantList extends StatelessWidget {
   final TenantBloc tenantBloc;
@@ -50,9 +51,7 @@ class TenantList extends StatelessWidget {
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
               // subtitle: Text(t.id),
               // tilePadding: EdgeInsets.all(5),
-              leading: Icon((t.type == TenantType.production)
-                  ? Icons.money
-                  : Icons.home_work),
+              leading: Icon(t.icon),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
