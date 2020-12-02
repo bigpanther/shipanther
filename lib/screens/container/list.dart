@@ -87,14 +87,14 @@ class ContainerList extends StatelessWidget {
                   expandedAlignment: Alignment.topLeft,
                   childrenPadding: EdgeInsets.only(left: 16),
                   children: [
-                    Text(
-                      "LFD: ${t.lfd}",
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
-                    Text(
-                      "Reservation Time: ${t.reservationTime}",
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
+                    textSpan('Container size: ', t.size.toString(),
+                        Colors.white, Colors.white),
+                    textSpan('Container type: ', t.type.toString(),
+                        Colors.white, Colors.white),
+                    textSpan('Container status: ', t.status.toString(),
+                        Colors.white, Colors.white),
+                    textSpan('Updated: ', t.updatedAt.toString(), Colors.white,
+                        Colors.white),
                   ],
                 )
               ],
