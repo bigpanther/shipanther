@@ -248,6 +248,8 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
           final form = formKey.currentState;
           if (form.validate()) {
             form.save();
+            widget.container.lfd = _lfd;
+            widget.container.reservationTime = _reservationTime;
             widget.container.serialNumber = _serialNumber;
             widget.container.origin = _origin;
             widget.container.destination = _destination;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/container/container_bloc.dart';
+import 'package:shipanther/helper/text_widget.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/container/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
@@ -57,33 +58,45 @@ class ContainerList extends StatelessWidget {
                   );
                 },
               ),
-              expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+
+              expandedAlignment: Alignment.topLeft,
               title: Text(
                 t.serialNumber,
                 style: Theme.of(context).textTheme.headline6,
               ),
               subtitle: Text('${t.origin} to ${t.destination}'),
               children: [
-                Text(
-                  "LFD: ${t.lfd}",
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  "Reservation Time: ${t.reservationTime}",
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  "Created At: ${formatter.format(t.createdAt).toString()}",
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  "Created By: ${t.createdBy}",
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  "Last Update: ${formatter.format(t.updatedAt).toString()}",
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                ExpansionTile(
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      textSpan(
+                          'LFD: ',
+                          DateFormat('dd-MM-yy - kk:mm').format(t.lfd),
+                          Colors.white,
+                          Color.fromRGBO(236, 77, 55, 1)),
+                      textSpan(
+                          'Reservation Time: ',
+                          DateFormat('dd-MM-yy - kk:mm')
+                              .format(t.reservationTime),
+                          Colors.white,
+                          Color.fromRGBO(0, 255, 0, 1)),
+                    ],
+                  ),
+                  expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                  expandedAlignment: Alignment.topLeft,
+                  childrenPadding: EdgeInsets.only(left: 16),
+                  children: [
+                    Text(
+                      "LFD: ${t.lfd}",
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    Text(
+                      "Reservation Time: ${t.reservationTime}",
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                  ],
+                )
               ],
             ),
           ),
