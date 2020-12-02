@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget textSpan(String text1, String text2, Color c1, Color c2) {
+Widget textSpan(String text1, String text2, {Color c1, Color c2}) {
   return Text.rich(
     TextSpan(
       children: <TextSpan>[

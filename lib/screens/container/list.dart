@@ -71,30 +71,24 @@ class ContainerList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       textSpan(
-                          'LFD: ',
-                          DateFormat('dd-MM-yy - kk:mm').format(t.lfd),
-                          Colors.white,
-                          Color.fromRGBO(236, 77, 55, 1)),
+                          'LFD: ', DateFormat('dd-MM-yy - kk:mm').format(t.lfd),
+                          c1: Colors.white, c2: Color.fromRGBO(236, 77, 55, 1)),
                       textSpan(
                           'Reservation Time: ',
                           DateFormat('dd-MM-yy - kk:mm')
                               .format(t.reservationTime),
-                          Colors.white,
-                          Color.fromRGBO(0, 255, 0, 1)),
+                          c1: Colors.white,
+                          c2: Color.fromRGBO(0, 255, 0, 1)),
                     ],
                   ),
                   expandedCrossAxisAlignment: CrossAxisAlignment.start,
                   expandedAlignment: Alignment.topLeft,
                   childrenPadding: EdgeInsets.only(left: 16),
                   children: [
-                    textSpan('Container size: ', t.size.toString(),
-                        Colors.white, Colors.white),
-                    textSpan('Container type: ', t.type.toString(),
-                        Colors.white, Colors.white),
-                    textSpan('Container status: ', t.status.toString(),
-                        Colors.white, Colors.white),
-                    textSpan('Updated: ', t.updatedAt.toString(), Colors.white,
-                        Colors.white),
+                    textSpan('Container size: ', t.size.toString()),
+                    textSpan('Container type: ', t.type.toString()),
+                    textSpan('Container status: ', t.status.toString()),
+                    textSpan('Updated: ', t.updatedAt.toString()),
                   ],
                 )
               ],
