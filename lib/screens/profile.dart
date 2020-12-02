@@ -64,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: ExpansionTile(
                       title: Row(
                         children: [
-                          Text('Username: '),
+                          Text(ShipantherLocalizations.of(context).username),
                           Text(_updatedName == null
                               ? widget.user.name
                               : _updatedName),
@@ -114,7 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         widget.user.id, widget.user));
                                   }
                                 },
-                                text: 'Save',
+                                text: ShipantherLocalizations.of(context).save,
                               ),
                             ),
                           ],
@@ -128,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ExpansionTile(
-                      title: Text('Password'),
+                      title: Text(ShipantherLocalizations.of(context).password),
                       trailing: Icon(Icons.edit),
                       childrenPadding: EdgeInsets.all(8),
                       children: [
@@ -151,7 +151,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 }
                                 if (_confirmPassword != null &&
                                     value != _confirmPassword) {
-                                  return 'Password does not match';
+                                  return ShipantherLocalizations.of(context)
+                                      .passwordUpdateError;
                                 }
                                 return null;
                               },
@@ -160,7 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             TextFormField(
                               decoration: InputDecoration(
                                   labelText: ShipantherLocalizations.of(context)
-                                      .password),
+                                      .reEnterPassword),
                               autocorrect: false,
                               enableSuggestions: false,
                               keyboardType: TextInputType.text,
@@ -173,7 +174,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                               .password);
                                 }
                                 if (value != _password) {
-                                  return 'Password does not match';
+                                  return ShipantherLocalizations.of(context)
+                                      .passwordUpdateError;
                                 }
                                 return null;
                               },

@@ -180,6 +180,30 @@ class ShipantherLocalizations {
         desc: 'profile',
         locale: locale.toString(),
       );
+  String get save => Intl.message(
+        'Save',
+        name: 'save',
+        desc: 'save',
+        locale: locale.toString(),
+      );
+  String get passwordUpdateError => Intl.message(
+        'Password does not match',
+        name: 'passwordUpdateError',
+        desc: 'Password does not match',
+        locale: locale.toString(),
+      );
+  String get username => Intl.message(
+        'Username: ',
+        name: 'username',
+        desc: 'Username',
+        locale: locale.toString(),
+      );
+  String get reEnterPassword => Intl.message(
+        'Re-enter password',
+        name: 'reEnterPassword',
+        desc: 'Re-enter password',
+        locale: locale.toString(),
+      );
 }
 
 class ShipantherLocalizationsDelegate
