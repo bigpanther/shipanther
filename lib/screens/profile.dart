@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
+import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
@@ -107,10 +108,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                 onPressed: () async {
                                   if (_formKeyName.currentState.validate()) {
                                     _formKeyName.currentState.save();
+                                    widget.user.name = _updatedName;
 
-                                    context
-                                        .read<AuthBloc>()
-                                        .add(UpdateName(_updatedName));
+                                    context.read<UserBloc>().add(UpdateUser(
+                                        widget.user.id, widget.user));
                                   }
                                 },
                                 text: 'Save',
