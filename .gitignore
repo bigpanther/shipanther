@@ -42,3 +42,4 @@ app.*.map.json
 i18n/intl_messages.arb
 android/app/src/prod/google-services.json
 ios/config/prod/GoogleService-Info.plist
+ios/build
