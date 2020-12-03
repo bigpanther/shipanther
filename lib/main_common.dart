@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -33,12 +34,20 @@ import 'package:shipanther/data/user/remote_user_repository.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 FirebaseMessaging _firebaseMessaging;
 
 Future<void> commonMain(String apiURL) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+  Function originalOnError = FlutterError.onError;
+  FlutterError.onError = (FlutterErrorDetails errorDetails) async {
+    await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
+    // Forward to original handler.
+    originalOnError(errorDetails);
+  };
   _firebaseMessaging = FirebaseMessaging();
   _firebaseMessaging.configure(
     onMessage: (Map<String, dynamic> task) async {
@@ -55,8 +64,12 @@ Future<void> commonMain(String apiURL) async {
   _firebaseMessaging.requestNotificationPermissions(
     const IosNotificationSettings(sound: true, badge: true, alert: true),
   );
-
-  runApp(ShipantherApp(apiURL));
+  runZonedGuarded(() {
+    runApp(ShipantherApp(apiURL));
+  }, (error, stackTrace) {
+    print('runZonedGuarded: Caught error in my root zone.');
+    FirebaseCrashlytics.instance.recordError(error, stackTrace);
+  });
 }
 
 /// The entry point of the application.
