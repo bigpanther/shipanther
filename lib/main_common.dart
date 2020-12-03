@@ -50,7 +50,7 @@ Future<void> commonMain(String apiURL) async {
     onResume: (Map<String, dynamic> task) async {
       print('onResume: $task');
     },
-    onBackgroundMessage: Platform.isIOS ? null : backGroundMessageHandler,
+    onBackgroundMessage: Platform.isIOS ? null : backgroundHandle,
   );
   _firebaseMessaging.requestNotificationPermissions(
     const IosNotificationSettings(sound: true, badge: true, alert: true),
@@ -152,7 +152,7 @@ class ShipantherApp extends StatelessWidget {
   }
 }
 
-Future<dynamic> backGroundMessageHandler(Map<String, dynamic> message) async {
+Future<dynamic> backgroundHandle(Map<String, dynamic> message) async {
   if (message.containsKey('data')) {
     // Handle data message
     final dynamic data = message['data'];
