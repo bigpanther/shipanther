@@ -15,6 +15,15 @@ extension UserExtension on User {
     return this.role == UserRole.superAdmin;
   }
 
+  bool get isCustomer {
+    return this.role == UserRole.customer;
+  }
+
+  bool get isAtleastTenantBackOffice {
+    return this.role == UserRole.admin || this.role == UserRole.backOffice;
+  }
+
+  // ignore: missing_return
   IconData get icon {
     switch (this.role) {
       case UserRole.superAdmin:

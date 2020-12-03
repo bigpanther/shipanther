@@ -60,8 +60,6 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
     if (state is AuthVerification) {
       return VerifyEmail(state.user);
     }
-    if (state is AuthLoading) {
-      return const CenteredLoading();
-    }
+    return const CenteredLoading();
   }
 }

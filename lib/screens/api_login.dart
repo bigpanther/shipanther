@@ -9,7 +9,7 @@ import 'package:shipanther/screens/none_home.dart';
 import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/screens/terminal/home.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:shipanther/extensions/user_extension.dart';
 
 class ApiLogin extends StatefulWidget {
   const ApiLogin({Key key}) : super(key: key);
@@ -38,18 +38,16 @@ class _ApiLoginState extends State<ApiLogin> {
         if (state is UserLoggedIn) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute<void>(builder: (_) {
-              if (state.user.role == api.UserRole.superAdmin) {
+              if (state.user.isSuperAdmin) {
                 return SuperAdminHome(state.user);
               }
-              if (state.user.role == api.UserRole.backOffice) {
+              if (state.user.isAtleastTenantBackOffice) {
                 return TerminalScreen(state.user);
               }
-              if (state.user.role == api.UserRole.driver) {
+              if (state.user.isDriver) {
                 return ContainerScreen(state.user);
               }
-              if (state.user.role == api.UserRole.none) {
-                return NoneHome(state.user);
-              }
+              return NoneHome(state.user);
             }),
           );
         }

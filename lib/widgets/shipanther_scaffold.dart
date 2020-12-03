@@ -43,38 +43,7 @@ class ShipantherScaffold extends StatelessWidget {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-                // _createHeader(),
-                UserAccountsDrawerHeader(
-                  accountEmail: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      'Shipanther',
-                      style: TextStyle(fontSize: 22),
-                    ),
-                  ),
-                  accountName: Row(
-                    children: <Widget>[
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(shape: BoxShape.circle),
-                        child: CircleAvatar(
-                          child: Icon(Icons.person),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(user.name),
-                          Text(user.email),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                _createHeader(user),
                 SizedBox(
                   height: 10,
                 ),
@@ -225,31 +194,34 @@ Widget _createDrawerItem(
   );
 }
 
-Widget _createHeader() {
-  return DrawerHeader(
-    curve: Curves.slowMiddle,
-    margin: EdgeInsets.zero,
-    padding: EdgeInsets.zero,
-    decoration: BoxDecoration(
-      // image: DecorationImage(
-      //   fit: BoxFit.fill,
-      //   image: AssetImage('path/to/header_background.png'),
-      // ),
-      color: Colors.blue,
+Widget _createHeader(api.User user) {
+  return UserAccountsDrawerHeader(
+    accountEmail: Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Text(
+        'Shipanther',
+        style: TextStyle(fontSize: 22),
+      ),
     ),
-    child: Stack(
+    accountName: Row(
       children: <Widget>[
-        Positioned(
-          bottom: 12.0,
-          left: 16.0,
-          child: Text(
-            "Shipanther",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 22.0,
-              fontWeight: FontWeight.w500,
-            ),
+        Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(shape: BoxShape.circle),
+          child: CircleAvatar(
+            child: Icon(Icons.person),
           ),
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(user.name),
+            Text(user.email),
+          ],
         ),
       ],
     ),
