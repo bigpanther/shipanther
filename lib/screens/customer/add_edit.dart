@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/widgets/selectors.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/api.dart' as api;
 import 'package:shipanther/extensions/user_extension.dart';
 
 class CustomerAddEdit extends StatefulWidget {
-  final User loggedInUser;
-  final Customer customer;
+  final api.User loggedInUser;
+  final api.Customer customer;
   final CustomerBloc customerBloc;
   final bool isEdit;
 
@@ -28,7 +28,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String _customerName;
-  Tenant _tenant;
+  api.Tenant _tenant;
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +59,12 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
                           : null,
                       onSaved: (value) => _customerName = value,
                     ),
+                    // Hack to avoid runtime type mismatch. Remove when this array as another item
+                    Container(),
                   ] +
                   tenantSelector(context,
                       widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                      (Tenant suggestion) {
+                      (api.Tenant suggestion) {
                     _tenant = suggestion;
                   })),
         ),

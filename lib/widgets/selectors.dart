@@ -5,7 +5,7 @@ import 'package:trober_sdk/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 
-List<StatefulWidget> tenantSelector(BuildContext context, bool shouldShow,
+List<Widget> tenantSelector(BuildContext context, bool shouldShow,
     void Function(Tenant) onSuggestionSelected) {
   if (!shouldShow) return [];
   return [
@@ -30,7 +30,7 @@ List<StatefulWidget> tenantSelector(BuildContext context, bool shouldShow,
   ];
 }
 
-List<StatefulWidget> customerSelector(BuildContext context, bool shouldShow,
+List<Widget> customerSelector(BuildContext context, bool shouldShow,
     void Function(Customer) onSuggestionSelected) {
   if (!shouldShow) return [];
   return [
@@ -55,7 +55,7 @@ List<StatefulWidget> customerSelector(BuildContext context, bool shouldShow,
   ];
 }
 
-List<StatefulWidget> driverSelector(BuildContext context, bool shouldShow,
+List<Widget> driverSelector(BuildContext context, bool shouldShow,
     void Function(User) onSuggestionSelected) {
   if (!shouldShow) return [];
   return [
@@ -80,7 +80,7 @@ List<StatefulWidget> driverSelector(BuildContext context, bool shouldShow,
   ];
 }
 
-List<StatefulWidget> terminalSelector(BuildContext context, bool shouldShow,
+List<Widget> terminalSelector(BuildContext context, bool shouldShow,
     void Function(Terminal) onSuggestionSelected) {
   if (!shouldShow) return [];
   return [
@@ -105,7 +105,7 @@ List<StatefulWidget> terminalSelector(BuildContext context, bool shouldShow,
   ];
 }
 
-List<StatefulWidget> orderSelector(BuildContext context, bool shouldShow,
+List<Widget> orderSelector(BuildContext context, bool shouldShow,
     void Function(Order) onSuggestionSelected) {
   if (!shouldShow) return [];
   return [
