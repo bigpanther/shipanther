@@ -104,8 +104,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
         centerTitle: true,
       ),
       body: Padding(
-        padding:
-            EdgeInsets.only(left: 16.0, top: 16.0, bottom: 100.0, right: 16.0),
+        padding: EdgeInsets.only(left: 16.0, right: 16, top: 16, bottom: 100),
         child: Form(
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
@@ -277,6 +276,8 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
             widget.container.status =
                 _containerStatus ?? api.ContainerStatus.unassigned;
             widget.container.size = _containerSize;
+            widget.container.reservationTime = _reservationTime;
+            widget.container.lfd = _lfd;
             if (_tenant != null) {
               widget.container.tenantId = _tenant.id;
             }
@@ -297,6 +298,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
               widget.container.terminalId = _terminal.id;
             }
             widget.container.createdBy = self.id;
+
             if (widget.isEdit) {
               widget.containerBloc
                   .add(UpdateContainer(widget.container.id, widget.container));

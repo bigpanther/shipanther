@@ -18,19 +18,22 @@ import 'package:trober_sdk/api.dart' as api;
 import 'package:shipanther/extensions/user_extension.dart';
 
 class ShipantherScaffold extends StatelessWidget {
-  const ShipantherScaffold(this.user,
-      {Key key,
-      @required this.title,
-      @required this.actions,
-      @required this.body,
-      @required this.floatingActionButton})
-      : super(key: key);
+  const ShipantherScaffold(
+    this.user, {
+    Key key,
+    @required this.title,
+    @required this.actions,
+    @required this.body,
+    @required this.floatingActionButton,
+    @required this.bottomNavigationBar,
+  }) : super(key: key);
 
   final String title;
   final List<Widget> actions;
   final Widget body;
   final Widget floatingActionButton;
   final api.User user;
+  final Widget bottomNavigationBar;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +58,7 @@ class ShipantherScaffold extends StatelessWidget {
               drawerItemsFor(context, user),
         ),
       ),
+      bottomNavigationBar: bottomNavigationBar,
     );
   }
 }

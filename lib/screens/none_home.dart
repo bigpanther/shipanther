@@ -12,6 +12,7 @@ class NoneHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShipantherScaffold(
       user,
+      bottomNavigationBar: null,
       title: ShipantherLocalizations.of(context).tenantsTitle,
       actions: [],
       body: Container(

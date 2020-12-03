@@ -42,6 +42,7 @@ class _CustomerHomeState extends State<CustomerHome> {
         }
         return ShipantherScaffold(
           widget.loggedInUser,
+          bottomNavigationBar: null,
           title: ShipantherLocalizations.of(context).customersTitle,
           actions: [],
           body: CenteredLoading(),

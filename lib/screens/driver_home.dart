@@ -41,6 +41,7 @@ class _DriverHomeState extends State<DriverHome> {
         }
         return ShipantherScaffold(
           widget.user,
+          bottomNavigationBar: null,
           title: ShipantherLocalizations.of(context).tenantsTitle,
           actions: [],
           body: CenteredLoading(),
