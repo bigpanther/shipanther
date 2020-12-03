@@ -16,35 +16,37 @@ class BackOfficeHome extends StatefulWidget {
 class _BackOfficeHomeState extends State<BackOfficeHome> {
   @override
   Widget build(BuildContext context) {
-    return ShipantherScaffold(widget.user,
-        title: ShipantherLocalizations.of(context).welcome,
-        actions: null,
-        body: Padding(
-          padding: EdgeInsets.all(8),
-          child: Column(
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    card('TODAY', 'UNASSIGNED', 'ASSIGNED', Colors.red),
-                    card(
-                        'TODAY', 'OUT FOR DELIVERY', 'DELIVERED', Colors.yellow)
-                  ],
-                ),
+    return ShipantherScaffold(
+      widget.user,
+      title: ShipantherLocalizations.of(context).welcome,
+      actions: null,
+      body: Padding(
+        padding: EdgeInsets.all(8),
+        child: Column(
+          children: [
+            Expanded(
+              child: Row(
+                children: [
+                  card('TODAY', 'UNASSIGNED', 'ASSIGNED', Colors.red),
+                  card('TODAY', 'OUT FOR DELIVERY', 'DELIVERED', Colors.yellow)
+                ],
               ),
-              Expanded(
-                child: Row(
-                  children: [
-                    card('THIS MONTH', 'UNASSIGNED', 'ASSIGNED', Colors.red),
-                    card('THIS MONTH', 'OUT FOR DELIVERY', 'DELIVERED',
-                        Colors.yellow),
-                  ],
-                ),
+            ),
+            Expanded(
+              child: Row(
+                children: [
+                  card('THIS MONTH', 'UNASSIGNED', 'ASSIGNED', Colors.red),
+                  card('THIS MONTH', 'OUT FOR DELIVERY', 'DELIVERED',
+                      Colors.yellow),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        floatingActionButton: null);
+      ),
+      floatingActionButton: null,
+      bottomNavigationBar: null,
+    );
   }
 
   Expanded card(String _heading, String _subtitleOne, String _subtitleTwo,

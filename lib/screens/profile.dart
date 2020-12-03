@@ -23,215 +23,215 @@ class _ProfilePageState extends State<ProfilePage> {
   String _updatedName;
   @override
   Widget build(BuildContext context) {
-    return ShipantherScaffold(widget.user,
-        title: ShipantherLocalizations.of(context).profile,
-        actions: [],
-        body: ListView(
-          children: [
-            Column(
-              children: [
-                Stack(
-                  children: <Widget>[
-                    CircleAvatar(
-                      radius: 70,
-                      child: ClipOval(
-                        child: Icon(
-                          Icons.person,
-                          size: 70,
-                        ),
+    return ShipantherScaffold(
+      widget.user,
+      title: ShipantherLocalizations.of(context).profile,
+      actions: [],
+      body: ListView(
+        children: [
+          Column(
+            children: [
+              Stack(
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 70,
+                    child: ClipOval(
+                      child: Icon(
+                        Icons.person,
+                        size: 70,
                       ),
                     ),
-                    Positioned(
-                        bottom: 1,
-                        right: 1,
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          child: Icon(
-                            Icons.add_a_photo,
-                            color: Colors.white,
-                          ),
-                          decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
-                        ))
-                  ],
-                ),
-                Form(
-                  key: _formKeyName,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ExpansionTile(
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  ),
+                  Positioned(
+                      bottom: 1,
+                      right: 1,
+                      child: Container(
+                        height: 40,
+                        width: 40,
+                        child: Icon(
+                          Icons.add_a_photo,
+                          color: Colors.white,
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20))),
+                      ))
+                ],
+              ),
+              Form(
+                key: _formKeyName,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ExpansionTile(
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(_updatedName == null
+                            ? widget.user.name
+                            : _updatedName),
+                      ],
+                    ),
+                    trailing: Icon(Icons.edit),
+                    childrenPadding: EdgeInsets.only(left: 10, right: 10),
+                    children: [
+                      Column(
                         children: [
-                          Text(_updatedName == null
-                              ? widget.user.name
-                              : _updatedName),
+                          TextFormField(
+                            initialValue: _updatedName == null
+                                ? widget.user.name
+                                : _updatedName,
+                            decoration: InputDecoration(
+                                labelText:
+                                    ShipantherLocalizations.of(context).name),
+                            autocorrect: false,
+                            enableSuggestions: false,
+                            keyboardType: TextInputType.text,
+                            validator: (String value) {
+                              if (value.isEmpty) {
+                                return ShipantherLocalizations.of(context)
+                                    .paramRequired(
+                                        ShipantherLocalizations.of(context)
+                                            .username);
+                              }
+
+                              return null;
+                            },
+                            onSaved: (val) =>
+                                setState(() => _updatedName = val),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            alignment: Alignment.center,
+                            child: SignInButtonBuilder(
+                              icon: Icons.save,
+                              backgroundColor: Colors.blue,
+                              onPressed: () async {
+                                if (_formKeyName.currentState.validate()) {
+                                  _formKeyName.currentState.save();
+                                  widget.user.name = _updatedName;
+
+                                  context.read<UserBloc>().add(
+                                      UpdateUser(widget.user.id, widget.user));
+                                }
+                              },
+                              text: ShipantherLocalizations.of(context).save,
+                            ),
+                          ),
                         ],
                       ),
-                      trailing: Icon(Icons.edit),
-                      childrenPadding: EdgeInsets.only(left: 10, right: 10),
-                      children: [
-                        Column(
-                          children: [
-                            TextFormField(
-                              initialValue: _updatedName == null
-                                  ? widget.user.name
-                                  : _updatedName,
-                              decoration: InputDecoration(
-                                  labelText:
-                                      ShipantherLocalizations.of(context).name),
-                              autocorrect: false,
-                              enableSuggestions: false,
-                              keyboardType: TextInputType.text,
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  return ShipantherLocalizations.of(context)
-                                      .paramRequired(
-                                          ShipantherLocalizations.of(context)
-                                              .username);
-                                }
-
-                                return null;
-                              },
-                              onSaved: (val) =>
-                                  setState(() => _updatedName = val),
-                            ),
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 16.0),
-                              alignment: Alignment.center,
-                              child: SignInButtonBuilder(
-                                icon: Icons.save,
-                                backgroundColor: Colors.blue,
-                                onPressed: () async {
-                                  if (_formKeyName.currentState.validate()) {
-                                    _formKeyName.currentState.save();
-                                    widget.user.name = _updatedName;
-
-                                    context.read<UserBloc>().add(UpdateUser(
-                                        widget.user.id, widget.user));
-                                  }
-                                },
-                                text: ShipantherLocalizations.of(context).save,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                    ],
                   ),
                 ),
-                Form(
-                  key: _formKeyPassword,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ExpansionTile(
-                      title: Text(
-                          ShipantherLocalizations.of(context).changePassword),
-                      trailing: Icon(Icons.edit),
-                      childrenPadding: EdgeInsets.all(8),
-                      children: [
-                        Column(
-                          children: [
-                            TextFormField(
-                              controller: _oldPassword,
-                              decoration: InputDecoration(
-                                  labelText: ShipantherLocalizations.of(context)
-                                      .oldPassword),
-                              autocorrect: false,
-                              enableSuggestions: false,
-                              keyboardType: TextInputType.text,
-                              obscureText: true,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  return ShipantherLocalizations.of(context)
-                                      .paramRequired(
-                                          ShipantherLocalizations.of(context)
-                                              .password);
+              ),
+              Form(
+                key: _formKeyPassword,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ExpansionTile(
+                    title: Text(
+                        ShipantherLocalizations.of(context).changePassword),
+                    trailing: Icon(Icons.edit),
+                    childrenPadding: EdgeInsets.all(8),
+                    children: [
+                      Column(
+                        children: [
+                          TextFormField(
+                            controller: _oldPassword,
+                            decoration: InputDecoration(
+                                labelText: ShipantherLocalizations.of(context)
+                                    .oldPassword),
+                            autocorrect: false,
+                            enableSuggestions: false,
+                            keyboardType: TextInputType.text,
+                            obscureText: true,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (String value) {
+                              if (value.isEmpty) {
+                                return ShipantherLocalizations.of(context)
+                                    .paramRequired(
+                                        ShipantherLocalizations.of(context)
+                                            .password);
+                              }
+                              return null;
+                            },
+                          ),
+                          TextFormField(
+                            controller: _password,
+                            decoration: InputDecoration(
+                                labelText: ShipantherLocalizations.of(context)
+                                    .newPassword),
+                            autocorrect: false,
+                            enableSuggestions: false,
+                            keyboardType: TextInputType.text,
+                            obscureText: true,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (String value) {
+                              if (value.isEmpty) {
+                                return ShipantherLocalizations.of(context)
+                                    .paramRequired(
+                                        ShipantherLocalizations.of(context)
+                                            .password);
+                              }
+                              return null;
+                            },
+                          ),
+                          TextFormField(
+                            controller: _confirmPassword,
+                            decoration: InputDecoration(
+                                labelText: ShipantherLocalizations.of(context)
+                                    .confirmPassword),
+                            autocorrect: false,
+                            enableSuggestions: false,
+                            keyboardType: TextInputType.text,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            obscureText: true,
+                            validator: (String value) {
+                              if (value.isEmpty) {
+                                return ShipantherLocalizations.of(context)
+                                    .paramRequired(
+                                        ShipantherLocalizations.of(context)
+                                            .password);
+                              }
+                              if (value != _password.text) {
+                                return ShipantherLocalizations.of(context)
+                                    .passowrdDoesntMatch;
+                              }
+                              return null;
+                            },
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            alignment: Alignment.center,
+                            child: SignInButtonBuilder(
+                              icon: Icons.lock,
+                              backgroundColor: Colors.blue,
+                              onPressed: () async {
+                                if (_formKeyPassword.currentState.validate()) {
+                                  context.read<AuthBloc>().add(UpdatePassword(
+                                      _oldPassword.text, _password.text));
                                 }
-                                return null;
                               },
+                              text: ShipantherLocalizations.of(context)
+                                  .changePassword,
                             ),
-                            TextFormField(
-                              controller: _password,
-                              decoration: InputDecoration(
-                                  labelText: ShipantherLocalizations.of(context)
-                                      .newPassword),
-                              autocorrect: false,
-                              enableSuggestions: false,
-                              keyboardType: TextInputType.text,
-                              obscureText: true,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  return ShipantherLocalizations.of(context)
-                                      .paramRequired(
-                                          ShipantherLocalizations.of(context)
-                                              .password);
-                                }
-                                return null;
-                              },
-                            ),
-                            TextFormField(
-                              controller: _confirmPassword,
-                              decoration: InputDecoration(
-                                  labelText: ShipantherLocalizations.of(context)
-                                      .confirmPassword),
-                              autocorrect: false,
-                              enableSuggestions: false,
-                              keyboardType: TextInputType.text,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              obscureText: true,
-                              validator: (String value) {
-                                if (value.isEmpty) {
-                                  return ShipantherLocalizations.of(context)
-                                      .paramRequired(
-                                          ShipantherLocalizations.of(context)
-                                              .password);
-                                }
-                                if (value != _password.text) {
-                                  return ShipantherLocalizations.of(context)
-                                      .passowrdDoesntMatch;
-                                }
-                                return null;
-                              },
-                            ),
-                            Container(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 16.0),
-                              alignment: Alignment.center,
-                              child: SignInButtonBuilder(
-                                icon: Icons.lock,
-                                backgroundColor: Colors.blue,
-                                onPressed: () async {
-                                  if (_formKeyPassword.currentState
-                                      .validate()) {
-                                    context.read<AuthBloc>().add(UpdatePassword(
-                                        _oldPassword.text, _password.text));
-                                  }
-                                },
-                                text: ShipantherLocalizations.of(context)
-                                    .changePassword,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
-        floatingActionButton: null);
+              ),
+            ],
+          ),
+        ],
+      ),
+      floatingActionButton: null,
+      bottomNavigationBar: null,
+    );
   }
 
   void dispose() {

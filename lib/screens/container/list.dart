@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/container/container_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/container/add_edit.dart';
+
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
 
@@ -98,6 +99,7 @@ class ContainerList extends StatelessWidget {
     );
 
     return ShipantherScaffold(loggedInUser,
+        bottomNavigationBar: null,
         title: title,
         actions: actions,
         body: body,
