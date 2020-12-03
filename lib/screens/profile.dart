@@ -20,6 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String _password;
   String _confirmPassword;
   String _updatedName;
+  String _password2;
   @override
   Widget build(BuildContext context) {
     return ShipantherScaffold(widget.user,
@@ -149,11 +150,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                           ShipantherLocalizations.of(context)
                                               .password);
                                 }
-                                if (_confirmPassword != null &&
-                                    value != _confirmPassword) {
-                                  return ShipantherLocalizations.of(context)
-                                      .passwordUpdateError;
-                                }
+
+                                _password2 = value;
                                 return null;
                               },
                               onSaved: (val) => setState(() => _password = val),
@@ -173,7 +171,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                           ShipantherLocalizations.of(context)
                                               .password);
                                 }
-                                if (value != _password) {
+                                print(_password2);
+                                if (value != _password2) {
                                   return ShipantherLocalizations.of(context)
                                       .passwordUpdateError;
                                 }
