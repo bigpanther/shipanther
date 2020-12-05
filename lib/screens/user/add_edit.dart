@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/widgets/selectors.dart';
+import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
@@ -62,7 +63,7 @@ class _UserAddEditState extends State<UserAddEdit> {
                           : null,
                       onSaved: (value) => _userName = value,
                     ),
-                    SmartSelect<UserRole>.single(
+                    smartSelect<UserRole>(
                       title: "User type",
                       onChange: (state) => _userRole = state.value,
                       choiceItems: S2Choice.listFrom<UserRole, UserRole>(
@@ -70,15 +71,6 @@ class _UserAddEditState extends State<UserAddEdit> {
                         value: (index, item) => item,
                         title: (index, item) => item.text,
                       ),
-                      modalType: S2ModalType.popupDialog,
-                      modalHeader: false,
-                      tileBuilder: (context, state) {
-                        return S2Tile.fromState(
-                          state,
-                          trailing: const Icon(Icons.arrow_drop_down),
-                          isTwoLine: true,
-                        );
-                      },
                       value: _userRole,
                     ),
                   ] +

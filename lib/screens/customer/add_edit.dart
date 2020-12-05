@@ -60,7 +60,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
                       onSaved: (value) => _customerName = value,
                     ),
                     // Hack to avoid runtime type mismatch. Remove when this array as another item
-                    Container(),
+                    Container(width: 0.0, height: 0.0),
                   ] +
                   tenantSelector(context,
                       widget.isEdit && widget.loggedInUser.isSuperAdmin,

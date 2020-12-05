@@ -5,10 +5,12 @@ import 'package:shipanther/bloc/container/container_bloc.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/selectors.dart';
+import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart' as api;
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shipanther/extensions/container_extension.dart';
 
 class ContainerAddEdit extends StatefulWidget {
   final api.User loggedInUser;
@@ -156,64 +158,37 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                       ],
                     ),
                   ),
-                  SmartSelect<api.ContainerSize>.single(
+                  smartSelect<api.ContainerSize>(
                     title: "Container size",
                     onChange: (state) => _containerSize = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.ContainerSize, api.ContainerSize>(
                       source: api.ContainerSize.values,
                       value: (index, item) => item,
-                      title: (index, item) => item.toString(),
+                      title: (index, item) => item.text,
                     ),
-                    modalType: S2ModalType.popupDialog,
-                    modalHeader: false,
-                    tileBuilder: (context, state) {
-                      return S2Tile.fromState(
-                        state,
-                        trailing: const Icon(Icons.arrow_drop_down),
-                        isTwoLine: true,
-                      );
-                    },
                     value: widget.container.size ?? api.ContainerSize.n20sT,
                   ),
-                  SmartSelect<api.ContainerType>.single(
+                  smartSelect<api.ContainerType>(
                     title: "Container type",
                     onChange: (state) => _containerType = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.ContainerType, api.ContainerType>(
                       source: api.ContainerType.values,
                       value: (index, item) => item,
-                      title: (index, item) => item.toString(),
+                      title: (index, item) => item.text,
                     ),
-                    modalType: S2ModalType.popupDialog,
-                    modalHeader: false,
-                    tileBuilder: (context, state) {
-                      return S2Tile.fromState(
-                        state,
-                        trailing: const Icon(Icons.arrow_drop_down),
-                        isTwoLine: true,
-                      );
-                    },
                     value: widget.container.type ?? api.ContainerType.incoming,
                   ),
-                  SmartSelect<api.ContainerStatus>.single(
+                  smartSelect<api.ContainerStatus>(
                     title: "Container Status",
                     onChange: (state) => _containerStatus = state.value,
                     choiceItems: S2Choice.listFrom<api.ContainerStatus,
                         api.ContainerStatus>(
                       source: api.ContainerStatus.values,
                       value: (index, item) => item,
-                      title: (index, item) => item.toString(),
+                      title: (index, item) => item.text,
                     ),
-                    modalType: S2ModalType.popupDialog,
-                    modalHeader: false,
-                    tileBuilder: (context, state) {
-                      return S2Tile.fromState(
-                        state,
-                        trailing: const Icon(Icons.arrow_drop_down),
-                        isTwoLine: true,
-                      );
-                    },
                     value: widget.container.status ??
                         api.ContainerStatus.unassigned,
                   ),

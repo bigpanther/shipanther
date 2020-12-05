@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/order/order_bloc.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/widgets/selectors.dart';
+import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
@@ -63,7 +64,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                         : null,
                     onSaved: (value) => _orderSerialNumber = value,
                   ),
-                  SmartSelect<OrderStatus>.single(
+                  smartSelect<OrderStatus>(
                     title: "Order status",
                     onChange: (state) => _orderStatus = state.value,
                     choiceItems: S2Choice.listFrom<OrderStatus, OrderStatus>(
@@ -71,15 +72,6 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    modalType: S2ModalType.popupDialog,
-                    modalHeader: false,
-                    tileBuilder: (context, state) {
-                      return S2Tile.fromState(
-                        state,
-                        trailing: const Icon(Icons.arrow_drop_down),
-                        isTwoLine: true,
-                      );
-                    },
                     value: widget.order.status ?? OrderStatus.open,
                   ),
                 ] +

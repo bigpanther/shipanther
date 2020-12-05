@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/widgets/selectors.dart';
+import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
@@ -62,7 +63,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                           : null,
                       onSaved: (value) => _terminalName = value,
                     ),
-                    SmartSelect<TerminalType>.single(
+                    smartSelect<TerminalType>(
                       title: "Terminal type",
                       onChange: (state) => _terminalType = state.value,
                       choiceItems:
@@ -71,15 +72,6 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                         value: (index, item) => item,
                         title: (index, item) => item.text,
                       ),
-                      modalType: S2ModalType.popupDialog,
-                      modalHeader: false,
-                      tileBuilder: (context, state) {
-                        return S2Tile.fromState(
-                          state,
-                          trailing: const Icon(Icons.arrow_drop_down),
-                          isTwoLine: true,
-                        );
-                      },
                       value: widget.terminal.type ?? TerminalType.port,
                     ),
                   ] +
