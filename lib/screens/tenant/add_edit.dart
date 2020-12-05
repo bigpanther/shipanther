@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
+import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';

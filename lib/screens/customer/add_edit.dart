@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/data/user/user_repository.dart';
+import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:trober_sdk/api.dart' as api;
 import 'package:shipanther/extensions/user_extension.dart';

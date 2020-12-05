@@ -210,10 +210,22 @@ class ShipantherLocalizations {
         desc: 'Username',
         locale: locale.toString(),
       );
-  String get reEnterPassword => Intl.message(
-        'Re-enter password',
-        name: 'reEnterPassword',
-        desc: 'Re-enter password',
+  String get confirmPassword => Intl.message(
+        'Confirm password',
+        name: 'confirmPassword',
+        desc: 'Confirm password',
+        locale: locale.toString(),
+      );
+  String get changePassword => Intl.message(
+        'Change password',
+        name: 'changePassword',
+        desc: 'Change password',
+        locale: locale.toString(),
+      );
+  String get newPassword => Intl.message(
+        'New password',
+        name: 'newPassword',
+        desc: 'new password',
         locale: locale.toString(),
       );
 }

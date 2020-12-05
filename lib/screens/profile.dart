@@ -17,10 +17,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final GlobalKey<FormState> _formKeyPassword = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKeyName = GlobalKey<FormState>();
-  String _password;
-  String _confirmPassword;
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
   String _updatedName;
-  String _password2;
   @override
   Widget build(BuildContext context) {
     return ShipantherScaffold(widget.user,
@@ -64,8 +63,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.all(8.0),
                     child: ExpansionTile(
                       title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text(ShipantherLocalizations.of(context).username),
                           Text(_updatedName == null
                               ? widget.user.name
                               : _updatedName),
@@ -91,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   return ShipantherLocalizations.of(context)
                                       .paramRequired(
                                           ShipantherLocalizations.of(context)
-                                              .password);
+                                              .username);
                                 }
 
                                 return null;
@@ -129,20 +128,24 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ExpansionTile(
-                      title: Text(ShipantherLocalizations.of(context).password),
+                      title: Text(
+                          ShipantherLocalizations.of(context).changePassword),
                       trailing: Icon(Icons.edit),
                       childrenPadding: EdgeInsets.all(8),
                       children: [
                         Column(
                           children: [
                             TextFormField(
+                              controller: _password,
                               decoration: InputDecoration(
                                   labelText: ShipantherLocalizations.of(context)
-                                      .password),
+                                      .newPassword),
                               autocorrect: false,
                               enableSuggestions: false,
                               keyboardType: TextInputType.text,
                               obscureText: true,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               validator: (String value) {
                                 if (value.isEmpty) {
                                   return ShipantherLocalizations.of(context)
@@ -150,19 +153,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                           ShipantherLocalizations.of(context)
                                               .password);
                                 }
-
-                                _password2 = value;
                                 return null;
                               },
-                              onSaved: (val) => setState(() => _password = val),
                             ),
                             TextFormField(
+                              controller: _confirmPassword,
                               decoration: InputDecoration(
                                   labelText: ShipantherLocalizations.of(context)
-                                      .reEnterPassword),
+                                      .confirmPassword),
                               autocorrect: false,
                               enableSuggestions: false,
                               keyboardType: TextInputType.text,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               obscureText: true,
                               validator: (String value) {
                                 if (value.isEmpty) {
@@ -171,15 +174,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                           ShipantherLocalizations.of(context)
                                               .password);
                                 }
-                                print(_password2);
-                                if (value != _password2) {
+                                if (value != _password.text) {
                                   return ShipantherLocalizations.of(context)
-                                      .passwordUpdateError;
+                                      .passowrdDoesntMatch;
                                 }
                                 return null;
                               },
-                              onSaved: (val) =>
-                                  setState(() => _confirmPassword = val),
                             ),
                             Container(
                               padding:
@@ -191,15 +191,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                 onPressed: () async {
                                   if (_formKeyPassword.currentState
                                       .validate()) {
-                                    _formKeyPassword.currentState.save();
-
                                     context
                                         .read<AuthBloc>()
-                                        .add(UpdatePassword(_password));
+                                        .add(UpdatePassword(_password.text));
                                   }
                                 },
                                 text: ShipantherLocalizations.of(context)
-                                    .resetPassword,
+                                    .changePassword,
                               ),
                             ),
                           ],
