@@ -72,5 +72,145 @@
     "description": "Containers",
     "type": "text",
     "placeholders": {}
+  },
+  "customersTitle": "Customers",
+  "@customersTitle": {
+    "description": "Customers",
+    "type": "text",
+    "placeholders": {}
+  },
+  "password": "Password",
+  "@password": {
+    "description": "Password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "email": "Email",
+  "@email": {
+    "description": "Email",
+    "type": "text",
+    "placeholders": {}
+  },
+  "name": "Name",
+  "@name": {
+    "description": "Name",
+    "type": "text",
+    "placeholders": {}
+  },
+  "welcome": "Welcome to Shipanther",
+  "@welcome": {
+    "description": "Welcome to Shipanther",
+    "type": "text",
+    "placeholders": {}
+  },
+  "noDateChosen": "No date chosen",
+  "@noDateChosen": {
+    "description": "No date chosen",
+    "type": "text",
+    "placeholders": {}
+  },
+  "paramRequired": "{param} is required",
+  "@paramRequired": {
+    "description": "Param required",
+    "type": "text",
+    "placeholders": {
+      "param": {
+        "example": "Name"
+      }
+    }
+  },
+  "emailSent": "An Email has been sent to {emailId}. Please check your inbox.",
+  "@emailSent": {
+    "description": "An Email has been sent",
+    "type": "text",
+    "placeholders": {
+      "emailId": {
+        "example": "info@bigpanther.ca"
+      }
+    }
+  },
+  "emailNotVerified": "This Email Id is not yet verified. Please try again.",
+  "@emailNotVerified": {
+    "description": "This Email Id is not yet verified. Please try again.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetPassword": "Reset Password",
+  "@resetPassword": {
+    "description": "Reset Password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "forgotPassword": "Forgot Password?",
+  "@forgotPassword": {
+    "description": "Forgot Password?",
+    "type": "text",
+    "placeholders": {}
+  },
+  "resetPasswordMessage": "An email with the reset link would be sent to you.",
+  "@resetPasswordMessage": {
+    "description": "Reset password message",
+    "type": "text",
+    "placeholders": {}
+  },
+  "profile": "Profile",
+  "@profile": {
+    "description": "profile",
+    "type": "text",
+    "placeholders": {}
+  },
+  "save": "Save",
+  "@save": {
+    "description": "save",
+    "type": "text",
+    "placeholders": {}
+  },
+  "edit": "Edit",
+  "@edit": {
+    "description": "edit",
+    "type": "text",
+    "placeholders": {}
+  },
+  "create": "Create",
+  "@create": {
+    "description": "create",
+    "type": "text",
+    "placeholders": {}
+  },
+  "passowrdDoesntMatch": "Passwords do not match",
+  "@passowrdDoesntMatch": {
+    "description": "Passwords do not match",
+    "type": "text",
+    "placeholders": {}
+  },
+  "username": "Username",
+  "@username": {
+    "description": "Username",
+    "type": "text",
+    "placeholders": {}
+  },
+  "confirmPassword": "Confirm password",
+  "@confirmPassword": {
+    "description": "Confirm password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "changePassword": "Change password",
+  "@changePassword": {
+    "description": "Change password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "newPassword": "New password",
+  "@newPassword": {
+    "description": "new password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "oldPassword": "Old password",
+  "@oldPassword": {
+    "description": "old password",
+    "type": "text",
+    "placeholders": {}
   }
 }

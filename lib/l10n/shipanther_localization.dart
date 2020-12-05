@@ -147,6 +147,7 @@ class ShipantherLocalizations {
         name: 'emailSent',
         desc: 'An Email has been sent',
         locale: locale.toString(),
+        args: [emailId],
         examples: const {'emailId': 'info@bigpanther.ca'},
       );
 
