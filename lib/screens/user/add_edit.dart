@@ -68,7 +68,7 @@ class _UserAddEditState extends State<UserAddEdit> {
                       choiceItems: S2Choice.listFrom<UserRole, UserRole>(
                         source: UserRole.values,
                         value: (index, item) => item,
-                        title: (index, item) => item.toString(),
+                        title: (index, item) => item.text,
                       ),
                       modalType: S2ModalType.popupDialog,
                       modalHeader: false,

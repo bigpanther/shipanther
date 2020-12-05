@@ -9,6 +9,7 @@ import 'package:shipanther/widgets/selectors.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
+import 'package:shipanther/extensions/carrier_extension.dart';
 
 class CarrierAddEdit extends StatefulWidget {
   final User loggedInUser;
@@ -106,7 +107,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                     choiceItems: S2Choice.listFrom<CarrierType, CarrierType>(
                       source: CarrierType.values,
                       value: (index, item) => item,
-                      title: (index, item) => item.toString(),
+                      title: (index, item) => item.text,
                     ),
                     modalType: S2ModalType.popupDialog,
                     modalHeader: false,
