@@ -1,10 +1,11 @@
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:trober_sdk/api.dart';
 
-extension CarrierExtension on Carrier {
+extension CarrierTypeExtension on CarrierType {
   // ignore: missing_return
   IconData get icon {
-    switch (this.type) {
+    switch (this) {
       case CarrierType.air:
         return Icons.airplanemode_active;
       case CarrierType.rail:
@@ -14,5 +15,9 @@ extension CarrierExtension on Carrier {
       case CarrierType.road:
         return Icons.local_shipping;
     }
+  }
+
+  String get text {
+    return EnumToString.convertToString(this, camelCase: true);
   }
 }

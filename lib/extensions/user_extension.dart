@@ -1,3 +1,4 @@
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:trober_sdk/api.dart';
 
@@ -22,10 +23,12 @@ extension UserExtension on User {
   bool get isAtleastTenantBackOffice {
     return this.role == UserRole.admin || this.role == UserRole.backOffice;
   }
+}
 
+extension UserRoleExtension on UserRole {
   // ignore: missing_return
   IconData get icon {
-    switch (this.role) {
+    switch (this) {
       case UserRole.superAdmin:
         return Icons.android;
       case UserRole.admin:
@@ -39,5 +42,9 @@ extension UserExtension on User {
       case UserRole.none:
         return Icons.not_accessible;
     }
+  }
+
+  String get text {
+    return EnumToString.convertToString(this, camelCase: true);
   }
 }
