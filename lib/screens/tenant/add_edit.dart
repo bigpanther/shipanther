@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
+import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/tenant_extension.dart';
@@ -55,7 +56,7 @@ class _TenantAddEditState extends State<TenantAddEdit> {
                     : null,
                 onSaved: (value) => _tenantName = value,
               ),
-              SmartSelect<TenantType>.single(
+              smartSelect<TenantType>(
                 title: "Tenant type",
                 onChange: (state) => _tenantType = state.value,
                 choiceItems: S2Choice.listFrom<TenantType, TenantType>(
@@ -63,15 +64,6 @@ class _TenantAddEditState extends State<TenantAddEdit> {
                   value: (index, item) => item,
                   title: (index, item) => item.text,
                 ),
-                modalType: S2ModalType.popupDialog,
-                modalHeader: false,
-                tileBuilder: (context, state) {
-                  return S2Tile.fromState(
-                    state,
-                    trailing: const Icon(Icons.arrow_drop_down),
-                    isTwoLine: true,
-                  );
-                },
                 value: widget.tenant.type ?? TenantType.production,
               ),
             ],
