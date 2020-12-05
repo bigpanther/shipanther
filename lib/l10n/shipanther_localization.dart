@@ -228,6 +228,12 @@ class ShipantherLocalizations {
         desc: 'new password',
         locale: locale.toString(),
       );
+  String get oldPassword => Intl.message(
+        'Old password',
+        name: 'oldPassword',
+        desc: 'old password',
+        locale: locale.toString(),
+      );
 }
 
 class ShipantherLocalizationsDelegate
