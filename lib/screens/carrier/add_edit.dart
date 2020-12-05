@@ -125,7 +125,9 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: widget.isEdit ? "Edit" : "Create",
+        tooltip: widget.isEdit
+            ? ShipantherLocalizations.of(context).edit
+            : ShipantherLocalizations.of(context).create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () async {
           final form = formKey.currentState;

@@ -186,14 +186,26 @@ class ShipantherLocalizations {
         desc: 'save',
         locale: locale.toString(),
       );
-  String get passwordUpdateError => Intl.message(
-        'Password does not match',
-        name: 'passwordUpdateError',
-        desc: 'Password does not match',
+  String get edit => Intl.message(
+        'Edit',
+        name: 'edit',
+        desc: 'edit',
+        locale: locale.toString(),
+      );
+  String get create => Intl.message(
+        'Create',
+        name: 'create',
+        desc: 'create',
+        locale: locale.toString(),
+      );
+  String get passowrdDoesntMatch => Intl.message(
+        'Passwords do not match',
+        name: 'passowrdDoesntMatch',
+        desc: 'Passwords do not match',
         locale: locale.toString(),
       );
   String get username => Intl.message(
-        'Username: ',
+        'Username',
         name: 'username',
         desc: 'Username',
         locale: locale.toString(),
