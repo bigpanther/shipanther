@@ -6,6 +6,7 @@ import 'package:shipanther/widgets/selectors.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
+import 'package:shipanther/extensions/terminal_extension.dart';
 
 class TerminalAddEdit extends StatefulWidget {
   final User loggedInUser;
@@ -68,7 +69,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                           S2Choice.listFrom<TerminalType, TerminalType>(
                         source: TerminalType.values,
                         value: (index, item) => item,
-                        title: (index, item) => item.toString(),
+                        title: (index, item) => item.text,
                       ),
                       modalType: S2ModalType.popupDialog,
                       modalHeader: false,

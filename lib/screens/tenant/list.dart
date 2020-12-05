@@ -51,7 +51,7 @@ class TenantList extends StatelessWidget {
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
               // subtitle: Text(t.id),
               // tilePadding: EdgeInsets.all(5),
-              leading: Icon(t.icon),
+              leading: Icon(t.type.icon),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {

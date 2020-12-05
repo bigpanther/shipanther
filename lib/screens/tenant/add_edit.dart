@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
+import 'package:shipanther/extensions/tenant_extension.dart';
 
 class TenantAddEdit extends StatefulWidget {
   final Tenant tenant;
@@ -60,7 +61,7 @@ class _TenantAddEditState extends State<TenantAddEdit> {
                 choiceItems: S2Choice.listFrom<TenantType, TenantType>(
                   source: TenantType.values,
                   value: (index, item) => item,
-                  title: (index, item) => item.toString(),
+                  title: (index, item) => item.text,
                 ),
                 modalType: S2ModalType.popupDialog,
                 modalHeader: false,

@@ -6,6 +6,7 @@ import 'package:shipanther/widgets/selectors.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
+import 'package:shipanther/extensions/order_extension.dart';
 
 class OrderAddEdit extends StatefulWidget {
   final User loggedInUser;
@@ -68,7 +69,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                     choiceItems: S2Choice.listFrom<OrderStatus, OrderStatus>(
                       source: OrderStatus.values,
                       value: (index, item) => item,
-                      title: (index, item) => item.toString(),
+                      title: (index, item) => item.text,
                     ),
                     modalType: S2ModalType.popupDialog,
                     modalHeader: false,
