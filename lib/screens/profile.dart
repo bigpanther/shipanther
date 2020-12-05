@@ -212,4 +212,10 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         floatingActionButton: null);
   }
+
+  void dispose() {
+    _password.dispose();
+    _confirmPassword.dispose();
+    super.dispose();
+  }
 }
