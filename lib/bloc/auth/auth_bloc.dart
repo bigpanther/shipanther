@@ -81,8 +81,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
     if (event is UpdatePassword) {
       var user = _authRepository.loggedInUser();
-
-      await user.updatePassword(event.password);
+      // TODO: Validate old password here
+      await user.updatePassword(event.newPassword);
 
       yield AuthInitial();
     }
