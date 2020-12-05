@@ -4,6 +4,7 @@ import 'package:flutter_signin_button/button_builder.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/reset_password.dart';
+import 'package:shipanther/extensions/auth_type_selector_extension.dart';
 
 class SignInOrRegistrationForm extends StatefulWidget {
   final AuthTypeSelector authTypeSelector;
