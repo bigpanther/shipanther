@@ -59,7 +59,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
                           : null,
                       onSaved: (value) => _customerName = value,
                     ),
-                    // Hack to avoid runtime type mismatch. Remove when this array as another item
+                    // Hack to avoid runtime type mismatch.
                     Container(width: 0.0, height: 0.0),
                   ] +
                   tenantSelector(context,

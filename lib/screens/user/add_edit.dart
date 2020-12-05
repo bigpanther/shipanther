@@ -5,12 +5,12 @@ import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/api.dart' as api;
 import 'package:shipanther/extensions/user_extension.dart';
 
 class UserAddEdit extends StatefulWidget {
-  final User loggedInUser;
-  final User user;
+  final api.User loggedInUser;
+  final api.User user;
   final UserBloc userBloc;
   final bool isEdit;
 
@@ -30,12 +30,12 @@ class _UserAddEditState extends State<UserAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String _userName;
-  UserRole _userRole;
-  Tenant _tenant;
+  api.UserRole _userRole;
+  api.Tenant _tenant;
 
   @override
   Widget build(BuildContext context) {
-    _userRole = widget.user.role ?? UserRole.driver;
+    _userRole = widget.user.role ?? api.UserRole.driver;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -63,20 +63,23 @@ class _UserAddEditState extends State<UserAddEdit> {
                           : null,
                       onSaved: (value) => _userName = value,
                     ),
-                    smartSelect<UserRole>(
+                    smartSelect<api.UserRole>(
                       title: "User type",
                       onChange: (state) => _userRole = state.value,
-                      choiceItems: S2Choice.listFrom<UserRole, UserRole>(
-                        source: UserRole.values,
+                      choiceItems:
+                          S2Choice.listFrom<api.UserRole, api.UserRole>(
+                        source: api.UserRole.values,
                         value: (index, item) => item,
                         title: (index, item) => item.text,
                       ),
                       value: _userRole,
                     ),
+                    // Hack to avoid runtime type mismatch.
+                    Container(width: 0.0, height: 0.0),
                   ] +
                   tenantSelector(context,
                       widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                      (Tenant suggestion) {
+                      (api.Tenant suggestion) {
                     _tenant = suggestion;
                   })),
         ),
@@ -89,7 +92,7 @@ class _UserAddEditState extends State<UserAddEdit> {
           if (form.validate()) {
             form.save();
             widget.user.name = _userName;
-            widget.user.role = _userRole ?? UserRole.driver;
+            widget.user.role = _userRole ?? api.UserRole.driver;
             if (_tenant != null) {
               widget.user.tenantId = _tenant.id;
             }

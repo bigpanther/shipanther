@@ -35,6 +35,7 @@ import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:shipanther/widgets/theme.dart';
 
 FirebaseMessaging _firebaseMessaging;
 
@@ -141,14 +142,8 @@ class ShipantherApp extends StatelessWidget {
             child: MaterialApp(
               title: 'Shipanther',
               debugShowCheckedModeBanner: false,
-              theme: ThemeData.dark(),
+              theme: ShipantherTheme.theme,
               home: SignInOrRegistrationPage(),
-              // routes: {
-              //   '/login': (context) => BlocProvider.value(
-              //         value: context.read<AuthRepository>(),
-              //         child: SignInOrRegistrationPage(),
-              //       ),
-              // },
               localizationsDelegates: [
                 ShipantherLocalizationsDelegate(),
                 GlobalMaterialLocalizations.delegate,

@@ -5,13 +5,13 @@ import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/api.dart' as api;
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/extensions/order_extension.dart';
 
 class OrderAddEdit extends StatefulWidget {
-  final User loggedInUser;
-  final Order order;
+  final api.User loggedInUser;
+  final api.Order order;
   final OrderBloc orderBloc;
   final bool isEdit;
 
@@ -31,9 +31,9 @@ class _OrderAddEditState extends State<OrderAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String _orderSerialNumber;
-  OrderStatus _orderStatus;
-  Tenant _tenant;
-  Customer _customer;
+  api.OrderStatus _orderStatus;
+  api.Tenant _tenant;
+  api.Customer _customer;
 
   @override
   Widget build(BuildContext context) {
@@ -64,23 +64,26 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                         : null,
                     onSaved: (value) => _orderSerialNumber = value,
                   ),
-                  smartSelect<OrderStatus>(
+                  smartSelect<api.OrderStatus>(
                     title: "Order status",
                     onChange: (state) => _orderStatus = state.value,
-                    choiceItems: S2Choice.listFrom<OrderStatus, OrderStatus>(
-                      source: OrderStatus.values,
+                    choiceItems:
+                        S2Choice.listFrom<api.OrderStatus, api.OrderStatus>(
+                      source: api.OrderStatus.values,
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    value: widget.order.status ?? OrderStatus.open,
+                    value: widget.order.status ?? api.OrderStatus.open,
                   ),
+                  // Hack to avoid runtime type mismatch.
+                  Container(width: 0.0, height: 0.0),
                 ] +
                 tenantSelector(
                     context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                    (Tenant suggestion) {
+                    (api.Tenant suggestion) {
                   _tenant = suggestion;
                 }) +
-                customerSelector(context, true, (Customer suggestion) {
+                customerSelector(context, true, (api.Customer suggestion) {
                   _customer = suggestion;
                 }),
           ),
@@ -94,7 +97,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
           if (form.validate()) {
             form.save();
             widget.order.serialNumber = _orderSerialNumber;
-            widget.order.status = _orderStatus ?? OrderStatus.open;
+            widget.order.status = _orderStatus ?? api.OrderStatus.open;
             if (_customer != null) {
               widget.order.customerId = _customer.id;
             }

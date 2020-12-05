@@ -8,13 +8,13 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/api.dart' as api;
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/extensions/carrier_extension.dart';
 
 class CarrierAddEdit extends StatefulWidget {
-  final User loggedInUser;
-  final Carrier carrier;
+  final api.User loggedInUser;
+  final api.Carrier carrier;
   final CarrierBloc carrierBloc;
   final bool isEdit;
 
@@ -34,8 +34,8 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   String _carrierName;
-  CarrierType _carrierType;
-  Tenant _tenant;
+  api.CarrierType _carrierType;
+  api.Tenant _tenant;
   DateTime _eta;
   final DateFormat formatter = DateFormat('dd-MM-yyyy ');
 
@@ -102,20 +102,23 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                       ],
                     ),
                   ),
-                  smartSelect<CarrierType>(
+                  smartSelect<api.CarrierType>(
                     title: "Carrier type",
                     onChange: (state) => _carrierType = state.value,
-                    choiceItems: S2Choice.listFrom<CarrierType, CarrierType>(
-                      source: CarrierType.values,
+                    choiceItems:
+                        S2Choice.listFrom<api.CarrierType, api.CarrierType>(
+                      source: api.CarrierType.values,
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    value: widget.carrier.type ?? CarrierType.vessel,
+                    value: widget.carrier.type ?? api.CarrierType.vessel,
                   ),
+                  // Hack to avoid runtime type mismatch.
+                  Container(width: 0.0, height: 0.0),
                 ] +
                 tenantSelector(
                     context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                    (Tenant suggestion) {
+                    (api.Tenant suggestion) {
                   _tenant = suggestion;
                 }),
           ),
