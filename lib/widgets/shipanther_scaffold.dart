@@ -44,40 +44,7 @@ class ShipantherScaffold extends StatelessWidget {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
-                // _createHeader(),
-                UserAccountsDrawerHeader(
-                  accountEmail: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(
-                      'Shipanther',
-                      style: TextStyle(fontSize: 22),
-                    ),
-                  ),
-                  onDetailsPressed: () => Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => ProfilePage(user))),
-                  accountName: Row(
-                    children: <Widget>[
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(shape: BoxShape.circle),
-                        child: CircleAvatar(
-                          child: Icon(Icons.person),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(user.name),
-                          Text(user.email),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                _createHeader(context, user),
                 SizedBox(
                   height: 10,
                 ),
@@ -187,17 +154,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
       ),
     );
   }
-  // widgets.add(
-  //   _createDrawerItem(
-  //     icon: Icons.person,
-  //     text: ShipantherLocalizations.of(context).profile,
-  //     onTap: () => Navigator.of(context).pushReplacement(
-  //       MaterialPageRoute(
-  //         builder: (_) => ProfilePage(user),
-  //       ),
-  //     ),
-  //   ),
-  // );
+
   widgets.add(
     _createDrawerItem(
       icon: Icons.settings,
@@ -239,7 +196,7 @@ Widget _createDrawerItem(
   );
 }
 
-Widget _createHeader(api.User user) {
+Widget _createHeader(BuildContext context, api.User user) {
   return UserAccountsDrawerHeader(
     accountEmail: Padding(
       padding: const EdgeInsets.only(top: 8.0),
@@ -248,6 +205,8 @@ Widget _createHeader(api.User user) {
         style: TextStyle(fontSize: 22),
       ),
     ),
+    onDetailsPressed: () => Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (_) => ProfilePage(user))),
     accountName: Row(
       children: <Widget>[
         Container(

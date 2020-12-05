@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/data/user/user_repository.dart';
+import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
