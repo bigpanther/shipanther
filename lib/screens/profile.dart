@@ -18,6 +18,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final GlobalKey<FormState> _formKeyPassword = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKeyName = GlobalKey<FormState>();
   final TextEditingController _password = TextEditingController();
+  final TextEditingController _oldPassword = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
   String _updatedName;
   @override
@@ -136,6 +137,27 @@ class _ProfilePageState extends State<ProfilePage> {
                         Column(
                           children: [
                             TextFormField(
+                              controller: _oldPassword,
+                              decoration: InputDecoration(
+                                  labelText: ShipantherLocalizations.of(context)
+                                      .oldPassword),
+                              autocorrect: false,
+                              enableSuggestions: false,
+                              keyboardType: TextInputType.text,
+                              obscureText: true,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (String value) {
+                                if (value.isEmpty) {
+                                  return ShipantherLocalizations.of(context)
+                                      .paramRequired(
+                                          ShipantherLocalizations.of(context)
+                                              .password);
+                                }
+                                return null;
+                              },
+                            ),
+                            TextFormField(
                               controller: _password,
                               decoration: InputDecoration(
                                   labelText: ShipantherLocalizations.of(context)
@@ -191,9 +213,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 onPressed: () async {
                                   if (_formKeyPassword.currentState
                                       .validate()) {
-                                    context
-                                        .read<AuthBloc>()
-                                        .add(UpdatePassword(_password.text));
+                                    context.read<AuthBloc>().add(UpdatePassword(
+                                        _oldPassword.text, _password.text));
                                   }
                                 },
                                 text: ShipantherLocalizations.of(context)
@@ -216,6 +237,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void dispose() {
     _password.dispose();
     _confirmPassword.dispose();
+    _oldPassword.dispose();
     super.dispose();
   }
 }

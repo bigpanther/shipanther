@@ -44,8 +44,9 @@ class ForgotPassword extends AuthEvent {
 }
 
 class UpdatePassword extends AuthEvent {
-  final String password;
-  const UpdatePassword(this.password) : super(null);
+  final String oldPassword;
+  final String newPassword;
+  const UpdatePassword(this.oldPassword, this.newPassword) : super(null);
 }
 
 class UpdateName extends AuthEvent {
