@@ -13,103 +13,103 @@
     "type": "text",
     "placeholders": {}
   },
-  "tenantLessUserMessage": "Thanks for signing up. We will review your registration. We are in a limited beta at the moment. Please check back later.",
+  "tenantLessUserMessage": "ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਕਰਨ ਵਾਸਤੇ ਤੁਹਾਡਾ ਬਹੁਤ ਧੰਨਵਾਦ। ਏਹ ਸੌਫਟਵੇਅਰ ਹਾਲੀ ਤਜਰਬੇ ਵਾਲੀ ਸਥਿਤੀ ਵਿੱਚ ਹੈ । ਅਸੀਂ ਤੁਹਾਨੰ ਛੇਤੀ ਹੀ ਵਾਪਿਸ ਜੁਵਾਬ ਦੇਵਾਂਗੇ। ਧੰਨਵਾਦ।",
   "@tenantLessUserMessage": {
     "description": "Message to display when a new user signs up",
     "type": "text",
     "placeholders": {}
   },
-  "home": "Home",
+  "home": "ਮੁੱਖ ਪੰਨਾ",
   "@home": {
     "description": "Home",
     "type": "text",
     "placeholders": {}
   },
-  "logout": "Logout",
+  "logout": "ਲਾੱਗ ਆਊਟ",
   "@logout": {
     "description": "Logout",
     "type": "text",
     "placeholders": {}
   },
-  "signIn": "Sign In",
+  "signIn": "ਲਾੱਗ ਇਨ",
   "@signIn": {
     "description": "Sign In",
     "type": "text",
     "placeholders": {}
   },
-  "register": "Register",
+  "register": "ਪੰਜੀਕਰਨ",
   "@register": {
     "description": "Register",
     "type": "text",
     "placeholders": {}
   },
-  "settings": "Settings",
+  "settings": "ਸੈਟਿੰਗਜ਼",
   "@settings": {
     "description": "Settings",
     "type": "text",
     "placeholders": {}
   },
-  "ordersTitle": "Orders",
+  "ordersTitle": "ਆਦੇਸ਼",
   "@ordersTitle": {
     "description": "Orders",
     "type": "text",
     "placeholders": {}
   },
-  "usersTitle": "Users",
+  "usersTitle": "ਉਪਭੋਗਤਾ",
   "@usersTitle": {
     "description": "Users",
     "type": "text",
     "placeholders": {}
   },
-  "carriersTitle": "Carriers",
+  "carriersTitle": "ਕੈਰੀਅਰ",
   "@carriersTitle": {
     "description": "Carriers",
     "type": "text",
     "placeholders": {}
   },
-  "containersTitle": "Containers",
+  "containersTitle": "ਕੰਟੇਨਰ",
   "@containersTitle": {
     "description": "Containers",
     "type": "text",
     "placeholders": {}
   },
-  "customersTitle": "Customers",
+  "customersTitle": "ਗਾਹਕ",
   "@customersTitle": {
     "description": "Customers",
     "type": "text",
     "placeholders": {}
   },
-  "password": "Password",
+  "password": "ਪਾਸਵਰਡ",
   "@password": {
     "description": "Password",
     "type": "text",
     "placeholders": {}
   },
-  "email": "Email",
+  "email": "ਈ-ਮੇਲ",
   "@email": {
     "description": "Email",
     "type": "text",
     "placeholders": {}
   },
-  "name": "Name",
+  "name": "ਨਾਮ",
   "@name": {
     "description": "Name",
     "type": "text",
     "placeholders": {}
   },
-  "welcome": "Welcome to Shipanther",
+  "welcome": "ਸ਼ਿੱਪਐਨਥਰ ਤੁਹਾਡਾ ਸਵਾਗਤ ਕਰਦਾ ਹੈ",
   "@welcome": {
     "description": "Welcome to Shipanther",
     "type": "text",
     "placeholders": {}
   },
-  "noDateChosen": "No date chosen",
+  "noDateChosen": "ਕੋਈ ਤਾਰੀਖ ਨਹੀਂ ਚੁਣੀ ਗਈ",
   "@noDateChosen": {
     "description": "No date chosen",
     "type": "text",
     "placeholders": {}
   },
-  "paramRequired": "{param} is required",
+  "paramRequired": "{param} ਦੀ ਲੋੜ ਹੈ",
   "@paramRequired": {
     "description": "Param required",
     "type": "text",
@@ -119,7 +119,7 @@
       }
     }
   },
-  "emailSent": "An Email has been sent to {emailId}. Please check your inbox.",
+  "emailSent": "emailId} ਨੂੰ ਈਮੇਲ ਭੇਜੀ ਗਈ ਹੈ. ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਇਨਬਾਕਸ ਦੀ ਜਾਂਚ ਕਰੋ।",
   "@emailSent": {
     "description": "An Email has been sent",
     "type": "text",
@@ -129,85 +129,85 @@
       }
     }
   },
-  "emailNotVerified": "This Email Id is not yet verified. Please try again.",
+  "emailNotVerified": "ਇਹ ਈਮੇਲ ਆਈਡੀ ਅਜੇ ਪ੍ਰਮਾਣਿਤ ਨਹੀਂ ਹੈ. ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ.",
   "@emailNotVerified": {
     "description": "This Email Id is not yet verified. Please try again.",
     "type": "text",
     "placeholders": {}
   },
-  "resetPassword": "Reset Password",
+  "resetPassword": "ਪਾਸਵਰਡ ਰੀਸੈਟ ਕਰੋ",
   "@resetPassword": {
     "description": "Reset Password",
     "type": "text",
     "placeholders": {}
   },
-  "forgotPassword": "Forgot Password?",
+  "forgotPassword": "ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ?",
   "@forgotPassword": {
     "description": "Forgot Password?",
     "type": "text",
     "placeholders": {}
   },
-  "resetPasswordMessage": "An email with the reset link would be sent to you.",
+  "resetPasswordMessage": "ਰੀਸੈਟ ਲਿੰਕ ਵਾਲੀ ਇੱਕ ਈਮੇਲ ਤੁਹਾਨੂੰ ਭੇਜੀ ਜਾਏਗੀ.",
   "@resetPasswordMessage": {
     "description": "Reset password message",
     "type": "text",
     "placeholders": {}
   },
-  "profile": "Profile",
+  "profile": "ਪ੍ਰੋਫਾਈਲ",
   "@profile": {
     "description": "profile",
     "type": "text",
     "placeholders": {}
   },
-  "save": "Save",
+  "save": "ਰੱਖਣਾ",
   "@save": {
     "description": "save",
     "type": "text",
     "placeholders": {}
   },
-  "edit": "Edit",
+  "edit": "ਸੰਪਾਦਿਤ ਕਰੋ",
   "@edit": {
     "description": "edit",
     "type": "text",
     "placeholders": {}
   },
-  "create": "Create",
+  "create": "ਬਣਾਓ",
   "@create": {
     "description": "create",
     "type": "text",
     "placeholders": {}
   },
-  "passowrdDoesntMatch": "Passwords do not match",
+  "passowrdDoesntMatch": "ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ",
   "@passowrdDoesntMatch": {
     "description": "Passwords do not match",
     "type": "text",
     "placeholders": {}
   },
-  "username": "Username",
+  "username": "ਉਪਯੋਗਕਰਤਾ ਨਾਮ",
   "@username": {
     "description": "Username",
     "type": "text",
     "placeholders": {}
   },
-  "confirmPassword": "Confirm password",
+  "confirmPassword": "ਪਾਸਵਰਡ ਪੱਕਾ ਕਰੋ",
   "@confirmPassword": {
     "description": "Confirm password",
     "type": "text",
     "placeholders": {}
   },
-  "changePassword": "Change password",
+  "changePassword": "ਪਾਸਵਰਡ ਬਦਲੋ",
   "@changePassword": {
     "description": "Change password",
     "type": "text",
     "placeholders": {}
   },
-  "newPassword": "New password",
+  "newPassword": "ਨਵਾਂ ਪਾਸਵਰਡ",
   "@newPassword": {
     "description": "new password",
     "type": "text",
     "placeholders": {}
   },
-  "oldPassword": "Old password",
+  "oldPassword": "ਪੁਰਾਣਾ ਪਾਸਵਰਡ",
   "@oldPassword": {
     "description": "old password",
     "type": "text",
