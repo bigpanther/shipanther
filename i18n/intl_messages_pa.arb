@@ -119,7 +119,7 @@
       }
     }
   },
-  "emailSent": "emailId} ਨੂੰ ਈਮੇਲ ਭੇਜੀ ਗਈ ਹੈ. ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਇਨਬਾਕਸ ਦੀ ਜਾਂਚ ਕਰੋ।",
+  "emailSent": "{emailId} ਨੂੰ ਈਮੇਲ ਭੇਜੀ ਗਈ ਹੈ. ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੇ ਇਨਬਾਕਸ ਦੀ ਜਾਂਚ ਕਰੋ।",
   "@emailSent": {
     "description": "An Email has been sent",
     "type": "text",
