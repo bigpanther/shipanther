@@ -7,7 +7,7 @@ SmartSelect<T> smartSelect<T>(
     @required List<S2Choice<T>> choiceItems,
     @required T value}) {
   return SmartSelect<T>.single(
-    title: "Container size",
+    title: title,
     onChange: onChange,
     choiceItems: choiceItems,
     modalType: S2ModalType.popupDialog,
