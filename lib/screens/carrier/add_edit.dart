@@ -38,6 +38,8 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
   api.Tenant _tenant;
   DateTime _eta;
   final DateFormat formatter = DateFormat('dd-MM-yyyy ');
+  final TextEditingController _tenantTypeAheadController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -66,62 +68,63 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
             return Future(() => true);
           },
           child: ListView(
-            children: [
-                  TextFormField(
-                    initialValue: widget.carrier.name ?? '',
-                    autofocus: widget.isEdit ? false : true,
-                    style: Theme.of(context).textTheme.headline5,
-                    decoration: InputDecoration(hintText: 'Carrier Name'),
-                    validator: (val) => val.trim().isEmpty
-                        ? "Carrier name should not be empty"
-                        : null,
-                    onSaved: (value) => _carrierName = value,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 13, right: 10, top: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text('ETA'),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(_eta == null
-                                ? ShipantherLocalizations.of(context)
-                                    .noDateChosen
-                                : DateFormat('dd-MM-yy - kk:mm').format(_eta)),
-                            IconButton(
-                              icon: Icon(Icons.calendar_today),
-                              onPressed: _presentDateTimePicker,
-                            )
-                          ],
-                        )
-                      ],
+              children: [
+                    TextFormField(
+                      initialValue: widget.carrier.name ?? '',
+                      autofocus: widget.isEdit ? false : true,
+                      style: Theme.of(context).textTheme.headline5,
+                      decoration: InputDecoration(hintText: 'Carrier Name'),
+                      validator: (val) => val.trim().isEmpty
+                          ? "Carrier name should not be empty"
+                          : null,
+                      onSaved: (value) => _carrierName = value,
                     ),
-                  ),
-                  smartSelect<api.CarrierType>(
-                    title: "Carrier type",
-                    onChange: (state) => _carrierType = state.value,
-                    choiceItems:
-                        S2Choice.listFrom<api.CarrierType, api.CarrierType>(
-                      source: api.CarrierType.values,
-                      value: (index, item) => item,
-                      title: (index, item) => item.text,
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 13, right: 10, top: 5),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text('ETA'),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(_eta == null
+                                  ? ShipantherLocalizations.of(context)
+                                      .noDateChosen
+                                  : DateFormat('dd-MM-yy - kk:mm')
+                                      .format(_eta)),
+                              IconButton(
+                                icon: Icon(Icons.calendar_today),
+                                onPressed: _presentDateTimePicker,
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                    value: widget.carrier.type ?? api.CarrierType.vessel,
-                  ),
-                  // Hack to avoid runtime type mismatch.
-                  Container(width: 0.0, height: 0.0),
-                ] +
-                tenantSelector(
-                    context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                    (api.Tenant suggestion) {
-                  _tenant = suggestion;
-                }),
-          ),
+                    smartSelect<api.CarrierType>(
+                      title: "Carrier type",
+                      onChange: (state) => _carrierType = state.value,
+                      choiceItems:
+                          S2Choice.listFrom<api.CarrierType, api.CarrierType>(
+                        source: api.CarrierType.values,
+                        value: (index, item) => item,
+                        title: (index, item) => item.text,
+                      ),
+                      value: widget.carrier.type ?? api.CarrierType.vessel,
+                    ),
+                    // Hack to avoid runtime type mismatch.
+                    Container(width: 0.0, height: 0.0),
+                  ] +
+                  tenantSelector(context,
+                      widget.isEdit && widget.loggedInUser.isSuperAdmin,
+                      (api.Tenant suggestion) {
+                    _tenant = suggestion;
+                  }, _tenantTypeAheadController)),
         ),
       ),
       floatingActionButton: FloatingActionButton(

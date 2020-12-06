@@ -33,6 +33,8 @@ class _UserAddEditState extends State<UserAddEdit> {
   String _userName;
   api.UserRole _userRole;
   api.Tenant _tenant;
+  final TextEditingController _tenantTypeAheadController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +84,7 @@ class _UserAddEditState extends State<UserAddEdit> {
                       widget.isEdit && widget.loggedInUser.isSuperAdmin,
                       (api.Tenant suggestion) {
                     _tenant = suggestion;
-                  })),
+                  }, _tenantTypeAheadController)),
         ),
       ),
       floatingActionButton: FloatingActionButton(

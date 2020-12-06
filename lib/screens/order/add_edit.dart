@@ -35,6 +35,10 @@ class _OrderAddEditState extends State<OrderAddEdit> {
   api.OrderStatus _orderStatus;
   api.Tenant _tenant;
   api.Customer _customer;
+  final TextEditingController _tenantTypeAheadController =
+      TextEditingController();
+  final TextEditingController _customerTypeAheadController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -81,13 +85,21 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                   Container(width: 0.0, height: 0.0),
                 ] +
                 tenantSelector(
-                    context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                    (api.Tenant suggestion) {
-                  _tenant = suggestion;
-                }) +
-                customerSelector(context, true, (api.Customer suggestion) {
-                  _customer = suggestion;
-                }),
+                  context,
+                  widget.isEdit && widget.loggedInUser.isSuperAdmin,
+                  (api.Tenant suggestion) {
+                    _tenant = suggestion;
+                  },
+                  _tenantTypeAheadController,
+                ) +
+                customerSelector(
+                  context,
+                  true,
+                  (api.Customer suggestion) {
+                    _customer = suggestion;
+                  },
+                  _customerTypeAheadController,
+                ),
           ),
         ),
       ),

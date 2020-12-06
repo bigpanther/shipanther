@@ -34,6 +34,8 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
   String _terminalName;
   api.TerminalType _terminalType;
   api.Tenant _tenant;
+  final TextEditingController _tenantTypeAheadController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,36 +55,37 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
             return Future(() => true);
           },
           child: ListView(
-              children: [
-                    TextFormField(
-                      initialValue: widget.terminal.name ?? '',
-                      autofocus: widget.isEdit ? false : true,
-                      style: Theme.of(context).textTheme.headline5,
-                      decoration: InputDecoration(hintText: 'Terminal Name'),
-                      validator: (val) => val.trim().isEmpty
-                          ? "Terminal name should not be empty"
-                          : null,
-                      onSaved: (value) => _terminalName = value,
+            children: [
+                  TextFormField(
+                    initialValue: widget.terminal.name ?? '',
+                    autofocus: widget.isEdit ? false : true,
+                    style: Theme.of(context).textTheme.headline5,
+                    decoration: InputDecoration(hintText: 'Terminal Name'),
+                    validator: (val) => val.trim().isEmpty
+                        ? "Terminal name should not be empty"
+                        : null,
+                    onSaved: (value) => _terminalName = value,
+                  ),
+                  smartSelect<api.TerminalType>(
+                    title: "Terminal type",
+                    onChange: (state) => _terminalType = state.value,
+                    choiceItems:
+                        S2Choice.listFrom<api.TerminalType, api.TerminalType>(
+                      source: api.TerminalType.values,
+                      value: (index, item) => item,
+                      title: (index, item) => item.text,
                     ),
-                    smartSelect<api.TerminalType>(
-                      title: "Terminal type",
-                      onChange: (state) => _terminalType = state.value,
-                      choiceItems:
-                          S2Choice.listFrom<api.TerminalType, api.TerminalType>(
-                        source: api.TerminalType.values,
-                        value: (index, item) => item,
-                        title: (index, item) => item.text,
-                      ),
-                      value: widget.terminal.type ?? api.TerminalType.port,
-                    ),
-                    // Hack to avoid runtime type mismatch.
-                    Container(width: 0.0, height: 0.0),
-                  ] +
-                  tenantSelector(context,
-                      widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                      (api.Tenant suggestion) {
-                    _tenant = suggestion;
-                  })),
+                    value: widget.terminal.type ?? api.TerminalType.port,
+                  ),
+                  // Hack to avoid runtime type mismatch.
+                  Container(width: 0.0, height: 0.0),
+                ] +
+                tenantSelector(
+                    context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
+                    (api.Tenant suggestion) {
+                  _tenant = suggestion;
+                }, _tenantTypeAheadController),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
