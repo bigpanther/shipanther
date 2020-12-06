@@ -5,16 +5,6 @@ import 'package:trober_sdk/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 
-// final TextEditingController _tenantTypeAheadController =
-//     TextEditingController();
-// final TextEditingController _customerTypeAheadController =
-//     TextEditingController();
-// final TextEditingController _driverTypeAheadController =
-//     TextEditingController();
-// final TextEditingController _terminalTypeAheadController =
-//     TextEditingController();
-// final TextEditingController _orderTypeAheadController = TextEditingController();
-
 List<Widget> tenantSelector(
     BuildContext context,
     bool shouldShow,
@@ -24,9 +14,11 @@ List<Widget> tenantSelector(
   return [
     TypeAheadFormField<Tenant>(
       textFieldConfiguration: TextFieldConfiguration(
-        decoration: InputDecoration(hintText: 'Select tenant'),
-        controller: _tenantTypeAheadController,
-      ),
+          decoration: InputDecoration(hintText: 'Select tenant'),
+          controller: _tenantTypeAheadController,
+          onTap: () {
+            _tenantTypeAheadController.text = '';
+          }),
       suggestionsCallback: (pattern) async {
         var client = await context.read<ApiRepository>().apiClient();
         return (await client.tenantsGet())
@@ -39,7 +31,6 @@ List<Widget> tenantSelector(
           subtitle: Text(tenant.id),
         );
       },
-      // initialValue: onSuggestionSelected.name;
       onSuggestionSelected: (suggestion) {
         _tenantTypeAheadController.text = suggestion.name;
       },
@@ -56,8 +47,12 @@ List<Widget> customerSelector(
   return [
     TypeAheadFormField<Customer>(
       textFieldConfiguration: TextFieldConfiguration(
-          decoration: InputDecoration(hintText: 'Select customer'),
-          controller: _customerTypeAheadController),
+        decoration: InputDecoration(hintText: 'Select customer'),
+        controller: _customerTypeAheadController,
+        onTap: () {
+          _customerTypeAheadController.text = '';
+        },
+      ),
       suggestionsCallback: (pattern) async {
         var client = await context.read<ApiRepository>().apiClient();
         return (await client.customersGet())
@@ -87,7 +82,10 @@ List<Widget> driverSelector(
     TypeAheadFormField<User>(
       textFieldConfiguration: TextFieldConfiguration(
           decoration: InputDecoration(hintText: 'Select Driver'),
-          controller: _driverTypeAheadController),
+          controller: _driverTypeAheadController,
+          onTap: () {
+            _driverTypeAheadController.text = '';
+          }),
       suggestionsCallback: (pattern) async {
         var client = await context.read<ApiRepository>().apiClient();
         return (await client.usersGet()).where((element) =>
@@ -118,6 +116,9 @@ List<Widget> terminalSelector(
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(hintText: 'Select Terminal'),
         controller: _terminalTypeAheadController,
+        onTap: () {
+          _terminalTypeAheadController.text = '';
+        },
       ),
       suggestionsCallback: (pattern) async {
         var client = await context.read<ApiRepository>().apiClient();
@@ -148,8 +149,12 @@ List<Widget> orderSelector(
   return [
     TypeAheadFormField<Order>(
       textFieldConfiguration: TextFieldConfiguration(
-          decoration: InputDecoration(hintText: 'Select Order'),
-          controller: _orderTypeAheadController),
+        decoration: InputDecoration(hintText: 'Select Order'),
+        controller: _orderTypeAheadController,
+        onTap: () {
+          _orderTypeAheadController.text = '';
+        },
+      ),
       suggestionsCallback: (pattern) async {
         var client = await context.read<ApiRepository>().apiClient();
         return (await client.ordersGet()).where((element) =>

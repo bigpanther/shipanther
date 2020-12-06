@@ -77,6 +77,12 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isEdit) {
+      _tenantTypeAheadController.text = widget.container.tenantId;
+      _driverTypeAheadController.text = widget.container.driverId;
+      _terminalTypeAheadController.text = widget.container.terminalId;
+      _orderTypeAheadController.text = widget.container.orderId;
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -275,5 +281,13 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
         },
       ),
     );
+  }
+
+  void dispose() {
+    _tenantTypeAheadController.dispose();
+    _terminalTypeAheadController.dispose();
+    _orderTypeAheadController.dispose();
+    _driverTypeAheadController.dispose();
+    super.dispose();
   }
 }
