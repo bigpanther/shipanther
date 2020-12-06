@@ -30,6 +30,8 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
 
   String _customerName;
   api.Tenant _tenant;
+  final TextEditingController _tenantTypeAheadController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,25 +51,29 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
             return Future(() => true);
           },
           child: ListView(
-              children: [
-                    TextFormField(
-                      initialValue: widget.customer.name ?? '',
-                      autofocus: widget.isEdit ? false : true,
-                      style: Theme.of(context).textTheme.headline5,
-                      decoration: InputDecoration(hintText: 'Customer Name'),
-                      validator: (val) => val.trim().isEmpty
-                          ? "Customer name should not be empty"
-                          : null,
-                      onSaved: (value) => _customerName = value,
-                    ),
-                    // Hack to avoid runtime type mismatch.
-                    Container(width: 0.0, height: 0.0),
-                  ] +
-                  tenantSelector(context,
-                      widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                      (api.Tenant suggestion) {
+            children: [
+                  TextFormField(
+                    initialValue: widget.customer.name ?? '',
+                    autofocus: widget.isEdit ? false : true,
+                    style: Theme.of(context).textTheme.headline5,
+                    decoration: InputDecoration(hintText: 'Customer Name'),
+                    validator: (val) => val.trim().isEmpty
+                        ? "Customer name should not be empty"
+                        : null,
+                    onSaved: (value) => _customerName = value,
+                  ),
+                  // Hack to avoid runtime type mismatch.
+                  Container(width: 0.0, height: 0.0),
+                ] +
+                tenantSelector(
+                  context,
+                  widget.isEdit && widget.loggedInUser.isSuperAdmin,
+                  (api.Tenant suggestion) {
                     _tenant = suggestion;
-                  })),
+                  },
+                  _tenantTypeAheadController,
+                ),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

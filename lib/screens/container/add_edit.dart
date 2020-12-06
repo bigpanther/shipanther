@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/container/container_bloc.dart';
+
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/selectors.dart';
@@ -45,6 +46,16 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
   api.User _driver;
   DateTime _reservationTime;
   DateTime _lfd;
+
+  final TextEditingController _tenantTypeAheadController =
+      TextEditingController();
+
+  final TextEditingController _driverTypeAheadController =
+      TextEditingController();
+  final TextEditingController _terminalTypeAheadController =
+      TextEditingController();
+  final TextEditingController _orderTypeAheadController =
+      TextEditingController();
 
   void _presentDateTimePickerReservationTime() {
     DatePicker.showDateTimePicker(context, showTitleActions: true,
@@ -194,24 +205,23 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                   ),
                 ] +
                 tenantSelector(
-                  context,
-                  !widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                  (api.Tenant suggestion) {
-                    _tenant = suggestion;
-                  },
-                ) +
+                    context, !widget.isEdit && widget.loggedInUser.isSuperAdmin,
+                    (api.Tenant suggestion) {
+                  _tenant = suggestion;
+                }, _tenantTypeAheadController) +
                 orderSelector(context, true, (api.Order suggestion) {
                   _order = suggestion;
-                }) +
+                }, _orderTypeAheadController) +
                 terminalSelector(context, true, (api.Terminal suggestion) {
                   _terminal = suggestion;
-                }) +
+                }, _terminalTypeAheadController) +
                 driverSelector(
                   context,
                   true,
                   (api.User suggestion) {
                     _driver = suggestion;
                   },
+                  _driverTypeAheadController,
                 ),
           ),
         ),
