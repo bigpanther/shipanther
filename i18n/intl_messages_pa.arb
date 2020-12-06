@@ -7,7 +7,7 @@
     "type": "text",
     "placeholders": {}
   }
-  "terminalsTitle": "Terminals",
+  "terminalsTitle": "ਟਰਮੀਨਲ",
   "@terminalsTitle": {
     "description": "Title for the Terminals page",
     "type": "text",
