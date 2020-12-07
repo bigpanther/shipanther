@@ -32,6 +32,7 @@ List<Widget> tenantSelector(
         );
       },
       onSuggestionSelected: (suggestion) {
+        onSuggestionSelected(suggestion);
         _tenantTypeAheadController.text = suggestion.name;
       },
     ),
@@ -66,6 +67,7 @@ List<Widget> customerSelector(
         );
       },
       onSuggestionSelected: (suggestion) {
+        onSuggestionSelected(suggestion);
         _customerTypeAheadController.text = suggestion.name;
       },
     ),
@@ -99,6 +101,7 @@ List<Widget> driverSelector(
         );
       },
       onSuggestionSelected: (suggestion) {
+        onSuggestionSelected(suggestion);
         _driverTypeAheadController.text = suggestion.name;
       },
     ),
@@ -133,6 +136,7 @@ List<Widget> terminalSelector(
         );
       },
       onSuggestionSelected: (suggestion) {
+        onSuggestionSelected(suggestion);
         _terminalTypeAheadController.text = suggestion.name;
       },
     ),
@@ -144,7 +148,6 @@ List<Widget> orderSelector(
     bool shouldShow,
     void Function(Order) onSuggestionSelected,
     TextEditingController _orderTypeAheadController) {
-  print(onSuggestionSelected);
   if (!shouldShow) return [];
   return [
     TypeAheadFormField<Order>(
@@ -168,6 +171,7 @@ List<Widget> orderSelector(
         );
       },
       onSuggestionSelected: (suggestion) {
+        onSuggestionSelected(suggestion);
         _orderTypeAheadController.text = suggestion.serialNumber;
       },
     ),

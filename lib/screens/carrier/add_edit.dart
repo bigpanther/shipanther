@@ -43,6 +43,9 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isEdit) {
+      _tenantTypeAheadController.text = widget.carrier.tenantId;
+    }
     void _presentDateTimePicker() {
       DatePicker.showDateTimePicker(context, showTitleActions: true,
           onConfirm: (date) {
@@ -155,5 +158,11 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
         },
       ),
     );
+  }
+
+  void dispose() {
+    _tenantTypeAheadController.dispose();
+
+    super.dispose();
   }
 }
