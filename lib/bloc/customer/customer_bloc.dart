@@ -17,25 +17,26 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
     CustomerEvent event,
   ) async* {
     yield CustomerLoading();
-    // if (event is GetCustomer) {
-    //   yield CustomerLoaded(await _customerRepository.fetchCustomer(event.id));
-    // }
-    if (event is GetCustomers) {
-      var customers = await _customerRepository.fetchCustomers();
-      yield CustomersLoaded(customers);
-    }
-    if (event is UpdateCustomer) {
-      await _customerRepository.updateCustomer(event.id, event.customer);
-      var customers = await _customerRepository.fetchCustomers();
-      yield CustomersLoaded(customers);
-    }
-    if (event is CreateCustomer) {
-      await _customerRepository.createCustomer(event.customer);
-      var customers = await _customerRepository.fetchCustomers();
-      yield CustomersLoaded(customers);
-    }
-    if (event is DeleteCustomer) {
-      yield CustomerFailure("Customer deletion is not supported");
+    try {
+      if (event is GetCustomers) {
+        var customers = await _customerRepository.fetchCustomers();
+        yield CustomersLoaded(customers);
+      }
+      if (event is UpdateCustomer) {
+        await _customerRepository.updateCustomer(event.id, event.customer);
+        var customers = await _customerRepository.fetchCustomers();
+        yield CustomersLoaded(customers);
+      }
+      if (event is CreateCustomer) {
+        await _customerRepository.createCustomer(event.customer);
+        var customers = await _customerRepository.fetchCustomers();
+        yield CustomersLoaded(customers);
+      }
+      if (event is DeleteCustomer) {
+        yield CustomerFailure("Customer deletion is not supported");
+      }
+    } catch (e) {
+      yield CustomerFailure("Request failed: $e");
     }
   }
 }

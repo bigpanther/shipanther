@@ -18,25 +18,30 @@ class CarrierBloc extends Bloc<CarrierEvent, CarrierState> {
     CarrierEvent event,
   ) async* {
     yield CarrierLoading();
-    if (event is GetCarrier) {
-      yield CarrierLoaded(await _carrierRepository.fetchCarrier(event.id));
-    }
-    if (event is GetCarriers) {
-      var carriers = await _carrierRepository.filterCarriers(event.carrierType);
-      yield CarriersLoaded(carriers, event.carrierType);
-    }
-    if (event is UpdateCarrier) {
-      await _carrierRepository.updateCarrier(event.id, event.carrier);
-      var carriers = await _carrierRepository.filterCarriers(null);
-      yield CarriersLoaded(carriers, null);
-    }
-    if (event is CreateCarrier) {
-      await _carrierRepository.createCarrier(event.carrier);
-      var carriers = await _carrierRepository.filterCarriers(null);
-      yield CarriersLoaded(carriers, null);
-    }
-    if (event is DeleteCarrier) {
-      yield CarrierFailure("Carrier deletion is not supported");
+    try {
+      if (event is GetCarrier) {
+        yield CarrierLoaded(await _carrierRepository.fetchCarrier(event.id));
+      }
+      if (event is GetCarriers) {
+        var carriers =
+            await _carrierRepository.filterCarriers(event.carrierType);
+        yield CarriersLoaded(carriers, event.carrierType);
+      }
+      if (event is UpdateCarrier) {
+        await _carrierRepository.updateCarrier(event.id, event.carrier);
+        var carriers = await _carrierRepository.filterCarriers(null);
+        yield CarriersLoaded(carriers, null);
+      }
+      if (event is CreateCarrier) {
+        await _carrierRepository.createCarrier(event.carrier);
+        var carriers = await _carrierRepository.filterCarriers(null);
+        yield CarriersLoaded(carriers, null);
+      }
+      if (event is DeleteCarrier) {
+        yield CarrierFailure("Carrier deletion is not supported");
+      }
+    } catch (e) {
+      yield CarrierFailure("Request failed: $e");
     }
   }
 }
