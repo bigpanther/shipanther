@@ -35,6 +35,9 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isEdit) {
+      _tenantTypeAheadController.text = widget.customer.tenantId;
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -105,5 +108,10 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
         },
       ),
     );
+  }
+
+  void dispose() {
+    _tenantTypeAheadController.dispose();
+    super.dispose();
   }
 }
