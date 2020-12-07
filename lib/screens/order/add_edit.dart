@@ -42,6 +42,10 @@ class _OrderAddEditState extends State<OrderAddEdit> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isEdit) {
+      _tenantTypeAheadController.text = widget.order.tenantId;
+      _customerTypeAheadController.text = widget.order.customerId;
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -132,5 +136,10 @@ class _OrderAddEditState extends State<OrderAddEdit> {
         },
       ),
     );
+  }
+
+  void dispose() {
+    _customerTypeAheadController.dispose();
+    super.dispose();
   }
 }

@@ -39,6 +39,9 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isEdit) {
+      _tenantTypeAheadController.text = widget.terminal.tenantId;
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -116,5 +119,10 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
         },
       ),
     );
+  }
+
+  void dispose() {
+    _tenantTypeAheadController.dispose();
+    super.dispose();
   }
 }

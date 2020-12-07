@@ -39,6 +39,9 @@ class _UserAddEditState extends State<UserAddEdit> {
   @override
   Widget build(BuildContext context) {
     _userRole = widget.user.role ?? api.UserRole.driver;
+    if (widget.isEdit) {
+      _tenantTypeAheadController.text = widget.user.tenantId;
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -114,5 +117,10 @@ class _UserAddEditState extends State<UserAddEdit> {
         },
       ),
     );
+  }
+
+  void dispose() {
+    _tenantTypeAheadController.dispose();
+    super.dispose();
   }
 }
