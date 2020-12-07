@@ -35,16 +35,16 @@ class _OrderAddEditState extends State<OrderAddEdit> {
   api.OrderStatus _orderStatus;
   api.Tenant _tenant;
   api.Customer _customer;
-  final TextEditingController tenantTypeAheadController =
+  final TextEditingController _tenantTypeAheadController =
       TextEditingController();
-  final TextEditingController customerTypeAheadController =
+  final TextEditingController _customerTypeAheadController =
       TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     if (widget.isEdit) {
-      tenantTypeAheadController.text = widget.order.tenantId;
-      customerTypeAheadController.text = widget.order.customerId;
+      _tenantTypeAheadController.text = widget.order.tenantId;
+      _customerTypeAheadController.text = widget.order.customerId;
     }
     return Scaffold(
       appBar: AppBar(
@@ -94,7 +94,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                   (api.Tenant suggestion) {
                     _tenant = suggestion;
                   },
-                  tenantTypeAheadController,
+                  _tenantTypeAheadController,
                 ) +
                 customerSelector(
                   context,
@@ -102,7 +102,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                   (api.Customer suggestion) {
                     _customer = suggestion;
                   },
-                  customerTypeAheadController,
+                  _customerTypeAheadController,
                 ),
           ),
         ),
@@ -139,8 +139,8 @@ class _OrderAddEditState extends State<OrderAddEdit> {
   }
 
   void dispose() {
-    tenantTypeAheadController.dispose();
-    customerTypeAheadController.dispose();
+    _tenantTypeAheadController.dispose();
+    _customerTypeAheadController.dispose();
     super.dispose();
   }
 }
