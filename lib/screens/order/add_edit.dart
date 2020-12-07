@@ -60,6 +60,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                     autofocus: widget.isEdit ? false : true,
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(hintText: 'Order Number'),
+                    maxLength: 15,
                     validator: (val) => val.trim().isEmpty
                         ? "Order number should not be empty"
                         : null,
