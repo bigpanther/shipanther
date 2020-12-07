@@ -18,25 +18,29 @@ class TenantBloc extends Bloc<TenantEvent, TenantState> {
     TenantEvent event,
   ) async* {
     yield TenantLoading();
-    if (event is GetTenant) {
-      yield TenantLoaded(await _tenantRepository.fetchTenant(event.id));
-    }
-    if (event is GetTenants) {
-      var tenants = await _tenantRepository.filterTenants(event.tenantType);
-      yield TenantsLoaded(tenants, event.tenantType);
-    }
-    if (event is UpdateTenant) {
-      await _tenantRepository.updateTenant(event.id, event.tenant);
-      var tenants = await _tenantRepository.filterTenants(null);
-      yield TenantsLoaded(tenants, null);
-    }
-    if (event is CreateTenant) {
-      await _tenantRepository.createTenant(event.tenant);
-      var tenants = await _tenantRepository.filterTenants(null);
-      yield TenantsLoaded(tenants, null);
-    }
-    if (event is DeleteTenant) {
-      yield TenantFailure("Tenant deletion is not supported");
+    try {
+      if (event is GetTenant) {
+        yield TenantLoaded(await _tenantRepository.fetchTenant(event.id));
+      }
+      if (event is GetTenants) {
+        var tenants = await _tenantRepository.filterTenants(event.tenantType);
+        yield TenantsLoaded(tenants, event.tenantType);
+      }
+      if (event is UpdateTenant) {
+        await _tenantRepository.updateTenant(event.id, event.tenant);
+        var tenants = await _tenantRepository.filterTenants(null);
+        yield TenantsLoaded(tenants, null);
+      }
+      if (event is CreateTenant) {
+        await _tenantRepository.createTenant(event.tenant);
+        var tenants = await _tenantRepository.filterTenants(null);
+        yield TenantsLoaded(tenants, null);
+      }
+      if (event is DeleteTenant) {
+        yield TenantFailure("Tenant deletion is not supported");
+      }
+    } catch (e) {
+      yield TenantFailure("Request failed: $e");
     }
   }
 }

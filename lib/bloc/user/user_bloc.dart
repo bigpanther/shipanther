@@ -18,35 +18,34 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     UserEvent event,
   ) async* {
     yield UserLoading();
-    if (event is UserLogin) {
-      try {
+    try {
+      if (event is UserLogin) {
         var deviceToken = await event.deviceToken;
         User u = await _userRepository.registerDeviceToken(deviceToken);
         yield UserLoggedIn(u);
-      } catch (e) {
-        print(e);
-        yield UserFailure("User validation failed: $e");
       }
-    }
-    if (event is GetUser) {
-      yield UserLoaded(await _userRepository.fetchUser(event.id));
-    }
-    if (event is GetUsers) {
-      var users = await _userRepository.filterUsers(event.userRole);
-      yield UsersLoaded(users, event.userRole);
-    }
-    if (event is UpdateUser) {
-      await _userRepository.updateUser(event.id, event.user);
-      var users = await _userRepository.filterUsers(null);
-      yield UsersLoaded(users, null);
-    }
-    if (event is CreateUser) {
-      await _userRepository.createUser(event.user);
-      var users = await _userRepository.filterUsers(null);
-      yield UsersLoaded(users, null);
-    }
-    if (event is DeleteUser) {
-      yield UserFailure("User deletion is not supported");
+      if (event is GetUser) {
+        yield UserLoaded(await _userRepository.fetchUser(event.id));
+      }
+      if (event is GetUsers) {
+        var users = await _userRepository.filterUsers(event.userRole);
+        yield UsersLoaded(users, event.userRole);
+      }
+      if (event is UpdateUser) {
+        await _userRepository.updateUser(event.id, event.user);
+        var users = await _userRepository.filterUsers(null);
+        yield UsersLoaded(users, null);
+      }
+      if (event is CreateUser) {
+        await _userRepository.createUser(event.user);
+        var users = await _userRepository.filterUsers(null);
+        yield UsersLoaded(users, null);
+      }
+      if (event is DeleteUser) {
+        yield UserFailure("User deletion is not supported");
+      }
+    } catch (e) {
+      yield UserFailure("Request failed: $e");
     }
   }
 }

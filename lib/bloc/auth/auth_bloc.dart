@@ -18,8 +18,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthEvent event,
   ) async* {
     yield AuthLoading(event.authType);
-    if (event is AuthRegister) {
-      try {
+    try {
+      if (event is AuthRegister) {
         final user = await _authRepository.registerUser(
             event.name, event.username, event.password);
         if (user.emailVerified) {
@@ -27,12 +27,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         } else {
           yield AuthVerification(user);
         }
-      } catch (e) {
-        yield AuthFailure("Registration failed: $e", event.authType);
       }
-    }
-    if (event is AuthSignIn) {
-      try {
+      if (event is AuthSignIn) {
         final user =
             await _authRepository.fetchAuthUser(event.username, event.password);
         if (user.emailVerified) {
@@ -40,56 +36,56 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         } else {
           yield AuthVerification(user);
         }
-      } catch (e) {
-        yield AuthFailure("Authentication failed: $e", event.authType);
       }
-    }
-    if (event is AuthTypeOtherRequest) {
-      yield AuthRequested(event.authType.other);
-    }
-    if (event is AuthLogout) {
-      await _authRepository.logout();
-      yield AuthInitial();
-    }
-    if (event is AuthCheck) {
-      var user = _authRepository.loggedInUser();
-      if (user != null) {
+      if (event is AuthTypeOtherRequest) {
+        yield AuthRequested(event.authType.other);
+      }
+      if (event is AuthLogout) {
+        await _authRepository.logout();
+        yield AuthInitial();
+      }
+      if (event is AuthCheck) {
+        var user = _authRepository.loggedInUser();
+        if (user != null) {
+          if (user.emailVerified) {
+            yield AuthFinished(user, event.authType);
+          } else {
+            yield AuthVerification(user);
+          }
+        } else {
+          yield AuthInitial();
+        }
+      }
+      if (event is CheckVerified) {
+        var user = await _authRepository.refreshUserProfile();
         if (user.emailVerified) {
-          yield AuthFinished(user, event.authType);
+          yield AuthFinished(user, AuthTypeSelector.signIn);
         } else {
           yield AuthVerification(user);
         }
-      } else {
+      }
+      if (event is ForgotPassword) {
+        await _authRepository.resetPassword(event.email);
         yield AuthInitial();
       }
-    }
-    if (event is CheckVerified) {
-      var user = await _authRepository.refreshUserProfile();
-      if (user.emailVerified) {
-        yield AuthFinished(user, AuthTypeSelector.signIn);
-      } else {
-        yield AuthVerification(user);
+      if (event is ResendEmail) {
+        await event.user.sendEmailVerification();
+        yield AuthEmailResent(event.user);
       }
-    }
-    if (event is ForgotPassword) {
-      await _authRepository.resetPassword(event.email);
-      yield AuthInitial();
-    }
-    if (event is ResendEmail) {
-      await event.user.sendEmailVerification();
-      yield AuthEmailResent(event.user);
-    }
-    if (event is UpdatePassword) {
-      var user = _authRepository.loggedInUser();
-      // TODO: Validate old password here
-      await user.updatePassword(event.newPassword);
+      if (event is UpdatePassword) {
+        var user = _authRepository.loggedInUser();
+        // TODO: Validate old password here
+        await user.updatePassword(event.newPassword);
 
-      yield AuthInitial();
-    }
-    if (event is UpdateName) {
-      var user = _authRepository.loggedInUser();
-      await user.updateProfile(displayName: event.name);
-      yield AuthInitial();
+        yield AuthInitial();
+      }
+      if (event is UpdateName) {
+        var user = _authRepository.loggedInUser();
+        await user.updateProfile(displayName: event.name);
+        yield AuthInitial();
+      }
+    } catch (e) {
+      yield AuthFailure("Request failed: $e", event.authType);
     }
   }
 }

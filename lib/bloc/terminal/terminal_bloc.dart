@@ -18,26 +18,30 @@ class TerminalBloc extends Bloc<TerminalEvent, TerminalState> {
     TerminalEvent event,
   ) async* {
     yield TerminalLoading();
-    if (event is GetTerminal) {
-      yield TerminalLoaded(await _terminalRepository.fetchTerminal(event.id));
-    }
-    if (event is GetTerminals) {
-      var terminals =
-          await _terminalRepository.filterTerminals(event.terminalType);
-      yield TerminalsLoaded(terminals, event.terminalType);
-    }
-    if (event is UpdateTerminal) {
-      await _terminalRepository.updateTerminal(event.id, event.terminal);
-      var terminals = await _terminalRepository.filterTerminals(null);
-      yield TerminalsLoaded(terminals, null);
-    }
-    if (event is CreateTerminal) {
-      await _terminalRepository.createTerminal(event.terminal);
-      var terminals = await _terminalRepository.filterTerminals(null);
-      yield TerminalsLoaded(terminals, null);
-    }
-    if (event is DeleteTerminal) {
-      yield TerminalFailure("Terminal deletion is not supported");
+    try {
+      if (event is GetTerminal) {
+        yield TerminalLoaded(await _terminalRepository.fetchTerminal(event.id));
+      }
+      if (event is GetTerminals) {
+        var terminals =
+            await _terminalRepository.filterTerminals(event.terminalType);
+        yield TerminalsLoaded(terminals, event.terminalType);
+      }
+      if (event is UpdateTerminal) {
+        await _terminalRepository.updateTerminal(event.id, event.terminal);
+        var terminals = await _terminalRepository.filterTerminals(null);
+        yield TerminalsLoaded(terminals, null);
+      }
+      if (event is CreateTerminal) {
+        await _terminalRepository.createTerminal(event.terminal);
+        var terminals = await _terminalRepository.filterTerminals(null);
+        yield TerminalsLoaded(terminals, null);
+      }
+      if (event is DeleteTerminal) {
+        yield TerminalFailure("Terminal deletion is not supported");
+      }
+    } catch (e) {
+      yield TerminalFailure("Request failed: $e");
     }
   }
 }

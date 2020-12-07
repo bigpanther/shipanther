@@ -17,26 +17,30 @@ class ContainerBloc extends Bloc<ContainerEvent, ContainerState> {
     ContainerEvent event,
   ) async* {
     yield ContainerLoading();
-    if (event is GetContainer) {
-      yield ContainerLoaded(
-          await _containerRepository.fetchContainer(event.id));
-    }
-    if (event is GetContainers) {
-      var containers = await _containerRepository.fetchContainers();
-      yield ContainersLoaded(containers);
-    }
-    if (event is UpdateContainer) {
-      await _containerRepository.updateContainer(event.id, event.container);
-      var containers = await _containerRepository.fetchContainers();
-      yield ContainersLoaded(containers);
-    }
-    if (event is CreateContainer) {
-      await _containerRepository.createContainer(event.container);
-      var containers = await _containerRepository.fetchContainers();
-      yield ContainersLoaded(containers);
-    }
-    if (event is DeleteContainer) {
-      yield ContainerFailure("Container deletion is not supported");
+    try {
+      if (event is GetContainer) {
+        yield ContainerLoaded(
+            await _containerRepository.fetchContainer(event.id));
+      }
+      if (event is GetContainers) {
+        var containers = await _containerRepository.fetchContainers();
+        yield ContainersLoaded(containers);
+      }
+      if (event is UpdateContainer) {
+        await _containerRepository.updateContainer(event.id, event.container);
+        var containers = await _containerRepository.fetchContainers();
+        yield ContainersLoaded(containers);
+      }
+      if (event is CreateContainer) {
+        await _containerRepository.createContainer(event.container);
+        var containers = await _containerRepository.fetchContainers();
+        yield ContainersLoaded(containers);
+      }
+      if (event is DeleteContainer) {
+        yield ContainerFailure("Container deletion is not supported");
+      }
+    } catch (e) {
+      yield ContainerFailure("Request failed: $e");
     }
   }
 }
