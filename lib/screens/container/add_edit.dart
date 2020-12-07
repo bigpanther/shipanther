@@ -63,7 +63,9 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
       setState(() {
         _reservationTime = date;
       });
-    }, currentTime: DateTime.now());
+    },
+        currentTime:
+            widget.isEdit ? widget.container.reservationTime : DateTime.now());
   }
 
   void _presentDateTimePickerlfd() {
@@ -72,7 +74,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
       setState(() {
         _lfd = date;
       });
-    }, currentTime: DateTime.now());
+    }, currentTime: widget.isEdit ? widget.container.lfd : DateTime.now());
   }
 
   @override
@@ -138,8 +140,11 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                         Row(
                           children: [
                             Text(_reservationTime == null
-                                ? ShipantherLocalizations.of(context)
-                                    .noDateChosen
+                                ? widget.container.reservationTime == null
+                                    ? ShipantherLocalizations.of(context)
+                                        .noDateChosen
+                                    : DateFormat('dd-MM-yy - kk:mm').format(
+                                        widget.container.reservationTime)
                                 : DateFormat('dd-MM-yy - kk:mm')
                                     .format(_reservationTime)),
                             IconButton(
@@ -164,8 +169,11 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                         Row(
                           children: [
                             Text(_lfd == null
-                                ? ShipantherLocalizations.of(context)
-                                    .noDateChosen
+                                ? widget.container.lfd == null
+                                    ? ShipantherLocalizations.of(context)
+                                        .noDateChosen
+                                    : DateFormat('dd-MM-yy - kk:mm')
+                                        .format(widget.container.lfd)
                                 : DateFormat('dd-MM-yy - kk:mm').format(_lfd)),
                             IconButton(
                               icon: Icon(Icons.calendar_today),
@@ -242,6 +250,10 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
           final form = formKey.currentState;
           if (form.validate()) {
             form.save();
+            widget.container.reservationTime = _reservationTime == null
+                ? widget.container.reservationTime
+                : _reservationTime;
+            widget.container.lfd = _lfd == null ? widget.container.lfd : _lfd;
             widget.container.serialNumber = _serialNumber;
             widget.container.origin = _origin;
             widget.container.destination = _destination;
