@@ -33,14 +33,14 @@ class _UserAddEditState extends State<UserAddEdit> {
   String _userName;
   api.UserRole _userRole;
   api.Tenant _tenant;
-  final TextEditingController _tenantTypeAheadController =
+  final TextEditingController tenantTypeAheadController =
       TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     _userRole = widget.user.role ?? api.UserRole.driver;
     if (widget.isEdit) {
-      _tenantTypeAheadController.text = widget.user.tenantId;
+      tenantTypeAheadController.text = widget.user.tenantId;
     }
     return Scaffold(
       appBar: AppBar(
@@ -87,7 +87,7 @@ class _UserAddEditState extends State<UserAddEdit> {
                       widget.isEdit && widget.loggedInUser.isSuperAdmin,
                       (api.Tenant suggestion) {
                     _tenant = suggestion;
-                  }, _tenantTypeAheadController)),
+                  }, tenantTypeAheadController)),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -120,7 +120,7 @@ class _UserAddEditState extends State<UserAddEdit> {
   }
 
   void dispose() {
-    _tenantTypeAheadController.dispose();
+    tenantTypeAheadController.dispose();
     super.dispose();
   }
 }

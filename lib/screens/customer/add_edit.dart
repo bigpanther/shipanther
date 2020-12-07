@@ -30,13 +30,13 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
 
   String _customerName;
   api.Tenant _tenant;
-  final TextEditingController _tenantTypeAheadController =
+  final TextEditingController tenantTypeAheadController =
       TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     if (widget.isEdit) {
-      _tenantTypeAheadController.text = widget.customer.tenantId;
+      tenantTypeAheadController.text = widget.customer.tenantId;
     }
     return Scaffold(
       appBar: AppBar(
@@ -74,7 +74,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
                   (api.Tenant suggestion) {
                     _tenant = suggestion;
                   },
-                  _tenantTypeAheadController,
+                  tenantTypeAheadController,
                 ),
           ),
         ),
@@ -111,7 +111,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
   }
 
   void dispose() {
-    _tenantTypeAheadController.dispose();
+    tenantTypeAheadController.dispose();
     super.dispose();
   }
 }

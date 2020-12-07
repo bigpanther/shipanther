@@ -34,13 +34,13 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
   String _terminalName;
   api.TerminalType _terminalType;
   api.Tenant _tenant;
-  final TextEditingController _tenantTypeAheadController =
+  final TextEditingController tenantTypeAheadController =
       TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     if (widget.isEdit) {
-      _tenantTypeAheadController.text = widget.terminal.tenantId;
+      tenantTypeAheadController.text = widget.terminal.tenantId;
     }
     return Scaffold(
       appBar: AppBar(
@@ -87,7 +87,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                     context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
                     (api.Tenant suggestion) {
                   _tenant = suggestion;
-                }, _tenantTypeAheadController),
+                }, tenantTypeAheadController),
           ),
         ),
       ),
@@ -122,7 +122,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
   }
 
   void dispose() {
-    _tenantTypeAheadController.dispose();
+    tenantTypeAheadController.dispose();
     super.dispose();
   }
 }
