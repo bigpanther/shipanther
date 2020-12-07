@@ -47,14 +47,14 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
   DateTime _reservationTime;
   DateTime _lfd;
 
-  final TextEditingController _tenantTypeAheadController =
+  final TextEditingController tenantTypeAheadController =
       TextEditingController();
 
-  final TextEditingController _driverTypeAheadController =
+  final TextEditingController driverTypeAheadController =
       TextEditingController();
-  final TextEditingController _terminalTypeAheadController =
+  final TextEditingController terminalTypeAheadController =
       TextEditingController();
-  final TextEditingController _orderTypeAheadController =
+  final TextEditingController orderTypeAheadController =
       TextEditingController();
 
   void _presentDateTimePickerReservationTime() {
@@ -78,10 +78,10 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
   @override
   Widget build(BuildContext context) {
     if (widget.isEdit) {
-      _tenantTypeAheadController.text = widget.container.tenantId;
-      _driverTypeAheadController.text = widget.container.driverId;
-      _terminalTypeAheadController.text = widget.container.terminalId;
-      _orderTypeAheadController.text = widget.container.orderId;
+      tenantTypeAheadController.text = widget.container.tenantId;
+      driverTypeAheadController.text = widget.container.driverId;
+      terminalTypeAheadController.text = widget.container.terminalId;
+      orderTypeAheadController.text = widget.container.orderId;
     }
     return Scaffold(
       appBar: AppBar(
@@ -214,20 +214,20 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     context, !widget.isEdit && widget.loggedInUser.isSuperAdmin,
                     (api.Tenant suggestion) {
                   _tenant = suggestion;
-                }, _tenantTypeAheadController) +
+                }, tenantTypeAheadController) +
                 orderSelector(context, true, (api.Order suggestion) {
                   _order = suggestion;
-                }, _orderTypeAheadController) +
+                }, orderTypeAheadController) +
                 terminalSelector(context, true, (api.Terminal suggestion) {
                   _terminal = suggestion;
-                }, _terminalTypeAheadController) +
+                }, terminalTypeAheadController) +
                 driverSelector(
                   context,
                   true,
                   (api.User suggestion) {
                     _driver = suggestion;
                   },
-                  _driverTypeAheadController,
+                  driverTypeAheadController,
                 ),
           ),
         ),
@@ -284,10 +284,10 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
   }
 
   void dispose() {
-    _tenantTypeAheadController.dispose();
-    _terminalTypeAheadController.dispose();
-    _orderTypeAheadController.dispose();
-    _driverTypeAheadController.dispose();
+    tenantTypeAheadController.dispose();
+    terminalTypeAheadController.dispose();
+    orderTypeAheadController.dispose();
+    driverTypeAheadController.dispose();
     super.dispose();
   }
 }
