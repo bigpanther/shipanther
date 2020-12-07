@@ -38,13 +38,13 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
   api.Tenant _tenant;
   DateTime _eta;
   final DateFormat formatter = DateFormat('dd-MM-yyyy ');
-  final TextEditingController tenantTypeAheadController =
+  final TextEditingController _tenantTypeAheadController =
       TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     if (widget.isEdit) {
-      tenantTypeAheadController.text = widget.carrier.tenantId;
+      _tenantTypeAheadController.text = widget.carrier.tenantId;
     }
     void _presentDateTimePicker() {
       DatePicker.showDateTimePicker(context, showTitleActions: true,
@@ -127,7 +127,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                       widget.isEdit && widget.loggedInUser.isSuperAdmin,
                       (api.Tenant suggestion) {
                     _tenant = suggestion;
-                  }, tenantTypeAheadController)),
+                  }, _tenantTypeAheadController)),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -161,7 +161,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
   }
 
   void dispose() {
-    tenantTypeAheadController.dispose();
+    _tenantTypeAheadController.dispose();
 
     super.dispose();
   }

@@ -9,15 +9,15 @@ List<Widget> tenantSelector(
     BuildContext context,
     bool shouldShow,
     void Function(Tenant) onSuggestionSelected,
-    TextEditingController tenantTypeAheadController) {
+    TextEditingController textEditingController) {
   if (!shouldShow) return [];
   return [
     TypeAheadFormField<Tenant>(
       textFieldConfiguration: TextFieldConfiguration(
           decoration: InputDecoration(hintText: 'Select tenant'),
-          controller: tenantTypeAheadController,
+          controller: textEditingController,
           onTap: () {
-            tenantTypeAheadController.text = '';
+            textEditingController.text = '';
           }),
       suggestionsCallback: (pattern) async {
         var client = await context.read<ApiRepository>().apiClient();
@@ -33,7 +33,7 @@ List<Widget> tenantSelector(
       },
       onSuggestionSelected: (suggestion) {
         onSuggestionSelected(suggestion);
-        tenantTypeAheadController.text = suggestion.name;
+        textEditingController.text = suggestion.name;
       },
     ),
   ];
@@ -43,15 +43,15 @@ List<Widget> customerSelector(
     BuildContext context,
     bool shouldShow,
     void Function(Customer) onSuggestionSelected,
-    TextEditingController customerTypeAheadController) {
+    TextEditingController textEditingController) {
   if (!shouldShow) return [];
   return [
     TypeAheadFormField<Customer>(
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(hintText: 'Select customer'),
-        controller: customerTypeAheadController,
+        controller: textEditingController,
         onTap: () {
-          customerTypeAheadController.text = '';
+          textEditingController.text = '';
         },
       ),
       suggestionsCallback: (pattern) async {
@@ -68,7 +68,7 @@ List<Widget> customerSelector(
       },
       onSuggestionSelected: (suggestion) {
         onSuggestionSelected(suggestion);
-        customerTypeAheadController.text = suggestion.name;
+        textEditingController.text = suggestion.name;
       },
     ),
   ];
@@ -78,15 +78,15 @@ List<Widget> driverSelector(
     BuildContext context,
     bool shouldShow,
     void Function(User) onSuggestionSelected,
-    TextEditingController driverTypeAheadController) {
+    TextEditingController textEditingController) {
   if (!shouldShow) return [];
   return [
     TypeAheadFormField<User>(
       textFieldConfiguration: TextFieldConfiguration(
           decoration: InputDecoration(hintText: 'Select Driver'),
-          controller: driverTypeAheadController,
+          controller: textEditingController,
           onTap: () {
-            driverTypeAheadController.text = '';
+            textEditingController.text = '';
           }),
       suggestionsCallback: (pattern) async {
         var client = await context.read<ApiRepository>().apiClient();
@@ -102,7 +102,7 @@ List<Widget> driverSelector(
       },
       onSuggestionSelected: (suggestion) {
         onSuggestionSelected(suggestion);
-        driverTypeAheadController.text = suggestion.name;
+        textEditingController.text = suggestion.name;
       },
     ),
   ];
@@ -112,15 +112,15 @@ List<Widget> terminalSelector(
     BuildContext context,
     bool shouldShow,
     void Function(Terminal) onSuggestionSelected,
-    TextEditingController terminalTypeAheadController) {
+    TextEditingController textEditingController) {
   if (!shouldShow) return [];
   return [
     TypeAheadFormField<Terminal>(
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(hintText: 'Select Terminal'),
-        controller: terminalTypeAheadController,
+        controller: textEditingController,
         onTap: () {
-          terminalTypeAheadController.text = '';
+          textEditingController.text = '';
         },
       ),
       suggestionsCallback: (pattern) async {
@@ -137,7 +137,7 @@ List<Widget> terminalSelector(
       },
       onSuggestionSelected: (suggestion) {
         onSuggestionSelected(suggestion);
-        terminalTypeAheadController.text = suggestion.name;
+        textEditingController.text = suggestion.name;
       },
     ),
   ];
@@ -147,15 +147,15 @@ List<Widget> orderSelector(
     BuildContext context,
     bool shouldShow,
     void Function(Order) onSuggestionSelected,
-    TextEditingController orderTypeAheadController) {
+    TextEditingController textEditingController) {
   if (!shouldShow) return [];
   return [
     TypeAheadFormField<Order>(
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(hintText: 'Select Order'),
-        controller: orderTypeAheadController,
+        controller: textEditingController,
         onTap: () {
-          orderTypeAheadController.text = '';
+          textEditingController.text = '';
         },
       ),
       suggestionsCallback: (pattern) async {
@@ -172,7 +172,7 @@ List<Widget> orderSelector(
       },
       onSuggestionSelected: (suggestion) {
         onSuggestionSelected(suggestion);
-        orderTypeAheadController.text = suggestion.serialNumber;
+        textEditingController.text = suggestion.serialNumber;
       },
     ),
   ];
