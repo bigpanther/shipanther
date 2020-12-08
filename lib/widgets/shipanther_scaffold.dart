@@ -65,11 +65,11 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     _createDrawerItem(
       icon: Icons.home,
       text: ShipantherLocalizations.of(context).home,
-      // onTap: () => Navigator.of(context).pushReplacement(
-      //   MaterialPageRoute(
-      //     builder: (_) => AdminHome(user),
-      //   ),
-      // ),
+      onTap: () => Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => user.homePage,
+        ),
+      ),
     ),
   );
 
