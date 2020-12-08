@@ -45,6 +45,7 @@ class _CustomerHomeState extends State<CustomerHome> {
           actions: [],
           body: CenteredLoading(),
           floatingActionButton: null,
+          bottomNavigationBar: null,
         );
       },
     );
