@@ -6,7 +6,7 @@ import 'package:shipanther/screens/order/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
-
+import 'package:shipanther/extensions/order_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderList extends StatelessWidget {
@@ -48,9 +48,7 @@ class OrderList extends StatelessWidget {
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
               // subtitle: Text(t.id),
               // tilePadding: EdgeInsets.all(5),
-              leading: Icon((t.status == OrderStatus.open)
-                  ? Icons.read_more
-                  : Icons.close),
+              leading: Icon(t.status.icon),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {

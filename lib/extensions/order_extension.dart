@@ -7,26 +7,20 @@ extension OrderStatusExtension on OrderStatus {
   IconData get icon {
     switch (this) {
       case OrderStatus.open:
-        // TODO: Handle this case.
-        break;
+        return Icons.read_more;
       case OrderStatus.cancelled:
-        // TODO: Handle this case.
-        break;
+        return Icons.cancel;
       case OrderStatus.inProgress:
-        // TODO: Handle this case.
-        break;
+        return Icons.query_builder;
       case OrderStatus.delivered:
-        // TODO: Handle this case.
-        break;
+        return Icons.check_circle_outline;
       case OrderStatus.invoiced:
-        // TODO: Handle this case.
+        return Icons.attach_money;
         break;
       case OrderStatus.paymentReceived:
-        // TODO: Handle this case.
-        break;
+        return Icons.money;
       case OrderStatus.accepted:
-        // TODO: Handle this case.
-        break;
+        return Icons.check;
     }
   }
 
