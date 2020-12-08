@@ -1,48 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
+import 'package:shipanther/bloc/container/container_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/screens/terminal/list.dart';
+import 'package:shipanther/screens/container/driver_list.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
 
 class DriverHome extends StatefulWidget {
-  final User user;
-  const DriverHome(this.user, {Key key}) : super(key: key);
+  final User loggedInUser;
+  const DriverHome(this.loggedInUser, {Key key}) : super(key: key);
 
   @override
   _DriverHomeState createState() => _DriverHomeState();
 }
 
 class _DriverHomeState extends State<DriverHome> {
-  TerminalBloc bloc;
+  ContainerBloc bloc;
   @override
   void initState() {
     super.initState();
-    bloc = context.read<TerminalBloc>();
-    bloc.add(GetTerminals(null));
+    bloc = context.read<ContainerBloc>();
+    bloc.add(GetContainers());
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<TerminalBloc, TerminalState>(
+    return BlocConsumer<ContainerBloc, ContainerState>(
       listener: (context, state) {
-        if (state is TerminalFailure) {
+        if (state is ContainerFailure) {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
         }
       },
       builder: (context, state) {
-        if (state is TerminalsLoaded) {
-          return TerminalList(widget.user,
-              terminalBloc: bloc, terminalLoadedState: state);
+        if (state is ContainersLoaded) {
+          return DriverContainerList(
+            widget.loggedInUser,
+            containerLoadedState: state,
+            containerBloc: bloc,
+          );
         }
         return ShipantherScaffold(
-          widget.user,
+          widget.loggedInUser,
           bottomNavigationBar: null,
-          title: ShipantherLocalizations.of(context).tenantsTitle,
+          title: ShipantherLocalizations.of(context).containersTitle,
           actions: [],
           body: CenteredLoading(),
           floatingActionButton: null,

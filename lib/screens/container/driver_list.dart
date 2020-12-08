@@ -16,7 +16,7 @@ class DriverContainerList extends StatefulWidget {
     this.loggedInUser, {
     Key key,
     @required this.containerLoadedState,
-    this.containerBloc,
+    @required this.containerBloc,
   }) : super(key: key);
 
   @override
@@ -95,10 +95,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    textSpan('Assigned by: ', t.tenantId),
-                    textSpan('Size: ', t.size.text)
-                  ],
+                  children: [textSpan('Size: ', t.size.text)],
                 ),
                 t.status == api.ContainerStatus.accepted
                     ? FlatButton(
@@ -132,7 +129,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
                       FlatButton(
                         color: Colors.red,
                         onPressed: () {
-                          //TODO:Add Confirmation dialuge box
+                          //TODO:Add Confirmation prompt
                           t.status = api.ContainerStatus.rejected;
                           t.driverId = null;
                           widget.containerBloc.add(UpdateContainer(t.id, t));
