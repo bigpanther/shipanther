@@ -4,6 +4,8 @@ import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/customer/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
+import 'package:shipanther/extensions/user_extension.dart';
+
 import 'package:trober_sdk/api.dart';
 
 class CustomerList extends StatelessWidget {
@@ -73,7 +75,7 @@ class CustomerList extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Tenant ID: ${t.tenantId}",
+                  loggedInUser.isSuperAdmin ? "Tenant ID: ${t.tenantId}" : '',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],

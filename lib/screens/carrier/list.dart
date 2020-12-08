@@ -5,6 +5,8 @@ import 'package:shipanther/extensions/carrier_extension.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/carrier/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
+import 'package:shipanther/extensions/user_extension.dart';
+
 import 'package:trober_sdk/api.dart';
 
 class CarrierList extends StatelessWidget {
@@ -36,8 +38,6 @@ class CarrierList extends StatelessWidget {
             ),
             child: ExpansionTile(
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
-              // subtitle: Text(t.id),
-              // tilePadding: EdgeInsets.all(5),
               leading: Icon(t.type.icon),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
@@ -78,7 +78,7 @@ class CarrierList extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Tenant ID: ${t.tenantId}",
+                  loggedInUser.isSuperAdmin ? "Tenant ID: ${t.tenantId}" : '',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],

@@ -84,7 +84,7 @@ class OrderList extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Tenant ID: ${t.tenantId}",
+                  loggedInUser.isSuperAdmin ? "Tenant ID: ${t.tenantId}" : '',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],
