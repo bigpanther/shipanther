@@ -91,7 +91,8 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding:
+            EdgeInsets.only(left: 16.0, top: 16.0, bottom: 100.0, right: 16.0),
         child: Form(
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
