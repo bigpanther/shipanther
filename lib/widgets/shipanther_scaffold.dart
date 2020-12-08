@@ -4,6 +4,7 @@ import 'package:package_info/package_info.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/screens/admin_home.dart';
 import 'package:shipanther/screens/carrier/home.dart';
 import 'package:shipanther/screens/container/home.dart';
 import 'package:shipanther/screens/customer/home.dart';
@@ -64,7 +65,11 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     _createDrawerItem(
       icon: Icons.home,
       text: ShipantherLocalizations.of(context).home,
-      onTap: () => print("Home"),
+      onTap: () => Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => AdminHome(user),
+        ),
+      ),
     ),
   );
 
