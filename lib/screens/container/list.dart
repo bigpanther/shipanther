@@ -38,8 +38,6 @@ class ContainerList extends StatelessWidget {
             ),
             child: ExpansionTile(
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
-              // subtitle: Text(t.id),
-              // tilePadding: EdgeInsets.all(5),
               leading: Icon(Icons.home_work),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
