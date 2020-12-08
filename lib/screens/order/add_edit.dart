@@ -77,17 +77,19 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                         : null,
                     onSaved: (value) => _orderSerialNumber = value,
                   ),
-                  smartSelect<api.OrderStatus>(
-                    title: "Order status",
-                    onChange: (state) => _orderStatus = state.value,
-                    choiceItems:
-                        S2Choice.listFrom<api.OrderStatus, api.OrderStatus>(
-                      source: api.OrderStatus.values,
-                      value: (index, item) => item,
-                      title: (index, item) => item.text,
-                    ),
-                    value: widget.order.status ?? api.OrderStatus.open,
-                  ),
+                  !widget.loggedInUser.isCustomer
+                      ? smartSelect<api.OrderStatus>(
+                          title: "Order status",
+                          onChange: (state) => _orderStatus = state.value,
+                          choiceItems: S2Choice.listFrom<api.OrderStatus,
+                              api.OrderStatus>(
+                            source: api.OrderStatus.values,
+                            value: (index, item) => item,
+                            title: (index, item) => item.text,
+                          ),
+                          value: widget.order.status ?? api.OrderStatus.open,
+                        )
+                      : Container(width: 0.0, height: 0.0),
                   // Hack to avoid runtime type mismatch.
                   Container(width: 0.0, height: 0.0),
                 ] +
@@ -101,7 +103,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                 ) +
                 customerSelector(
                   context,
-                  true,
+                  widget.isEdit && !widget.loggedInUser.isCustomer,
                   (api.Customer suggestion) {
                     _customer = suggestion;
                   },
