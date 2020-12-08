@@ -35,119 +35,111 @@ class _DriverContainerListState extends State<DriverContainerList> {
 
     var title = ShipantherLocalizations.of(context).containersTitle;
     List<Widget> actions = [];
-    Widget body = ListView.builder(
-      itemCount: _currentIndex == 0
-          ? widget.containerLoadedState.containers
-              .where((element) =>
-                  element.status == api.ContainerStatus.accepted ||
-                  element.status == api.ContainerStatus.assigned)
-              .length
-          : widget.containerLoadedState.containers
-              .where((element) => element.status == api.ContainerStatus.arrived)
-              .length,
-      itemBuilder: (BuildContext context, int index) {
-        var t = _currentIndex == 0
-            ? widget.containerLoadedState.containers
-                .where((element) =>
-                    element.status == api.ContainerStatus.accepted ||
-                    element.status == api.ContainerStatus.assigned)
-                .elementAt(index)
-            : widget.containerLoadedState.containers
-                .where(
-                    (element) => element.status == api.ContainerStatus.arrived)
-                .elementAt(index);
+    var totalPending = widget.containerLoadedState.containers
+        .where((element) => element.status == api.ContainerStatus.accepted)
+        .length;
+    var items = _currentIndex == 0
+        ? widget.containerLoadedState.containers.where((element) =>
+            element.status == api.ContainerStatus.accepted ||
+            element.status == api.ContainerStatus.assigned)
+        : widget.containerLoadedState.containers
+            .where((element) => element.status == api.ContainerStatus.arrived);
 
-        return Column(
-          children: [
-            ExpansionTile(
-              leading: Icon(Icons.home_work),
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+    Widget body = items.length == 0
+        ? Center(child: Text("No items here"))
+        : ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (BuildContext context, int index) {
+              var t = items.elementAt(index);
+              return Column(
                 children: [
-                  Text(
-                    DateFormat('dd-MM-yyyy').format(t.reservationTime == null
-                        ? DateTime.now()
-                        : t.reservationTime),
-                    style: TextStyle(
-                        fontSize: 15, color: Color.fromRGBO(204, 255, 0, 1)),
-                  ),
-                  Text(
-                    DateFormat('kk:mm').format(t.reservationTime == null
-                        ? DateTime.now()
-                        : t.reservationTime),
-                    style: TextStyle(fontSize: 15),
-                  ),
-                ],
-              ),
-              title: Text(
-                t.serialNumber,
-                style: TextStyle(
-                    color: t.status == api.ContainerStatus.accepted ||
-                            t.status == api.ContainerStatus.assigned
-                        ? t.status == api.ContainerStatus.assigned
-                            ? Colors.red
-                            : Colors.yellowAccent
-                        : Colors.white,
-                    fontSize: 20),
-              ),
-              subtitle: Text('${t.origin} to ${t.destination}'),
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [textSpan('Size: ', t.size.text)],
-                ),
-                t.status == api.ContainerStatus.accepted
-                    ? FlatButton(
-                        color: Colors.green,
-                        onPressed: () {
-                          t.status = api.ContainerStatus.arrived;
-                          widget.containerBloc.add(UpdateContainer(t.id, t));
-                        },
-                        child: Text('Delivered'),
-                      )
-                    : Container(
-                        width: 0,
-                        height: 0,
-                      ),
-              ],
-            ),
-            t.status == api.ContainerStatus.assigned
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  ExpansionTile(
+                    leading: Icon(Icons.home_work),
+                    trailing: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          DateFormat('dd-MM-yyyy').format(
+                              t.reservationTime == null
+                                  ? DateTime.now()
+                                  : t.reservationTime),
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Color.fromRGBO(204, 255, 0, 1)),
+                        ),
+                        Text(
+                          DateFormat('kk:mm').format(t.reservationTime == null
+                              ? DateTime.now()
+                              : t.reservationTime),
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    title: Text(
+                      t.serialNumber,
+                      style: TextStyle(color: t.status.color, fontSize: 20),
+                    ),
+                    subtitle: Text('${t.origin} to ${t.destination}'),
                     children: [
-                      FlatButton(
-                        color: Colors.green,
-                        onPressed: () {
-                          t.status = api.ContainerStatus.accepted;
-                          widget.containerBloc.add(UpdateContainer(t.id, t));
-                        },
-                        child: Text(
-                          'Accept',
-                        ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [textSpan('Size: ', t.size.text)],
                       ),
-                      FlatButton(
-                        color: Colors.red,
-                        onPressed: () {
-                          //TODO:Add Confirmation prompt
-                          t.status = api.ContainerStatus.rejected;
-                          t.driverId = null;
-                          widget.containerBloc.add(UpdateContainer(t.id, t));
-                        },
-                        child: Text(
-                          'Reject',
-                        ),
-                      )
+                      t.status == api.ContainerStatus.accepted
+                          ? FlatButton(
+                              color: Colors.green,
+                              onPressed: () {
+                                t.status = api.ContainerStatus.arrived;
+                                widget.containerBloc
+                                    .add(UpdateContainer(t.id, t));
+                              },
+                              child: Text('Delivered'),
+                            )
+                          : Container(
+                              width: 0,
+                              height: 0,
+                            ),
                     ],
-                  )
-                : Container(
-                    width: 0,
-                    height: 0,
                   ),
-          ],
-        );
-      },
-    );
+                  t.status == api.ContainerStatus.assigned
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            FlatButton(
+                              color: Colors.green,
+                              onPressed: () {
+                                t.status = api.ContainerStatus.accepted;
+                                widget.containerBloc
+                                    .add(UpdateContainer(t.id, t));
+                              },
+                              child: Text(
+                                'Accept',
+                              ),
+                            ),
+                            FlatButton(
+                              color: Colors.red,
+                              onPressed: () {
+                                //TODO:Add Confirmation prompt
+                                t.status = api.ContainerStatus.rejected;
+                                t.driverId = null;
+                                widget.containerBloc
+                                    .add(UpdateContainer(t.id, t));
+                              },
+                              child: Text(
+                                'Reject',
+                              ),
+                            )
+                          ],
+                        )
+                      : Container(
+                          width: 0,
+                          height: 0,
+                        ),
+                ],
+              );
+            },
+          );
     Widget bottomNavigationBar = BottomNavigationBar(
       backgroundColor: Colors.white10,
       currentIndex: _currentIndex,
@@ -177,11 +169,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
                     minHeight: 13,
                   ),
                   child: new Text(
-                    widget.containerLoadedState.containers
-                        .where((element) =>
-                            element.status == api.ContainerStatus.accepted)
-                        .length
-                        .toString(),
+                    totalPending.toString(),
                     style: new TextStyle(
                       color: Colors.white,
                       fontSize: 8,
@@ -194,7 +182,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
           ),
         ),
         BottomNavigationBarItem(
-          label: 'Complete',
+          label: 'Completed',
           icon: Icon(
             Icons.check,
             color: Colors.green,

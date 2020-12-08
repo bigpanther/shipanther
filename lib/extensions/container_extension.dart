@@ -52,6 +52,30 @@ extension ContainerStatusExtension on api.ContainerStatus {
     }
   }
 
+  // ignore: missing_return
+  Color get color {
+    switch (this) {
+      case api.ContainerStatus.unassigned:
+        return Colors.white;
+      case api.ContainerStatus.inTransit:
+        return Colors.white;
+      case api.ContainerStatus.arrived:
+        return Colors.greenAccent;
+      case api.ContainerStatus.assigned:
+        return Colors.red;
+      case api.ContainerStatus.accepted:
+        return Colors.yellowAccent;
+      case api.ContainerStatus.rejected:
+        return Colors.white;
+      case api.ContainerStatus.loaded:
+        return Colors.white;
+      case api.ContainerStatus.unloaded:
+        return Colors.white;
+      case api.ContainerStatus.abandoned:
+        return Colors.white;
+    }
+  }
+
   String get text {
     return EnumToString.convertToString(this, camelCase: true);
   }
