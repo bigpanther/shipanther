@@ -20,8 +20,12 @@ extension UserExtension on User {
     return this.role == UserRole.customer;
   }
 
-  bool get isAtleastTenantBackOffice {
-    return this.role == UserRole.admin || this.role == UserRole.backOffice;
+  bool get isAdmin {
+    return this.role == UserRole.admin;
+  }
+
+  bool get isBackOffice {
+    return this.role == UserRole.backOffice;
   }
 }
 

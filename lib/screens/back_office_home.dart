@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
+
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/screens/terminal/list.dart';
-import 'package:shipanther/widgets/centered_loading.dart';
+
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/api.dart' as api;
 
 class BackOfficeHome extends StatefulWidget {
-  final User user;
+  final api.User user;
   const BackOfficeHome(this.user, {Key key}) : super(key: key);
 
   @override
@@ -16,37 +14,88 @@ class BackOfficeHome extends StatefulWidget {
 }
 
 class _BackOfficeHomeState extends State<BackOfficeHome> {
-  TerminalBloc bloc;
-  @override
-  void initState() {
-    super.initState();
-    bloc = context.read<TerminalBloc>();
-    bloc.add(GetTerminals(null));
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<TerminalBloc, TerminalState>(
-      listener: (context, state) {
-        if (state is TerminalFailure) {
-          Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text(state.message),
-          ));
-        }
-      },
-      builder: (context, state) {
-        if (state is TerminalsLoaded) {
-          return TerminalList(widget.user,
-              terminalBloc: bloc, terminalLoadedState: state);
-        }
-        return ShipantherScaffold(
-          widget.user,
-          title: ShipantherLocalizations.of(context).tenantsTitle,
-          actions: [],
-          body: CenteredLoading(),
-          floatingActionButton: null,
-        );
-      },
+    return ShipantherScaffold(widget.user,
+        title: ShipantherLocalizations.of(context).welcome,
+        actions: null,
+        body: Padding(
+          padding: EdgeInsets.all(8),
+          child: Column(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    card('TODAY', 'UNASSIGNED', 'ASSIGNED', Colors.red),
+                    card(
+                        'TODAY', 'OUT FOR DELIVERY', 'DELIVERED', Colors.yellow)
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    card('THIS MONTH', 'UNASSIGNED', 'ASSIGNED', Colors.red),
+                    card('THIS MONTH', 'OUT FOR DELIVERY', 'DELIVERED',
+                        Colors.yellow),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton: null);
+  }
+
+  Expanded card(String _heading, String _subtitleOne, String _subtitleTwo,
+      Color subOneColor) {
+    return Expanded(
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        elevation: 5,
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                _heading,
+                style: TextStyle(
+                  fontSize: 25,
+                ),
+              ),
+              Text(
+                '18',
+                style: TextStyle(
+                  fontSize: 50,
+                  color: subOneColor,
+                ),
+              ),
+              Text(
+                _subtitleOne,
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+              Text(
+                '20',
+                style: TextStyle(
+                  fontSize: 50,
+                  color: Colors.green,
+                ),
+              ),
+              Text(
+                _subtitleTwo,
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
