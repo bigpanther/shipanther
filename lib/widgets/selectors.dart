@@ -14,7 +14,9 @@ List<Widget> tenantSelector(
   return [
     TypeAheadFormField<Tenant>(
       textFieldConfiguration: TextFieldConfiguration(
-          decoration: InputDecoration(hintText: 'Select tenant'),
+          decoration: InputDecoration(
+            labelText: 'Select tenant',
+          ),
           controller: textEditingController,
           onTap: () {
             textEditingController.text = '';
@@ -48,7 +50,7 @@ List<Widget> customerSelector(
   return [
     TypeAheadFormField<Customer>(
       textFieldConfiguration: TextFieldConfiguration(
-        decoration: InputDecoration(hintText: 'Select customer'),
+        decoration: InputDecoration(labelText: 'Select customer'),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';
@@ -83,7 +85,7 @@ List<Widget> driverSelector(
   return [
     TypeAheadFormField<User>(
       textFieldConfiguration: TextFieldConfiguration(
-          decoration: InputDecoration(hintText: 'Select Driver'),
+          decoration: InputDecoration(labelText: 'Select Driver'),
           controller: textEditingController,
           onTap: () {
             textEditingController.text = '';
@@ -117,7 +119,7 @@ List<Widget> terminalSelector(
   return [
     TypeAheadFormField<Terminal>(
       textFieldConfiguration: TextFieldConfiguration(
-        decoration: InputDecoration(hintText: 'Select Terminal'),
+        decoration: InputDecoration(labelText: 'Select Terminal'),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';
@@ -152,7 +154,7 @@ List<Widget> orderSelector(
   return [
     TypeAheadFormField<Order>(
       textFieldConfiguration: TextFieldConfiguration(
-        decoration: InputDecoration(hintText: 'Select Order'),
+        decoration: InputDecoration(labelText: 'Select Order'),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';
