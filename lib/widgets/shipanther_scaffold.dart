@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
@@ -144,7 +145,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
   if (user.role != api.UserRole.driver && user.role != api.UserRole.none) {
     widgets.add(
       _createDrawerItem(
-        icon: Icons.list,
+        icon: Icons.fact_check,
         text: ShipantherLocalizations.of(context).ordersTitle,
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute(
@@ -158,8 +159,35 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
   widgets.add(
     _createDrawerItem(
       icon: Icons.settings,
-      text: ShipantherLocalizations.of(context).settings,
-      onTap: () => print("Settings"),
+      text: ShipantherLocalizations.of(context).aboutUs,
+      onTap: () async {
+        PackageInfo packageInfo = await PackageInfo.fromPlatform();
+        String appName = packageInfo.appName;
+        String version = packageInfo.version;
+        showAboutDialog(
+          context: context,
+          applicationIcon: Image(
+            image: AssetImage('assets/images/shipanther_logo.png'),
+            width: 48.0,
+            height: 48.0,
+          ),
+          applicationName: appName,
+          applicationVersion: version,
+          applicationLegalese: '©2020 Big Panther Technologies Inc.',
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.only(top: 15),
+                child: Center(
+                  child: Column(
+                    children: [
+                      Text('Built with ♥️ in Canada'),
+                      Text('Reach us at info@bigpanther.ca'),
+                    ],
+                  ),
+                ))
+          ],
+        );
+      },
     ),
   );
 
