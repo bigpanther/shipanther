@@ -34,19 +34,23 @@ class _OrderScreenState extends State<OrderScreen> {
             content: Text(state.message),
           ));
         }
+        if (state is OrderLoaded) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => OrderAddEdit(
+                widget.loggedInUser,
+                isEdit: true,
+                orderBloc: bloc,
+                order: state.order,
+              ),
+            ),
+          );
+        }
       },
       builder: (context, state) {
         if (state is OrdersLoaded) {
           return OrderList(widget.loggedInUser,
               orderBloc: bloc, orderLoadedState: state);
-        }
-        if (state is OrderLoaded) {
-          return OrderAddEdit(
-            widget.loggedInUser,
-            isEdit: true,
-            orderBloc: bloc,
-            order: state.order,
-          );
         }
         return Scaffold(
           appBar: AppBar(

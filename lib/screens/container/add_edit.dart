@@ -56,6 +56,8 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
       TextEditingController();
   final TextEditingController _orderTypeAheadController =
       TextEditingController();
+  final TextEditingController _carrierTypeAheadController =
+      TextEditingController();
 
   void _presentDateTimePickerReservationTime() {
     DatePicker.showDateTimePicker(context, showTitleActions: true,
@@ -81,9 +83,18 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
   Widget build(BuildContext context) {
     if (widget.isEdit) {
       _tenantTypeAheadController.text = widget.container.tenantId;
-      _driverTypeAheadController.text = widget.container.driverId;
-      _terminalTypeAheadController.text = widget.container.terminalId;
-      _orderTypeAheadController.text = widget.container.orderId;
+      _driverTypeAheadController.text = (widget.container.driver != null)
+          ? widget.container.driver.name
+          : widget.container.driverId;
+      _terminalTypeAheadController.text = (widget.container.terminal != null)
+          ? widget.container.terminal.name
+          : widget.container.terminalId;
+      _carrierTypeAheadController.text = (widget.container.carrier != null)
+          ? widget.container.carrier.name
+          : widget.container.carrierId;
+      _orderTypeAheadController.text = (widget.container.order != null)
+          ? widget.container.order.serialNumber
+          : widget.container.orderId;
     }
     return Scaffold(
       appBar: AppBar(
@@ -99,6 +110,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
           onWillPop: () {
+            widget.containerBloc.add(GetContainers());
             return Future(() => true);
           },
           child: ListView(
@@ -227,6 +239,9 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                 orderSelector(context, true, (api.Order suggestion) {
                   _order = suggestion;
                 }, _orderTypeAheadController) +
+                carrierSelector(context, true, (api.Carrier suggestion) {
+                  _carrier = suggestion;
+                }, _carrierTypeAheadController) +
                 terminalSelector(context, true, (api.Terminal suggestion) {
                   _terminal = suggestion;
                 }, _terminalTypeAheadController) +
@@ -299,6 +314,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
   void dispose() {
     _tenantTypeAheadController.dispose();
     _terminalTypeAheadController.dispose();
+    _carrierTypeAheadController.dispose();
     _orderTypeAheadController.dispose();
     _driverTypeAheadController.dispose();
     super.dispose();

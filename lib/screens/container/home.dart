@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:shipanther/bloc/container/container_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/screens/container/add_edit.dart';
 import 'package:shipanther/screens/container/list.dart';
 
 import 'package:shipanther/widgets/centered_loading.dart';
@@ -34,13 +35,20 @@ class _ContainerScreenState extends State<ContainerScreen> {
             content: Text(state.message),
           ));
         }
-      },
-      builder: (context, state) {
         if (state is ContainerLoaded) {
-          return Container(
-            child: Text('container loaded'),
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => ContainerAddEdit(
+                widget.loggedInUser,
+                isEdit: true,
+                containerBloc: bloc,
+                container: state.container,
+              ),
+            ),
           );
         }
+      },
+      builder: (context, state) {
         if (state is ContainersLoaded) {
           return ContainerList(widget.loggedInUser,
               containerBloc: bloc, containerLoadedState: state);
