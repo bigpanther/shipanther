@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:package_info/package_info.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -132,7 +133,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
 
     widgets.add(
       _createDrawerItem(
-        icon: Icons.connect_without_contact,
+        icon: MdiIcons.dresser,
         text: ShipantherLocalizations.of(context).containersTitle,
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute(
@@ -158,7 +159,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
 
   widgets.add(
     _createDrawerItem(
-      icon: Icons.settings,
+      icon: MdiIcons.license,
       text: ShipantherLocalizations.of(context).aboutUs,
       onTap: () async {
         PackageInfo packageInfo = await PackageInfo.fromPlatform();

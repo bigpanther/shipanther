@@ -39,6 +39,7 @@ dependencies:
   flutter_datetime_picker: ^1.4.0
   firebase_crashlytics: ^0.2.4
   package_info: ^0.4.3+2
+  material_design_icons_flutter: ^4.0.5755
 
 dev_dependencies:
   flutter_test:
