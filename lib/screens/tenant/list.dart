@@ -30,7 +30,7 @@ class TenantList extends StatelessWidget {
         possibleValues: TenantType.values,
         isActive: true,
         activeFilter: tenantLoadedState.tenantType,
-        onSelected: (t) => context.read<TenantBloc>()..add(GetTenants(t)),
+        onSelected: (t) => context.read<TenantBloc>().add(GetTenants(t)),
         tooltip: "Filter Tenant type",
       )
     ];
