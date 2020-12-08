@@ -51,19 +51,8 @@ class OrderList extends StatelessWidget {
               leading: Icon(t.status.icon),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
-                onPressed: () async {
-                  t = await context.read<OrderRepository>().fetchOrder(t.id);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => OrderAddEdit(
-                        loggedInUser,
-                        isEdit: true,
-                        orderBloc: orderBloc,
-                        order: t,
-                      ),
-                    ),
-                  );
+                onPressed: () {
+                  orderBloc.add(GetOrder(t.id));
                 },
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,

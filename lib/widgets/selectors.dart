@@ -145,6 +145,41 @@ List<Widget> terminalSelector(
   ];
 }
 
+List<Widget> carrierSelector(
+    BuildContext context,
+    bool shouldShow,
+    void Function(Carrier) onSuggestionSelected,
+    TextEditingController textEditingController) {
+  if (!shouldShow) return [];
+  return [
+    TypeAheadFormField<Carrier>(
+      textFieldConfiguration: TextFieldConfiguration(
+        decoration: InputDecoration(labelText: 'Select Carrier'),
+        controller: textEditingController,
+        onTap: () {
+          textEditingController.text = '';
+        },
+      ),
+      suggestionsCallback: (pattern) async {
+        var client = await context.read<ApiRepository>().apiClient();
+        return (await client.carriersGet())
+            .where((element) => element.name.toLowerCase().startsWith(pattern));
+      },
+      itemBuilder: (context, Carrier carrier) {
+        return ListTile(
+          leading: Icon(Icons.business),
+          title: Text(carrier.name),
+          subtitle: Text(carrier.id),
+        );
+      },
+      onSuggestionSelected: (suggestion) {
+        onSuggestionSelected(suggestion);
+        textEditingController.text = suggestion.name;
+      },
+    ),
+  ];
+}
+
 List<Widget> orderSelector(
     BuildContext context,
     bool shouldShow,

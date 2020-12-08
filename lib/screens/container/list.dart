@@ -44,17 +44,7 @@ class ContainerList extends StatelessWidget {
               trailing: IconButton(
                 icon: Icon(Icons.edit),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ContainerAddEdit(
-                        loggedInUser,
-                        isEdit: true,
-                        containerBloc: containerBloc,
-                        container: t,
-                      ),
-                    ),
-                  );
+                  containerBloc.add(GetContainer(t.id));
                 },
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
