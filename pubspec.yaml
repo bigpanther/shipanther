@@ -38,6 +38,7 @@ dependencies:
   firebase_messaging: ^7.0.3
   flutter_datetime_picker: ^1.4.0
   firebase_crashlytics: ^0.2.4
+  package_info: ^0.4.3+2
 
 dev_dependencies:
   flutter_test:
@@ -56,7 +57,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/shipanther_icon.png
+    - assets/images/shipanther_logo.png
     # - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
