@@ -76,7 +76,7 @@ class OrderList extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Created By: ${t.createdBy}",
+                  "Customer: ${t.customerId}",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
