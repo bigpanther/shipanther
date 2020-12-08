@@ -4,11 +4,6 @@ import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/screens/back_office_home.dart';
-import 'package:shipanther/screens/container/home.dart';
-import 'package:shipanther/screens/none_home.dart';
-import 'package:shipanther/screens/super_admin_home.dart';
-import 'package:shipanther/screens/terminal/home.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 
@@ -39,19 +34,7 @@ class _ApiLoginState extends State<ApiLogin> {
         if (state is UserLoggedIn) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute<void>(builder: (_) {
-              if (state.user.isSuperAdmin) {
-                return SuperAdminHome(state.user);
-              }
-              if (state.user.isBackOffice) {
-                return BackOfficeHome(state.user);
-              }
-              if (state.user.isAdmin) {
-                return TerminalScreen(state.user);
-              }
-              if (state.user.isDriver) {
-                return ContainerScreen(state.user);
-              }
-              return NoneHome(state.user);
+              return state.user.homePage;
             }),
           );
         }
