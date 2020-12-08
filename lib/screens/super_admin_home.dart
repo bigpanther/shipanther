@@ -33,8 +33,6 @@ class _SuperAdminHomeState extends State<SuperAdminHome> {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => Home()));
         }
       },
       builder: (context, state) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/order/order_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/screens/order/add_edit.dart';
 import 'package:shipanther/screens/order/list.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:trober_sdk/api.dart' as api;
@@ -32,8 +33,6 @@ class _OrderScreenState extends State<OrderScreen> {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => TerminalScreen()));
         }
       },
       builder: (context, state) {
@@ -42,7 +41,12 @@ class _OrderScreenState extends State<OrderScreen> {
               orderBloc: bloc, orderLoadedState: state);
         }
         if (state is OrderLoaded) {
-          // return OrderDetail(orderBloc: bloc, state: state);
+          return OrderAddEdit(
+            widget.loggedInUser,
+            isEdit: true,
+            orderBloc: bloc,
+            order: state.order,
+          );
         }
         return Scaffold(
           appBar: AppBar(

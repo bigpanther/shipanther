@@ -33,8 +33,6 @@ class _TerminalScreenState extends State<TerminalScreen> {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => TerminalScreen()));
         }
       },
       builder: (context, state) {

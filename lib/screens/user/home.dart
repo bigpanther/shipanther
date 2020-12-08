@@ -33,8 +33,6 @@ class _UserScreenState extends State<UserScreen> {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => UserScreen()));
         }
       },
       builder: (context, state) {

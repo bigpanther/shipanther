@@ -44,7 +44,9 @@ class _OrderAddEditState extends State<OrderAddEdit> {
   Widget build(BuildContext context) {
     if (widget.isEdit) {
       _tenantTypeAheadController.text = widget.order.tenantId;
-      _customerTypeAheadController.text = widget.order.customerId;
+      _customerTypeAheadController.text = (widget.order.customer != null)
+          ? widget.order.customer.name
+          : widget.order.customerId;
     }
     return Scaffold(
       appBar: AppBar(

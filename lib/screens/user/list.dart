@@ -26,7 +26,7 @@ class UserList extends StatelessWidget {
         possibleValues: UserRole.values,
         isActive: true,
         activeFilter: userLoadedState.userRole,
-        onSelected: (t) => context.read<UserBloc>()..add(GetUsers(t)),
+        onSelected: (t) => context.read<UserBloc>().add(GetUsers(t)),
         tooltip: "Filter User type",
       )
     ];
@@ -91,10 +91,12 @@ class UserList extends StatelessWidget {
                   "Last Update: ${formatter.format(t.updatedAt).toString()}",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                Text(
-                  loggedInUser.isSuperAdmin ? "Tenant ID: ${t.tenantId}" : '',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                loggedInUser.isSuperAdmin
+                    ? Text(
+                        "Tenant ID: ${t.tenantId}",
+                        style: Theme.of(context).textTheme.subtitle1,
+                      )
+                    : Text(''),
               ],
             ),
           ),
