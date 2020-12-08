@@ -27,7 +27,7 @@ class TerminalList extends StatelessWidget {
         possibleValues: TerminalType.values,
         isActive: true,
         activeFilter: terminalLoadedState.terminalType,
-        onSelected: (t) => context.read<TerminalBloc>()..add(GetTerminals(t)),
+        onSelected: (t) => context.read<TerminalBloc>().add(GetTerminals(t)),
         tooltip: "Filter Terminal type",
       )
     ];
@@ -84,10 +84,12 @@ class TerminalList extends StatelessWidget {
                   "Last Update: ${formatter.format(t.updatedAt).toString()}",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                Text(
-                  loggedInUser.isSuperAdmin ? "Tenant ID: ${t.tenantId}" : '',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                loggedInUser.isSuperAdmin
+                    ? Text(
+                        "Tenant ID: ${t.tenantId}",
+                        style: Theme.of(context).textTheme.subtitle1,
+                      )
+                    : Text(''),
               ],
             ),
           ),

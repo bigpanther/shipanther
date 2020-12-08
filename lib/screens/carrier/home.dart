@@ -33,8 +33,6 @@ class _CarrierScreenState extends State<CarrierScreen> {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => CarrierScreen()));
         }
       },
       builder: (context, state) {

@@ -32,8 +32,6 @@ class _BackOfficeHomeState extends State<BackOfficeHome> {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => Home()));
         }
       },
       builder: (context, state) {

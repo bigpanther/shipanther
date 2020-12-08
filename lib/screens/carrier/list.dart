@@ -6,7 +6,6 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/carrier/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:shipanther/extensions/user_extension.dart';
-
 import 'package:trober_sdk/api.dart';
 
 class CarrierList extends StatelessWidget {
@@ -61,12 +60,14 @@ class CarrierList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
+                t.eta != null
+                    ? Text(
+                        "ETA: ${formatter.format(t.eta).toString()}",
+                        style: Theme.of(context).textTheme.subtitle1,
+                      )
+                    : Text(''),
                 Text(
-                  "ETA: ${formatter.format(t.eta).toString()}",
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  "Created At: ${formatter.format(t.createdAt).toString()}",
+                  "Created At: ${t.createdAt ?? formatter.format(t.createdAt).toString()}",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
@@ -74,13 +75,15 @@ class CarrierList extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Last Update: ${formatter.format(t.updatedAt).toString()}",
+                  "Last Update: ${t.updatedAt ?? formatter.format(t.updatedAt).toString()}",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                Text(
-                  loggedInUser.isSuperAdmin ? "Tenant ID: ${t.tenantId}" : '',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                loggedInUser.isSuperAdmin
+                    ? Text(
+                        "Tenant ID: ${t.tenantId}",
+                        style: Theme.of(context).textTheme.subtitle1,
+                      )
+                    : Text(''),
               ],
             ),
           ),

@@ -74,10 +74,12 @@ class CustomerList extends StatelessWidget {
                   "Last Update: ${formatter.format(t.updatedAt).toString()}",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                Text(
-                  loggedInUser.isSuperAdmin ? "Tenant ID: ${t.tenantId}" : '',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                loggedInUser.isSuperAdmin
+                    ? Text(
+                        "Tenant ID: ${t.tenantId}",
+                        style: Theme.of(context).textTheme.subtitle1,
+                      )
+                    : Text(''),
               ],
             ),
           ),

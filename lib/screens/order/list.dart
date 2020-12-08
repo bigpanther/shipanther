@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/order/order_bloc.dart';
+import 'package:shipanther/data/order/order_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/order/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/order_extension.dart';
+import 'package:shipanther/extensions/user_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderList extends StatelessWidget {
@@ -46,12 +48,11 @@ class OrderList extends StatelessWidget {
             ),
             child: ExpansionTile(
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
-              // subtitle: Text(t.id),
-              // tilePadding: EdgeInsets.all(5),
               leading: Icon(t.status.icon),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
-                onPressed: () {
+                onPressed: () async {
+                  t = await context.read<OrderRepository>().fetchOrder(t.id);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -75,18 +76,22 @@ class OrderList extends StatelessWidget {
                   "Created At: ${formatter.format(t.createdAt).toString()}",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                Text(
-                  "Customer: ${t.customerId}",
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                (t.customer != null)
+                    ? Text(
+                        "Customer: ${t.customer.name}",
+                        style: Theme.of(context).textTheme.subtitle1,
+                      )
+                    : Text(''),
                 Text(
                   "Last Update: ${formatter.format(t.updatedAt).toString()}",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                Text(
-                  loggedInUser.isSuperAdmin ? "Tenant ID: ${t.tenantId}" : '',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                loggedInUser.isSuperAdmin
+                    ? Text(
+                        "Tenant ID: ${t.tenantId}",
+                        style: Theme.of(context).textTheme.subtitle1,
+                      )
+                    : Text(''),
               ],
             ),
           ),

@@ -33,8 +33,6 @@ class _CustomerHomeState extends State<CustomerHome> {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => CustomerHome()));
         }
       },
       builder: (context, state) {
