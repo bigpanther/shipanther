@@ -65,6 +65,7 @@ Future<void> commonMain(String apiURL) async {
   _firebaseMessaging.requestNotificationPermissions(
     const IosNotificationSettings(sound: true, badge: true, alert: true),
   );
+
   runZonedGuarded(() {
     runApp(ShipantherApp(apiURL));
   }, (error, stackTrace) {

@@ -68,6 +68,12 @@ class ShipantherLocalizations {
         desc: 'Settings',
         locale: locale.toString(),
       );
+  String get aboutUs => Intl.message(
+        'About Us',
+        name: 'aboutUs',
+        desc: 'About Us',
+        locale: locale.toString(),
+      );
 
   String get ordersTitle => Intl.message(
         'Orders',
