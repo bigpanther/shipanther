@@ -117,6 +117,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                   TextFormField(
                     initialValue: widget.container.serialNumber ?? '',
                     autofocus: widget.isEdit ? false : true,
+                    maxLength: 15,
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(hintText: 'Serial number'),
                     validator: (val) => val.trim().isEmpty
