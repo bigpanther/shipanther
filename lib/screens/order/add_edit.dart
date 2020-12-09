@@ -123,6 +123,10 @@ class _OrderAddEditState extends State<OrderAddEdit> {
             form.save();
             widget.order.serialNumber = _orderSerialNumber;
             widget.order.status = _orderStatus ?? api.OrderStatus.open;
+            if (widget.loggedInUser.isCustomer) {
+              widget.order.customerId = widget.loggedInUser.customerId;
+              _customer = null;
+            }
             if (_customer != null) {
               widget.order.customerId = _customer.id;
             }
