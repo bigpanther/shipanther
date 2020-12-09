@@ -70,7 +70,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                     initialValue: widget.order.serialNumber ?? '',
                     autofocus: widget.isEdit ? false : true,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: InputDecoration(hintText: 'Order Number'),
+                    decoration: InputDecoration(labelText: 'Order Number'),
                     maxLength: 15,
                     validator: (val) => val.trim().isEmpty
                         ? "Order number should not be empty"
@@ -103,7 +103,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                 ) +
                 customerSelector(
                   context,
-                  widget.isEdit && !widget.loggedInUser.isCustomer,
+                  !widget.loggedInUser.isCustomer,
                   (api.Customer suggestion) {
                     _customer = suggestion;
                   },
