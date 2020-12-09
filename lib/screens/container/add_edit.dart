@@ -267,8 +267,9 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                 : _reservationTime;
             widget.container.lfd = _lfd == null ? widget.container.lfd : _lfd;
             widget.container.serialNumber = _serialNumber;
-            widget.container.origin = _origin;
-            widget.container.destination = _destination;
+            widget.container.origin = _origin ?? widget.container.origin;
+            widget.container.destination =
+                _destination ?? widget.container.destination;
             widget.container.type =
                 _containerType ?? api.ContainerType.incoming;
             widget.container.status =

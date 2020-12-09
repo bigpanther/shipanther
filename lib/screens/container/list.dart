@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/container/container_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/container/add_edit.dart';
-
+import 'package:shipanther/extensions/container_extension.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
 
@@ -49,7 +49,7 @@ class ContainerList extends StatelessWidget {
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
               title: Text(
                 t.serialNumber,
-                style: Theme.of(context).textTheme.headline6,
+                style: TextStyle(color: t.status.color, fontSize: 20),
               ),
               subtitle: Text('${t.origin} to ${t.destination}'),
               children: [
@@ -62,11 +62,11 @@ class ContainerList extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Created At: ${formatter.format(t.createdAt).toString()}",
+                  "Size: ${t.size.text}",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Created By: ${t.createdBy}",
+                  "Status: ${t.status.text}",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
