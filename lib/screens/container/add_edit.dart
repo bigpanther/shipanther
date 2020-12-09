@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/container/container_bloc.dart';
-
-import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart' as api;
 import 'package:shipanther/extensions/user_extension.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/extensions/container_extension.dart';
 
 class ContainerAddEdit extends StatefulWidget {
@@ -119,7 +116,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     autofocus: widget.isEdit ? false : true,
                     maxLength: 15,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: InputDecoration(hintText: 'Serial number'),
+                    decoration: InputDecoration(labelText: 'Serial number'),
                     validator: (val) => val.trim().isEmpty
                         ? "Serial number should not be empty"
                         : null,
@@ -129,14 +126,14 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     initialValue: widget.container.origin ?? '',
                     autofocus: widget.isEdit ? false : true,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: InputDecoration(hintText: 'Origin'),
+                    decoration: InputDecoration(labelText: 'Origin'),
                     onSaved: (value) => _origin = value,
                   ),
                   TextFormField(
                     initialValue: widget.container.destination ?? '',
                     autofocus: widget.isEdit ? false : true,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: InputDecoration(hintText: 'Destination'),
+                    decoration: InputDecoration(labelText: 'Destination'),
                     onSaved: (value) => _destination = value,
                   ),
                   Padding(
@@ -276,15 +273,9 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                 _containerType ?? api.ContainerType.incoming;
             widget.container.status =
                 _containerStatus ?? api.ContainerStatus.unassigned;
-            widget.container.size = _containerSize;
-            widget.container.reservationTime = _reservationTime;
-            widget.container.lfd = _lfd;
+            widget.container.size = _containerSize ?? api.ContainerSize.n20sT;
             if (_tenant != null) {
               widget.container.tenantId = _tenant.id;
-            }
-            var self = await context.read<UserRepository>().self();
-            if (self.isDriver) {
-              widget.container.driverId = self.id;
             }
             if (_driver != null) {
               widget.container.driverId = _driver.id;
@@ -298,7 +289,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
             if (_terminal != null) {
               widget.container.terminalId = _terminal.id;
             }
-            widget.container.createdBy = self.id;
+            widget.container.createdBy = widget.loggedInUser.id;
 
             if (widget.isEdit) {
               widget.containerBloc
