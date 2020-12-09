@@ -156,11 +156,6 @@ class _DriverContainerListState extends State<DriverContainerList> {
                               color: Colors.red,
                               onPressed: () {
                                 showAlertDialog(context, t);
-                                //TODO:Add Confirmation prompt
-                                // t.status = api.ContainerStatus.rejected;
-                                // t.driverId = null;
-                                // widget.containerBloc
-                                //     .add(UpdateContainer(t.id, t));
                               },
                               child: Text(
                                 'Reject',
