@@ -62,11 +62,11 @@ extension ContainerStatusExtension on api.ContainerStatus {
       case api.ContainerStatus.arrived:
         return Colors.greenAccent;
       case api.ContainerStatus.assigned:
-        return Colors.red;
+        return Colors.orangeAccent;
       case api.ContainerStatus.accepted:
         return Colors.yellowAccent;
       case api.ContainerStatus.rejected:
-        return Colors.white;
+        return Colors.red;
       case api.ContainerStatus.loaded:
         return Colors.white;
       case api.ContainerStatus.unloaded:

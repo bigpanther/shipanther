@@ -62,10 +62,6 @@ class TenantDetail extends StatelessWidget {
                         'Updated At  ${state.tenant.updatedAt}',
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
-                      Text(
-                        'Created By  ${state.tenant.createdBy}',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
                     ],
                   ),
                 ),

@@ -84,10 +84,6 @@ class UserList extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Created By: ${t.createdBy}",
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
                   "Last Update: ${formatter.format(t.updatedAt).toString()}",
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
