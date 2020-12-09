@@ -27,6 +27,41 @@ class _DriverContainerListState extends State<DriverContainerList> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    showAlertDialog(BuildContext context, api.Container t) {
+      Widget cancelButton = FlatButton(
+        child: Text("Cancel"),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+      );
+      Widget continueButton = FlatButton(
+        child: Text("Reject"),
+        textColor: Colors.red,
+        onPressed: () {
+          t.status = api.ContainerStatus.rejected;
+          t.driverId = null;
+          widget.containerBloc.add(UpdateContainer(t.id, t));
+          Navigator.of(context).pop();
+        },
+      );
+
+      AlertDialog alert = AlertDialog(
+        title: Text("Reject"),
+        content: Text("Are you sure you want to reject this delivery?"),
+        actions: [
+          cancelButton,
+          continueButton,
+        ],
+      );
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
+
     void onTabTapped(int index) {
       setState(() {
         _currentIndex = index;
@@ -120,11 +155,12 @@ class _DriverContainerListState extends State<DriverContainerList> {
                             FlatButton(
                               color: Colors.red,
                               onPressed: () {
+                                showAlertDialog(context, t);
                                 //TODO:Add Confirmation prompt
-                                t.status = api.ContainerStatus.rejected;
-                                t.driverId = null;
-                                widget.containerBloc
-                                    .add(UpdateContainer(t.id, t));
+                                // t.status = api.ContainerStatus.rejected;
+                                // t.driverId = null;
+                                // widget.containerBloc
+                                //     .add(UpdateContainer(t.id, t));
                               },
                               child: Text(
                                 'Reject',
