@@ -36,7 +36,7 @@ class _ContainerListState extends State<ContainerList> {
         isActive: true,
         activeFilter: widget.containerLoadedState.containerStatus,
         onSelected: (t) => context.read<ContainerBloc>()..add(GetContainers(t)),
-        tooltip: "Filter Order status",
+        tooltip: "Filter Container status",
       )
     ];
 
@@ -44,48 +44,63 @@ class _ContainerListState extends State<ContainerList> {
       itemCount: widget.containerLoadedState.containers.length,
       itemBuilder: (BuildContext context, int index) {
         var t = widget.containerLoadedState.containers.elementAt(index);
-        return ExpansionTile(
-          childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
-          leading: Icon(Icons.home_work),
-          trailing: IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              widget.containerBloc.add(GetContainer(t.id));
-            },
-          ),
-          expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-          title: Text(
-            t.serialNumber,
-            style: TextStyle(color: t.status.color, fontSize: 20),
-          ),
-          // subtitle: Text('${t.origin} to ${t.destination}'),
-          subtitle: Text(
-            formatter.format(t.createdAt).toString(),
-            style: TextStyle(
-              color: Color.fromRGBO(204, 255, 0, 1),
-            ),
-          ),
+
+        return Column(
           children: [
-            Text(
-              "LFD: ${t.status}",
-              style: Theme.of(context).textTheme.subtitle1,
+            ExpansionTile(
+              childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
+              leading: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.home_work),
+                  Text(
+                    t.size == null ? 'N 20 s t' : t.size.text,
+                    style: TextStyle(
+                      color: Color.fromRGBO(204, 255, 0, 1),
+                    ),
+                  ),
+                ],
+              ),
+              trailing: IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {
+                  widget.containerBloc.add(GetContainer(t.id));
+                },
+              ),
+              expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+              title: Text(
+                t.serialNumber,
+                style: TextStyle(color: t.status.color, fontSize: 20),
+              ),
+              subtitle: Text(
+                t.reservationTime == null
+                    ? 'NA'
+                    : formatter.format(t.reservationTime).toString(),
+              ),
+              children: [
+                Text(
+                  " ${t.origin} to ${t.destination}",
+                  style: TextStyle(
+                      fontSize: 20, color: Color.fromRGBO(255, 131, 0, 1)),
+                ),
+                Text(
+                  "Status: ${t.status.text}",
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+              ],
             ),
-            Text(
-              "Reservation Time: ${t.reservationTime}",
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-            Text(
-              "Created At: ${formatter.format(t.createdAt).toString()}",
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-            Text(
-              "Created By: ${t.createdBy}",
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-            Text(
-              "Last Update: ${formatter.format(t.updatedAt).toString()}",
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
+            t.status == api.ContainerStatus.rejected
+                ? FlatButton(
+                    onPressed: () {
+                      print('reassign');
+                    },
+                    child: Text('Re-assign'),
+                    color: Colors.green,
+                  )
+                : Container(
+                    height: 0,
+                    width: 0,
+                  ),
           ],
         );
       },
