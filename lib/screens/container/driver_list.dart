@@ -89,7 +89,18 @@ class _DriverContainerListState extends State<DriverContainerList> {
               return Column(
                 children: [
                   ExpansionTile(
-                    leading: Icon(Icons.home_work),
+                    leading: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.home_work),
+                        Text(
+                          t.size == null ? 'N 20 s t' : t.size.text,
+                          style: TextStyle(
+                            color: Color.fromRGBO(204, 255, 0, 1),
+                          ),
+                        ),
+                      ],
+                    ),
                     trailing: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -116,11 +127,6 @@ class _DriverContainerListState extends State<DriverContainerList> {
                     ),
                     subtitle: Text('${t.origin} to ${t.destination}'),
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [textSpan('Size: ', t.size.text)],
-                      ),
                       t.status == api.ContainerStatus.accepted
                           ? FlatButton(
                               color: Colors.green,
