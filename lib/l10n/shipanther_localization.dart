@@ -241,6 +241,48 @@ class ShipantherLocalizations {
         desc: 'old password',
         locale: locale.toString(),
       );
+  String get cancel => Intl.message(
+        'Cancel',
+        name: 'cancel',
+        desc: 'Cancel',
+        locale: locale.toString(),
+      );
+  String get reject => Intl.message(
+        'Reject',
+        name: 'reject',
+        desc: 'Reject',
+        locale: locale.toString(),
+      );
+  String get containerRejectConfirmation => Intl.message(
+        'Are you sure you want to reject this delivery?',
+        name: 'containerRejectConfirmation',
+        desc: 'Are you sure you want to reject this delivery?',
+        locale: locale.toString(),
+      );
+  String get delivered => Intl.message(
+        'Delivered',
+        name: 'delivered',
+        desc: 'Delivered',
+        locale: locale.toString(),
+      );
+  String get accept => Intl.message(
+        'Accept',
+        name: 'accept',
+        desc: 'Accept',
+        locale: locale.toString(),
+      );
+  String get pending => Intl.message(
+        'Pending',
+        name: 'pending',
+        desc: 'Pending',
+        locale: locale.toString(),
+      );
+  String get completed => Intl.message(
+        'Completed',
+        name: 'completed',
+        desc: 'Completed',
+        locale: locale.toString(),
+      );
 }
 
 class ShipantherLocalizationsDelegate
