@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/container/container_bloc.dart';
-import 'package:shipanther/helper/text_widget.dart';
+
 import 'package:shipanther/l10n/shipanther_localization.dart';
 
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
@@ -29,13 +29,13 @@ class _DriverContainerListState extends State<DriverContainerList> {
   Widget build(BuildContext context) {
     showAlertDialog(BuildContext context, api.Container t) {
       Widget cancelButton = FlatButton(
-        child: Text("Cancel"),
+        child: Text(ShipantherLocalizations.of(context).cancel),
         onPressed: () {
           Navigator.of(context).pop();
         },
       );
       Widget continueButton = FlatButton(
-        child: Text("Reject"),
+        child: Text(ShipantherLocalizations.of(context).reject),
         textColor: Colors.red,
         onPressed: () {
           t.status = api.ContainerStatus.rejected;
@@ -46,8 +46,9 @@ class _DriverContainerListState extends State<DriverContainerList> {
       );
 
       AlertDialog alert = AlertDialog(
-        title: Text("Reject"),
-        content: Text("Are you sure you want to reject this delivery?"),
+        title: Text(ShipantherLocalizations.of(context).reject),
+        content: Text(
+            ShipantherLocalizations.of(context).containerRejectConfirmation),
         actions: [
           cancelButton,
           continueButton,
@@ -148,7 +149,8 @@ class _DriverContainerListState extends State<DriverContainerList> {
                                 widget.containerBloc
                                     .add(UpdateContainer(t.id, t));
                               },
-                              child: Text('Delivered'),
+                              child: Text(ShipantherLocalizations.of(context)
+                                  .delivered),
                             )
                           : Container(
                               width: 0,
@@ -168,7 +170,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
                                     .add(UpdateContainer(t.id, t));
                               },
                               child: Text(
-                                'Accept',
+                                ShipantherLocalizations.of(context).accept,
                               ),
                             ),
                             FlatButton(
@@ -177,7 +179,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
                                 showAlertDialog(context, t);
                               },
                               child: Text(
-                                'Reject',
+                                ShipantherLocalizations.of(context).reject,
                               ),
                             )
                           ],
@@ -202,7 +204,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
       onTap: onTabTapped,
       items: [
         BottomNavigationBarItem(
-          label: 'Pending',
+          label: ShipantherLocalizations.of(context).pending,
           icon: new Stack(
             children: <Widget>[
               new Icon(Icons.pending),
@@ -232,7 +234,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
           ),
         ),
         BottomNavigationBarItem(
-          label: 'Completed',
+          label: ShipantherLocalizations.of(context).completed,
           icon: Icon(
             Icons.check,
             color: Colors.green,
