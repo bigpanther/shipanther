@@ -68,9 +68,22 @@ class _ContainerListState extends State<ContainerList> {
                 },
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-              title: Text(
-                t.serialNumber,
-                style: TextStyle(color: t.status.color, fontSize: 20),
+              title: Row(
+                children: [
+                  Text(
+                    t.serialNumber,
+                    style: TextStyle(color: t.status.color, fontSize: 20),
+                  ),
+                  SizedBox(
+                    width: 3,
+                  ),
+                  Icon(
+                    t.type == api.ContainerType.incoming
+                        ? Icons.arrow_circle_down_sharp
+                        : Icons.arrow_circle_up_sharp,
+                    size: 20,
+                  )
+                ],
               ),
               subtitle: Text(
                 t.reservationTime == null
