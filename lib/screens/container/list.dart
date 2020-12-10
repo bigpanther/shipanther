@@ -7,6 +7,7 @@ import 'package:shipanther/widgets/filter_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
+import 'package:shipanther/extensions/container_extension.dart';
 
 class ContainerList extends StatefulWidget {
   final ContainerBloc containerBloc;
@@ -55,7 +56,7 @@ class _ContainerListState extends State<ContainerList> {
           expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
           title: Text(
             t.serialNumber,
-            style: Theme.of(context).textTheme.headline6,
+            style: TextStyle(color: t.status.color, fontSize: 20),
           ),
           // subtitle: Text('${t.origin} to ${t.destination}'),
           subtitle: Text(
