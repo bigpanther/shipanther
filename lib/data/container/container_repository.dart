@@ -6,4 +6,5 @@ abstract class ContainerRepository {
   Future<Container> createContainer(Container container);
   Future<Container> updateContainer(String id, Container container);
   Future<List<Container>> fetchContainers();
+  Future<List<Container>> filterContainers(ContainerStatus containerStatus);
 }

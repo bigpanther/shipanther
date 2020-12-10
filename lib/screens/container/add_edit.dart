@@ -109,7 +109,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
           onWillPop: () {
-            widget.containerBloc.add(GetContainers());
+            widget.containerBloc.add(GetContainers(null));
             return Future(() => true);
           },
           child: ListView(

@@ -23,18 +23,19 @@ class ContainerBloc extends Bloc<ContainerEvent, ContainerState> {
             await _containerRepository.fetchContainer(event.id));
       }
       if (event is GetContainers) {
-        var containers = await _containerRepository.fetchContainers();
-        yield ContainersLoaded(containers);
+        var containers =
+            await _containerRepository.filterContainers(event.containerStatus);
+        yield ContainersLoaded(containers, event.containerStatus);
       }
       if (event is UpdateContainer) {
         await _containerRepository.updateContainer(event.id, event.container);
         var containers = await _containerRepository.fetchContainers();
-        yield ContainersLoaded(containers);
+        yield ContainersLoaded(containers, null);
       }
       if (event is CreateContainer) {
         await _containerRepository.createContainer(event.container);
         var containers = await _containerRepository.fetchContainers();
-        yield ContainersLoaded(containers);
+        yield ContainersLoaded(containers, null);
       }
       if (event is DeleteContainer) {
         yield ContainerFailure("Container deletion is not supported");

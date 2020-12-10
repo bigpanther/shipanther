@@ -30,4 +30,14 @@ class RemoteContainerRepository extends ContainerRepository {
     var client = await _apiRepository.apiClient();
     return client.containersGet();
   }
+
+  @override
+  Future<List<Container>> filterContainers(
+      ContainerStatus containerStatus) async {
+    var containers = await fetchContainers();
+    if (containerStatus == null) {
+      return containers;
+    }
+    return containers.where((e) => e.status == containerStatus).toList();
+  }
 }
