@@ -2,6 +2,40 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:trober_sdk/api.dart' as api;
 
+extension ContainerPercent on api.ContainerStatus {
+  double get percentage {
+    switch (this) {
+      case api.ContainerStatus.unassigned:
+        return 0.1;
+        break;
+      case api.ContainerStatus.inTransit:
+        return 0.2;
+        break;
+      case api.ContainerStatus.arrived:
+        return 0.3;
+        break;
+      case api.ContainerStatus.assigned:
+        return 0.4;
+        break;
+      case api.ContainerStatus.accepted:
+        return 0.5;
+        break;
+      case api.ContainerStatus.rejected:
+        return 0.6;
+        break;
+      case api.ContainerStatus.loaded:
+        return 0.7;
+        break;
+      case api.ContainerStatus.unloaded:
+        return 0.8;
+        break;
+      case api.ContainerStatus.abandoned:
+        return 1;
+        break;
+    }
+  }
+}
+
 extension ContainerTypeExtension on api.ContainerType {
   // ignore: missing_return
   IconData get icon {

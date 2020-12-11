@@ -36,12 +36,11 @@ class _DriverHomeState extends State<DriverHome> {
       },
       builder: (context, state) {
         if (state is ContainersLoaded) {
-          // return DriverContainerList(
-          //   widget.loggedInUser,
-          //   containerLoadedState: state,
-          //   containerBloc: bloc,
-          // );
-          return Home();
+          return DriverContainerList(
+            widget.loggedInUser,
+            containerLoadedState: state,
+            containerBloc: bloc,
+          );
         }
         return ShipantherScaffold(
           widget.loggedInUser,

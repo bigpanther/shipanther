@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shipanther/bloc/container/container_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/container/add_edit.dart';
@@ -39,6 +40,15 @@ class _ContainerListState extends State<ContainerList> {
         tooltip: "Filter Container status",
       )
     ];
+    Widget circularIndicator(double p) {
+      return CircularPercentIndicator(
+        radius: 25.0,
+        lineWidth: 3.0,
+        percent: p,
+        // center: new Text("100%"),
+        progressColor: Colors.green,
+      );
+    }
 
     Widget body = ListView.builder(
       itemCount: widget.containerLoadedState.containers.length,
@@ -52,7 +62,7 @@ class _ContainerListState extends State<ContainerList> {
               leading: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.home_work),
+                  circularIndicator(t.status.percentage),
                   Text(
                     t.size == null ? 'N 20 s t' : t.size.text,
                     style: TextStyle(

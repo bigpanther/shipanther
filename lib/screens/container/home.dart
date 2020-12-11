@@ -53,9 +53,8 @@ class _ContainerScreenState extends State<ContainerScreen> {
       builder: (context, state) {
         if (state is ContainersLoaded) {
           return widget.loggedInUser.isDriver
-              // ? DriverContainerList(widget.loggedInUser,
-              //     containerBloc: bloc, containerLoadedState: state)
-              ? Home()
+              ? DriverContainerList(widget.loggedInUser,
+                  containerBloc: bloc, containerLoadedState: state)
               : ContainerList(widget.loggedInUser,
                   containerBloc: bloc, containerLoadedState: state);
         }
