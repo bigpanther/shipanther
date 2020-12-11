@@ -40,6 +40,7 @@ dependencies:
   firebase_crashlytics: ^0.2.4
   package_info: ^0.4.3+2
   material_design_icons_flutter: ^4.0.5755
+  percent_indicator: ^2.1.8
 
 dev_dependencies:
   flutter_test:
