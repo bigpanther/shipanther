@@ -55,7 +55,7 @@ class TerminalList extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<Widget>(
                       builder: (_) => TerminalAddEdit(
                         loggedInUser,
                         isEdit: true,
@@ -98,7 +98,7 @@ class TerminalList extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<Widget>(
             builder: (_) => TerminalAddEdit(
               loggedInUser,
               isEdit: false,

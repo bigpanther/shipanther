@@ -57,7 +57,7 @@ class TenantList extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<Widget>(
                       builder: (_) => TenantAddEdit(
                         isEdit: true,
                         tenantBloc: tenantBloc,
@@ -94,7 +94,7 @@ class TenantList extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<Widget>(
             builder: (_) => TenantAddEdit(
               isEdit: false,
               tenantBloc: tenantBloc,

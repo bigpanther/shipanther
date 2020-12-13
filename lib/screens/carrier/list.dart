@@ -43,7 +43,7 @@ class CarrierList extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<Widget>(
                       builder: (_) => CarrierAddEdit(
                         loggedInUser,
                         isEdit: true,
@@ -92,7 +92,7 @@ class CarrierList extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<Widget>(
             builder: (_) => CarrierAddEdit(
               loggedInUser,
               isEdit: false,

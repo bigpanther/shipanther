@@ -41,7 +41,7 @@ class CarrierBloc extends Bloc<CarrierEvent, CarrierState> {
         yield CarrierFailure("Carrier deletion is not supported");
       }
     } catch (e) {
-      yield CarrierFailure("Request failed: $e");
+      yield CarrierFailure('Request failed: $e');
     }
   }
 }

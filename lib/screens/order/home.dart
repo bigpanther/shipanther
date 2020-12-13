@@ -36,7 +36,7 @@ class _OrderScreenState extends State<OrderScreen> {
         }
         if (state is OrderLoaded) {
           Navigator.of(context).push(
-            MaterialPageRoute(
+            MaterialPageRoute<Widget>(
               builder: (_) => OrderAddEdit(
                 widget.loggedInUser,
                 isEdit: true,

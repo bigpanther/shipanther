@@ -45,7 +45,7 @@ class CustomerList extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<Widget>(
                       builder: (_) => CustomerAddEdit(
                         loggedInUser,
                         isEdit: true,
@@ -88,7 +88,7 @@ class CustomerList extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<Widget>(
             builder: (_) => CustomerAddEdit(
               loggedInUser,
               isEdit: false,

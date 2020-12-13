@@ -86,7 +86,7 @@ class ContainerList extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<Widget>(
             builder: (_) => ContainerAddEdit(
               loggedInUser,
               isEdit: false,

@@ -54,7 +54,7 @@ class UserList extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<Widget>(
                       builder: (_) => UserAddEdit(
                         loggedInUser,
                         isEdit: true,

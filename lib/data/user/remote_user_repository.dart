@@ -13,13 +13,6 @@ class RemoteUserRepository extends UserRepository {
   }
 
   @override
-  Future<List<User>> fetchUnAssignedUsers() async {
-    var client = await _apiRepository.apiClient();
-    List<User> users = await client.usersGet();
-    return users.where((u) => u.role == UserRole.none);
-  }
-
-  @override
   Future<User> fetchUser(String id) async {
     var client = await _apiRepository.apiClient();
     return await client.usersIdGet(client.userId);

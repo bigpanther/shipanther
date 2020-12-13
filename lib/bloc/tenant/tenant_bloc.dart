@@ -40,7 +40,7 @@ class TenantBloc extends Bloc<TenantEvent, TenantState> {
         yield TenantFailure("Tenant deletion is not supported");
       }
     } catch (e) {
-      yield TenantFailure("Request failed: $e");
+      yield TenantFailure('Request failed: $e');
     }
   }
 }

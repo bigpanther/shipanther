@@ -45,7 +45,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         yield UserFailure("User deletion is not supported");
       }
     } catch (e) {
-      yield UserFailure("Request failed: $e");
+      yield UserFailure('Request failed: $e');
     }
   }
 }

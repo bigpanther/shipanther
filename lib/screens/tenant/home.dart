@@ -76,7 +76,7 @@ class TenantDetail extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            MaterialPageRoute<Widget>(
               builder: (_) => TenantAddEdit(
                 isEdit: true,
                 tenantBloc: tenantBloc,

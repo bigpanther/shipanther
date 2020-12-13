@@ -55,7 +55,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
         ],
       );
 
-      showDialog(
+      showDialog<AlertDialog>(
         context: context,
         builder: (BuildContext context) {
           return alert;

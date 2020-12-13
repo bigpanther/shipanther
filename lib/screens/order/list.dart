@@ -92,7 +92,7 @@ class OrderList extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<Widget>(
             builder: (_) => OrderAddEdit(
               loggedInUser,
               isEdit: false,
