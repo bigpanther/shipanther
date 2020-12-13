@@ -16,4 +16,4 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: "stable"
-      - run: make lint
+      - run: make test

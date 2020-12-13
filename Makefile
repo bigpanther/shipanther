@@ -22,3 +22,5 @@ clean:
 	flutter clean
 lint:
 	flutter analyze
+test: lint
+	flutter test test/localization_test.dart
