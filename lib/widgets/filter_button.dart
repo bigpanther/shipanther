@@ -80,7 +80,7 @@ class _Button<T> extends StatelessWidget {
           PopupMenuItem<T>(
             value: null,
             child: Text(
-              "Clear",
+              'Clear',
               style: defaultStyle,
             ),
           ),
