@@ -15,6 +15,17 @@ void main() async {
     punjabiData = json.decode(contents) as Map<String, dynamic>;
   });
   test('All keys should be translatable', () {
-    expect(englishData.keys, punjabiData.keys);
+    expect(punjabiData.keys, englishData.keys);
+  });
+  group('Verify translated keys', () {
+    test('All keys should be translated', () {
+      var notTranslated = <String>[];
+      for (var key in englishData.keys) {
+        if (englishData[key] == punjabiData[key]) {
+          notTranslated.add(key);
+        }
+      }
+      expect(notTranslated, <String>[], reason: 'some keys are not translated');
+    });
   });
 }
