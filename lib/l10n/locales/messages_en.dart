@@ -19,8 +19,45 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static m0(emailId) => "An Email has been sent to ${emailId}. Please check your inbox.";
+
+  static m1(param) => "${param} is required";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "tenantsTitle" : MessageLookupByLibrary.simpleMessage("Tenants")
+    "carriersTitle" : MessageLookupByLibrary.simpleMessage("Carriers"),
+    "changePassword" : MessageLookupByLibrary.simpleMessage("Change password"),
+    "confirmPassword" : MessageLookupByLibrary.simpleMessage("Confirm password"),
+    "containersTitle" : MessageLookupByLibrary.simpleMessage("Containers"),
+    "create" : MessageLookupByLibrary.simpleMessage("Create"),
+    "customersTitle" : MessageLookupByLibrary.simpleMessage("Customers"),
+    "edit" : MessageLookupByLibrary.simpleMessage("Edit"),
+    "email" : MessageLookupByLibrary.simpleMessage("Email"),
+    "emailNotVerified" : MessageLookupByLibrary.simpleMessage("This Email Id is not yet verified. Please try again."),
+    "emailSent" : m0,
+    "forgotPassword" : MessageLookupByLibrary.simpleMessage("Forgot Password?"),
+    "home" : MessageLookupByLibrary.simpleMessage("Home"),
+    "logout" : MessageLookupByLibrary.simpleMessage("Logout"),
+    "name" : MessageLookupByLibrary.simpleMessage("Name"),
+    "newPassword" : MessageLookupByLibrary.simpleMessage("New password"),
+    "noDateChosen" : MessageLookupByLibrary.simpleMessage("No date chosen"),
+    "oldPassword" : MessageLookupByLibrary.simpleMessage("Old password"),
+    "ordersTitle" : MessageLookupByLibrary.simpleMessage("Orders"),
+    "paramRequired" : m1,
+    "passowrdDoesntMatch" : MessageLookupByLibrary.simpleMessage("Passwords do not match"),
+    "password" : MessageLookupByLibrary.simpleMessage("Password"),
+    "profile" : MessageLookupByLibrary.simpleMessage("Profile"),
+    "register" : MessageLookupByLibrary.simpleMessage("Register"),
+    "resetPassword" : MessageLookupByLibrary.simpleMessage("Reset Password"),
+    "resetPasswordMessage" : MessageLookupByLibrary.simpleMessage("An email with the reset link would be sent to you."),
+    "save" : MessageLookupByLibrary.simpleMessage("Save"),
+    "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
+    "signIn" : MessageLookupByLibrary.simpleMessage("Sign In"),
+    "tenantLessUserMessage" : MessageLookupByLibrary.simpleMessage("Thanks for signing up. We will review your registration. We are in a limited beta at the moment. Please check back later."),
+    "tenantsTitle" : MessageLookupByLibrary.simpleMessage("Tenants"),
+    "terminalsTitle" : MessageLookupByLibrary.simpleMessage("Terminals"),
+    "username" : MessageLookupByLibrary.simpleMessage("Username"),
+    "usersTitle" : MessageLookupByLibrary.simpleMessage("Users"),
+    "welcome" : MessageLookupByLibrary.simpleMessage("Welcome to Shipanther")
   };
 }
