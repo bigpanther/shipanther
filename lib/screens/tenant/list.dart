@@ -22,16 +22,16 @@ class TenantList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat formatter = DateFormat('dd-MM-yyyy');
+    final formatter = DateFormat('dd-MM-yyyy');
 
     var title = ShipantherLocalizations.of(context).tenantsTitle;
-    List<Widget> actions = [
+    var actions = <Widget>[
       FilterButton<TenantType>(
         possibleValues: TenantType.values,
         isActive: true,
         activeFilter: tenantLoadedState.tenantType,
         onSelected: (t) => context.read<TenantBloc>().add(GetTenants(t)),
-        tooltip: "Filter Tenant type",
+        tooltip: 'Filter Tenant type',
       )
     ];
     Widget body = ListView.builder(
@@ -57,7 +57,7 @@ class TenantList extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<Widget>(
                       builder: (_) => TenantAddEdit(
                         isEdit: true,
                         tenantBloc: tenantBloc,
@@ -74,11 +74,11 @@ class TenantList extends StatelessWidget {
               ),
               children: [
                 Text(
-                  "Created At: ${formatter.format(t.createdAt).toString()}",
+                  'Created At: ${formatter.format(t.createdAt).toString()}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Last Update: ${formatter.format(t.updatedAt).toString()}",
+                  'Last Update: ${formatter.format(t.updatedAt).toString()}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],
@@ -89,12 +89,12 @@ class TenantList extends StatelessWidget {
     );
 
     Widget floatingActionButton = FloatingActionButton(
-      tooltip: "Add tenant",
+      tooltip: 'Add tenant',
       child: Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<Widget>(
             builder: (_) => TenantAddEdit(
               isEdit: false,
               tenantBloc: tenantBloc,

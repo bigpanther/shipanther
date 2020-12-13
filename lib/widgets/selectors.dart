@@ -13,7 +13,7 @@ List<Widget> tenantSelector(
   if (!shouldShow) return [];
   return [
     TypeAheadFormField<Tenant>(
-      textFieldConfiguration: TextFieldConfiguration(
+      textFieldConfiguration: TextFieldConfiguration<Tenant>(
           decoration: InputDecoration(
             labelText: 'Select tenant',
           ),
@@ -49,7 +49,7 @@ List<Widget> customerSelector(
   if (!shouldShow) return [];
   return [
     TypeAheadFormField<Customer>(
-      textFieldConfiguration: TextFieldConfiguration(
+      textFieldConfiguration: TextFieldConfiguration<Customer>(
         decoration: InputDecoration(labelText: 'Select customer'),
         controller: textEditingController,
         onTap: () {
@@ -84,7 +84,7 @@ List<Widget> driverSelector(
   if (!shouldShow) return [];
   return [
     TypeAheadFormField<User>(
-      textFieldConfiguration: TextFieldConfiguration(
+      textFieldConfiguration: TextFieldConfiguration<User>(
           decoration: InputDecoration(labelText: 'Select Driver'),
           controller: textEditingController,
           onTap: () {
@@ -118,7 +118,7 @@ List<Widget> terminalSelector(
   if (!shouldShow) return [];
   return [
     TypeAheadFormField<Terminal>(
-      textFieldConfiguration: TextFieldConfiguration(
+      textFieldConfiguration: TextFieldConfiguration<Terminal>(
         decoration: InputDecoration(labelText: 'Select Terminal'),
         controller: textEditingController,
         onTap: () {
@@ -153,7 +153,7 @@ List<Widget> carrierSelector(
   if (!shouldShow) return [];
   return [
     TypeAheadFormField<Carrier>(
-      textFieldConfiguration: TextFieldConfiguration(
+      textFieldConfiguration: TextFieldConfiguration<Carrier>(
         decoration: InputDecoration(labelText: 'Select Carrier'),
         controller: textEditingController,
         onTap: () {
@@ -188,7 +188,7 @@ List<Widget> orderSelector(
   if (!shouldShow) return [];
   return [
     TypeAheadFormField<Order>(
-      textFieldConfiguration: TextFieldConfiguration(
+      textFieldConfiguration: TextFieldConfiguration<Order>(
         decoration: InputDecoration(labelText: 'Select Order'),
         controller: textEditingController,
         onTap: () {

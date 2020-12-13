@@ -85,7 +85,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthInitial();
       }
     } catch (e) {
-      yield AuthFailure("Request failed: $e", event.authType);
+      yield AuthFailure('Request failed: $e', event.authType);
     }
   }
 }

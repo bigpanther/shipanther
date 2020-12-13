@@ -37,7 +37,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
   api.CarrierType _carrierType;
   api.Tenant _tenant;
   DateTime _eta;
-  final DateFormat formatter = DateFormat('dd-MM-yyyy ');
+  final formatter = DateFormat('dd-MM-yyyy ');
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
 
@@ -58,7 +58,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? "Edit carrier" : "Add new carrier",
+          widget.isEdit ? 'Edit carrier' : 'Add new carrier',
         ),
         centerTitle: true,
       ),
@@ -78,7 +78,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                       style: Theme.of(context).textTheme.headline5,
                       decoration: InputDecoration(hintText: 'Carrier Name'),
                       validator: (val) => val.trim().isEmpty
-                          ? "Carrier name should not be empty"
+                          ? 'Carrier name should not be empty'
                           : null,
                       onSaved: (value) => _carrierName = value,
                     ),
@@ -110,7 +110,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                       ),
                     ),
                     smartSelect<api.CarrierType>(
-                      title: "Carrier type",
+                      title: 'Carrier type',
                       onChange: (state) => _carrierType = state.value,
                       choiceItems:
                           S2Choice.listFrom<api.CarrierType, api.CarrierType>(
@@ -160,6 +160,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
     );
   }
 
+  @override
   void dispose() {
     _tenantTypeAheadController.dispose();
 

@@ -131,7 +131,7 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                                     .forgotPassword),
                                 onPressed: () => Navigator.push(
                                       context,
-                                      MaterialPageRoute(
+                                      MaterialPageRoute<Widget>(
                                           builder: (context) =>
                                               ResetPassword()),
                                     ))

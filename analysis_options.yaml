@@ -1,0 +1,9 @@
+include: package:pedantic/analysis_options.yaml
+analyzer:
+  exclude: [lib/l10n/locales/*.dart]
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+linter:
+  rules:
+    - camel_case_types

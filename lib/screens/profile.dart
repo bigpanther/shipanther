@@ -67,9 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(_updatedName == null
-                            ? widget.user.name
-                            : _updatedName),
+                        Text(_updatedName ?? widget.user.name),
                       ],
                     ),
                     trailing: Icon(Icons.edit),
@@ -78,9 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         children: [
                           TextFormField(
-                            initialValue: _updatedName == null
-                                ? widget.user.name
-                                : _updatedName,
+                            initialValue: _updatedName ?? widget.user.name,
                             decoration: InputDecoration(
                                 labelText:
                                     ShipantherLocalizations.of(context).name),
@@ -234,6 +230,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  @override
   void dispose() {
     _password.dispose();
     _confirmPassword.dispose();

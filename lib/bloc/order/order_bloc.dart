@@ -37,10 +37,10 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         yield OrdersLoaded(orders, null);
       }
       if (event is DeleteOrder) {
-        yield OrderFailure("Order deletion is not supported");
+        yield OrderFailure('Order deletion is not supported');
       }
     } catch (e) {
-      yield OrderFailure("Request failed: $e");
+      yield OrderFailure('Request failed: $e');
     }
   }
 }

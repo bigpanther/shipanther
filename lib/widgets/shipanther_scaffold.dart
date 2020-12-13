@@ -64,13 +64,13 @@ class ShipantherScaffold extends StatelessWidget {
 }
 
 List<Widget> drawerItemsFor(BuildContext context, api.User user) {
-  List<Widget> widgets = [];
+  var widgets = <Widget>[];
   widgets.add(
     _createDrawerItem(
       icon: Icons.home,
       text: ShipantherLocalizations.of(context).home,
       onTap: () => Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
+        MaterialPageRoute<Widget>(
           builder: (_) => user.homePage,
         ),
       ),
@@ -83,7 +83,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         icon: Icons.business,
         text: ShipantherLocalizations.of(context).tenantsTitle,
         onTap: () => Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
+          MaterialPageRoute<SuperAdminHome>(
             builder: (_) => SuperAdminHome(user),
           ),
         ),
@@ -97,7 +97,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         icon: Icons.people,
         text: ShipantherLocalizations.of(context).usersTitle,
         onTap: () => Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
+          MaterialPageRoute<UserScreen>(
             builder: (_) => UserScreen(user),
           ),
         ),
@@ -109,7 +109,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         icon: Icons.connect_without_contact,
         text: ShipantherLocalizations.of(context).customersTitle,
         onTap: () => Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
+          MaterialPageRoute<CustomerHome>(
             builder: (_) => CustomerHome(user),
           ),
         ),
@@ -121,7 +121,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         icon: Icons.account_balance,
         text: ShipantherLocalizations.of(context).terminalsTitle,
         onTap: () => Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
+          MaterialPageRoute<TerminalScreen>(
             builder: (_) => TerminalScreen(user),
           ),
         ),
@@ -133,7 +133,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         icon: Icons.local_shipping,
         text: ShipantherLocalizations.of(context).carriersTitle,
         onTap: () => Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
+          MaterialPageRoute<CarrierScreen>(
             builder: (_) => CarrierScreen(user),
           ),
         ),
@@ -145,7 +145,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         icon: MdiIcons.dresser,
         text: ShipantherLocalizations.of(context).containersTitle,
         onTap: () => Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
+          MaterialPageRoute<ContainerScreen>(
             builder: (_) => ContainerScreen(user),
           ),
         ),
@@ -158,7 +158,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
         icon: Icons.fact_check,
         text: ShipantherLocalizations.of(context).ordersTitle,
         onTap: () => Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
+          MaterialPageRoute<OrderScreen>(
             builder: (_) => OrderScreen(user),
           ),
         ),
@@ -171,9 +171,9 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
       icon: MdiIcons.license,
       text: ShipantherLocalizations.of(context).aboutUs,
       onTap: () async {
-        PackageInfo packageInfo = await PackageInfo.fromPlatform();
-        String appName = packageInfo.appName;
-        String version = packageInfo.version;
+        var packageInfo = await PackageInfo.fromPlatform();
+        var appName = packageInfo.appName;
+        var version = packageInfo.version;
         showAboutDialog(
           context: context,
           applicationIcon: Image(
@@ -208,7 +208,8 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
       onTap: () {
         context.read<AuthBloc>().add(AuthLogout());
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => SignInOrRegistrationPage()));
+            MaterialPageRoute<SignInOrRegistrationPage>(
+                builder: (_) => SignInOrRegistrationPage()));
       },
     ),
   );
@@ -243,8 +244,8 @@ Widget _createHeader(BuildContext context, api.User user) {
         style: TextStyle(fontSize: 22),
       ),
     ),
-    onDetailsPressed: () => Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (_) => ProfilePage(user))),
+    onDetailsPressed: () => Navigator.of(context).pushReplacement(
+        MaterialPageRoute<ProfilePage>(builder: (_) => ProfilePage(user))),
     accountName: Row(
       children: <Widget>[
         Container(

@@ -7,8 +7,7 @@ abstract class AuthEvent {
 }
 
 class AuthTypeOtherRequest extends AuthEvent {
-  final AuthTypeSelector authType;
-  const AuthTypeOtherRequest(this.authType) : super(authType);
+  const AuthTypeOtherRequest(AuthTypeSelector authType) : super(authType);
 }
 
 class AuthLogout extends AuthEvent {

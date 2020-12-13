@@ -39,7 +39,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
         }
         if (state is ContainerLoaded) {
           Navigator.of(context).push(
-            MaterialPageRoute(
+            MaterialPageRoute<Widget>(
               builder: (_) => ContainerAddEdit(
                 widget.loggedInUser,
                 isEdit: true,

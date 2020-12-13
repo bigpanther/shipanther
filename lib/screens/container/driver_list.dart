@@ -27,7 +27,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    showAlertDialog(BuildContext context, api.Container t) {
+    void showAlertDialog(BuildContext context, api.Container t) {
       Widget cancelButton = FlatButton(
         child: Text(ShipantherLocalizations.of(context).cancel),
         onPressed: () {
@@ -45,7 +45,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
         },
       );
 
-      AlertDialog alert = AlertDialog(
+      var alert = AlertDialog(
         title: Text(ShipantherLocalizations.of(context).reject),
         content: Text(
             ShipantherLocalizations.of(context).containerRejectConfirmation),
@@ -55,7 +55,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
         ],
       );
 
-      showDialog(
+      showDialog<AlertDialog>(
         context: context,
         builder: (BuildContext context) {
           return alert;
@@ -70,7 +70,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
     }
 
     var title = ShipantherLocalizations.of(context).containersTitle;
-    List<Widget> actions = [];
+    var actions = <Widget>[];
     var totalPending = widget.containerLoadedState.containers
         .where((element) => element.status == api.ContainerStatus.accepted)
         .length;
@@ -81,8 +81,8 @@ class _DriverContainerListState extends State<DriverContainerList> {
         : widget.containerLoadedState.containers
             .where((element) => element.status == api.ContainerStatus.arrived);
 
-    Widget body = items.length == 0
-        ? Center(child: Text("No items here"))
+    var body = items.isEmpty
+        ? Center(child: Text('No items here'))
         : ListView.builder(
             itemCount: items.length,
             itemBuilder: (BuildContext context, int index) {
@@ -108,18 +108,15 @@ class _DriverContainerListState extends State<DriverContainerList> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          DateFormat('dd-MM-yyyy').format(
-                              t.reservationTime == null
-                                  ? DateTime.now()
-                                  : t.reservationTime),
+                          DateFormat('dd-MM-yyyy')
+                              .format(t.reservationTime ?? DateTime.now()),
                           style: TextStyle(
                               fontSize: 15,
                               color: Color.fromRGBO(204, 255, 0, 1)),
                         ),
                         Text(
-                          DateFormat('kk:mm').format(t.reservationTime == null
-                              ? DateTime.now()
-                              : t.reservationTime),
+                          DateFormat('kk:mm')
+                              .format(t.reservationTime ?? DateTime.now()),
                           style: TextStyle(fontSize: 15),
                         ),
                       ],
@@ -207,14 +204,14 @@ class _DriverContainerListState extends State<DriverContainerList> {
       items: [
         BottomNavigationBarItem(
           label: ShipantherLocalizations.of(context).pending,
-          icon: new Stack(
+          icon: Stack(
             children: <Widget>[
-              new Icon(Icons.pending),
-              new Positioned(
+              Icon(Icons.pending),
+              Positioned(
                 right: 0,
-                child: new Container(
+                child: Container(
                   padding: EdgeInsets.all(1),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(6),
                   ),
@@ -222,9 +219,9 @@ class _DriverContainerListState extends State<DriverContainerList> {
                     minWidth: 13,
                     minHeight: 13,
                   ),
-                  child: new Text(
+                  child: Text(
                     totalPending.toString(),
-                    style: new TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 8,
                     ),

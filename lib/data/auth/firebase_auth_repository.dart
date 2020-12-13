@@ -17,7 +17,7 @@ class FireBaseAuthRepository extends AuthRepository {
       email: username,
       password: password,
     );
-    User user = userCreds.user;
+    var user = userCreds.user;
 
     if (user == null) {
       throw AuthenticationException();
@@ -39,7 +39,7 @@ class FireBaseAuthRepository extends AuthRepository {
       email: username,
       password: password,
     );
-    User user = userCreds.user;
+    var user = userCreds.user;
     if (user == null) {
       throw AuthenticationException();
     }

@@ -20,10 +20,10 @@ class ContainerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat formatter = DateFormat('dd-MM-yyyy');
+    final formatter = DateFormat('dd-MM-yyyy');
 
     var title = ShipantherLocalizations.of(context).containersTitle;
-    List<Widget> actions = [];
+    var actions = <Widget>[];
     Widget body = ListView.builder(
       itemCount: containerLoadedState.containers.length,
       itemBuilder: (BuildContext context, int index) {
@@ -54,23 +54,23 @@ class ContainerList extends StatelessWidget {
               subtitle: Text('${t.origin} to ${t.destination}'),
               children: [
                 Text(
-                  "LFD: ${t.lfd}",
+                  'LFD: ${t.lfd}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Reservation Time: ${t.reservationTime}",
+                  'Reservation Time: ${t.reservationTime}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Size: ${t.size.text}",
+                  'Size: ${t.size.text}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Status: ${t.status.text}",
+                  'Status: ${t.status.text}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Last Update: ${formatter.format(t.updatedAt).toString()}",
+                  'Last Update: ${formatter.format(t.updatedAt).toString()}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],
@@ -81,12 +81,12 @@ class ContainerList extends StatelessWidget {
     );
 
     Widget floatingActionButton = FloatingActionButton(
-      tooltip: "Add container",
+      tooltip: 'Add container',
       child: Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<Widget>(
             builder: (_) => ContainerAddEdit(
               loggedInUser,
               isEdit: false,

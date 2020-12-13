@@ -20,3 +20,5 @@ release-dev-ios:
 release-dev: clean release-dev-android release-dev-ios
 clean:
 	flutter clean
+lint:
+	flutter analyze

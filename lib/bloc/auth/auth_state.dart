@@ -20,8 +20,7 @@ class AuthFinished extends AuthState {
 }
 
 class AuthRequested extends AuthState {
-  final AuthTypeSelector authType;
-  const AuthRequested(this.authType) : super(authType);
+  const AuthRequested(AuthTypeSelector authType) : super(authType);
 }
 
 class AuthFailure extends AuthState {
@@ -35,8 +34,7 @@ class AuthVerification extends AuthState {
 }
 
 class AuthEmailResent extends AuthVerification {
-  final User user;
-  const AuthEmailResent(this.user) : super(null);
+  const AuthEmailResent(User user) : super(user);
 }
 
 enum AuthTypeSelector {

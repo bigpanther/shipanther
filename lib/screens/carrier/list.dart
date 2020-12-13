@@ -18,9 +18,10 @@ class CarrierList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat formatter = DateFormat('dd-MM-yyyy');
+    final formatter = DateFormat('dd-MM-yyyy');
     var title = ShipantherLocalizations.of(context).carriersTitle;
-    List<Widget> actions = [];
+    var actions = <Widget>[];
+    ;
 
     Widget body = ListView.builder(
       itemCount: carrierLoadedState.carriers.length,
@@ -43,7 +44,7 @@ class CarrierList extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<Widget>(
                       builder: (_) => CarrierAddEdit(
                         loggedInUser,
                         isEdit: true,
@@ -62,21 +63,21 @@ class CarrierList extends StatelessWidget {
               children: [
                 t.eta != null
                     ? Text(
-                        "ETA: ${formatter.format(t.eta).toString()}",
+                        'ETA: ${formatter.format(t.eta).toString()}',
                         style: Theme.of(context).textTheme.subtitle1,
                       )
                     : Text(''),
                 Text(
-                  "Created At: ${t.createdAt ?? formatter.format(t.createdAt).toString()}",
+                  'Created At: ${t.createdAt ?? formatter.format(t.createdAt).toString()}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Last Update: ${t.updatedAt ?? formatter.format(t.updatedAt).toString()}",
+                  'Last Update: ${t.updatedAt ?? formatter.format(t.updatedAt).toString()}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 loggedInUser.isSuperAdmin
                     ? Text(
-                        "Tenant ID: ${t.tenantId}",
+                        'Tenant ID: ${t.tenantId}',
                         style: Theme.of(context).textTheme.subtitle1,
                       )
                     : Text(''),
@@ -87,12 +88,12 @@ class CarrierList extends StatelessWidget {
       },
     );
     Widget floatingActionButton = FloatingActionButton(
-      tooltip: "Add carrier",
+      tooltip: 'Add carrier',
       child: Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<Widget>(
             builder: (_) => CarrierAddEdit(
               loggedInUser,
               isEdit: false,

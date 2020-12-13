@@ -45,7 +45,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? "Edit terminal" : "Add new terminal",
+          widget.isEdit ? 'Edit terminal' : 'Add new terminal',
         ),
         centerTitle: true,
       ),
@@ -65,12 +65,12 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(hintText: 'Terminal Name'),
                     validator: (val) => val.trim().isEmpty
-                        ? "Terminal name should not be empty"
+                        ? 'Terminal name should not be empty'
                         : null,
                     onSaved: (value) => _terminalName = value,
                   ),
                   smartSelect<api.TerminalType>(
-                    title: "Terminal type",
+                    title: 'Terminal type',
                     onChange: (state) => _terminalType = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.TerminalType, api.TerminalType>(
@@ -121,6 +121,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
     );
   }
 
+  @override
   void dispose() {
     _tenantTypeAheadController.dispose();
     super.dispose();

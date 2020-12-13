@@ -51,7 +51,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? "Edit order" : "Add new order",
+          widget.isEdit ? 'Edit order' : 'Add new order',
         ),
         centerTitle: true,
       ),
@@ -73,13 +73,13 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                     decoration: InputDecoration(labelText: 'Order Number'),
                     maxLength: 15,
                     validator: (val) => val.trim().isEmpty
-                        ? "Order number should not be empty"
+                        ? 'Order number should not be empty'
                         : null,
                     onSaved: (value) => _orderSerialNumber = value,
                   ),
                   !widget.loggedInUser.isCustomer
                       ? smartSelect<api.OrderStatus>(
-                          title: "Order status",
+                          title: 'Order status',
                           onChange: (state) => _orderStatus = state.value,
                           choiceItems: S2Choice.listFrom<api.OrderStatus,
                               api.OrderStatus>(
@@ -147,6 +147,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
     );
   }
 
+  @override
   void dispose() {
     _tenantTypeAheadController.dispose();
     _customerTypeAheadController.dispose();

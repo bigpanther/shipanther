@@ -37,10 +37,10 @@ class ContainerBloc extends Bloc<ContainerEvent, ContainerState> {
         yield ContainersLoaded(containers);
       }
       if (event is DeleteContainer) {
-        yield ContainerFailure("Container deletion is not supported");
+        yield ContainerFailure('Container deletion is not supported');
       }
     } catch (e) {
-      yield ContainerFailure("Request failed: $e");
+      yield ContainerFailure('Request failed: $e');
     }
   }
 }

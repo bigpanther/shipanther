@@ -96,7 +96,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? "Edit container" : "Add new container",
+          widget.isEdit ? 'Edit container' : 'Add new container',
         ),
         centerTitle: true,
       ),
@@ -118,7 +118,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(labelText: 'Serial number'),
                     validator: (val) => val.trim().isEmpty
-                        ? "Serial number should not be empty"
+                        ? 'Serial number should not be empty'
                         : null,
                     onSaved: (value) => _serialNumber = value,
                   ),
@@ -194,7 +194,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     ),
                   ),
                   smartSelect<api.ContainerSize>(
-                    title: "Container size",
+                    title: 'Container size',
                     onChange: (state) => _containerSize = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.ContainerSize, api.ContainerSize>(
@@ -205,7 +205,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     value: widget.container.size ?? api.ContainerSize.n20sT,
                   ),
                   smartSelect<api.ContainerType>(
-                    title: "Container type",
+                    title: 'Container type',
                     onChange: (state) => _containerType = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.ContainerType, api.ContainerType>(
@@ -216,7 +216,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     value: widget.container.type ?? api.ContainerType.incoming,
                   ),
                   smartSelect<api.ContainerStatus>(
-                    title: "Container Status",
+                    title: 'Container Status',
                     onChange: (state) => _containerStatus = state.value,
                     choiceItems: S2Choice.listFrom<api.ContainerStatus,
                         api.ContainerStatus>(
@@ -262,10 +262,9 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
           final form = formKey.currentState;
           if (form.validate()) {
             form.save();
-            widget.container.reservationTime = _reservationTime == null
-                ? widget.container.reservationTime
-                : _reservationTime;
-            widget.container.lfd = _lfd == null ? widget.container.lfd : _lfd;
+            widget.container.reservationTime =
+                _reservationTime ?? widget.container.reservationTime;
+            widget.container.lfd = _lfd ?? widget.container.lfd;
             widget.container.serialNumber = _serialNumber;
             widget.container.origin = _origin ?? widget.container.origin;
             widget.container.destination =
@@ -306,6 +305,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
     );
   }
 
+  @override
   void dispose() {
     _tenantTypeAheadController.dispose();
     _terminalTypeAheadController.dispose();

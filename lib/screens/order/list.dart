@@ -20,15 +20,15 @@ class OrderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat formatter = DateFormat('dd-MM-yyyy');
+    final formatter = DateFormat('dd-MM-yyyy');
     var title = ShipantherLocalizations.of(context).ordersTitle;
-    List<Widget> actions = [
+    var actions = <Widget>[
       FilterButton<OrderStatus>(
         possibleValues: OrderStatus.values,
         isActive: true,
         activeFilter: orderLoadedState.orderStatus,
         onSelected: (t) => context.read<OrderBloc>()..add(GetOrders(t)),
-        tooltip: "Filter Order status",
+        tooltip: 'Filter Order status',
       )
     ];
 
@@ -61,22 +61,22 @@ class OrderList extends StatelessWidget {
               ),
               children: [
                 Text(
-                  "Created At: ${formatter.format(t.createdAt).toString()}",
+                  'Created At: ${formatter.format(t.createdAt).toString()}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 (t.customer != null)
                     ? Text(
-                        "Customer: ${t.customer.name}",
+                        'Customer: ${t.customer.name}',
                         style: Theme.of(context).textTheme.subtitle1,
                       )
                     : Text(''),
                 Text(
-                  "Last Update: ${formatter.format(t.updatedAt).toString()}",
+                  'Last Update: ${formatter.format(t.updatedAt).toString()}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 loggedInUser.isSuperAdmin
                     ? Text(
-                        "Tenant ID: ${t.tenantId}",
+                        'Tenant ID: ${t.tenantId}',
                         style: Theme.of(context).textTheme.subtitle1,
                       )
                     : Text(''),
@@ -87,12 +87,12 @@ class OrderList extends StatelessWidget {
       },
     );
     Widget floatingActionButton = FloatingActionButton(
-      tooltip: "Add order",
+      tooltip: 'Add order',
       child: Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
+          MaterialPageRoute<Widget>(
             builder: (_) => OrderAddEdit(
               loggedInUser,
               isEdit: false,
