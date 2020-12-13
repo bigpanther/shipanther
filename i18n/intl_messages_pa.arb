@@ -6,7 +6,7 @@
     "description": "Title for the Tenants page",
     "type": "text",
     "placeholders": {}
-  }
+  },
   "terminalsTitle": "ਟਰਮੀਨਲ",
   "@terminalsTitle": {
     "description": "Title for the Terminals page",
