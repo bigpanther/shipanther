@@ -96,7 +96,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
                         Icon(Icons.home_work),
                         Text(
                           t.size == null
-                              ? api.ContainerSize.n20sT
+                              ? api.ContainerSize.n20sT.text
                               : t.size.text,
                           style: TextStyle(
                             color: Color.fromRGBO(204, 255, 0, 1),
