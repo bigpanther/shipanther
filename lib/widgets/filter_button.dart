@@ -65,15 +65,27 @@ class _Button<T> extends StatelessWidget {
       tooltip: tooltip,
       onSelected: onSelected,
       itemBuilder: (BuildContext context) {
-        return possibleValues
-            .map((e) => PopupMenuItem<T>(
-                  value: e,
-                  child: Text(
-                    EnumToString.convertToString(e, camelCase: true),
-                    style: activeFilter == e ? activeStyle : defaultStyle,
-                  ),
-                ))
+        var items = possibleValues
+            .map(
+              (e) => PopupMenuItem<T>(
+                value: e,
+                child: Text(
+                  EnumToString.convertToString(e, camelCase: true),
+                  style: activeFilter == e ? activeStyle : defaultStyle,
+                ),
+              ),
+            )
             .toList();
+        items.add(
+          PopupMenuItem<T>(
+            value: null,
+            child: Text(
+              "Clear",
+              style: defaultStyle,
+            ),
+          ),
+        );
+        return items;
       },
       icon: Icon(Icons.filter_list),
     );
