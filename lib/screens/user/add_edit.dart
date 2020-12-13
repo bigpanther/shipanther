@@ -45,7 +45,7 @@ class _UserAddEditState extends State<UserAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? "Edit user" : "Add new user",
+          widget.isEdit ? 'Edit user' : 'Add new user',
         ),
         centerTitle: true,
       ),
@@ -65,12 +65,12 @@ class _UserAddEditState extends State<UserAddEdit> {
                       style: Theme.of(context).textTheme.headline5,
                       decoration: InputDecoration(hintText: 'User Name'),
                       validator: (val) => val.trim().isEmpty
-                          ? "User name should not be empty"
+                          ? 'User name should not be empty'
                           : null,
                       onSaved: (value) => _userName = value,
                     ),
                     smartSelect<api.UserRole>(
-                      title: "User type",
+                      title: 'User type',
                       onChange: (state) => _userRole = state.value,
                       choiceItems:
                           S2Choice.listFrom<api.UserRole, api.UserRole>(
@@ -119,6 +119,7 @@ class _UserAddEditState extends State<UserAddEdit> {
     );
   }
 
+  @override
   void dispose() {
     _tenantTypeAheadController.dispose();
     super.dispose();

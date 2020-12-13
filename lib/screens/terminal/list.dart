@@ -20,15 +20,15 @@ class TerminalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat formatter = DateFormat('dd-MM-yyyy');
+    final formatter = DateFormat('dd-MM-yyyy');
     var title = ShipantherLocalizations.of(context).terminalsTitle;
-    List<Widget> actions = [
+    var actions = <Widget>[
       FilterButton<TerminalType>(
         possibleValues: TerminalType.values,
         isActive: true,
         activeFilter: terminalLoadedState.terminalType,
         onSelected: (t) => context.read<TerminalBloc>().add(GetTerminals(t)),
-        tooltip: "Filter Terminal type",
+        tooltip: 'Filter Terminal type',
       )
     ];
 
@@ -73,16 +73,16 @@ class TerminalList extends StatelessWidget {
               ),
               children: [
                 Text(
-                  "Created At: ${formatter.format(t.createdAt).toString()}",
+                  'Created At: ${formatter.format(t.createdAt).toString()}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Last Update: ${formatter.format(t.updatedAt).toString()}",
+                  'Last Update: ${formatter.format(t.updatedAt).toString()}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 loggedInUser.isSuperAdmin
                     ? Text(
-                        "Tenant ID: ${t.tenantId}",
+                        'Tenant ID: ${t.tenantId}',
                         style: Theme.of(context).textTheme.subtitle1,
                       )
                     : Text(''),
@@ -93,7 +93,7 @@ class TerminalList extends StatelessWidget {
       },
     );
     Widget floatingActionButton = FloatingActionButton(
-      tooltip: "Add terminal",
+      tooltip: 'Add terminal',
       child: Icon(Icons.add),
       onPressed: () {
         Navigator.push(

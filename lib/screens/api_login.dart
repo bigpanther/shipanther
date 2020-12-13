@@ -25,7 +25,7 @@ class _ApiLoginState extends State<ApiLogin> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserBloc, UserState>(
-      listener: (context, state) async {
+      listener: (context, state) {
         if (state is UserFailure) {
           Scaffold.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
@@ -33,7 +33,7 @@ class _ApiLoginState extends State<ApiLogin> {
         }
         if (state is UserLoggedIn) {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute<void>(builder: (_) {
+            MaterialPageRoute<Widget>(builder: (_) {
               return state.user.homePage;
             }),
           );
@@ -45,7 +45,7 @@ class _ApiLoginState extends State<ApiLogin> {
             child: Center(
                 child: Column(
               children: [
-                Text("An error occured during log-in. Please retry."),
+                Text('An error occured during log-in. Please retry.'),
                 FlatButton(
                     onPressed: () => context.read<AuthBloc>().add(AuthLogout()),
                     child: Text(ShipantherLocalizations.of(context).logout)),

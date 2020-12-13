@@ -1,5 +1,5 @@
 import 'package:shipanther/main_common.dart';
 
 Future<void> main() async {
-  return await commonMain("https://trober-test.herokuapp.com");
+  return await commonMain('https://trober-test.herokuapp.com');
 }

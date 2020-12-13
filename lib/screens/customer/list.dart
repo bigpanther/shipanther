@@ -18,9 +18,10 @@ class CustomerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat formatter = DateFormat('dd-MM-yyyy');
+    final formatter = DateFormat('dd-MM-yyyy');
     var title = ShipantherLocalizations.of(context).customersTitle;
-    List<Widget> actions = [];
+    var actions = <Widget>[];
+    ;
 
     Widget body = ListView.builder(
       itemCount: customerLoadedState.customers.length,
@@ -63,16 +64,16 @@ class CustomerList extends StatelessWidget {
               ),
               children: [
                 Text(
-                  "Created At: ${formatter.format(t.createdAt).toString()}",
+                  'Created At: ${formatter.format(t.createdAt).toString()}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Last Update: ${formatter.format(t.updatedAt).toString()}",
+                  'Last Update: ${formatter.format(t.updatedAt).toString()}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 loggedInUser.isSuperAdmin
                     ? Text(
-                        "Tenant ID: ${t.tenantId}",
+                        'Tenant ID: ${t.tenantId}',
                         style: Theme.of(context).textTheme.subtitle1,
                       )
                     : Text(''),
@@ -83,7 +84,7 @@ class CustomerList extends StatelessWidget {
       },
     );
     Widget floatingActionButton = FloatingActionButton(
-      tooltip: "Add customer",
+      tooltip: 'Add customer',
       child: Icon(Icons.add),
       onPressed: () {
         Navigator.push(

@@ -41,7 +41,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? "Edit customer" : "Add new customer",
+          widget.isEdit ? 'Edit customer' : 'Add new customer',
         ),
         centerTitle: true,
       ),
@@ -61,7 +61,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(hintText: 'Customer Name'),
                     validator: (val) => val.trim().isEmpty
-                        ? "Customer name should not be empty"
+                        ? 'Customer name should not be empty'
                         : null,
                     onSaved: (value) => _customerName = value,
                   ),
@@ -110,6 +110,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
     );
   }
 
+  @override
   void dispose() {
     _tenantTypeAheadController.dispose();
     super.dispose();

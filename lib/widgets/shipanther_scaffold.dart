@@ -64,7 +64,7 @@ class ShipantherScaffold extends StatelessWidget {
 }
 
 List<Widget> drawerItemsFor(BuildContext context, api.User user) {
-  List<Widget> widgets = [];
+  var widgets = <Widget>[];
   widgets.add(
     _createDrawerItem(
       icon: Icons.home,
@@ -171,9 +171,9 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
       icon: MdiIcons.license,
       text: ShipantherLocalizations.of(context).aboutUs,
       onTap: () async {
-        PackageInfo packageInfo = await PackageInfo.fromPlatform();
-        String appName = packageInfo.appName;
-        String version = packageInfo.version;
+        var packageInfo = await PackageInfo.fromPlatform();
+        var appName = packageInfo.appName;
+        var version = packageInfo.version;
         showAboutDialog(
           context: context,
           applicationIcon: Image(

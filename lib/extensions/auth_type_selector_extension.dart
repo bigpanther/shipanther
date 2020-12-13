@@ -8,7 +8,7 @@ extension AuthTypeSelectorExtension on AuthTypeSelector {
 
   String get otherText {
     if (this == AuthTypeSelector.register) {
-      return "Already registered? Sign In";
+      return 'Already registered? Sign In';
     }
     return 'Not registered? Register now';
   }

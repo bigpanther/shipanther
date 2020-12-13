@@ -10,36 +10,36 @@ import 'package:trober_sdk/api.dart';
 extension UserExtension on User {
   bool get isAtleastBackOffice {
     return [UserRole.superAdmin, UserRole.admin, UserRole.backOffice]
-        .contains(this.role);
+        .contains(role);
   }
 
   bool get isDriver {
-    return this.role == UserRole.driver;
+    return role == UserRole.driver;
   }
 
   bool get isSuperAdmin {
-    return this.role == UserRole.superAdmin;
+    return role == UserRole.superAdmin;
   }
 
   bool get isCustomer {
-    return this.role == UserRole.customer;
+    return role == UserRole.customer;
   }
 
   bool get isAtleastTenantBackOffice {
-    return this.role == UserRole.admin || this.role == UserRole.backOffice;
+    return role == UserRole.admin || role == UserRole.backOffice;
   }
 
   bool get isAdmin {
-    return this.role == UserRole.admin;
+    return role == UserRole.admin;
   }
 
   bool get isBackOffice {
-    return this.role == UserRole.backOffice;
+    return role == UserRole.backOffice;
   }
 
   // ignore: missing_return
   Widget get homePage {
-    switch (this.role) {
+    switch (role) {
       case UserRole.superAdmin:
         return SuperAdminHome(this);
       case UserRole.admin:

@@ -21,8 +21,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       if (event is UserLogin) {
         var deviceToken = await event.deviceToken;
-        User u = await _userRepository.registerDeviceToken(deviceToken);
-        yield UserLoggedIn(u);
+        var user = await _userRepository.registerDeviceToken(deviceToken);
+        yield UserLoggedIn(user);
       }
       if (event is GetUser) {
         yield UserLoaded(await _userRepository.fetchUser(event.id));
@@ -42,7 +42,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         yield UsersLoaded(users, null);
       }
       if (event is DeleteUser) {
-        yield UserFailure("User deletion is not supported");
+        yield UserFailure('User deletion is not supported');
       }
     } catch (e) {
       yield UserFailure('Request failed: $e');

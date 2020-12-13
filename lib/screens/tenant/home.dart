@@ -12,10 +12,10 @@ class TenantDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Tenant Details"),
+        title: Text('Tenant Details'),
         actions: [
           IconButton(
-            tooltip: "Delete Tenant",
+            tooltip: 'Delete Tenant',
             icon: Icon(Icons.delete),
             onPressed: () {
               // context
@@ -71,7 +71,7 @@ class TenantDetail extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: "Edit tenant",
+        tooltip: 'Edit tenant',
         child: Icon(Icons.edit),
         onPressed: () {
           Navigator.push(

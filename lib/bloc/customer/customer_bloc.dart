@@ -33,7 +33,7 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
         yield CustomersLoaded(customers);
       }
       if (event is DeleteCustomer) {
-        yield CustomerFailure("Customer deletion is not supported");
+        yield CustomerFailure('Customer deletion is not supported');
       }
     } catch (e) {
       yield CustomerFailure('Request failed: $e');

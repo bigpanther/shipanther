@@ -38,7 +38,7 @@ class TerminalBloc extends Bloc<TerminalEvent, TerminalState> {
         yield TerminalsLoaded(terminals, null);
       }
       if (event is DeleteTerminal) {
-        yield TerminalFailure("Terminal deletion is not supported");
+        yield TerminalFailure('Terminal deletion is not supported');
       }
     } catch (e) {
       yield TerminalFailure('Request failed: $e');

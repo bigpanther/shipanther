@@ -12,7 +12,7 @@ import 'package:shipanther/main_common.dart';
 void main() {
   testWidgets('Expect sign in on start', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(ShipantherApp("https://dummy.shipanther.ca"));
+    await tester.pumpWidget(ShipantherApp('https://dummy.shipanther.ca'));
 
     expect(find.byIcon(Icons.verified_user), findsOneWidget);
     expect(find.byIcon(Icons.person_add), findsNothing);

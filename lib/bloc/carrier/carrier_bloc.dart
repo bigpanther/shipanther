@@ -38,7 +38,7 @@ class CarrierBloc extends Bloc<CarrierEvent, CarrierState> {
         yield CarriersLoaded(carriers, null);
       }
       if (event is DeleteCarrier) {
-        yield CarrierFailure("Carrier deletion is not supported");
+        yield CarrierFailure('Carrier deletion is not supported');
       }
     } catch (e) {
       yield CarrierFailure('Request failed: $e');

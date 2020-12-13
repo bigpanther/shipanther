@@ -19,15 +19,15 @@ class UserList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat formatter = DateFormat('dd-MM-yyyy');
+    final formatter = DateFormat('dd-MM-yyyy');
     var title = ShipantherLocalizations.of(context).usersTitle;
-    List<Widget> actions = [
+    var actions = <Widget>[
       FilterButton<UserRole>(
         possibleValues: UserRole.values,
         isActive: true,
         activeFilter: userLoadedState.userRole,
         onSelected: (t) => context.read<UserBloc>().add(GetUsers(t)),
-        tooltip: "Filter User type",
+        tooltip: 'Filter User type',
       )
     ];
 
@@ -72,24 +72,24 @@ class UserList extends StatelessWidget {
               ),
               children: [
                 Text(
-                  "Email Id: ${t.email}",
+                  'Email Id: ${t.email}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Role: ${t.role}",
+                  'Role: ${t.role}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Created At: ${formatter.format(t.createdAt).toString()}",
+                  'Created At: ${formatter.format(t.createdAt).toString()}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  "Last Update: ${formatter.format(t.updatedAt).toString()}",
+                  'Last Update: ${formatter.format(t.updatedAt).toString()}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 loggedInUser.isSuperAdmin
                     ? Text(
-                        "Tenant ID: ${t.tenantId}",
+                        'Tenant ID: ${t.tenantId}',
                         style: Theme.of(context).textTheme.subtitle1,
                       )
                     : Text(''),

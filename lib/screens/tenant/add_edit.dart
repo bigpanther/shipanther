@@ -33,7 +33,7 @@ class _TenantAddEditState extends State<TenantAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? "Edit tenant" : "Add new tenant",
+          widget.isEdit ? 'Edit tenant' : 'Add new tenant',
         ),
         centerTitle: true,
       ),
@@ -53,12 +53,12 @@ class _TenantAddEditState extends State<TenantAddEdit> {
                 style: Theme.of(context).textTheme.headline5,
                 decoration: InputDecoration(hintText: 'Tenant Name'),
                 validator: (val) => val.trim().isEmpty
-                    ? "Tenant name should not be empty"
+                    ? 'Tenant name should not be empty'
                     : null,
                 onSaved: (value) => _tenantName = value,
               ),
               smartSelect<TenantType>(
-                title: "Tenant type",
+                title: 'Tenant type',
                 onChange: (state) => _tenantType = state.value,
                 choiceItems: S2Choice.listFrom<TenantType, TenantType>(
                   source: TenantType.values,
