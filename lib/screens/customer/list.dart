@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/customer/add_edit.dart';
@@ -38,8 +37,6 @@ class CustomerList extends StatelessWidget {
             ),
             child: ExpansionTile(
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
-              // subtitle: Text(t.id),
-              // tilePadding: EdgeInsets.all(5),
               leading: Icon(Icons.people),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
@@ -64,11 +61,11 @@ class CustomerList extends StatelessWidget {
               ),
               children: [
                 Text(
-                  'Created At: ${formatter.format(t.createdAt).toString()}',
+                  'Created At: ${formatter.format(t.createdAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  'Last Update: ${formatter.format(t.updatedAt).toString()}',
+                  'Last Update: ${formatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 loggedInUser.isSuperAdmin

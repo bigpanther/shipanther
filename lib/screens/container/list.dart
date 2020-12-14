@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:shipanther/bloc/container/container_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/container/add_edit.dart';
@@ -68,7 +68,7 @@ class ContainerList extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  'Last Update: ${ShipantherLocalizations.of(context).dateFormatter.format(t.updatedAt).toString()}',
+                  'Last Update: ${ShipantherLocalizations.of(context).dateFormatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],

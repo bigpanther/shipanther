@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:shipanther/bloc/container/container_bloc.dart';
 
 import 'package:shipanther/l10n/shipanther_localization.dart';

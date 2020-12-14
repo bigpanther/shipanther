@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/extensions/terminal_extension.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
@@ -73,11 +73,11 @@ class TerminalList extends StatelessWidget {
               ),
               children: [
                 Text(
-                  'Created At: ${formatter.format(t.createdAt).toString()}',
+                  'Created At: ${formatter.format(t.createdAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  'Last Update: ${formatter.format(t.updatedAt).toString()}',
+                  'Last Update: ${formatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 loggedInUser.isSuperAdmin

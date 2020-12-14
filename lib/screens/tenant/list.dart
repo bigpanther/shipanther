@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/tenant/add_edit.dart';
@@ -74,11 +74,11 @@ class TenantList extends StatelessWidget {
               ),
               children: [
                 Text(
-                  'Created At: ${formatter.format(t.createdAt).toString()}',
+                  'Created At: ${formatter.format(t.createdAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  'Last Update: ${formatter.format(t.updatedAt).toString()}',
+                  'Last Update: ${formatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],
