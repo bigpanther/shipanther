@@ -37,7 +37,6 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
   api.CarrierType _carrierType;
   api.Tenant _tenant;
   DateTime _eta;
-  final formatter = DateFormat('dd-MM-yyyy ');
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
 
@@ -98,7 +97,8 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                               Text(_eta == null
                                   ? ShipantherLocalizations.of(context)
                                       .noDateChosen
-                                  : DateFormat('dd-MM-yy - kk:mm')
+                                  : ShipantherLocalizations.of(context)
+                                      .dateTimeFormatter
                                       .format(_eta)),
                               IconButton(
                                 icon: Icon(Icons.calendar_today),

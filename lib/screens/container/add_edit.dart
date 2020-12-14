@@ -93,6 +93,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
           ? widget.container.order.serialNumber
           : widget.container.orderId;
     }
+    final formatter = ShipantherLocalizations.of(context).dateTimeFormatter;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -152,10 +153,9 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                                 ? widget.container.reservationTime == null
                                     ? ShipantherLocalizations.of(context)
                                         .noDateChosen
-                                    : DateFormat('dd-MM-yy - kk:mm').format(
+                                    : formatter.format(
                                         widget.container.reservationTime)
-                                : DateFormat('dd-MM-yy - kk:mm')
-                                    .format(_reservationTime)),
+                                : formatter.format(_reservationTime)),
                             IconButton(
                               icon: Icon(Icons.calendar_today),
                               onPressed: _presentDateTimePickerReservationTime,
@@ -181,9 +181,8 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                                 ? widget.container.lfd == null
                                     ? ShipantherLocalizations.of(context)
                                         .noDateChosen
-                                    : DateFormat('dd-MM-yy - kk:mm')
-                                        .format(widget.container.lfd)
-                                : DateFormat('dd-MM-yy - kk:mm').format(_lfd)),
+                                    : formatter.format(widget.container.lfd)
+                                : formatter.format(_lfd)),
                             IconButton(
                               icon: Icon(Icons.calendar_today),
                               onPressed: _presentDateTimePickerlfd,

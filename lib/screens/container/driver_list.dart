@@ -108,14 +108,16 @@ class _DriverContainerListState extends State<DriverContainerList> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          DateFormat('dd-MM-yyyy')
+                          ShipantherLocalizations.of(context)
+                              .dateFormatter
                               .format(t.reservationTime ?? DateTime.now()),
                           style: TextStyle(
                               fontSize: 15,
                               color: Color.fromRGBO(204, 255, 0, 1)),
                         ),
                         Text(
-                          DateFormat('kk:mm')
+                          ShipantherLocalizations.of(context)
+                              .timeFormatter
                               .format(t.reservationTime ?? DateTime.now()),
                           style: TextStyle(fontSize: 15),
                         ),

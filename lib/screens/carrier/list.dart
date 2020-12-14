@@ -18,7 +18,7 @@ class CarrierList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = DateFormat('dd-MM-yyyy');
+    final formatter = ShipantherLocalizations.of(context).dateFormatter;
     var title = ShipantherLocalizations.of(context).carriersTitle;
     var actions = <Widget>[];
     ;
