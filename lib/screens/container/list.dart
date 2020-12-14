@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:shipanther/bloc/container/container_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/container/add_edit.dart';
@@ -20,8 +20,6 @@ class ContainerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = DateFormat('dd-MM-yyyy');
-
     var title = ShipantherLocalizations.of(context).containersTitle;
     var actions = <Widget>[];
     Widget body = ListView.builder(
@@ -70,7 +68,7 @@ class ContainerList extends StatelessWidget {
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  'Last Update: ${formatter.format(t.updatedAt).toString()}',
+                  'Last Update: ${ShipantherLocalizations.of(context).dateFormatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],

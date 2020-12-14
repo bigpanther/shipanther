@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/tenant/add_edit.dart';
@@ -22,7 +22,7 @@ class TenantList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = DateFormat('dd-MM-yyyy');
+    final formatter = ShipantherLocalizations.of(context).dateFormatter;
 
     var title = ShipantherLocalizations.of(context).tenantsTitle;
     var actions = <Widget>[
@@ -49,8 +49,6 @@ class TenantList extends StatelessWidget {
             ),
             child: ExpansionTile(
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
-              // subtitle: Text(t.id),
-              // tilePadding: EdgeInsets.all(5),
               leading: Icon(t.type.icon),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
@@ -74,11 +72,11 @@ class TenantList extends StatelessWidget {
               ),
               children: [
                 Text(
-                  'Created At: ${formatter.format(t.createdAt).toString()}',
+                  'Created At: ${formatter.format(t.createdAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  'Last Update: ${formatter.format(t.updatedAt).toString()}',
+                  'Last Update: ${formatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],

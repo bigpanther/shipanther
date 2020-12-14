@@ -17,11 +17,7 @@ class TenantDetail extends StatelessWidget {
           IconButton(
             tooltip: 'Delete Tenant',
             icon: Icon(Icons.delete),
-            onPressed: () {
-              // context
-              //     .read<TenantBloc>()
-              //     .add(DeleteTenant(state.tenant.id));
-            },
+            onPressed: () {},
           )
         ],
       ),

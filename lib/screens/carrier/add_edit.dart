@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:intl/intl.dart';
+
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
@@ -37,7 +37,6 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
   api.CarrierType _carrierType;
   api.Tenant _tenant;
   DateTime _eta;
-  final formatter = DateFormat('dd-MM-yyyy ');
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
 
@@ -98,7 +97,8 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                               Text(_eta == null
                                   ? ShipantherLocalizations.of(context)
                                       .noDateChosen
-                                  : DateFormat('dd-MM-yy - kk:mm')
+                                  : ShipantherLocalizations.of(context)
+                                      .dateTimeFormatter
                                       .format(_eta)),
                               IconButton(
                                 icon: Icon(Icons.calendar_today),

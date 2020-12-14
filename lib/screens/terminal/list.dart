@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/extensions/terminal_extension.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
@@ -20,7 +20,7 @@ class TerminalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = DateFormat('dd-MM-yyyy');
+    final formatter = ShipantherLocalizations.of(context).dateFormatter;
     var title = ShipantherLocalizations.of(context).terminalsTitle;
     var actions = <Widget>[
       FilterButton<TerminalType>(
@@ -47,8 +47,6 @@ class TerminalList extends StatelessWidget {
             ),
             child: ExpansionTile(
               childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
-              // subtitle: Text(t.id),
-              // tilePadding: EdgeInsets.all(5),
               leading: Icon(t.type.icon),
               trailing: IconButton(
                 icon: Icon(Icons.edit),
@@ -73,11 +71,11 @@ class TerminalList extends StatelessWidget {
               ),
               children: [
                 Text(
-                  'Created At: ${formatter.format(t.createdAt).toString()}',
+                  'Created At: ${formatter.format(t.createdAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  'Last Update: ${formatter.format(t.updatedAt).toString()}',
+                  'Last Update: ${formatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 loggedInUser.isSuperAdmin

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:shipanther/bloc/order/order_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/order/add_edit.dart';
@@ -20,7 +20,7 @@ class OrderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = DateFormat('dd-MM-yyyy');
+    final formatter = ShipantherLocalizations.of(context).dateFormatter;
     var title = ShipantherLocalizations.of(context).ordersTitle;
     var actions = <Widget>[
       FilterButton<OrderStatus>(
@@ -61,7 +61,7 @@ class OrderList extends StatelessWidget {
               ),
               children: [
                 Text(
-                  'Created At: ${formatter.format(t.createdAt).toString()}',
+                  'Created At: ${formatter.format(t.createdAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 (t.customer != null)
@@ -71,7 +71,7 @@ class OrderList extends StatelessWidget {
                       )
                     : Text(''),
                 Text(
-                  'Last Update: ${formatter.format(t.updatedAt).toString()}',
+                  'Last Update: ${formatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 loggedInUser.isSuperAdmin

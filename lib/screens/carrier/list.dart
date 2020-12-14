@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/extensions/carrier_extension.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
@@ -18,10 +18,9 @@ class CarrierList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = DateFormat('dd-MM-yyyy');
+    final formatter = ShipantherLocalizations.of(context).dateFormatter;
     var title = ShipantherLocalizations.of(context).carriersTitle;
     var actions = <Widget>[];
-    ;
 
     Widget body = ListView.builder(
       itemCount: carrierLoadedState.carriers.length,
@@ -63,16 +62,16 @@ class CarrierList extends StatelessWidget {
               children: [
                 t.eta != null
                     ? Text(
-                        'ETA: ${formatter.format(t.eta).toString()}',
+                        'ETA: ${formatter.format(t.eta)}',
                         style: Theme.of(context).textTheme.subtitle1,
                       )
                     : Text(''),
                 Text(
-                  'Created At: ${t.createdAt ?? formatter.format(t.createdAt).toString()}',
+                  'Created At: ${t.createdAt ?? formatter.format(t.createdAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 Text(
-                  'Last Update: ${t.updatedAt ?? formatter.format(t.updatedAt).toString()}',
+                  'Last Update: ${t.updatedAt ?? formatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 loggedInUser.isSuperAdmin
