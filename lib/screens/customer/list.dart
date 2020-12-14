@@ -20,7 +20,6 @@ class CustomerList extends StatelessWidget {
     final formatter = ShipantherLocalizations.of(context).dateFormatter;
     var title = ShipantherLocalizations.of(context).customersTitle;
     var actions = <Widget>[];
-    ;
 
     Widget body = ListView.builder(
       itemCount: customerLoadedState.customers.length,

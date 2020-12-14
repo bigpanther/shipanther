@@ -21,7 +21,6 @@ class CarrierList extends StatelessWidget {
     final formatter = ShipantherLocalizations.of(context).dateFormatter;
     var title = ShipantherLocalizations.of(context).carriersTitle;
     var actions = <Widget>[];
-    ;
 
     Widget body = ListView.builder(
       itemCount: carrierLoadedState.carriers.length,
