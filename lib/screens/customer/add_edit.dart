@@ -8,18 +8,16 @@ import 'package:trober_sdk/api.dart' as api;
 import 'package:shipanther/extensions/user_extension.dart';
 
 class CustomerAddEdit extends StatefulWidget {
-  final api.User loggedInUser;
-  final api.Customer customer;
-  final CustomerBloc customerBloc;
-  final bool isEdit;
-
-  CustomerAddEdit(
+  const CustomerAddEdit(
     this.loggedInUser, {
-    Key key,
     @required this.customer,
     @required this.customerBloc,
     @required this.isEdit,
   });
+  final api.User loggedInUser;
+  final api.Customer customer;
+  final CustomerBloc customerBloc;
+  final bool isEdit;
 
   @override
   _CustomerAddEditState createState() => _CustomerAddEditState();
@@ -46,7 +44,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
@@ -57,9 +55,10 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
             children: [
                   TextFormField(
                     initialValue: widget.customer.name ?? '',
-                    autofocus: widget.isEdit ? false : true,
+                    autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: InputDecoration(hintText: 'Customer Name'),
+                    decoration:
+                        const InputDecoration(hintText: 'Customer Name'),
                     validator: (val) => val.trim().isEmpty
                         ? 'Customer name should not be empty'
                         : null,

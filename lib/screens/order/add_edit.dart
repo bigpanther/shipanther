@@ -11,18 +11,16 @@ import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/extensions/order_extension.dart';
 
 class OrderAddEdit extends StatefulWidget {
-  final api.User loggedInUser;
-  final api.Order order;
-  final OrderBloc orderBloc;
-  final bool isEdit;
-
-  OrderAddEdit(
+  const OrderAddEdit(
     this.loggedInUser, {
-    Key key,
     @required this.order,
     @required this.orderBloc,
     @required this.isEdit,
   });
+  final api.User loggedInUser;
+  final api.Order order;
+  final OrderBloc orderBloc;
+  final bool isEdit;
 
   @override
   _OrderAddEditState createState() => _OrderAddEditState();
@@ -56,40 +54,42 @@ class _OrderAddEditState extends State<OrderAddEdit> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
           onWillPop: () {
-            widget.orderBloc.add(GetOrders(null));
+            widget.orderBloc.add(const GetOrders(null));
             return Future(() => true);
           },
           child: ListView(
             children: [
                   TextFormField(
                     initialValue: widget.order.serialNumber ?? '',
-                    autofocus: widget.isEdit ? false : true,
+                    autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: InputDecoration(labelText: 'Order Number'),
+                    decoration:
+                        const InputDecoration(labelText: 'Order Number'),
                     maxLength: 15,
                     validator: (val) => val.trim().isEmpty
                         ? 'Order number should not be empty'
                         : null,
                     onSaved: (value) => _orderSerialNumber = value,
                   ),
-                  !widget.loggedInUser.isCustomer
-                      ? smartSelect<api.OrderStatus>(
-                          title: 'Order status',
-                          onChange: (state) => _orderStatus = state.value,
-                          choiceItems: S2Choice.listFrom<api.OrderStatus,
-                              api.OrderStatus>(
-                            source: api.OrderStatus.values,
-                            value: (index, item) => item,
-                            title: (index, item) => item.text,
-                          ),
-                          value: widget.order.status ?? api.OrderStatus.open,
-                        )
-                      : Container(width: 0.0, height: 0.0),
+                  if (!widget.loggedInUser.isCustomer)
+                    smartSelect<api.OrderStatus>(
+                      title: 'Order status',
+                      onChange: (state) => _orderStatus = state.value,
+                      choiceItems:
+                          S2Choice.listFrom<api.OrderStatus, api.OrderStatus>(
+                        source: api.OrderStatus.values,
+                        value: (index, item) => item,
+                        title: (index, item) => item.text,
+                      ),
+                      value: widget.order.status ?? api.OrderStatus.open,
+                    )
+                  else
+                    Container(width: 0.0, height: 0.0),
                   // Hack to avoid runtime type mismatch.
                   Container(width: 0.0, height: 0.0),
                 ] +

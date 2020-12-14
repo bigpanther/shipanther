@@ -7,17 +7,17 @@ import 'package:shipanther/data/auth/auth_repository.dart';
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class FireBaseAuthRepository extends AuthRepository {
-  final FirebaseMessaging _firebaseMessaging;
   FireBaseAuthRepository(this._firebaseMessaging);
+  final FirebaseMessaging _firebaseMessaging;
 
   @override
   Future<User> registerUser(
       String name, String username, String password) async {
-    var userCreds = await _auth.createUserWithEmailAndPassword(
+    final userCreds = await _auth.createUserWithEmailAndPassword(
       email: username,
       password: password,
     );
-    var user = userCreds.user;
+    final user = userCreds.user;
 
     if (user == null) {
       throw AuthenticationException();
@@ -35,11 +35,11 @@ class FireBaseAuthRepository extends AuthRepository {
 
   @override
   Future<User> fetchAuthUser(String username, String password) async {
-    var userCreds = await _auth.signInWithEmailAndPassword(
+    final userCreds = await _auth.signInWithEmailAndPassword(
       email: username,
       password: password,
     );
-    var user = userCreds.user;
+    final user = userCreds.user;
     if (user == null) {
       throw AuthenticationException();
     }
@@ -57,7 +57,7 @@ class FireBaseAuthRepository extends AuthRepository {
 
   @override
   Future<String> deviceToken() async {
-    var deviceToken = await _firebaseMessaging.getToken();
+    final deviceToken = await _firebaseMessaging.getToken();
     return deviceToken;
   }
 

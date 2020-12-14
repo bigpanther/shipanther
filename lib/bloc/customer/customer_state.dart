@@ -15,11 +15,11 @@ class CustomerLoading extends CustomerState {}
 // }
 
 class CustomersLoaded extends CustomerState {
-  final List<Customer> customers;
   const CustomersLoaded(this.customers);
+  final List<Customer> customers;
 }
 
 class CustomerFailure extends CustomerState {
-  final String message;
   const CustomerFailure(this.message);
+  final String message;
 }

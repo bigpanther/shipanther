@@ -6,32 +6,32 @@ abstract class UserEvent {
 }
 
 class UserLogin extends UserEvent {
-  final Future<String> deviceToken;
   const UserLogin(this.deviceToken);
+  final Future<String> deviceToken;
 }
 
 class GetUser extends UserEvent {
-  final String id;
   const GetUser(this.id);
+  final String id;
 }
 
 class UpdateUser extends UserEvent {
+  const UpdateUser(this.id, this.user);
   final String id;
   final User user;
-  const UpdateUser(this.id, this.user);
 }
 
 class CreateUser extends UserEvent {
-  final User user;
   const CreateUser(this.user);
+  final User user;
 }
 
 class DeleteUser extends UserEvent {
-  final String id;
   const DeleteUser(this.id);
+  final String id;
 }
 
 class GetUsers extends UserEvent {
-  final UserRole userRole;
   const GetUsers(this.userRole);
+  final UserRole userRole;
 }

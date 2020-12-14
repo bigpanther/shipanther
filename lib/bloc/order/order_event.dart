@@ -6,27 +6,27 @@ abstract class OrderEvent {
 }
 
 class GetOrder extends OrderEvent {
-  final String id;
   const GetOrder(this.id);
+  final String id;
 }
 
 class UpdateOrder extends OrderEvent {
+  const UpdateOrder(this.id, this.order);
   final String id;
   final Order order;
-  const UpdateOrder(this.id, this.order);
 }
 
 class CreateOrder extends OrderEvent {
-  final Order order;
   const CreateOrder(this.order);
+  final Order order;
 }
 
 class DeleteOrder extends OrderEvent {
-  final String id;
   const DeleteOrder(this.id);
+  final String id;
 }
 
 class GetOrders extends OrderEvent {
-  final OrderStatus orderStatus;
   const GetOrders(this.orderStatus);
+  final OrderStatus orderStatus;
 }

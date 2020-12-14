@@ -8,8 +8,9 @@ import 'package:trober_sdk/api.dart' as api;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage(this.user);
+
   final api.User user;
-  ProfilePage(this.user);
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -26,14 +27,14 @@ class _ProfilePageState extends State<ProfilePage> {
     return ShipantherScaffold(
       widget.user,
       title: ShipantherLocalizations.of(context).profile,
-      actions: [],
+      actions: const [],
       body: ListView(
         children: [
           Column(
             children: [
               Stack(
                 children: <Widget>[
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 70,
                     child: ClipOval(
                       child: Icon(
@@ -48,14 +49,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Container(
                         height: 40,
                         width: 40,
-                        child: Icon(
+                        child: const Icon(
                           Icons.add_a_photo,
                           color: Colors.white,
                         ),
-                        decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                        decoration: const BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
                       ))
                 ],
               ),
@@ -70,8 +71,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text(_updatedName ?? widget.user.name),
                       ],
                     ),
-                    trailing: Icon(Icons.edit),
-                    childrenPadding: EdgeInsets.only(left: 10, right: 10),
+                    trailing: const Icon(Icons.edit),
+                    childrenPadding: const EdgeInsets.only(left: 10, right: 10),
                     children: [
                       Column(
                         children: [
@@ -127,8 +128,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: ExpansionTile(
                     title: Text(
                         ShipantherLocalizations.of(context).changePassword),
-                    trailing: Icon(Icons.edit),
-                    childrenPadding: EdgeInsets.all(8),
+                    trailing: const Icon(Icons.edit),
+                    childrenPadding: const EdgeInsets.all(8),
                     children: [
                       Column(
                         children: [

@@ -11,45 +11,48 @@ import 'package:shipanther/extensions/user_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TerminalList extends StatelessWidget {
-  final TerminalBloc terminalBloc;
-  final TerminalsLoaded terminalLoadedState;
-  final User loggedInUser;
   const TerminalList(this.loggedInUser,
       {Key key, @required this.terminalLoadedState, this.terminalBloc})
       : super(key: key);
 
+  final TerminalBloc terminalBloc;
+  final TerminalsLoaded terminalLoadedState;
+  final User loggedInUser;
+
   @override
   Widget build(BuildContext context) {
     final formatter = ShipantherLocalizations.of(context).dateFormatter;
-    var title = ShipantherLocalizations.of(context).terminalsTitle;
-    var actions = <Widget>[
+    final title = ShipantherLocalizations.of(context).terminalsTitle;
+    final actions = <Widget>[
       FilterButton<TerminalType>(
         possibleValues: TerminalType.values,
         isActive: true,
         activeFilter: terminalLoadedState.terminalType,
-        onSelected: (t) => context.read<TerminalBloc>().add(GetTerminals(t)),
+        onSelected: (t) => context.read<TerminalBloc>().add(
+              GetTerminals(t),
+            ),
         tooltip: 'Filter Terminal type',
       )
     ];
 
-    Widget body = ListView.builder(
+    final Widget body = ListView.builder(
       itemCount: terminalLoadedState.terminals.length,
       itemBuilder: (BuildContext context, int index) {
-        var t = terminalLoadedState.terminals.elementAt(index);
+        final t = terminalLoadedState.terminals.elementAt(index);
         return Padding(
           padding: const EdgeInsets.all(3.0),
           child: Card(
             elevation: 1,
-            shape: RoundedRectangleBorder(
-              borderRadius: const BorderRadius.all(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
                 Radius.circular(8.0),
               ),
             ),
             child: ExpansionTile(
-              childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
+              childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
               leading: Icon(t.type.icon),
               trailing: IconButton(
-                icon: Icon(Icons.edit),
+                icon: const Icon(Icons.edit),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -78,21 +81,22 @@ class TerminalList extends StatelessWidget {
                   'Last Update: ${formatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                loggedInUser.isSuperAdmin
-                    ? Text(
-                        'Tenant ID: ${t.tenantId}',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      )
-                    : Text(''),
+                if (loggedInUser.isSuperAdmin)
+                  Text(
+                    'Tenant ID: ${t.tenantId}',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  )
+                else
+                  const Text(''),
               ],
             ),
           ),
         );
       },
     );
-    Widget floatingActionButton = FloatingActionButton(
+    final Widget floatingActionButton = FloatingActionButton(
       tooltip: 'Add terminal',
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,

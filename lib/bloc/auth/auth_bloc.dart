@@ -9,9 +9,8 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  AuthBloc(this._authRepository) : super(const AuthInitial());
   final AuthRepository _authRepository;
-
-  AuthBloc(this._authRepository) : super(AuthInitial());
 
   @override
   Stream<AuthState> mapEventToState(
@@ -42,10 +41,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
       if (event is AuthLogout) {
         await _authRepository.logout();
-        yield AuthInitial();
+        yield const AuthInitial();
       }
       if (event is AuthCheck) {
-        var user = _authRepository.loggedInUser();
+        final user = _authRepository.loggedInUser();
         if (user != null) {
           if (user.emailVerified) {
             yield AuthFinished(user, event.authType);
@@ -53,11 +52,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             yield AuthVerification(user);
           }
         } else {
-          yield AuthInitial();
+          yield const AuthInitial();
         }
       }
       if (event is CheckVerified) {
-        var user = await _authRepository.refreshUserProfile();
+        final user = await _authRepository.refreshUserProfile();
         if (user.emailVerified) {
           yield AuthFinished(user, AuthTypeSelector.signIn);
         } else {
@@ -66,23 +65,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
       if (event is ForgotPassword) {
         await _authRepository.resetPassword(event.email);
-        yield AuthInitial();
+        yield const AuthInitial();
       }
       if (event is ResendEmail) {
         await event.user.sendEmailVerification();
         yield AuthEmailResent(event.user);
       }
       if (event is UpdatePassword) {
-        var user = _authRepository.loggedInUser();
-        // TODO: Validate old password here
+        final user = _authRepository.loggedInUser();
+        // TODO(harsimranmaan): Validate old password here, https://github.com/bigpanther/shipanther/issues/184
         await user.updatePassword(event.newPassword);
 
-        yield AuthInitial();
+        yield const AuthInitial();
       }
       if (event is UpdateName) {
-        var user = _authRepository.loggedInUser();
+        final user = _authRepository.loggedInUser();
         await user.updateProfile(displayName: event.name);
-        yield AuthInitial();
+        yield const AuthInitial();
       }
     } catch (e) {
       yield AuthFailure('Request failed: $e', event.authType);

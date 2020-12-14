@@ -51,7 +51,7 @@ class ShipantherScaffold extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
                 _createHeader(context, user),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
               ] +
@@ -64,7 +64,7 @@ class ShipantherScaffold extends StatelessWidget {
 }
 
 List<Widget> drawerItemsFor(BuildContext context, api.User user) {
-  var widgets = <Widget>[];
+  final widgets = <Widget>[];
   widgets.add(
     _createDrawerItem(
       icon: Icons.home,
@@ -171,12 +171,12 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
       icon: MdiIcons.license,
       text: ShipantherLocalizations.of(context).aboutUs,
       onTap: () async {
-        var packageInfo = await PackageInfo.fromPlatform();
-        var appName = packageInfo.appName;
-        var version = packageInfo.version;
+        final packageInfo = await PackageInfo.fromPlatform();
+        final appName = packageInfo.appName;
+        final version = packageInfo.version;
         showAboutDialog(
           context: context,
-          applicationIcon: Image(
+          applicationIcon: const Image(
             image: AssetImage('assets/images/shipanther_logo.png'),
             width: 48.0,
             height: 48.0,
@@ -186,10 +186,10 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
           applicationLegalese: '©2020 Big Panther Technologies Inc.',
           children: <Widget>[
             Padding(
-                padding: EdgeInsets.only(top: 15),
+                padding: const EdgeInsets.only(top: 15),
                 child: Center(
                   child: Column(
-                    children: [
+                    children: const [
                       Text('Built with ♥️ in Canada'),
                       Text('Reach us at info@bigpanther.ca'),
                     ],
@@ -206,10 +206,14 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
       icon: Icons.logout,
       text: ShipantherLocalizations.of(context).logout,
       onTap: () {
-        context.read<AuthBloc>().add(AuthLogout());
+        context.read<AuthBloc>().add(
+              const AuthLogout(),
+            );
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute<SignInOrRegistrationPage>(
-                builder: (_) => SignInOrRegistrationPage()));
+          MaterialPageRoute<SignInOrRegistrationPage>(
+            builder: (_) => SignInOrRegistrationPage(),
+          ),
+        );
       },
     ),
   );
@@ -223,10 +227,10 @@ Widget _createDrawerItem(
       children: <Widget>[
         Icon(icon),
         Padding(
-          padding: EdgeInsets.only(left: 8.0),
+          padding: const EdgeInsets.only(left: 8.0),
           child: Text(
             text,
-            style: TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 18),
           ),
         )
       ],
@@ -237,26 +241,29 @@ Widget _createDrawerItem(
 
 Widget _createHeader(BuildContext context, api.User user) {
   return UserAccountsDrawerHeader(
-    accountEmail: Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+    accountEmail: const Padding(
+      padding: EdgeInsets.only(top: 8.0),
       child: Text(
         'Shipanther',
         style: TextStyle(fontSize: 22),
       ),
     ),
     onDetailsPressed: () => Navigator.of(context).pushReplacement(
-        MaterialPageRoute<ProfilePage>(builder: (_) => ProfilePage(user))),
+      MaterialPageRoute<ProfilePage>(
+        builder: (_) => ProfilePage(user),
+      ),
+    ),
     accountName: Row(
       children: <Widget>[
         Container(
           width: 50,
           height: 50,
-          decoration: BoxDecoration(shape: BoxShape.circle),
-          child: CircleAvatar(
+          decoration: const BoxDecoration(shape: BoxShape.circle),
+          child: const CircleAvatar(
             child: Icon(Icons.person),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
         Column(

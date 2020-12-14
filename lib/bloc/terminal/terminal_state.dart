@@ -10,17 +10,17 @@ class TerminalInitial extends TerminalState {}
 class TerminalLoading extends TerminalState {}
 
 class TerminalLoaded extends TerminalState {
-  final Terminal terminal;
   const TerminalLoaded(this.terminal);
+  final Terminal terminal;
 }
 
 class TerminalsLoaded extends TerminalState {
+  const TerminalsLoaded(this.terminals, this.terminalType);
   final List<Terminal> terminals;
   final TerminalType terminalType;
-  const TerminalsLoaded(this.terminals, this.terminalType);
 }
 
 class TerminalFailure extends TerminalState {
-  final String message;
   const TerminalFailure(this.message);
+  final String message;
 }

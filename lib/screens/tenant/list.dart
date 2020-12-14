@@ -10,48 +10,50 @@ import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/tenant_extension.dart';
 
 class TenantList extends StatelessWidget {
-  final TenantBloc tenantBloc;
-  final TenantsLoaded tenantLoadedState;
-  final User loggedInUser;
   const TenantList(
     this.loggedInUser, {
     Key key,
     @required this.tenantLoadedState,
     this.tenantBloc,
   }) : super(key: key);
+  final TenantBloc tenantBloc;
+  final TenantsLoaded tenantLoadedState;
+  final User loggedInUser;
 
   @override
   Widget build(BuildContext context) {
     final formatter = ShipantherLocalizations.of(context).dateFormatter;
 
-    var title = ShipantherLocalizations.of(context).tenantsTitle;
-    var actions = <Widget>[
+    final title = ShipantherLocalizations.of(context).tenantsTitle;
+    final actions = <Widget>[
       FilterButton<TenantType>(
         possibleValues: TenantType.values,
         isActive: true,
         activeFilter: tenantLoadedState.tenantType,
-        onSelected: (t) => context.read<TenantBloc>().add(GetTenants(t)),
+        onSelected: (t) => context.read<TenantBloc>().add(
+              GetTenants(t),
+            ),
         tooltip: 'Filter Tenant type',
       )
     ];
-    Widget body = ListView.builder(
+    final Widget body = ListView.builder(
       itemCount: tenantLoadedState.tenants.length,
       itemBuilder: (BuildContext context, int index) {
-        var t = tenantLoadedState.tenants.elementAt(index);
+        final t = tenantLoadedState.tenants.elementAt(index);
         return Padding(
           padding: const EdgeInsets.all(3.0),
           child: Card(
             elevation: 1,
-            shape: RoundedRectangleBorder(
-              borderRadius: const BorderRadius.all(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
                 Radius.circular(8.0),
               ),
             ),
             child: ExpansionTile(
-              childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
+              childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
               leading: Icon(t.type.icon),
               trailing: IconButton(
-                icon: Icon(Icons.edit),
+                icon: const Icon(Icons.edit),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -86,9 +88,9 @@ class TenantList extends StatelessWidget {
       },
     );
 
-    Widget floatingActionButton = FloatingActionButton(
+    final Widget floatingActionButton = FloatingActionButton(
       tooltip: 'Add tenant',
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,

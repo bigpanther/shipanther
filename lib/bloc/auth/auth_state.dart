@@ -2,8 +2,8 @@ part of 'auth_bloc.dart';
 
 @immutable
 abstract class AuthState {
-  final AuthTypeSelector authType;
   const AuthState(this.authType);
+  final AuthTypeSelector authType;
 }
 
 class AuthInitial extends AuthState {
@@ -15,8 +15,8 @@ class AuthLoading extends AuthState {
 }
 
 class AuthFinished extends AuthState {
-  final User user;
   const AuthFinished(this.user, AuthTypeSelector authType) : super(authType);
+  final User user;
 }
 
 class AuthRequested extends AuthState {
@@ -24,13 +24,13 @@ class AuthRequested extends AuthState {
 }
 
 class AuthFailure extends AuthState {
-  final String message;
   const AuthFailure(this.message, AuthTypeSelector authType) : super(authType);
+  final String message;
 }
 
 class AuthVerification extends AuthState {
-  final User user;
   const AuthVerification(this.user) : super(null);
+  final User user;
 }
 
 class AuthEmailResent extends AuthVerification {

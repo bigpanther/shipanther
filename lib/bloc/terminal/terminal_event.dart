@@ -6,27 +6,27 @@ abstract class TerminalEvent {
 }
 
 class GetTerminal extends TerminalEvent {
-  final String id;
   const GetTerminal(this.id);
+  final String id;
 }
 
 class UpdateTerminal extends TerminalEvent {
+  const UpdateTerminal(this.id, this.terminal);
   final String id;
   final Terminal terminal;
-  const UpdateTerminal(this.id, this.terminal);
 }
 
 class CreateTerminal extends TerminalEvent {
-  final Terminal terminal;
   const CreateTerminal(this.terminal);
+  final Terminal terminal;
 }
 
 class DeleteTerminal extends TerminalEvent {
-  final String id;
   const DeleteTerminal(this.id);
+  final String id;
 }
 
 class GetTerminals extends TerminalEvent {
-  final TerminalType terminalType;
   const GetTerminals(this.terminalType);
+  final TerminalType terminalType;
 }

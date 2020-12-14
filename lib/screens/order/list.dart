@@ -11,45 +11,49 @@ import 'package:shipanther/extensions/user_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderList extends StatelessWidget {
-  final OrderBloc orderBloc;
-  final OrdersLoaded orderLoadedState;
-  final User loggedInUser;
   const OrderList(this.loggedInUser,
       {Key key, @required this.orderLoadedState, this.orderBloc})
       : super(key: key);
 
+  final OrderBloc orderBloc;
+  final OrdersLoaded orderLoadedState;
+  final User loggedInUser;
+
   @override
   Widget build(BuildContext context) {
     final formatter = ShipantherLocalizations.of(context).dateFormatter;
-    var title = ShipantherLocalizations.of(context).ordersTitle;
-    var actions = <Widget>[
+    final title = ShipantherLocalizations.of(context).ordersTitle;
+    final actions = <Widget>[
       FilterButton<OrderStatus>(
         possibleValues: OrderStatus.values,
         isActive: true,
         activeFilter: orderLoadedState.orderStatus,
-        onSelected: (t) => context.read<OrderBloc>()..add(GetOrders(t)),
+        onSelected: (t) => context.read<OrderBloc>()
+          ..add(
+            GetOrders(t),
+          ),
         tooltip: 'Filter Order status',
       )
     ];
 
-    Widget body = ListView.builder(
+    final Widget body = ListView.builder(
       itemCount: orderLoadedState.orders.length,
       itemBuilder: (BuildContext context, int index) {
-        var t = orderLoadedState.orders.elementAt(index);
+        final t = orderLoadedState.orders.elementAt(index);
         return Padding(
           padding: const EdgeInsets.all(3.0),
           child: Card(
             elevation: 1,
-            shape: RoundedRectangleBorder(
-              borderRadius: const BorderRadius.all(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
                 Radius.circular(8.0),
               ),
             ),
             child: ExpansionTile(
-              childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
+              childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
               leading: Icon(t.status.icon),
               trailing: IconButton(
-                icon: Icon(Icons.edit),
+                icon: const Icon(Icons.edit),
                 onPressed: () {
                   orderBloc.add(GetOrder(t.id));
                 },
@@ -64,31 +68,33 @@ class OrderList extends StatelessWidget {
                   'Created At: ${formatter.format(t.createdAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                (t.customer != null)
-                    ? Text(
-                        'Customer: ${t.customer.name}',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      )
-                    : Text(''),
+                if (t.customer != null)
+                  Text(
+                    'Customer: ${t.customer.name}',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  )
+                else
+                  const Text(''),
                 Text(
                   'Last Update: ${formatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                loggedInUser.isSuperAdmin
-                    ? Text(
-                        'Tenant ID: ${t.tenantId}',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      )
-                    : Text(''),
+                if (loggedInUser.isSuperAdmin)
+                  Text(
+                    'Tenant ID: ${t.tenantId}',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  )
+                else
+                  const Text(''),
               ],
             ),
           ),
         );
       },
     );
-    Widget floatingActionButton = FloatingActionButton(
+    final Widget floatingActionButton = FloatingActionButton(
       tooltip: 'Add order',
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,

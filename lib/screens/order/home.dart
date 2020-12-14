@@ -8,9 +8,8 @@ import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 class OrderScreen extends StatefulWidget {
-  final api.User loggedInUser;
-
   const OrderScreen(this.loggedInUser, {Key key}) : super(key: key);
+  final api.User loggedInUser;
 
   @override
   _OrderScreenState createState() => _OrderScreenState();
@@ -22,7 +21,7 @@ class _OrderScreenState extends State<OrderScreen> {
   void initState() {
     super.initState();
     bloc = context.read<OrderBloc>();
-    bloc.add(GetOrders(null));
+    bloc.add(const GetOrders(null));
   }
 
   @override
@@ -56,7 +55,7 @@ class _OrderScreenState extends State<OrderScreen> {
           appBar: AppBar(
             title: Text(ShipantherLocalizations.of(context).ordersTitle),
           ),
-          body: CenteredLoading(),
+          body: const CenteredLoading(),
         );
       },
     );

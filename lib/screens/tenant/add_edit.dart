@@ -7,16 +7,15 @@ import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/tenant_extension.dart';
 
 class TenantAddEdit extends StatefulWidget {
-  final Tenant tenant;
-  final TenantBloc tenantBloc;
-  final bool isEdit;
-
-  TenantAddEdit({
-    Key key,
+  const TenantAddEdit({
     @required this.tenant,
     @required this.tenantBloc,
     @required this.isEdit,
   });
+
+  final Tenant tenant;
+  final TenantBloc tenantBloc;
+  final bool isEdit;
 
   @override
   _TenantAddEditState createState() => _TenantAddEditState();
@@ -38,7 +37,7 @@ class _TenantAddEditState extends State<TenantAddEdit> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
@@ -49,9 +48,9 @@ class _TenantAddEditState extends State<TenantAddEdit> {
             children: [
               TextFormField(
                 initialValue: widget.tenant.name ?? '',
-                autofocus: widget.isEdit ? false : true,
+                autofocus: !widget.isEdit,
                 style: Theme.of(context).textTheme.headline5,
-                decoration: InputDecoration(hintText: 'Tenant Name'),
+                decoration: const InputDecoration(hintText: 'Tenant Name'),
                 validator: (val) => val.trim().isEmpty
                     ? 'Tenant name should not be empty'
                     : null,
@@ -83,10 +82,13 @@ class _TenantAddEditState extends State<TenantAddEdit> {
             widget.tenant.name = _tenantName;
             widget.tenant.type = _tenantType;
             if (widget.isEdit) {
-              widget.tenantBloc
-                  .add(UpdateTenant(widget.tenant.id, widget.tenant));
+              widget.tenantBloc.add(
+                UpdateTenant(widget.tenant.id, widget.tenant),
+              );
             } else {
-              widget.tenantBloc.add(CreateTenant(widget.tenant));
+              widget.tenantBloc.add(
+                CreateTenant(widget.tenant),
+              );
             }
 
             Navigator.pop(context);

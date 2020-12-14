@@ -11,18 +11,17 @@ import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/extensions/terminal_extension.dart';
 
 class TerminalAddEdit extends StatefulWidget {
-  final api.User loggedInUser;
-  final api.Terminal terminal;
-  final TerminalBloc terminalBloc;
-  final bool isEdit;
-
-  TerminalAddEdit(
+  const TerminalAddEdit(
     this.loggedInUser, {
-    Key key,
     @required this.terminal,
     @required this.terminalBloc,
     @required this.isEdit,
   });
+
+  final api.User loggedInUser;
+  final api.Terminal terminal;
+  final TerminalBloc terminalBloc;
+  final bool isEdit;
 
   @override
   _TerminalAddEditState createState() => _TerminalAddEditState();
@@ -50,7 +49,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
@@ -61,9 +60,10 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
             children: [
                   TextFormField(
                     initialValue: widget.terminal.name ?? '',
-                    autofocus: widget.isEdit ? false : true,
+                    autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: InputDecoration(hintText: 'Terminal Name'),
+                    decoration:
+                        const InputDecoration(hintText: 'Terminal Name'),
                     validator: (val) => val.trim().isEmpty
                         ? 'Terminal name should not be empty'
                         : null,

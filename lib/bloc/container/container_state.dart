@@ -10,16 +10,16 @@ class ContainerInitial extends ContainerState {}
 class ContainerLoading extends ContainerState {}
 
 class ContainerLoaded extends ContainerState {
-  final Container container;
   const ContainerLoaded(this.container);
+  final Container container;
 }
 
 class ContainersLoaded extends ContainerState {
-  final List<Container> containers;
   const ContainersLoaded(this.containers);
+  final List<Container> containers;
 }
 
 class ContainerFailure extends ContainerState {
-  final String message;
   const ContainerFailure(this.message);
+  final String message;
 }

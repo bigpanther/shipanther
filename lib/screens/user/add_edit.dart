@@ -10,18 +10,16 @@ import 'package:trober_sdk/api.dart' as api;
 import 'package:shipanther/extensions/user_extension.dart';
 
 class UserAddEdit extends StatefulWidget {
-  final api.User loggedInUser;
-  final api.User user;
-  final UserBloc userBloc;
-  final bool isEdit;
-
-  UserAddEdit(
+  const UserAddEdit(
     this.loggedInUser, {
-    Key key,
     @required this.user,
     @required this.userBloc,
     @required this.isEdit,
   });
+  final api.User loggedInUser;
+  final api.User user;
+  final UserBloc userBloc;
+  final bool isEdit;
 
   @override
   _UserAddEditState createState() => _UserAddEditState();
@@ -50,7 +48,7 @@ class _UserAddEditState extends State<UserAddEdit> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
@@ -58,36 +56,36 @@ class _UserAddEditState extends State<UserAddEdit> {
             return Future(() => true);
           },
           child: ListView(
-              children: [
-                    TextFormField(
-                      initialValue: widget.user.name ?? '',
-                      autofocus: widget.isEdit ? false : true,
-                      style: Theme.of(context).textTheme.headline5,
-                      decoration: InputDecoration(hintText: 'User Name'),
-                      validator: (val) => val.trim().isEmpty
-                          ? 'User name should not be empty'
-                          : null,
-                      onSaved: (value) => _userName = value,
+            children: [
+                  TextFormField(
+                    initialValue: widget.user.name ?? '',
+                    autofocus: !widget.isEdit,
+                    style: Theme.of(context).textTheme.headline5,
+                    decoration: const InputDecoration(hintText: 'User Name'),
+                    validator: (val) => val.trim().isEmpty
+                        ? 'User name should not be empty'
+                        : null,
+                    onSaved: (value) => _userName = value,
+                  ),
+                  smartSelect<api.UserRole>(
+                    title: 'User type',
+                    onChange: (state) => _userRole = state.value,
+                    choiceItems: S2Choice.listFrom<api.UserRole, api.UserRole>(
+                      source: api.UserRole.values,
+                      value: (index, item) => item,
+                      title: (index, item) => item.text,
                     ),
-                    smartSelect<api.UserRole>(
-                      title: 'User type',
-                      onChange: (state) => _userRole = state.value,
-                      choiceItems:
-                          S2Choice.listFrom<api.UserRole, api.UserRole>(
-                        source: api.UserRole.values,
-                        value: (index, item) => item,
-                        title: (index, item) => item.text,
-                      ),
-                      value: _userRole,
-                    ),
-                    // Hack to avoid runtime type mismatch.
-                    Container(width: 0.0, height: 0.0),
-                  ] +
-                  tenantSelector(context,
-                      widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                      (api.Tenant suggestion) {
-                    _tenant = suggestion;
-                  }, _tenantTypeAheadController)),
+                    value: _userRole,
+                  ),
+                  // Hack to avoid runtime type mismatch.
+                  Container(width: 0.0, height: 0.0),
+                ] +
+                tenantSelector(
+                    context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
+                    (api.Tenant suggestion) {
+                  _tenant = suggestion;
+                }, _tenantTypeAheadController),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

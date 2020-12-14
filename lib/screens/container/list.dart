@@ -8,38 +8,38 @@ import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 class ContainerList extends StatelessWidget {
-  final ContainerBloc containerBloc;
-  final ContainersLoaded containerLoadedState;
-  final api.User loggedInUser;
   const ContainerList(
     this.loggedInUser, {
     Key key,
     @required this.containerLoadedState,
     this.containerBloc,
   }) : super(key: key);
+  final ContainerBloc containerBloc;
+  final ContainersLoaded containerLoadedState;
+  final api.User loggedInUser;
 
   @override
   Widget build(BuildContext context) {
-    var title = ShipantherLocalizations.of(context).containersTitle;
-    var actions = <Widget>[];
-    Widget body = ListView.builder(
+    final title = ShipantherLocalizations.of(context).containersTitle;
+    final actions = <Widget>[];
+    final Widget body = ListView.builder(
       itemCount: containerLoadedState.containers.length,
       itemBuilder: (BuildContext context, int index) {
-        var t = containerLoadedState.containers.elementAt(index);
+        final t = containerLoadedState.containers.elementAt(index);
         return Padding(
           padding: const EdgeInsets.all(3.0),
           child: Card(
             elevation: 1,
-            shape: RoundedRectangleBorder(
-              borderRadius: const BorderRadius.all(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
                 Radius.circular(8.0),
               ),
             ),
             child: ExpansionTile(
-              childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
-              leading: Icon(Icons.home_work),
+              childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
+              leading: const Icon(Icons.home_work),
               trailing: IconButton(
-                icon: Icon(Icons.edit),
+                icon: const Icon(Icons.edit),
                 onPressed: () {
                   containerBloc.add(GetContainer(t.id));
                 },
@@ -78,9 +78,9 @@ class ContainerList extends StatelessWidget {
       },
     );
 
-    Widget floatingActionButton = FloatingActionButton(
+    final Widget floatingActionButton = FloatingActionButton(
       tooltip: 'Add container',
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,

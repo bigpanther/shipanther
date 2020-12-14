@@ -2,13 +2,7 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 
 class FilterButton<T> extends StatelessWidget {
-  final List<T> possibleValues;
-  final PopupMenuItemSelected<T> onSelected;
-  final T activeFilter;
-  final bool isActive;
-  final String tooltip;
-
-  FilterButton({
+  const FilterButton({
     this.onSelected,
     this.activeFilter,
     this.isActive,
@@ -16,6 +10,12 @@ class FilterButton<T> extends StatelessWidget {
     @required this.possibleValues,
     @required this.tooltip,
   }) : super(key: key);
+
+  final List<T> possibleValues;
+  final PopupMenuItemSelected<T> onSelected;
+  final T activeFilter;
+  final bool isActive;
+  final String tooltip;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class FilterButton<T> extends StatelessWidget {
 
     return AnimatedOpacity(
       opacity: isActive ? 1.0 : 0.0,
-      duration: Duration(milliseconds: 150),
+      duration: const Duration(milliseconds: 150),
       child: isActive ? button : IgnorePointer(child: button),
     );
   }
@@ -65,7 +65,7 @@ class _Button<T> extends StatelessWidget {
       tooltip: tooltip,
       onSelected: onSelected,
       itemBuilder: (BuildContext context) {
-        var items = possibleValues
+        final items = possibleValues
             .map(
               (e) => PopupMenuItem<T>(
                 value: e,
@@ -87,7 +87,7 @@ class _Button<T> extends StatelessWidget {
         );
         return items;
       },
-      icon: Icon(Icons.filter_list),
+      icon: const Icon(Icons.filter_list),
     );
   }
 }

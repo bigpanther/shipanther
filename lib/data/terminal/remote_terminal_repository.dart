@@ -3,36 +3,36 @@ import 'package:shipanther/data/terminal/terminal_repository.dart';
 import 'package:trober_sdk/api.dart';
 
 class RemoteTerminalRepository extends TerminalRepository {
+  const RemoteTerminalRepository(this._apiRepository);
   final ApiRepository _apiRepository;
 
-  const RemoteTerminalRepository(this._apiRepository);
   @override
   Future<Terminal> fetchTerminal(String id) async {
-    var client = await _apiRepository.apiClient();
+    final client = await _apiRepository.apiClient();
     return await client.terminalsIdGet(id);
   }
 
   @override
   Future<List<Terminal>> fetchTerminals() async {
-    var client = await _apiRepository.apiClient();
+    final client = await _apiRepository.apiClient();
     return await client.terminalsGet();
   }
 
   @override
   Future<Terminal> createTerminal(Terminal terminal) async {
-    var client = await _apiRepository.apiClient();
+    final client = await _apiRepository.apiClient();
     return await client.terminalsPost(terminal: terminal);
   }
 
   @override
   Future<Terminal> updateTerminal(String id, Terminal terminal) async {
-    var client = await _apiRepository.apiClient();
+    final client = await _apiRepository.apiClient();
     return await client.terminalsIdPut(id, terminal: terminal);
   }
 
   @override
   Future<List<Terminal>> filterTerminals(TerminalType terminalType) async {
-    var terminals = await fetchTerminals();
+    final terminals = await fetchTerminals();
     if (terminalType == null) {
       return terminals;
     }

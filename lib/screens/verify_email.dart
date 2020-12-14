@@ -6,9 +6,8 @@ import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 
 class VerifyEmail extends StatelessWidget {
-  final User user;
-
   const VerifyEmail(this.user, {Key key}) : super(key: key);
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +17,19 @@ class VerifyEmail extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-              icon: Icon(Icons.logout),
+              icon: const Icon(Icons.logout),
               onPressed: () async {
-                context.read<AuthBloc>().add(AuthLogout());
+                context.read<AuthBloc>().add(
+                      const AuthLogout(),
+                    );
               })
         ],
       ),
       body: Column(
         children: [
-          Text(ShipantherLocalizations.of(context).emailSent(user.email)),
+          Text(
+            ShipantherLocalizations.of(context).emailSent(user.email),
+          ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             alignment: Alignment.center,
@@ -34,7 +37,9 @@ class VerifyEmail extends StatelessWidget {
               icon: Icons.verified_user,
               backgroundColor: Colors.green,
               onPressed: () {
-                context.read<AuthBloc>().add(CheckVerified(user));
+                context.read<AuthBloc>().add(
+                      CheckVerified(user),
+                    );
               },
               text: 'I Verified',
             ),
@@ -46,7 +51,9 @@ class VerifyEmail extends StatelessWidget {
               icon: Icons.email,
               backgroundColor: Colors.amber,
               onPressed: () {
-                context.read<AuthBloc>().add(ResendEmail(user));
+                context.read<AuthBloc>().add(
+                      ResendEmail(user),
+                    );
               },
               text: 'Resend Email',
             ),

@@ -3,26 +3,26 @@ import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/screens/tenant/add_edit.dart';
 
 class TenantDetail extends StatelessWidget {
+  const TenantDetail({Key key, this.state, this.tenantBloc}) : super(key: key);
+
   final TenantLoaded state;
   final TenantBloc tenantBloc;
-
-  const TenantDetail({Key key, this.state, this.tenantBloc}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tenant Details'),
+        title: const Text('Tenant Details'),
         actions: [
           IconButton(
             tooltip: 'Delete Tenant',
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
             onPressed: () {},
           )
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
             Row(
@@ -33,7 +33,7 @@ class TenantDetail extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           top: 8.0,
                           bottom: 16.0,
                         ),
@@ -68,7 +68,7 @@ class TenantDetail extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Edit tenant',
-        child: Icon(Icons.edit),
+        child: const Icon(Icons.edit),
         onPressed: () {
           Navigator.push(
             context,

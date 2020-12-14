@@ -10,17 +10,17 @@ class TenantInitial extends TenantState {}
 class TenantLoading extends TenantState {}
 
 class TenantLoaded extends TenantState {
-  final Tenant tenant;
   const TenantLoaded(this.tenant);
+  final Tenant tenant;
 }
 
 class TenantsLoaded extends TenantState {
+  const TenantsLoaded(this.tenants, this.tenantType);
   final List<Tenant> tenants;
   final TenantType tenantType;
-  const TenantsLoaded(this.tenants, this.tenantType);
 }
 
 class TenantFailure extends TenantState {
-  final String message;
   const TenantFailure(this.message);
+  final String message;
 }

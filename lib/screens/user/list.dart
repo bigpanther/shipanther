@@ -10,45 +10,48 @@ import 'package:shipanther/extensions/user_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserList extends StatelessWidget {
-  final UserBloc userBloc;
-  final UsersLoaded userLoadedState;
-  final User loggedInUser;
   const UserList(this.loggedInUser,
       {Key key, @required this.userLoadedState, this.userBloc})
       : super(key: key);
 
+  final UserBloc userBloc;
+  final UsersLoaded userLoadedState;
+  final User loggedInUser;
+
   @override
   Widget build(BuildContext context) {
     final formatter = ShipantherLocalizations.of(context).dateFormatter;
-    var title = ShipantherLocalizations.of(context).usersTitle;
-    var actions = <Widget>[
+    final title = ShipantherLocalizations.of(context).usersTitle;
+    final actions = <Widget>[
       FilterButton<UserRole>(
         possibleValues: UserRole.values,
         isActive: true,
         activeFilter: userLoadedState.userRole,
-        onSelected: (t) => context.read<UserBloc>().add(GetUsers(t)),
+        onSelected: (t) => context.read<UserBloc>().add(
+              GetUsers(t),
+            ),
         tooltip: 'Filter User type',
       )
     ];
 
-    Widget body = ListView.builder(
+    final Widget body = ListView.builder(
       itemCount: userLoadedState.users.length,
       itemBuilder: (BuildContext context, int index) {
-        var t = userLoadedState.users.elementAt(index);
+        final t = userLoadedState.users.elementAt(index);
         return Padding(
           padding: const EdgeInsets.all(3.0),
           child: Card(
             elevation: 1,
-            shape: RoundedRectangleBorder(
-              borderRadius: const BorderRadius.all(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
                 Radius.circular(8.0),
               ),
             ),
             child: ExpansionTile(
-              childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
+              childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
               leading: Icon(t.role.icon),
               trailing: IconButton(
-                icon: Icon(Icons.edit),
+                icon: const Icon(Icons.edit),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -85,12 +88,13 @@ class UserList extends StatelessWidget {
                   'Last Update: ${formatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                loggedInUser.isSuperAdmin
-                    ? Text(
-                        'Tenant ID: ${t.tenantId}',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      )
-                    : Text(''),
+                if (loggedInUser.isSuperAdmin)
+                  Text(
+                    'Tenant ID: ${t.tenantId}',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  )
+                else
+                  const Text(''),
               ],
             ),
           ),

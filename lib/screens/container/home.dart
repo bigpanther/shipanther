@@ -13,8 +13,8 @@ import 'package:trober_sdk/api.dart' as api;
 import 'package:shipanther/extensions/user_extension.dart';
 
 class ContainerScreen extends StatefulWidget {
+  const ContainerScreen(this.loggedInUser);
   final api.User loggedInUser;
-  ContainerScreen(this.loggedInUser);
   @override
   _ContainerScreenState createState() => _ContainerScreenState();
 }
@@ -25,7 +25,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
   void initState() {
     super.initState();
     bloc = context.read<ContainerBloc>();
-    bloc.add(GetContainers());
+    bloc.add(const GetContainers());
   }
 
   @override
@@ -62,8 +62,8 @@ class _ContainerScreenState extends State<ContainerScreen> {
           widget.loggedInUser,
           bottomNavigationBar: null,
           title: ShipantherLocalizations.of(context).containersTitle,
-          actions: [],
-          body: CenteredLoading(),
+          actions: const [],
+          body: const CenteredLoading(),
           floatingActionButton: null,
         );
       },

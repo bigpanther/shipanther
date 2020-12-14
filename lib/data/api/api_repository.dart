@@ -7,7 +7,6 @@ abstract class ApiRepository {
 }
 
 class ApiWithUserId extends DefaultApi {
-  final String userId;
-
   ApiWithUserId(ApiClient apiClient, this.userId) : super(apiClient);
+  final String userId;
 }

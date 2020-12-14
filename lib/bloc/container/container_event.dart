@@ -6,24 +6,24 @@ abstract class ContainerEvent {
 }
 
 class GetContainer extends ContainerEvent {
-  final String id;
   const GetContainer(this.id);
+  final String id;
 }
 
 class UpdateContainer extends ContainerEvent {
+  const UpdateContainer(this.id, this.container);
   final String id;
   final Container container;
-  const UpdateContainer(this.id, this.container);
 }
 
 class CreateContainer extends ContainerEvent {
-  final Container container;
   const CreateContainer(this.container);
+  final Container container;
 }
 
 class DeleteContainer extends ContainerEvent {
-  final String id;
   const DeleteContainer(this.id);
+  final String id;
 }
 
 class GetContainers extends ContainerEvent {

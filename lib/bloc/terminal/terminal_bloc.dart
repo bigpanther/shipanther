@@ -9,9 +9,8 @@ part 'terminal_event.dart';
 part 'terminal_state.dart';
 
 class TerminalBloc extends Bloc<TerminalEvent, TerminalState> {
-  final TerminalRepository _terminalRepository;
-
   TerminalBloc(this._terminalRepository) : super(TerminalInitial());
+  final TerminalRepository _terminalRepository;
 
   @override
   Stream<TerminalState> mapEventToState(
@@ -23,22 +22,22 @@ class TerminalBloc extends Bloc<TerminalEvent, TerminalState> {
         yield TerminalLoaded(await _terminalRepository.fetchTerminal(event.id));
       }
       if (event is GetTerminals) {
-        var terminals =
+        final terminals =
             await _terminalRepository.filterTerminals(event.terminalType);
         yield TerminalsLoaded(terminals, event.terminalType);
       }
       if (event is UpdateTerminal) {
         await _terminalRepository.updateTerminal(event.id, event.terminal);
-        var terminals = await _terminalRepository.filterTerminals(null);
+        final terminals = await _terminalRepository.filterTerminals(null);
         yield TerminalsLoaded(terminals, null);
       }
       if (event is CreateTerminal) {
         await _terminalRepository.createTerminal(event.terminal);
-        var terminals = await _terminalRepository.filterTerminals(null);
+        final terminals = await _terminalRepository.filterTerminals(null);
         yield TerminalsLoaded(terminals, null);
       }
       if (event is DeleteTerminal) {
-        yield TerminalFailure('Terminal deletion is not supported');
+        yield const TerminalFailure('Terminal deletion is not supported');
       }
     } catch (e) {
       yield TerminalFailure('Request failed: $e');
