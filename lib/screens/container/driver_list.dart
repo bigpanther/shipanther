@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:shipanther/bloc/container/container_bloc.dart';
 
@@ -25,8 +28,24 @@ class DriverContainerList extends StatefulWidget {
 
 class _DriverContainerListState extends State<DriverContainerList> {
   int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    File _image;
+    final picker = ImagePicker();
+
+    Future getImage() async {
+      final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+      setState(() {
+        if (pickedFile != null) {
+          _image = File(pickedFile.path);
+        } else {
+          print('No image selected.');
+        }
+      });
+    }
+
     void showAlertDialog(BuildContext context, api.Container t) {
       final Widget cancelButton = FlatButton(
         child: Text(ShipantherLocalizations.of(context).cancel),
@@ -248,6 +267,11 @@ class _DriverContainerListState extends State<DriverContainerList> {
         ),
       ],
     );
+    final Widget floatingActionButton = FloatingActionButton(
+      onPressed: getImage,
+      tooltip: 'Pick Image',
+      child: const Icon(Icons.add_a_photo),
+    );
 
     return ShipantherScaffold(
       widget.loggedInUser,
@@ -255,7 +279,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
       title: title,
       actions: actions,
       body: body,
-      floatingActionButton: null,
+      floatingActionButton: floatingActionButton,
     );
   }
 }

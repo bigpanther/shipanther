@@ -41,7 +41,11 @@ dependencies:
   firebase_analytics: ^6.3.0
   package_info: ^0.4.3+2
   material_design_icons_flutter: ^4.0.5755
+<<<<<<< HEAD
   percent_indicator: ^2.1.8
+=======
+  image_picker: ^0.6.7+15
+>>>>>>> 6b6a409... add ability to take photo
 
 dev_dependencies:
   flutter_test:
