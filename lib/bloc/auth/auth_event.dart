@@ -2,8 +2,8 @@ part of 'auth_bloc.dart';
 
 @immutable
 abstract class AuthEvent {
-  final AuthTypeSelector authType;
   const AuthEvent(this.authType);
+  final AuthTypeSelector authType;
 }
 
 class AuthTypeOtherRequest extends AuthEvent {
@@ -15,47 +15,46 @@ class AuthLogout extends AuthEvent {
 }
 
 class AuthRegister extends AuthEvent {
+  const AuthRegister(this.name, this.username, this.password)
+      : super(AuthTypeSelector.register);
   final String name;
   final String username;
   final String password;
-
-  AuthRegister(this.name, this.username, this.password)
-      : super(AuthTypeSelector.register);
 }
 
 class AuthCheck extends AuthEvent {
-  AuthCheck() : super(AuthTypeSelector.signIn);
+  const AuthCheck() : super(AuthTypeSelector.signIn);
 }
 
 class CheckVerified extends AuthEvent {
-  final User user;
   const CheckVerified(this.user) : super(null);
+  final User user;
 }
 
 class ResendEmail extends AuthEvent {
-  final User user;
   const ResendEmail(this.user) : super(null);
+  final User user;
 }
 
 class ForgotPassword extends AuthEvent {
-  final String email;
   const ForgotPassword(this.email) : super(null);
+  final String email;
 }
 
 class UpdatePassword extends AuthEvent {
+  const UpdatePassword(this.oldPassword, this.newPassword) : super(null);
   final String oldPassword;
   final String newPassword;
-  const UpdatePassword(this.oldPassword, this.newPassword) : super(null);
 }
 
 class UpdateName extends AuthEvent {
-  final String name;
   const UpdateName(this.name) : super(null);
+  final String name;
 }
 
 class AuthSignIn extends AuthEvent {
+  const AuthSignIn(this.username, this.password)
+      : super(AuthTypeSelector.signIn);
   final String username;
   final String password;
-
-  AuthSignIn(this.username, this.password) : super(AuthTypeSelector.signIn);
 }

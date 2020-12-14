@@ -6,27 +6,27 @@ abstract class TenantEvent {
 }
 
 class GetTenant extends TenantEvent {
-  final String id;
   const GetTenant(this.id);
+  final String id;
 }
 
 class UpdateTenant extends TenantEvent {
+  const UpdateTenant(this.id, this.tenant);
   final String id;
   final Tenant tenant;
-  const UpdateTenant(this.id, this.tenant);
 }
 
 class CreateTenant extends TenantEvent {
-  final Tenant tenant;
   const CreateTenant(this.tenant);
+  final Tenant tenant;
 }
 
 class DeleteTenant extends TenantEvent {
-  final String id;
   const DeleteTenant(this.id);
+  final String id;
 }
 
 class GetTenants extends TenantEvent {
-  final TenantType tenantType;
   const GetTenants(this.tenantType);
+  final TenantType tenantType;
 }

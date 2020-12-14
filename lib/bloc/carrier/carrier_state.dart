@@ -10,17 +10,17 @@ class CarrierInitial extends CarrierState {}
 class CarrierLoading extends CarrierState {}
 
 class CarrierLoaded extends CarrierState {
-  final Carrier carrier;
   const CarrierLoaded(this.carrier);
+  final Carrier carrier;
 }
 
 class CarriersLoaded extends CarrierState {
+  const CarriersLoaded(this.carriers, this.carrierType);
   final List<Carrier> carriers;
   final CarrierType carrierType;
-  const CarriersLoaded(this.carriers, this.carrierType);
 }
 
 class CarrierFailure extends CarrierState {
-  final String message;
   const CarrierFailure(this.message);
+  final String message;
 }

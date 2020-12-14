@@ -9,9 +9,8 @@ part 'carrier_event.dart';
 part 'carrier_state.dart';
 
 class CarrierBloc extends Bloc<CarrierEvent, CarrierState> {
-  final CarrierRepository _carrierRepository;
-
   CarrierBloc(this._carrierRepository) : super(CarrierInitial());
+  final CarrierRepository _carrierRepository;
 
   @override
   Stream<CarrierState> mapEventToState(
@@ -23,22 +22,22 @@ class CarrierBloc extends Bloc<CarrierEvent, CarrierState> {
         yield CarrierLoaded(await _carrierRepository.fetchCarrier(event.id));
       }
       if (event is GetCarriers) {
-        var carriers =
+        final carriers =
             await _carrierRepository.filterCarriers(event.carrierType);
         yield CarriersLoaded(carriers, event.carrierType);
       }
       if (event is UpdateCarrier) {
         await _carrierRepository.updateCarrier(event.id, event.carrier);
-        var carriers = await _carrierRepository.filterCarriers(null);
+        final carriers = await _carrierRepository.filterCarriers(null);
         yield CarriersLoaded(carriers, null);
       }
       if (event is CreateCarrier) {
         await _carrierRepository.createCarrier(event.carrier);
-        var carriers = await _carrierRepository.filterCarriers(null);
+        final carriers = await _carrierRepository.filterCarriers(null);
         yield CarriersLoaded(carriers, null);
       }
       if (event is DeleteCarrier) {
-        yield CarrierFailure('Carrier deletion is not supported');
+        yield const CarrierFailure('Carrier deletion is not supported');
       }
     } catch (e) {
       yield CarrierFailure('Request failed: $e');

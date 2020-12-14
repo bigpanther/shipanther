@@ -9,9 +9,8 @@ part 'tenant_event.dart';
 part 'tenant_state.dart';
 
 class TenantBloc extends Bloc<TenantEvent, TenantState> {
-  final TenantRepository _tenantRepository;
-
   TenantBloc(this._tenantRepository) : super(TenantInitial());
+  final TenantRepository _tenantRepository;
 
   @override
   Stream<TenantState> mapEventToState(
@@ -23,21 +22,21 @@ class TenantBloc extends Bloc<TenantEvent, TenantState> {
         yield TenantLoaded(await _tenantRepository.fetchTenant(event.id));
       }
       if (event is GetTenants) {
-        var tenants = await _tenantRepository.filterTenants(event.tenantType);
+        final tenants = await _tenantRepository.filterTenants(event.tenantType);
         yield TenantsLoaded(tenants, event.tenantType);
       }
       if (event is UpdateTenant) {
         await _tenantRepository.updateTenant(event.id, event.tenant);
-        var tenants = await _tenantRepository.filterTenants(null);
+        final tenants = await _tenantRepository.filterTenants(null);
         yield TenantsLoaded(tenants, null);
       }
       if (event is CreateTenant) {
         await _tenantRepository.createTenant(event.tenant);
-        var tenants = await _tenantRepository.filterTenants(null);
+        final tenants = await _tenantRepository.filterTenants(null);
         yield TenantsLoaded(tenants, null);
       }
       if (event is DeleteTenant) {
-        yield TenantFailure('Tenant deletion is not supported');
+        yield const TenantFailure('Tenant deletion is not supported');
       }
     } catch (e) {
       yield TenantFailure('Request failed: $e');

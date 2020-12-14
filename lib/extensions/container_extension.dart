@@ -1,5 +1,6 @@
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 extension ContainerTypeExtension on api.ContainerType {
@@ -23,32 +24,23 @@ extension ContainerStatusExtension on api.ContainerStatus {
   IconData get icon {
     switch (this) {
       case api.ContainerStatus.unassigned:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
       case api.ContainerStatus.inTransit:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
       case api.ContainerStatus.arrived:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
       case api.ContainerStatus.assigned:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
       case api.ContainerStatus.accepted:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
       case api.ContainerStatus.rejected:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
       case api.ContainerStatus.loaded:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
       case api.ContainerStatus.unloaded:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
       case api.ContainerStatus.abandoned:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
     }
   }
 
@@ -86,20 +78,15 @@ extension ContainerSizeExtension on api.ContainerSize {
   IconData get icon {
     switch (this) {
       case api.ContainerSize.n40sT:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
       case api.ContainerSize.n20sT:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
       case api.ContainerSize.n40hC:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
       case api.ContainerSize.n40hW:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
       case api.ContainerSize.custom:
-        // TODO: Handle this case.
-        break;
+        return MdiIcons.accessPointMinus;
     }
   }
 

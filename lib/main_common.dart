@@ -43,7 +43,7 @@ Future<void> commonMain(String apiURL) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-  Function originalOnError = FlutterError.onError;
+  final Function originalOnError = FlutterError.onError;
   FlutterError.onError = (FlutterErrorDetails errorDetails) async {
     await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
     // Forward to original handler.
@@ -78,9 +78,8 @@ Future<void> commonMain(String apiURL) async {
 ///
 /// Returns a [MaterialApp].
 class ShipantherApp extends StatelessWidget {
-  final String apiURL;
-
   const ShipantherApp(this.apiURL);
+  final String apiURL;
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +144,7 @@ class ShipantherApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: ShipantherTheme.theme,
               home: SignInOrRegistrationPage(),
-              localizationsDelegates: [
+              localizationsDelegates: const [
                 ShipantherLocalizationsDelegate(),
                 GlobalMaterialLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,

@@ -9,37 +9,37 @@ import 'package:shipanther/extensions/user_extension.dart';
 import 'package:trober_sdk/api.dart';
 
 class CarrierList extends StatelessWidget {
-  final CarrierBloc carrierBloc;
-  final CarriersLoaded carrierLoadedState;
-  final User loggedInUser;
   const CarrierList(this.loggedInUser,
       {Key key, @required this.carrierLoadedState, this.carrierBloc})
       : super(key: key);
+  final CarrierBloc carrierBloc;
+  final CarriersLoaded carrierLoadedState;
+  final User loggedInUser;
 
   @override
   Widget build(BuildContext context) {
     final formatter = ShipantherLocalizations.of(context).dateFormatter;
-    var title = ShipantherLocalizations.of(context).carriersTitle;
-    var actions = <Widget>[];
+    final title = ShipantherLocalizations.of(context).carriersTitle;
+    final actions = <Widget>[];
 
-    Widget body = ListView.builder(
+    final Widget body = ListView.builder(
       itemCount: carrierLoadedState.carriers.length,
       itemBuilder: (BuildContext context, int index) {
-        var t = carrierLoadedState.carriers.elementAt(index);
+        final t = carrierLoadedState.carriers.elementAt(index);
         return Padding(
           padding: const EdgeInsets.all(3.0),
           child: Card(
             elevation: 1,
-            shape: RoundedRectangleBorder(
-              borderRadius: const BorderRadius.all(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
                 Radius.circular(8.0),
               ),
             ),
             child: ExpansionTile(
-              childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
+              childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
               leading: Icon(t.type.icon),
               trailing: IconButton(
-                icon: Icon(Icons.edit),
+                icon: const Icon(Icons.edit),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -60,12 +60,13 @@ class CarrierList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                t.eta != null
-                    ? Text(
-                        'ETA: ${formatter.format(t.eta)}',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      )
-                    : Text(''),
+                if (t.eta != null)
+                  Text(
+                    'ETA: ${formatter.format(t.eta)}',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  )
+                else
+                  const Text(''),
                 Text(
                   'Created At: ${t.createdAt ?? formatter.format(t.createdAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
@@ -74,21 +75,22 @@ class CarrierList extends StatelessWidget {
                   'Last Update: ${t.updatedAt ?? formatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                loggedInUser.isSuperAdmin
-                    ? Text(
-                        'Tenant ID: ${t.tenantId}',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      )
-                    : Text(''),
+                if (loggedInUser.isSuperAdmin)
+                  Text(
+                    'Tenant ID: ${t.tenantId}',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  )
+                else
+                  const Text(''),
               ],
             ),
           ),
         );
       },
     );
-    Widget floatingActionButton = FloatingActionButton(
+    final Widget floatingActionButton = FloatingActionButton(
       tooltip: 'Add carrier',
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,

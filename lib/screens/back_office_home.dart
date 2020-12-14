@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:shipanther/l10n/shipanther_localization.dart';
-
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 class BackOfficeHome extends StatefulWidget {
-  final api.User user;
   const BackOfficeHome(this.user, {Key key}) : super(key: key);
+
+  final api.User user;
 
   @override
   _BackOfficeHomeState createState() => _BackOfficeHomeState();
@@ -21,7 +20,7 @@ class _BackOfficeHomeState extends State<BackOfficeHome> {
       title: ShipantherLocalizations.of(context).welcome,
       actions: null,
       body: Padding(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             Expanded(
@@ -58,13 +57,13 @@ class _BackOfficeHomeState extends State<BackOfficeHome> {
         ),
         elevation: 5,
         child: Padding(
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
                 _heading,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25,
                 ),
               ),
@@ -77,11 +76,11 @@ class _BackOfficeHomeState extends State<BackOfficeHome> {
               ),
               Text(
                 _subtitleOne,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                 ),
               ),
-              Text(
+              const Text(
                 '20',
                 style: TextStyle(
                   fontSize: 50,
@@ -90,7 +89,7 @@ class _BackOfficeHomeState extends State<BackOfficeHome> {
               ),
               Text(
                 _subtitleTwo,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                 ),
               )

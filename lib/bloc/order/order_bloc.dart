@@ -9,9 +9,8 @@ part 'order_event.dart';
 part 'order_state.dart';
 
 class OrderBloc extends Bloc<OrderEvent, OrderState> {
-  final OrderRepository _orderRepository;
-
   OrderBloc(this._orderRepository) : super(OrderInitial());
+  final OrderRepository _orderRepository;
 
   @override
   Stream<OrderState> mapEventToState(
@@ -23,21 +22,21 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         yield OrderLoaded(await _orderRepository.fetchOrder(event.id));
       }
       if (event is GetOrders) {
-        var orders = await _orderRepository.filterOrders(event.orderStatus);
+        final orders = await _orderRepository.filterOrders(event.orderStatus);
         yield OrdersLoaded(orders, event.orderStatus);
       }
       if (event is UpdateOrder) {
         await _orderRepository.updateOrder(event.id, event.order);
-        var orders = await _orderRepository.filterOrders(null);
+        final orders = await _orderRepository.filterOrders(null);
         yield OrdersLoaded(orders, null);
       }
       if (event is CreateOrder) {
         await _orderRepository.createOrder(event.order);
-        var orders = await _orderRepository.filterOrders(null);
+        final orders = await _orderRepository.filterOrders(null);
         yield OrdersLoaded(orders, null);
       }
       if (event is DeleteOrder) {
-        yield OrderFailure('Order deletion is not supported');
+        yield const OrderFailure('Order deletion is not supported');
       }
     } catch (e) {
       yield OrderFailure('Request failed: $e');

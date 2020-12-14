@@ -11,18 +11,16 @@ import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/extensions/container_extension.dart';
 
 class ContainerAddEdit extends StatefulWidget {
-  final api.User loggedInUser;
-  final api.Container container;
-  final ContainerBloc containerBloc;
-  final bool isEdit;
-
-  ContainerAddEdit(
+  const ContainerAddEdit(
     this.loggedInUser, {
-    Key key,
     @required this.container,
     @required this.containerBloc,
     @required this.isEdit,
   });
+  final api.User loggedInUser;
+  final api.Container container;
+  final ContainerBloc containerBloc;
+  final bool isEdit;
 
   @override
   _ContainerAddEditState createState() => _ContainerAddEditState();
@@ -102,22 +100,24 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.only(left: 16.0, right: 16, top: 16, bottom: 100),
+        padding:
+            const EdgeInsets.only(left: 16.0, right: 16, top: 16, bottom: 100),
         child: Form(
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
           onWillPop: () {
-            widget.containerBloc.add(GetContainers());
+            widget.containerBloc.add(const GetContainers());
             return Future(() => true);
           },
           child: ListView(
             children: [
                   TextFormField(
                     initialValue: widget.container.serialNumber ?? '',
-                    autofocus: widget.isEdit ? false : true,
+                    autofocus: !widget.isEdit,
                     maxLength: 15,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: InputDecoration(labelText: 'Serial number'),
+                    decoration:
+                        const InputDecoration(labelText: 'Serial number'),
                     validator: (val) => val.trim().isEmpty
                         ? 'Serial number should not be empty'
                         : null,
@@ -125,16 +125,16 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                   ),
                   TextFormField(
                     initialValue: widget.container.origin ?? '',
-                    autofocus: widget.isEdit ? false : true,
+                    autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: InputDecoration(labelText: 'Origin'),
+                    decoration: const InputDecoration(labelText: 'Origin'),
                     onSaved: (value) => _origin = value,
                   ),
                   TextFormField(
                     initialValue: widget.container.destination ?? '',
-                    autofocus: widget.isEdit ? false : true,
+                    autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: InputDecoration(labelText: 'Destination'),
+                    decoration: const InputDecoration(labelText: 'Destination'),
                     onSaved: (value) => _destination = value,
                   ),
                   Padding(
@@ -143,21 +143,23 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Text('Reservation time'),
                           ],
                         ),
                         Row(
                           children: [
-                            Text(_reservationTime == null
-                                ? widget.container.reservationTime == null
-                                    ? ShipantherLocalizations.of(context)
-                                        .noDateChosen
-                                    : formatter.format(
-                                        widget.container.reservationTime)
-                                : formatter.format(_reservationTime)),
+                            Text(
+                              _reservationTime == null
+                                  ? widget.container.reservationTime == null
+                                      ? ShipantherLocalizations.of(context)
+                                          .noDateChosen
+                                      : formatter.format(
+                                          widget.container.reservationTime)
+                                  : formatter.format(_reservationTime),
+                            ),
                             IconButton(
-                              icon: Icon(Icons.calendar_today),
+                              icon: const Icon(Icons.calendar_today),
                               onPressed: _presentDateTimePickerReservationTime,
                             )
                           ],
@@ -171,20 +173,22 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: [
+                          children: const [
                             Text('LFD'),
                           ],
                         ),
                         Row(
                           children: [
-                            Text(_lfd == null
-                                ? widget.container.lfd == null
-                                    ? ShipantherLocalizations.of(context)
-                                        .noDateChosen
-                                    : formatter.format(widget.container.lfd)
-                                : formatter.format(_lfd)),
+                            Text(
+                              _lfd == null
+                                  ? widget.container.lfd == null
+                                      ? ShipantherLocalizations.of(context)
+                                          .noDateChosen
+                                      : formatter.format(widget.container.lfd)
+                                  : formatter.format(_lfd),
+                            ),
                             IconButton(
-                              icon: Icon(Icons.calendar_today),
+                              icon: const Icon(Icons.calendar_today),
                               onPressed: _presentDateTimePickerlfd,
                             )
                           ],

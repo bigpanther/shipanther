@@ -8,9 +8,9 @@ import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 class TerminalScreen extends StatefulWidget {
-  final api.User loggedInUser;
-
   const TerminalScreen(this.loggedInUser, {Key key}) : super(key: key);
+
+  final api.User loggedInUser;
 
   @override
   _TerminalScreenState createState() => _TerminalScreenState();
@@ -22,7 +22,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
   void initState() {
     super.initState();
     bloc = context.read<TerminalBloc>();
-    bloc.add(GetTerminals(null));
+    bloc.add(const GetTerminals(null));
   }
 
   @override
@@ -44,7 +44,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
           appBar: AppBar(
             title: Text(ShipantherLocalizations.of(context).terminalsTitle),
           ),
-          body: CenteredLoading(),
+          body: const CenteredLoading(),
         );
       },
     );

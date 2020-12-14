@@ -10,17 +10,17 @@ class OrderInitial extends OrderState {}
 class OrderLoading extends OrderState {}
 
 class OrderLoaded extends OrderState {
-  final Order order;
   const OrderLoaded(this.order);
+  final Order order;
 }
 
 class OrdersLoaded extends OrderState {
+  const OrdersLoaded(this.orders, this.orderStatus);
   final List<Order> orders;
   final OrderStatus orderStatus;
-  const OrdersLoaded(this.orders, this.orderStatus);
 }
 
 class OrderFailure extends OrderState {
-  final String message;
   const OrderFailure(this.message);
+  final String message;
 }

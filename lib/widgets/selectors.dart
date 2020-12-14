@@ -10,11 +10,13 @@ List<Widget> tenantSelector(
     bool shouldShow,
     void Function(Tenant) onSuggestionSelected,
     TextEditingController textEditingController) {
-  if (!shouldShow) return [];
+  if (!shouldShow) {
+    return [];
+  }
   return [
     TypeAheadFormField<Tenant>(
       textFieldConfiguration: TextFieldConfiguration<Tenant>(
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'Select tenant',
           ),
           controller: textEditingController,
@@ -22,13 +24,14 @@ List<Widget> tenantSelector(
             textEditingController.text = '';
           }),
       suggestionsCallback: (pattern) async {
-        var client = await context.read<ApiRepository>().apiClient();
-        return (await client.tenantsGet())
-            .where((element) => element.name.toLowerCase().startsWith(pattern));
+        final client = await context.read<ApiRepository>().apiClient();
+        return (await client.tenantsGet()).where(
+          (element) => element.name.toLowerCase().startsWith(pattern),
+        );
       },
       itemBuilder: (context, Tenant tenant) {
         return ListTile(
-          leading: Icon(Icons.business),
+          leading: const Icon(Icons.business),
           title: Text(tenant.name),
           subtitle: Text(tenant.id),
         );
@@ -46,24 +49,27 @@ List<Widget> customerSelector(
     bool shouldShow,
     void Function(Customer) onSuggestionSelected,
     TextEditingController textEditingController) {
-  if (!shouldShow) return [];
+  if (!shouldShow) {
+    return [];
+  }
   return [
     TypeAheadFormField<Customer>(
       textFieldConfiguration: TextFieldConfiguration<Customer>(
-        decoration: InputDecoration(labelText: 'Select customer'),
+        decoration: const InputDecoration(labelText: 'Select customer'),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';
         },
       ),
       suggestionsCallback: (pattern) async {
-        var client = await context.read<ApiRepository>().apiClient();
-        return (await client.customersGet())
-            .where((element) => element.name.toLowerCase().startsWith(pattern));
+        final client = await context.read<ApiRepository>().apiClient();
+        return (await client.customersGet()).where(
+          (element) => element.name.toLowerCase().startsWith(pattern),
+        );
       },
       itemBuilder: (context, Customer customer) {
         return ListTile(
-          leading: Icon(Icons.business),
+          leading: const Icon(Icons.business),
           title: Text(customer.name),
           subtitle: Text(customer.id),
         );
@@ -81,23 +87,28 @@ List<Widget> driverSelector(
     bool shouldShow,
     void Function(User) onSuggestionSelected,
     TextEditingController textEditingController) {
-  if (!shouldShow) return [];
+  if (!shouldShow) {
+    return [];
+  }
   return [
     TypeAheadFormField<User>(
       textFieldConfiguration: TextFieldConfiguration<User>(
-          decoration: InputDecoration(labelText: 'Select Driver'),
+          decoration: const InputDecoration(labelText: 'Select Driver'),
           controller: textEditingController,
           onTap: () {
             textEditingController.text = '';
           }),
       suggestionsCallback: (pattern) async {
-        var client = await context.read<ApiRepository>().apiClient();
-        return (await client.usersGet()).where((element) =>
-            element.isDriver && element.name.toLowerCase().startsWith(pattern));
+        final client = await context.read<ApiRepository>().apiClient();
+        return (await client.usersGet()).where(
+          (element) =>
+              element.isDriver &&
+              element.name.toLowerCase().startsWith(pattern),
+        );
       },
       itemBuilder: (context, User user) {
         return ListTile(
-          leading: Icon(Icons.business),
+          leading: const Icon(Icons.business),
           title: Text(user.name),
           subtitle: Text(user.id),
         );
@@ -115,24 +126,27 @@ List<Widget> terminalSelector(
     bool shouldShow,
     void Function(Terminal) onSuggestionSelected,
     TextEditingController textEditingController) {
-  if (!shouldShow) return [];
+  if (!shouldShow) {
+    return [];
+  }
   return [
     TypeAheadFormField<Terminal>(
       textFieldConfiguration: TextFieldConfiguration<Terminal>(
-        decoration: InputDecoration(labelText: 'Select Terminal'),
+        decoration: const InputDecoration(labelText: 'Select Terminal'),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';
         },
       ),
       suggestionsCallback: (pattern) async {
-        var client = await context.read<ApiRepository>().apiClient();
-        return (await client.terminalsGet())
-            .where((element) => element.name.toLowerCase().startsWith(pattern));
+        final client = await context.read<ApiRepository>().apiClient();
+        return (await client.terminalsGet()).where(
+          (element) => element.name.toLowerCase().startsWith(pattern),
+        );
       },
       itemBuilder: (context, Terminal terminal) {
         return ListTile(
-          leading: Icon(Icons.business),
+          leading: const Icon(Icons.business),
           title: Text(terminal.name),
           subtitle: Text(terminal.id),
         );
@@ -150,24 +164,27 @@ List<Widget> carrierSelector(
     bool shouldShow,
     void Function(Carrier) onSuggestionSelected,
     TextEditingController textEditingController) {
-  if (!shouldShow) return [];
+  if (!shouldShow) {
+    return [];
+  }
   return [
     TypeAheadFormField<Carrier>(
       textFieldConfiguration: TextFieldConfiguration<Carrier>(
-        decoration: InputDecoration(labelText: 'Select Carrier'),
+        decoration: const InputDecoration(labelText: 'Select Carrier'),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';
         },
       ),
       suggestionsCallback: (pattern) async {
-        var client = await context.read<ApiRepository>().apiClient();
-        return (await client.carriersGet())
-            .where((element) => element.name.toLowerCase().startsWith(pattern));
+        final client = await context.read<ApiRepository>().apiClient();
+        return (await client.carriersGet()).where(
+          (element) => element.name.toLowerCase().startsWith(pattern),
+        );
       },
       itemBuilder: (context, Carrier carrier) {
         return ListTile(
-          leading: Icon(Icons.business),
+          leading: const Icon(Icons.business),
           title: Text(carrier.name),
           subtitle: Text(carrier.id),
         );
@@ -185,24 +202,27 @@ List<Widget> orderSelector(
     bool shouldShow,
     void Function(Order) onSuggestionSelected,
     TextEditingController textEditingController) {
-  if (!shouldShow) return [];
+  if (!shouldShow) {
+    return [];
+  }
   return [
     TypeAheadFormField<Order>(
       textFieldConfiguration: TextFieldConfiguration<Order>(
-        decoration: InputDecoration(labelText: 'Select Order'),
+        decoration: const InputDecoration(labelText: 'Select Order'),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';
         },
       ),
       suggestionsCallback: (pattern) async {
-        var client = await context.read<ApiRepository>().apiClient();
-        return (await client.ordersGet()).where((element) =>
-            element.serialNumber.toLowerCase().startsWith(pattern));
+        final client = await context.read<ApiRepository>().apiClient();
+        return (await client.ordersGet()).where(
+          (element) => element.serialNumber.toLowerCase().startsWith(pattern),
+        );
       },
       itemBuilder: (context, Order order) {
         return ListTile(
-          leading: Icon(Icons.business),
+          leading: const Icon(Icons.business),
           title: Text(order.serialNumber),
           subtitle: Text(order.id),
         );

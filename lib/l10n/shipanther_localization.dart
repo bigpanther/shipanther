@@ -3,9 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:shipanther/l10n/locales/messages_all.dart';
 
 class ShipantherLocalizations {
-  final Locale locale;
-
   const ShipantherLocalizations(this.locale);
+  final Locale locale;
 
   static ShipantherLocalizations of(BuildContext context) {
     return Localizations.of<ShipantherLocalizations>(

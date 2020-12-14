@@ -9,15 +9,15 @@ import 'package:trober_sdk/api.dart' as api;
 import 'package:shipanther/extensions/container_extension.dart';
 
 class DriverContainerList extends StatefulWidget {
-  final ContainerBloc containerBloc;
-  final ContainersLoaded containerLoadedState;
-  final api.User loggedInUser;
   const DriverContainerList(
     this.loggedInUser, {
     Key key,
     @required this.containerLoadedState,
     @required this.containerBloc,
   }) : super(key: key);
+  final ContainerBloc containerBloc;
+  final ContainersLoaded containerLoadedState;
+  final api.User loggedInUser;
 
   @override
   _DriverContainerListState createState() => _DriverContainerListState();
@@ -28,13 +28,13 @@ class _DriverContainerListState extends State<DriverContainerList> {
   @override
   Widget build(BuildContext context) {
     void showAlertDialog(BuildContext context, api.Container t) {
-      Widget cancelButton = FlatButton(
+      final Widget cancelButton = FlatButton(
         child: Text(ShipantherLocalizations.of(context).cancel),
         onPressed: () {
           Navigator.of(context).pop();
         },
       );
-      Widget continueButton = FlatButton(
+      final Widget continueButton = FlatButton(
         child: Text(ShipantherLocalizations.of(context).reject),
         textColor: Colors.red,
         onPressed: () {
@@ -45,7 +45,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
         },
       );
 
-      var alert = AlertDialog(
+      final alert = AlertDialog(
         title: Text(ShipantherLocalizations.of(context).reject),
         content: Text(
             ShipantherLocalizations.of(context).containerRejectConfirmation),
@@ -69,36 +69,36 @@ class _DriverContainerListState extends State<DriverContainerList> {
       });
     }
 
-    var title = ShipantherLocalizations.of(context).containersTitle;
-    var actions = <Widget>[];
-    var totalPending = widget.containerLoadedState.containers
+    final title = ShipantherLocalizations.of(context).containersTitle;
+    final actions = <Widget>[];
+    final totalPending = widget.containerLoadedState.containers
         .where((element) => element.status == api.ContainerStatus.accepted)
         .length;
-    var items = _currentIndex == 0
+    final items = _currentIndex == 0
         ? widget.containerLoadedState.containers.where((element) =>
             element.status == api.ContainerStatus.accepted ||
             element.status == api.ContainerStatus.assigned)
         : widget.containerLoadedState.containers
             .where((element) => element.status == api.ContainerStatus.arrived);
 
-    var body = items.isEmpty
-        ? Center(child: Text('No items here'))
+    final body = items.isEmpty
+        ? const Center(child: Text('No items here'))
         : ListView.builder(
             itemCount: items.length,
             itemBuilder: (BuildContext context, int index) {
-              var t = items.elementAt(index);
+              final t = items.elementAt(index);
               return Column(
                 children: [
                   ExpansionTile(
                     leading: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.home_work),
+                        const Icon(Icons.home_work),
                         Text(
                           t.size == null
                               ? api.ContainerSize.n20sT.text
                               : t.size.text,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color.fromRGBO(204, 255, 0, 1),
                           ),
                         ),
@@ -110,16 +110,21 @@ class _DriverContainerListState extends State<DriverContainerList> {
                         Text(
                           ShipantherLocalizations.of(context)
                               .dateFormatter
-                              .format(t.reservationTime ?? DateTime.now()),
-                          style: TextStyle(
-                              fontSize: 15,
-                              color: Color.fromRGBO(204, 255, 0, 1)),
+                              .format(
+                                t.reservationTime ?? DateTime.now(),
+                              ),
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Color.fromRGBO(204, 255, 0, 1),
+                          ),
                         ),
                         Text(
                           ShipantherLocalizations.of(context)
                               .timeFormatter
-                              .format(t.reservationTime ?? DateTime.now()),
-                          style: TextStyle(fontSize: 15),
+                              .format(
+                                t.reservationTime ?? DateTime.now(),
+                              ),
+                          style: const TextStyle(fontSize: 15),
                         ),
                       ],
                     ),
@@ -129,7 +134,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
                           t.serialNumber,
                           style: TextStyle(color: t.status.color, fontSize: 20),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 3,
                         ),
                         Icon(
@@ -142,58 +147,58 @@ class _DriverContainerListState extends State<DriverContainerList> {
                     ),
                     subtitle: Text('${t.origin} to ${t.destination}'),
                     children: [
-                      t.status == api.ContainerStatus.accepted
-                          ? FlatButton(
-                              color: Colors.green,
-                              onPressed: () {
-                                t.status = api.ContainerStatus.arrived;
-                                widget.containerBloc
-                                    .add(UpdateContainer(t.id, t));
-                              },
-                              child: Text(ShipantherLocalizations.of(context)
-                                  .delivered),
-                            )
-                          : Container(
-                              width: 0,
-                              height: 0,
-                            ),
-                    ],
-                  ),
-                  t.status == api.ContainerStatus.assigned
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            FlatButton(
-                              color: Colors.green,
-                              onPressed: () {
-                                t.status = api.ContainerStatus.accepted;
-                                widget.containerBloc
-                                    .add(UpdateContainer(t.id, t));
-                              },
-                              child: Text(
-                                ShipantherLocalizations.of(context).accept,
-                              ),
-                            ),
-                            FlatButton(
-                              color: Colors.red,
-                              onPressed: () {
-                                showAlertDialog(context, t);
-                              },
-                              child: Text(
-                                ShipantherLocalizations.of(context).reject,
-                              ),
-                            )
-                          ],
+                      if (t.status == api.ContainerStatus.accepted)
+                        FlatButton(
+                          color: Colors.green,
+                          onPressed: () {
+                            t.status = api.ContainerStatus.arrived;
+                            widget.containerBloc.add(UpdateContainer(t.id, t));
+                          },
+                          child: Text(
+                              ShipantherLocalizations.of(context).delivered),
                         )
-                      : Container(
+                      else
+                        Container(
                           width: 0,
                           height: 0,
                         ),
+                    ],
+                  ),
+                  if (t.status == api.ContainerStatus.assigned)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        FlatButton(
+                          color: Colors.green,
+                          onPressed: () {
+                            t.status = api.ContainerStatus.accepted;
+                            widget.containerBloc.add(UpdateContainer(t.id, t));
+                          },
+                          child: Text(
+                            ShipantherLocalizations.of(context).accept,
+                          ),
+                        ),
+                        FlatButton(
+                          color: Colors.red,
+                          onPressed: () {
+                            showAlertDialog(context, t);
+                          },
+                          child: Text(
+                            ShipantherLocalizations.of(context).reject,
+                          ),
+                        )
+                      ],
+                    )
+                  else
+                    Container(
+                      width: 0,
+                      height: 0,
+                    ),
                 ],
               );
             },
           );
-    Widget bottomNavigationBar = BottomNavigationBar(
+    final Widget bottomNavigationBar = BottomNavigationBar(
       backgroundColor: Colors.white10,
       currentIndex: _currentIndex,
       type: BottomNavigationBarType.fixed,
@@ -208,22 +213,22 @@ class _DriverContainerListState extends State<DriverContainerList> {
           label: ShipantherLocalizations.of(context).pending,
           icon: Stack(
             children: <Widget>[
-              Icon(Icons.pending),
+              const Icon(Icons.pending),
               Positioned(
                 right: 0,
                 child: Container(
-                  padding: EdgeInsets.all(1),
+                  padding: const EdgeInsets.all(1),
                   decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     minWidth: 13,
                     minHeight: 13,
                   ),
                   child: Text(
                     totalPending.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 8,
                     ),
@@ -236,7 +241,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
         ),
         BottomNavigationBarItem(
           label: ShipantherLocalizations.of(context).completed,
-          icon: Icon(
+          icon: const Icon(
             Icons.check,
             color: Colors.green,
           ),

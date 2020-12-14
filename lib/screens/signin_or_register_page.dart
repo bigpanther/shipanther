@@ -17,7 +17,9 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
   @override
   void initState() {
     super.initState();
-    context.read<AuthBloc>().add(AuthCheck());
+    context.read<AuthBloc>().add(
+          const AuthCheck(),
+        );
   }
 
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ShipantherTheme {
+mixin ShipantherTheme {
   static ThemeData get theme {
     final themeData = ThemeData.dark();
     final textTheme = themeData.textTheme;

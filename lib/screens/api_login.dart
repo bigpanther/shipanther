@@ -18,7 +18,7 @@ class _ApiLoginState extends State<ApiLogin> {
   @override
   void initState() {
     super.initState();
-    var deviceToken = context.read<AuthRepository>().deviceToken();
+    final deviceToken = context.read<AuthRepository>().deviceToken();
     context.read<UserBloc>().add(UserLogin(deviceToken));
   }
 
@@ -43,14 +43,18 @@ class _ApiLoginState extends State<ApiLogin> {
         if (state is UserFailure) {
           return Container(
             child: Center(
-                child: Column(
-              children: [
-                Text('An error occured during log-in. Please retry.'),
-                FlatButton(
-                    onPressed: () => context.read<AuthBloc>().add(AuthLogout()),
-                    child: Text(ShipantherLocalizations.of(context).logout)),
-              ],
-            )),
+              child: Column(
+                children: [
+                  const Text('An error occured during log-in. Please retry.'),
+                  FlatButton(
+                    onPressed: () => context.read<AuthBloc>().add(
+                          const AuthLogout(),
+                        ),
+                    child: Text(ShipantherLocalizations.of(context).logout),
+                  ),
+                ],
+              ),
+            ),
           );
         }
         return const CenteredLoading();

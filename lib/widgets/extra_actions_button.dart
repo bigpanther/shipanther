@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ExtraActionsButton<T> extends StatelessWidget {
-  final List<T> possibleValues;
-  final PopupMenuItemSelected<T> onSelected;
-
-  ExtraActionsButton({
+  const ExtraActionsButton({
     this.onSelected,
     Key key,
     @required this.possibleValues,
   }) : super(key: key);
+
+  final List<T> possibleValues;
+  final PopupMenuItemSelected<T> onSelected;
 
   @override
   Widget build(BuildContext context) {

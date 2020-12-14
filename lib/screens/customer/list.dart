@@ -8,37 +8,37 @@ import 'package:shipanther/extensions/user_extension.dart';
 import 'package:trober_sdk/api.dart';
 
 class CustomerList extends StatelessWidget {
-  final CustomerBloc customerBloc;
-  final CustomersLoaded customerLoadedState;
-  final User loggedInUser;
   const CustomerList(this.loggedInUser,
       {Key key, @required this.customerLoadedState, this.customerBloc})
       : super(key: key);
+  final CustomerBloc customerBloc;
+  final CustomersLoaded customerLoadedState;
+  final User loggedInUser;
 
   @override
   Widget build(BuildContext context) {
     final formatter = ShipantherLocalizations.of(context).dateFormatter;
-    var title = ShipantherLocalizations.of(context).customersTitle;
-    var actions = <Widget>[];
+    final title = ShipantherLocalizations.of(context).customersTitle;
+    final actions = <Widget>[];
 
-    Widget body = ListView.builder(
+    final Widget body = ListView.builder(
       itemCount: customerLoadedState.customers.length,
       itemBuilder: (BuildContext context, int index) {
-        var t = customerLoadedState.customers.elementAt(index);
+        final t = customerLoadedState.customers.elementAt(index);
         return Padding(
           padding: const EdgeInsets.all(3.0),
           child: Card(
             elevation: 1,
-            shape: RoundedRectangleBorder(
-              borderRadius: const BorderRadius.all(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
                 Radius.circular(8.0),
               ),
             ),
             child: ExpansionTile(
-              childrenPadding: EdgeInsets.only(left: 20, bottom: 10),
-              leading: Icon(Icons.people),
+              childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
+              leading: const Icon(Icons.people),
               trailing: IconButton(
-                icon: Icon(Icons.edit),
+                icon: const Icon(Icons.edit),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -67,21 +67,22 @@ class CustomerList extends StatelessWidget {
                   'Last Update: ${formatter.format(t.updatedAt)}',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                loggedInUser.isSuperAdmin
-                    ? Text(
-                        'Tenant ID: ${t.tenantId}',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      )
-                    : Text(''),
+                if (loggedInUser.isSuperAdmin)
+                  Text(
+                    'Tenant ID: ${t.tenantId}',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  )
+                else
+                  const Text(''),
               ],
             ),
           ),
         );
       },
     );
-    Widget floatingActionButton = FloatingActionButton(
+    final Widget floatingActionButton = FloatingActionButton(
       tooltip: 'Add customer',
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,
