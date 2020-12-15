@@ -27,7 +27,7 @@ class _ApiLoginState extends State<ApiLogin> {
     return BlocConsumer<UserBloc, UserState>(
       listener: (context, state) {
         if (state is UserFailure) {
-          Scaffold.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
         }

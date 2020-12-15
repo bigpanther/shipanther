@@ -29,7 +29,7 @@ class _CarrierScreenState extends State<CarrierScreen> {
     return BlocConsumer<CarrierBloc, CarrierState>(
       listener: (context, state) {
         if (state is CarrierFailure) {
-          Scaffold.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
         }

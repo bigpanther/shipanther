@@ -30,7 +30,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
     return BlocConsumer<TerminalBloc, TerminalState>(
       listener: (context, state) {
         if (state is TerminalFailure) {
-          Scaffold.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
         }

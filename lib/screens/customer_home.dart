@@ -29,7 +29,7 @@ class _CustomerHomeState extends State<CustomerHome> {
     return BlocConsumer<OrderBloc, OrderState>(
       listener: (context, state) {
         if (state is OrderFailure) {
-          Scaffold.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
         }
