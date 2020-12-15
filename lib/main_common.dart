@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +82,9 @@ Future<void> commonMain(String apiURL) async {
 class ShipantherApp extends StatelessWidget {
   const ShipantherApp(this.apiURL);
   final String apiURL;
-
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<AuthRepository>(
@@ -144,6 +148,7 @@ class ShipantherApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: ShipantherTheme.theme,
               home: SignInOrRegistrationPage(),
+              navigatorObservers: <NavigatorObserver>[observer],
               localizationsDelegates: const [
                 ShipantherLocalizationsDelegate(),
                 GlobalMaterialLocalizations.delegate,
