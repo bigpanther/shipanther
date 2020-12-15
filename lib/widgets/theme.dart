@@ -12,7 +12,6 @@ mixin ShipantherTheme {
       accentColor: Colors.cyan[300],
       buttonColor: Colors.grey[800],
       // buttonColor: Color.fromRGBO(236, 77, 55, 1),
-      textSelectionColor: Colors.cyan[100],
       toggleableActiveColor: Colors.cyan[300],
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: Colors.cyan[300],
@@ -24,6 +23,9 @@ mixin ShipantherTheme {
       ),
       textTheme: textTheme.copyWith(
         bodyText2: bodyText2,
+      ),
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: Colors.cyan[100],
       ),
     );
   }

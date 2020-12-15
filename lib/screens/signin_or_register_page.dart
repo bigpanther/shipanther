@@ -28,12 +28,12 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) async {
           if (state is AuthFailure) {
-            Scaffold.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(state.message),
             ));
           }
           if (state is AuthEmailResent) {
-            Scaffold.of(context).showSnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
                   ShipantherLocalizations.of(context)

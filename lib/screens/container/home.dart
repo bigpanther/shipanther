@@ -33,7 +33,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
     return BlocConsumer<ContainerBloc, ContainerState>(
       listener: (context, state) {
         if (state is ContainerFailure) {
-          Scaffold.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
         }

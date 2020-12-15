@@ -30,7 +30,7 @@ class _SuperAdminHomeState extends State<SuperAdminHome> {
     return BlocConsumer<TenantBloc, TenantState>(
       listener: (context, state) {
         if (state is TenantFailure) {
-          Scaffold.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
         }
