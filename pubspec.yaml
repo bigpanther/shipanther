@@ -27,7 +27,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   flutter_bloc: ^6.1.1
-  firebase_core: ^0.5.2
+  firebase_core: ^0.5.3
   firebase_auth: ^0.18.3
   flutter_signin_button: ^1.0.0
   smart_select: ^4.3.2
@@ -35,7 +35,7 @@ dependencies:
   flutter_typeahead: ^1.9.1
   enum_to_string: ^1.0.14
   trober_sdk: 0.0.23
-  firebase_messaging: ^7.0.3
+  firebase_messaging: ^8.0.0-dev.11
   flutter_datetime_picker: ^1.4.0
   firebase_crashlytics: ^0.2.4
   firebase_analytics: ^6.3.0
