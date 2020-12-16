@@ -95,7 +95,11 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? 'Edit container' : 'Add new container',
+          widget.isEdit
+              ? ShipantherLocalizations.of(context)
+                  .editParam(ShipantherLocalizations.of(context).container)
+              : ShipantherLocalizations.of(context)
+                  .addNewParam(ShipantherLocalizations.of(context).container),
         ),
         centerTitle: true,
       ),
@@ -116,10 +120,13 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     autofocus: !widget.isEdit,
                     maxLength: 15,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration:
-                        const InputDecoration(labelText: 'Serial number'),
+                    decoration: InputDecoration(
+                        labelText: ShipantherLocalizations.of(context)
+                            .containerSerialNumber),
                     validator: (val) => val.trim().isEmpty
-                        ? 'Serial number should not be empty'
+                        ? ShipantherLocalizations.of(context).paramEmpty(
+                            ShipantherLocalizations.of(context)
+                                .containerSerialNumber)
                         : null,
                     onSaved: (value) => _serialNumber = value,
                   ),
@@ -127,14 +134,18 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     initialValue: widget.container.origin ?? '',
                     autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: const InputDecoration(labelText: 'Origin'),
+                    decoration: InputDecoration(
+                        labelText: ShipantherLocalizations.of(context)
+                            .containerOrigin),
                     onSaved: (value) => _origin = value,
                   ),
                   TextFormField(
                     initialValue: widget.container.destination ?? '',
                     autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: const InputDecoration(labelText: 'Destination'),
+                    decoration: InputDecoration(
+                        labelText: ShipantherLocalizations.of(context)
+                            .containerDestination),
                     onSaved: (value) => _destination = value,
                   ),
                   Padding(
@@ -143,8 +154,9 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: const [
-                            Text('Reservation time'),
+                          children: [
+                            Text(ShipantherLocalizations.of(context)
+                                .containerReservationTime),
                           ],
                         ),
                         Row(
@@ -173,8 +185,9 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: const [
-                            Text('LFD'),
+                          children: [
+                            Text(ShipantherLocalizations.of(context)
+                                .containerLFD),
                           ],
                         ),
                         Row(
@@ -197,7 +210,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     ),
                   ),
                   smartSelect<api.ContainerSize>(
-                    title: 'Container size',
+                    title: ShipantherLocalizations.of(context).containerSize,
                     onChange: (state) => _containerSize = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.ContainerSize, api.ContainerSize>(
@@ -208,7 +221,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     value: widget.container.size ?? api.ContainerSize.n20sT,
                   ),
                   smartSelect<api.ContainerType>(
-                    title: 'Container type',
+                    title: ShipantherLocalizations.of(context).containerType,
                     onChange: (state) => _containerType = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.ContainerType, api.ContainerType>(
@@ -219,7 +232,7 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
                     value: widget.container.type ?? api.ContainerType.incoming,
                   ),
                   smartSelect<api.ContainerStatus>(
-                    title: 'Container Status',
+                    title: ShipantherLocalizations.of(context).containerStatus,
                     onChange: (state) => _containerStatus = state.value,
                     choiceItems: S2Choice.listFrom<api.ContainerStatus,
                         api.ContainerStatus>(

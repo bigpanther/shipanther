@@ -55,7 +55,11 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? 'Edit carrier' : 'Add new carrier',
+          widget.isEdit
+              ? ShipantherLocalizations.of(context)
+                  .editParam(ShipantherLocalizations.of(context).carrier)
+              : ShipantherLocalizations.of(context)
+                  .addNewParam(ShipantherLocalizations.of(context).carrier),
         ),
         centerTitle: true,
       ),
@@ -73,9 +77,12 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                     initialValue: widget.carrier.name ?? '',
                     autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: const InputDecoration(hintText: 'Carrier Name'),
+                    decoration: InputDecoration(
+                        hintText:
+                            ShipantherLocalizations.of(context).carrierName),
                     validator: (val) => val.trim().isEmpty
-                        ? 'Carrier name should not be empty'
+                        ? ShipantherLocalizations.of(context).paramEmpty(
+                            ShipantherLocalizations.of(context).carrierName)
                         : null,
                     onSaved: (value) => _carrierName = value,
                   ),
@@ -85,8 +92,9 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-                          children: const [
-                            Text('ETA'),
+                          children: [
+                            Text(ShipantherLocalizations.of(context)
+                                .carriersETA),
                           ],
                         ),
                         Row(
@@ -109,7 +117,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                     ),
                   ),
                   smartSelect<api.CarrierType>(
-                    title: 'Carrier type',
+                    title: ShipantherLocalizations.of(context).carrierType,
                     onChange: (state) => _carrierType = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.CarrierType, api.CarrierType>(

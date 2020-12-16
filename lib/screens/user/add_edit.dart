@@ -43,7 +43,11 @@ class _UserAddEditState extends State<UserAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? 'Edit user' : 'Add new user',
+          widget.isEdit
+              ? ShipantherLocalizations.of(context)
+                  .editParam(ShipantherLocalizations.of(context).user)
+              : ShipantherLocalizations.of(context)
+                  .addNewParam(ShipantherLocalizations.of(context).user),
         ),
         centerTitle: true,
       ),
@@ -61,14 +65,16 @@ class _UserAddEditState extends State<UserAddEdit> {
                     initialValue: widget.user.name ?? '',
                     autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration: const InputDecoration(hintText: 'User Name'),
+                    decoration: InputDecoration(
+                        hintText: ShipantherLocalizations.of(context).userName),
                     validator: (val) => val.trim().isEmpty
-                        ? 'User name should not be empty'
+                        ? ShipantherLocalizations.of(context).paramEmpty(
+                            ShipantherLocalizations.of(context).userName)
                         : null,
                     onSaved: (value) => _userName = value,
                   ),
                   smartSelect<api.UserRole>(
-                    title: 'User type',
+                    title: ShipantherLocalizations.of(context).userType,
                     onChange: (state) => _userRole = state.value,
                     choiceItems: S2Choice.listFrom<api.UserRole, api.UserRole>(
                       source: api.UserRole.values,

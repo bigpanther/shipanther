@@ -44,7 +44,11 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? 'Edit terminal' : 'Add new terminal',
+          widget.isEdit
+              ? ShipantherLocalizations.of(context).editParam(
+                  ShipantherLocalizations.of(context).terminalsTitle(1))
+              : ShipantherLocalizations.of(context).addNewParam(
+                  ShipantherLocalizations.of(context).terminalsTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -62,15 +66,17 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                     initialValue: widget.terminal.name ?? '',
                     autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration:
-                        const InputDecoration(hintText: 'Terminal Name'),
+                    decoration: InputDecoration(
+                        hintText:
+                            ShipantherLocalizations.of(context).terminalName),
                     validator: (val) => val.trim().isEmpty
-                        ? 'Terminal name should not be empty'
+                        ? ShipantherLocalizations.of(context).paramEmpty(
+                            ShipantherLocalizations.of(context).terminalName)
                         : null,
                     onSaved: (value) => _terminalName = value,
                   ),
                   smartSelect<api.TerminalType>(
-                    title: 'Terminal type',
+                    title: ShipantherLocalizations.of(context).terminalType,
                     onChange: (state) => _terminalType = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.TerminalType, api.TerminalType>(

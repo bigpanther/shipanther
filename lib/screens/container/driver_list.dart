@@ -29,13 +29,13 @@ class _DriverContainerListState extends State<DriverContainerList> {
   Widget build(BuildContext context) {
     void showAlertDialog(BuildContext context, api.Container t) {
       final Widget cancelButton = FlatButton(
-        child: Text(ShipantherLocalizations.of(context).cancel),
+        child: Text(ShipantherLocalizations.of(context).containerCancel),
         onPressed: () {
           Navigator.of(context).pop();
         },
       );
       final Widget continueButton = FlatButton(
-        child: Text(ShipantherLocalizations.of(context).reject),
+        child: Text(ShipantherLocalizations.of(context).containerReject),
         textColor: Colors.red,
         onPressed: () {
           t.status = api.ContainerStatus.rejected;
@@ -46,7 +46,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
       );
 
       final alert = AlertDialog(
-        title: Text(ShipantherLocalizations.of(context).reject),
+        title: Text(ShipantherLocalizations.of(context).containerReject),
         content: Text(
             ShipantherLocalizations.of(context).containerRejectConfirmation),
         actions: [
@@ -82,7 +82,8 @@ class _DriverContainerListState extends State<DriverContainerList> {
             .where((element) => element.status == api.ContainerStatus.arrived);
 
     final body = items.isEmpty
-        ? const Center(child: Text('No items here'))
+        ? Center(
+            child: Text(ShipantherLocalizations.of(context).containerNoItem))
         : ListView.builder(
             itemCount: items.length,
             itemBuilder: (BuildContext context, int index) {
@@ -145,7 +146,8 @@ class _DriverContainerListState extends State<DriverContainerList> {
                         )
                       ],
                     ),
-                    subtitle: Text('${t.origin} to ${t.destination}'),
+                    subtitle: Text(ShipantherLocalizations.of(context)
+                        .paramFromTo(t.origin, t.destination)),
                     children: [
                       if (t.status == api.ContainerStatus.accepted)
                         FlatButton(
@@ -154,8 +156,8 @@ class _DriverContainerListState extends State<DriverContainerList> {
                             t.status = api.ContainerStatus.arrived;
                             widget.containerBloc.add(UpdateContainer(t.id, t));
                           },
-                          child: Text(
-                              ShipantherLocalizations.of(context).delivered),
+                          child: Text(ShipantherLocalizations.of(context)
+                              .containerDelivered),
                         )
                       else
                         Container(
@@ -175,7 +177,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
                             widget.containerBloc.add(UpdateContainer(t.id, t));
                           },
                           child: Text(
-                            ShipantherLocalizations.of(context).accept,
+                            ShipantherLocalizations.of(context).containerAccept,
                           ),
                         ),
                         FlatButton(
@@ -184,7 +186,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
                             showAlertDialog(context, t);
                           },
                           child: Text(
-                            ShipantherLocalizations.of(context).reject,
+                            ShipantherLocalizations.of(context).containerReject,
                           ),
                         )
                       ],
@@ -210,7 +212,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
       onTap: onTabTapped,
       items: [
         BottomNavigationBarItem(
-          label: ShipantherLocalizations.of(context).pending,
+          label: ShipantherLocalizations.of(context).containerPending,
           icon: Stack(
             children: <Widget>[
               const Icon(Icons.pending),
@@ -240,7 +242,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
           ),
         ),
         BottomNavigationBarItem(
-          label: ShipantherLocalizations.of(context).completed,
+          label: ShipantherLocalizations.of(context).containerCompleted,
           icon: const Icon(
             Icons.check,
             color: Colors.green,

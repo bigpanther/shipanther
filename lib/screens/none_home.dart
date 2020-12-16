@@ -17,7 +17,7 @@ class NoneHome extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            Text('Hello ${user.name}'),
+            Text(ShipantherLocalizations.of(context).helloParam(user.name)),
             Text(ShipantherLocalizations.of(context).tenantLessUserMessage),
           ],
         ),

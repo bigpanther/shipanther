@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/extensions/carrier_extension.dart';
+import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/carrier/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
@@ -18,7 +19,6 @@ class CarrierList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = ShipantherLocalizations.of(context).dateFormatter;
     final title = ShipantherLocalizations.of(context).carriersTitle;
     final actions = <Widget>[];
 
@@ -61,25 +61,26 @@ class CarrierList extends StatelessWidget {
               ),
               children: [
                 if (t.eta != null)
-                  Text(
-                    'ETA: ${formatter.format(t.eta)}',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  )
+                  addColon(
+                      ShipantherLocalizations.of(context).eta,
+                      ShipantherLocalizations.of(context)
+                          .dateFormatter
+                          .format(t.eta))
                 else
                   const Text(''),
-                Text(
-                  'Created At: ${t.createdAt ?? formatter.format(t.createdAt)}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  'Last Update: ${t.updatedAt ?? formatter.format(t.updatedAt)}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                addColon(
+                    ShipantherLocalizations.of(context).createdAt,
+                    ShipantherLocalizations.of(context)
+                        .dateFormatter
+                        .format(t.createdAt)),
+                addColon(
+                    ShipantherLocalizations.of(context).lastUpdate,
+                    ShipantherLocalizations.of(context)
+                        .dateFormatter
+                        .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
-                  Text(
-                    'Tenant ID: ${t.tenantId}',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  )
+                  addColon(
+                      ShipantherLocalizations.of(context).tenantId, t.tenantId)
                 else
                   const Text(''),
               ],
@@ -89,7 +90,7 @@ class CarrierList extends StatelessWidget {
       },
     );
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: 'Add carrier',
+      tooltip: ShipantherLocalizations.of(context).addCarrier,
       child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(

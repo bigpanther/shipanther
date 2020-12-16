@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shipanther/bloc/container/container_bloc.dart';
+import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/container/add_edit.dart';
 import 'package:shipanther/extensions/container_extension.dart';
@@ -70,32 +71,44 @@ class ContainerList extends StatelessWidget {
                 },
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-              title: Text(
-                t.serialNumber,
-                style: TextStyle(color: t.status.color, fontSize: 20),
+              title: Row(
+                children: [
+                  Text(
+                    t.serialNumber,
+                    style: TextStyle(color: t.status.color, fontSize: 20),
+                  ),
+                  const SizedBox(
+                    width: 3,
+                  ),
+                  Icon(
+                    t.type == api.ContainerType.incoming
+                        ? Icons.arrow_circle_down_sharp
+                        : Icons.arrow_circle_up_sharp,
+                    size: 20,
+                  )
+                ],
               ),
-              subtitle: Text('${t.origin} to ${t.destination}'),
+              subtitle: Text(ShipantherLocalizations.of(context)
+                  .paramFromTo(t.origin, t.destination)),
               children: [
-                Text(
-                  'LFD: ${t.lfd}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  'Reservation Time: ${t.reservationTime}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  'Size: ${t.size.text}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  'Status: ${t.status.text}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  'Last Update: ${ShipantherLocalizations.of(context).dateFormatter.format(t.updatedAt)}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                addColon(
+                    ShipantherLocalizations.of(context).lfd,
+                    ShipantherLocalizations.of(context)
+                        .dateFormatter
+                        .format(t.lfd)),
+                addColon(
+                    ShipantherLocalizations.of(context).reservationTime,
+                    ShipantherLocalizations.of(context)
+                        .dateFormatter
+                        .format(t.reservationTime)),
+                addColon(ShipantherLocalizations.of(context).size, t.size.text),
+                addColon(
+                    ShipantherLocalizations.of(context).status, t.status.text),
+                addColon(
+                    ShipantherLocalizations.of(context).lastUpdate,
+                    ShipantherLocalizations.of(context)
+                        .dateFormatter
+                        .format(t.updatedAt)),
               ],
             ),
           ),
@@ -104,7 +117,7 @@ class ContainerList extends StatelessWidget {
     );
 
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: 'Add container',
+      tooltip: ShipantherLocalizations.of(context).containerAdd,
       child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(
