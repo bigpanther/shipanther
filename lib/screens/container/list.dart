@@ -4,10 +4,12 @@ import 'package:shipanther/bloc/container/container_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/container/add_edit.dart';
 import 'package:shipanther/extensions/container_extension.dart';
+import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ContainerList extends StatelessWidget {
+class ContainerList extends StatefulWidget {
   const ContainerList(
     this.loggedInUser, {
     Key key,
@@ -19,23 +21,35 @@ class ContainerList extends StatelessWidget {
   final api.User loggedInUser;
 
   @override
+  _ContainerListState createState() => _ContainerListState();
+}
+
+class _ContainerListState extends State<ContainerList> {
+  @override
   Widget build(BuildContext context) {
     final title = ShipantherLocalizations.of(context).containersTitle;
-    final actions = <Widget>[];
+    final actions = <Widget>[
+      FilterButton<api.ContainerStatus>(
+        possibleValues: api.ContainerStatus.values,
+        isActive: true,
+        activeFilter: widget.containerLoadedState.containerStatus,
+        onSelected: (t) => context.read<ContainerBloc>()..add(GetContainers(t)),
+        tooltip: 'Filter Order status',
+      )
+    ];
     Widget circularIndicator(double p) {
       return CircularPercentIndicator(
         radius: 35.0,
         lineWidth: 5.0,
         percent: p,
-        // center: new Text("100%"),
         progressColor: Colors.green,
       );
     }
 
     final Widget body = ListView.builder(
-      itemCount: containerLoadedState.containers.length,
+      itemCount: widget.containerLoadedState.containers.length,
       itemBuilder: (BuildContext context, int index) {
-        final t = containerLoadedState.containers.elementAt(index);
+        final t = widget.containerLoadedState.containers.elementAt(index);
         return Padding(
           padding: const EdgeInsets.all(3.0),
           child: Card(
@@ -56,7 +70,7 @@ class ContainerList extends StatelessWidget {
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
-                  containerBloc.add(GetContainer(t.id));
+                  widget.containerBloc.add(GetContainer(t.id));
                 },
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
@@ -101,9 +115,9 @@ class ContainerList extends StatelessWidget {
           context,
           MaterialPageRoute<Widget>(
             builder: (_) => ContainerAddEdit(
-              loggedInUser,
+              widget.loggedInUser,
               isEdit: false,
-              containerBloc: containerBloc,
+              containerBloc: widget.containerBloc,
               container: api.Container(),
             ),
           ),
@@ -111,7 +125,7 @@ class ContainerList extends StatelessWidget {
       },
     );
 
-    return ShipantherScaffold(loggedInUser,
+    return ShipantherScaffold(widget.loggedInUser,
         bottomNavigationBar: null,
         title: title,
         actions: actions,

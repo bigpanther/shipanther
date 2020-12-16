@@ -27,5 +27,7 @@ class DeleteContainer extends ContainerEvent {
 }
 
 class GetContainers extends ContainerEvent {
-  const GetContainers();
+  final ContainerStatus containerStatus;
+  // ignore: sort_constructors_first
+  const GetContainers(this.containerStatus);
 }
