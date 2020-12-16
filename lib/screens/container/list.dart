@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shipanther/bloc/container/container_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/container/add_edit.dart';
@@ -22,6 +22,16 @@ class ContainerList extends StatelessWidget {
   Widget build(BuildContext context) {
     final title = ShipantherLocalizations.of(context).containersTitle;
     final actions = <Widget>[];
+    Widget circularIndicator(double p) {
+      return CircularPercentIndicator(
+        radius: 35.0,
+        lineWidth: 5.0,
+        percent: p,
+        // center: new Text("100%"),
+        progressColor: Colors.green,
+      );
+    }
+
     final Widget body = ListView.builder(
       itemCount: containerLoadedState.containers.length,
       itemBuilder: (BuildContext context, int index) {
@@ -37,7 +47,12 @@ class ContainerList extends StatelessWidget {
             ),
             child: ExpansionTile(
               childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
-              leading: const Icon(Icons.home_work),
+              leading: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  circularIndicator(t.status.percentage),
+                ],
+              ),
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
