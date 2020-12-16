@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -40,34 +39,37 @@ import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:shipanther/widgets/theme.dart';
 
-FirebaseMessaging _firebaseMessaging;
-
 Future<void> commonMain(String apiURL) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-  final Function originalOnError = FlutterError.onError;
-  FlutterError.onError = (FlutterErrorDetails errorDetails) async {
-    await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
-    // Forward to original handler.
-    originalOnError(errorDetails);
-  };
-  _firebaseMessaging = FirebaseMessaging();
-  _firebaseMessaging.configure(
-    onMessage: (Map<String, dynamic> task) async {
-      print('onMessage: $task');
-    },
-    onLaunch: (Map<String, dynamic> task) async {
-      print('onLaunch: $task');
-    },
-    onResume: (Map<String, dynamic> task) async {
-      print('onResume: $task');
-    },
-    onBackgroundMessage: Platform.isIOS ? null : backgroundHandle,
+  if (!kIsWeb) {
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    final Function originalOnError = FlutterError.onError;
+    FlutterError.onError = (FlutterErrorDetails errorDetails) async {
+      await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
+      // Forward to original handler.
+      originalOnError(errorDetails);
+    };
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  }
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+  });
+  final settings = await FirebaseMessaging.instance.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
   );
-  _firebaseMessaging.requestNotificationPermissions(
-    const IosNotificationSettings(sound: true, badge: true, alert: true),
-  );
+  print('User granted permission: ${settings.authorizationStatus}');
 
   runZonedGuarded(() {
     runApp(ShipantherApp(apiURL));
@@ -89,7 +91,7 @@ class ShipantherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<AuthRepository>(
-      create: (context) => FireBaseAuthRepository(_firebaseMessaging),
+      create: (context) => FireBaseAuthRepository(FirebaseMessaging.instance),
       child: RepositoryProvider<ApiRepository>(
         create: (context) =>
             RemoteApiRepository(context.read<AuthRepository>(), apiURL),
@@ -166,16 +168,7 @@ class ShipantherApp extends StatelessWidget {
   }
 }
 
-Future<dynamic> backgroundHandle(Map<String, dynamic> message) async {
-  if (message.containsKey('data')) {
-    // Handle data message
-    final dynamic data = message['data'];
-    print(data);
-  }
-
-  if (message.containsKey('notification')) {
-    // Handle notification message
-    final dynamic notification = message['notification'];
-    print(notification);
-  }
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('Handling a background message: ${message.messageId}');
 }

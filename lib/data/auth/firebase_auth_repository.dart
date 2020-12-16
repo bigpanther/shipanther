@@ -51,7 +51,7 @@ class FireBaseAuthRepository extends AuthRepository {
   @override
   Future<void> logout() async {
     await _firebaseMessaging.setAutoInitEnabled(false);
-    await _firebaseMessaging.deleteInstanceID();
+    await _firebaseMessaging.deleteToken();
     await _auth.signOut();
   }
 
