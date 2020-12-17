@@ -9,7 +9,7 @@ import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ContainerList extends StatefulWidget {
+class ContainerList extends StatelessWidget {
   const ContainerList(
     this.loggedInUser, {
     Key key,
@@ -21,18 +21,13 @@ class ContainerList extends StatefulWidget {
   final api.User loggedInUser;
 
   @override
-  _ContainerListState createState() => _ContainerListState();
-}
-
-class _ContainerListState extends State<ContainerList> {
-  @override
   Widget build(BuildContext context) {
     final title = ShipantherLocalizations.of(context).containersTitle;
     final actions = <Widget>[
       FilterButton<api.ContainerStatus>(
         possibleValues: api.ContainerStatus.values,
         isActive: true,
-        activeFilter: widget.containerLoadedState.containerStatus,
+        activeFilter: containerLoadedState.containerStatus,
         onSelected: (t) => context.read<ContainerBloc>()..add(GetContainers(t)),
         tooltip: 'Filter Order status',
       )
@@ -47,9 +42,9 @@ class _ContainerListState extends State<ContainerList> {
     }
 
     final Widget body = ListView.builder(
-      itemCount: widget.containerLoadedState.containers.length,
+      itemCount: containerLoadedState.containers.length,
       itemBuilder: (BuildContext context, int index) {
-        final t = widget.containerLoadedState.containers.elementAt(index);
+        final t = containerLoadedState.containers.elementAt(index);
         return Padding(
           padding: const EdgeInsets.all(3.0),
           child: Card(
@@ -70,7 +65,7 @@ class _ContainerListState extends State<ContainerList> {
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
-                  widget.containerBloc.add(GetContainer(t.id));
+                  containerBloc.add(GetContainer(t.id));
                 },
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
@@ -115,9 +110,9 @@ class _ContainerListState extends State<ContainerList> {
           context,
           MaterialPageRoute<Widget>(
             builder: (_) => ContainerAddEdit(
-              widget.loggedInUser,
+              loggedInUser,
               isEdit: false,
-              containerBloc: widget.containerBloc,
+              containerBloc: containerBloc,
               container: api.Container(),
             ),
           ),
@@ -125,7 +120,7 @@ class _ContainerListState extends State<ContainerList> {
       },
     );
 
-    return ShipantherScaffold(widget.loggedInUser,
+    return ShipantherScaffold(loggedInUser,
         bottomNavigationBar: null,
         title: title,
         actions: actions,
