@@ -23,6 +23,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m1(param) => "${param} ਦੀ ਲੋੜ ਹੈ";
 
+  static m2(howMany) => "${Intl.plural(howMany, zero: 'ਟਰਮੀਨਲ', one: 'ਟਰਮੀਨਲ', other: 'ਟਰਮੀਨਲ')}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "carriersTitle" : MessageLookupByLibrary.simpleMessage("ਕੈਰੀਅਰ"),
@@ -55,7 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "signIn" : MessageLookupByLibrary.simpleMessage("ਲਾੱਗ ਇਨ"),
     "tenantLessUserMessage" : MessageLookupByLibrary.simpleMessage("ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਕਰਨ ਵਾਸਤੇ ਤੁਹਾਡਾ ਬਹੁਤ ਧੰਨਵਾਦ। ਏਹ ਸੌਫਟਵੇਅਰ ਹਾਲੀ ਤਜਰਬੇ ਵਾਲੀ ਸਥਿਤੀ ਵਿੱਚ ਹੈ । ਅਸੀਂ ਤੁਹਾਨੰ ਛੇਤੀ ਹੀ ਵਾਪਿਸ ਜੁਵਾਬ ਦੇਵਾਂਗੇ। ਧੰਨਵਾਦ।"),
     "tenantsTitle" : MessageLookupByLibrary.simpleMessage("ਕਿਰਾਏਦਾਰ"),
-    "terminalsTitle" : MessageLookupByLibrary.simpleMessage("ਟਰਮੀਨਲ"),
+    "terminalsTitle" : m2,
     "username" : MessageLookupByLibrary.simpleMessage("ਉਪਯੋਗਕਰਤਾ ਨਾਮ"),
     "usersTitle" : MessageLookupByLibrary.simpleMessage("ਉਪਭੋਗਤਾ"),
     "welcome" : MessageLookupByLibrary.simpleMessage("ਸ਼ਿੱਪਐਨਥਰ ਤੁਹਾਡਾ ਸਵਾਗਤ ਕਰਦਾ ਹੈ")

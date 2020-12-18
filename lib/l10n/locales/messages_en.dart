@@ -23,6 +23,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static m1(param) => "${param} is required";
 
+  static m2(howMany) => "${Intl.plural(howMany, zero: 'Terminal', one: 'Terminal', other: 'Terminals')}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "carriersTitle" : MessageLookupByLibrary.simpleMessage("Carriers"),
@@ -55,7 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "signIn" : MessageLookupByLibrary.simpleMessage("Sign In"),
     "tenantLessUserMessage" : MessageLookupByLibrary.simpleMessage("Thanks for signing up. We will review your registration. We are in a limited beta at the moment. Please check back later."),
     "tenantsTitle" : MessageLookupByLibrary.simpleMessage("Tenants"),
-    "terminalsTitle" : MessageLookupByLibrary.simpleMessage("Terminals"),
+    "terminalsTitle" : m2,
     "username" : MessageLookupByLibrary.simpleMessage("Username"),
     "usersTitle" : MessageLookupByLibrary.simpleMessage("Users"),
     "welcome" : MessageLookupByLibrary.simpleMessage("Welcome to Shipanther")
