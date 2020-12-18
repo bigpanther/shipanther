@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:trober_sdk/api.dart';
 
 extension CarrierTypeExtension on CarrierType {
-  // ignore: missing_return
   IconData get icon {
     switch (this) {
       case CarrierType.air:
@@ -15,6 +14,7 @@ extension CarrierTypeExtension on CarrierType {
       case CarrierType.road:
         return Icons.local_shipping;
     }
+    return Icons.broken_image;
   }
 
   String get text {

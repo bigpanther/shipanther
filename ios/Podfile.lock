@@ -32,7 +32,7 @@ PODS:
     - Firebase/CoreOnly (~> 6.33.0)
     - Firebase/Crashlytics (~> 6.33.0)
     - firebase_core
-  - firebase_messaging (7.0.3):
+  - firebase_messaging (8.0.0-dev.11):
     - Firebase/CoreOnly (~> 6.33.0)
     - Firebase/Messaging (~> 6.33.0)
     - firebase_core
@@ -178,7 +178,7 @@ SPEC CHECKSUMS:
   firebase_auth: d5159db3873478d1ac839af7b10d2f831516136a
   firebase_core: 5d6a02f3d85acd5f8321c2d6d62877626a670659
   firebase_crashlytics: 7b37f8e79a82175606a3447852c9efa8e10034b3
-  firebase_messaging: 0aea2cd5885b65e19ede58ee3507f485c992cc75
+  firebase_messaging: 738982b5b4110cdc7a72449544123f6fcdb65604
   FirebaseAnalytics: 5dd088bd2e67bb9d13dbf792d1164ceaf3052193
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
   FirebaseCore: d889d9e12535b7f36ac8bfbf1713a0836a3012cd

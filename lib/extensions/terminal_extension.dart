@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:trober_sdk/api.dart';
 
 extension TerminalTypeExtension on TerminalType {
-  // ignore: missing_return
   IconData get icon {
     switch (this) {
       case TerminalType.rail:
@@ -17,6 +16,7 @@ extension TerminalTypeExtension on TerminalType {
       case TerminalType.custom:
         return Icons.local_shipping;
     }
+    return Icons.broken_image;
   }
 
   String get text {

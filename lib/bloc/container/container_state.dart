@@ -15,8 +15,9 @@ class ContainerLoaded extends ContainerState {
 }
 
 class ContainersLoaded extends ContainerState {
-  const ContainersLoaded(this.containers);
+  const ContainersLoaded(this.containers, this.containerStatus);
   final List<Container> containers;
+  final ContainerStatus containerStatus;
 }
 
 class ContainerFailure extends ContainerState {

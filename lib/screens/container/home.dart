@@ -25,7 +25,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
   void initState() {
     super.initState();
     bloc = context.read<ContainerBloc>();
-    bloc.add(const GetContainers());
+    bloc.add(const GetContainers(null));
   }
 
   @override
