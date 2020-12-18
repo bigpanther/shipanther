@@ -32,12 +32,13 @@ class ContainerList extends StatelessWidget {
         tooltip: 'Filter Order status',
       )
     ];
-    Widget circularIndicator(double p) {
+    Widget circularIndicator(api.Container c) {
       return CircularPercentIndicator(
         radius: 35.0,
         lineWidth: 5.0,
-        percent: p,
+        percent: c.status.percentage,
         progressColor: Colors.green,
+        center: Icon(c.type.icon),
       );
     }
 
@@ -59,7 +60,7 @@ class ContainerList extends StatelessWidget {
               leading: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  circularIndicator(t.status.percentage),
+                  circularIndicator(t),
                 ],
               ),
               trailing: IconButton(
