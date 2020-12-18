@@ -7,11 +7,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "terminalsTitle": "ਟਰਮੀਨਲ",
+  "terminalsTitle": "{howMany,plural, =0{ਟਰਮੀਨਲ}=1{ਟਰਮੀਨਲ}other{ਟਰਮੀਨਲ}}",
   "@terminalsTitle": {
     "description": "Title for the Terminals page",
     "type": "text",
-    "placeholders": {}
+    "placeholders": {
+      "howMany": {
+        "example": 2
+      }
+    }
   },
   "tenantLessUserMessage": "ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਕਰਨ ਵਾਸਤੇ ਤੁਹਾਡਾ ਬਹੁਤ ਧੰਨਵਾਦ। ਏਹ ਸੌਫਟਵੇਅਰ ਹਾਲੀ ਤਜਰਬੇ ਵਾਲੀ ਸਥਿਤੀ ਵਿੱਚ ਹੈ । ਅਸੀਂ ਤੁਹਾਨੰ ਛੇਤੀ ਹੀ ਵਾਪਿਸ ਜੁਵਾਬ ਦੇਵਾਂਗੇ। ਧੰਨਵਾਦ।",
   "@tenantLessUserMessage": {

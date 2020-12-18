@@ -22,7 +22,7 @@ class TerminalList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formatter = ShipantherLocalizations.of(context).dateFormatter;
-    final title = ShipantherLocalizations.of(context).terminalsTitle;
+    final title = ShipantherLocalizations.of(context).terminalsTitle(2);
     final actions = <Widget>[
       FilterButton<TerminalType>(
         possibleValues: TerminalType.values,

@@ -28,11 +28,16 @@ class ShipantherLocalizations {
         locale: locale.toString(),
       );
 
-  String get terminalsTitle => Intl.message(
-        'Terminals',
+  String terminalsTitle(int howMany) => Intl.plural(
+        howMany,
+        zero: 'Terminal',
+        one: 'Terminal',
+        other: 'Terminals',
         name: 'terminalsTitle',
         desc: 'Title for the Terminals page',
         locale: locale.toString(),
+        args: [howMany],
+        examples: const {'howMany': 2},
       );
   String get tenantLessUserMessage => Intl.message(
         'Thanks for signing up. We will review your registration. We are in a limited beta at the moment. Please check back later.',

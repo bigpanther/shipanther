@@ -119,7 +119,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.account_balance,
-        text: ShipantherLocalizations.of(context).terminalsTitle,
+        text: ShipantherLocalizations.of(context).terminalsTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<TerminalScreen>(
             builder: (_) => TerminalScreen(user),
