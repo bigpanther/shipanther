@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:trober_sdk/api.dart';
 
 extension TenantTypeExtension on TenantType {
-  // ignore: missing_return
   IconData get icon {
     switch (this) {
       case TenantType.production:
@@ -13,6 +12,7 @@ extension TenantTypeExtension on TenantType {
       case TenantType.test:
         return Icons.home_work;
     }
+    return Icons.broken_image;
   }
 
   String get text {

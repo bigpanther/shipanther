@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:trober_sdk/api.dart';
 
 extension OrderStatusExtension on OrderStatus {
-  // ignore: missing_return
   IconData get icon {
     switch (this) {
       case OrderStatus.open:
@@ -22,6 +21,7 @@ extension OrderStatusExtension on OrderStatus {
       case OrderStatus.accepted:
         return Icons.check;
     }
+    return Icons.broken_image;
   }
 
   String get text {
