@@ -31,18 +31,22 @@ class _DriverContainerListState extends State<DriverContainerList> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     File _image;
     final picker = ImagePicker();
 
     Future getImage() async {
-      final pickedFile = await picker.getImage(source: ImageSource.camera);
+      final pickedImage = await picker.getImage(source: ImageSource.camera);
+
+      if (pickedImage == null) {
+        return;
+      }
+
+      var tmpFile = File(pickedImage.path);
+      tmpFile = await tmpFile.copy(tmpFile.path);
 
       setState(() {
-        if (pickedFile != null) {
-          _image = File(pickedFile.path);
-        } else {
-          print('No image selected.');
-        }
+        _image = tmpFile;
       });
     }
 
