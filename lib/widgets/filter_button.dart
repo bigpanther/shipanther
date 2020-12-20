@@ -65,6 +65,7 @@ class _Button<T> extends StatelessWidget {
     return PopupMenuButton<T>(
       tooltip: tooltip,
       onSelected: onSelected,
+      onCanceled: () {print("a");onSelected(null);},
       itemBuilder: (BuildContext context) {
         final items = possibleValues
             .map(
