@@ -1,5 +1,6 @@
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
+import 'package:shipanther/l10n/shipanther_localization.dart';
 
 class FilterButton<T> extends StatelessWidget {
   const FilterButton({
@@ -80,7 +81,7 @@ class _Button<T> extends StatelessWidget {
           PopupMenuItem<T>(
             value: null,
             child: Text(
-              'Clear',
+              ShipantherLocalizations.of(context).clear,
               style: defaultStyle,
             ),
           ),

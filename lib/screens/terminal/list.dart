@@ -73,18 +73,18 @@ class TerminalList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                addColon(
+                displaySubtitle(
                     ShipantherLocalizations.of(context).createdAt,
                     ShipantherLocalizations.of(context)
                         .dateFormatter
                         .format(t.createdAt)),
-                addColon(
+                displaySubtitle(
                     ShipantherLocalizations.of(context).lastUpdate,
                     ShipantherLocalizations.of(context)
                         .dateFormatter
                         .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
-                  addColon(
+                  displaySubtitle(
                       ShipantherLocalizations.of(context).tenantId, t.tenantId)
                 else
                   const Text(''),

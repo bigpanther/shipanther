@@ -96,10 +96,10 @@ class _ContainerAddEditState extends State<ContainerAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)
-                  .editParam(ShipantherLocalizations.of(context).container)
-              : ShipantherLocalizations.of(context)
-                  .addNewParam(ShipantherLocalizations.of(context).container),
+              ? ShipantherLocalizations.of(context).editParam(
+                  ShipantherLocalizations.of(context).containersTitle(1))
+              : ShipantherLocalizations.of(context).addNewParam(
+                  ShipantherLocalizations.of(context).containersTitle(1)),
         ),
         centerTitle: true,
       ),

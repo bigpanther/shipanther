@@ -53,7 +53,7 @@ class _OrderScreenState extends State<OrderScreen> {
         }
         return Scaffold(
           appBar: AppBar(
-            title: Text(ShipantherLocalizations.of(context).ordersTitle),
+            title: Text(ShipantherLocalizations.of(context).ordersTitle(2)),
           ),
           body: const CenteredLoading(),
         );

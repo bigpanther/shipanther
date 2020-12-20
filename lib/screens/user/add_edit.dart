@@ -45,9 +45,9 @@ class _UserAddEditState extends State<UserAddEdit> {
         title: Text(
           widget.isEdit
               ? ShipantherLocalizations.of(context)
-                  .editParam(ShipantherLocalizations.of(context).user)
-              : ShipantherLocalizations.of(context)
-                  .addNewParam(ShipantherLocalizations.of(context).user),
+                  .editParam(ShipantherLocalizations.of(context).usersTitle(1))
+              : ShipantherLocalizations.of(context).addNewParam(
+                  ShipantherLocalizations.of(context).usersTitle(1)),
         ),
         centerTitle: true,
       ),

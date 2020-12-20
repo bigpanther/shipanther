@@ -23,11 +23,16 @@ class ShipantherLocalizations {
   DateFormat get timeFormatter => DateFormat('kk:mm');
 
   //tenant
-  String get tenantsTitle => Intl.message(
-        'Tenants',
+  String tenantsTitle(int howMany) => Intl.plural(
+        howMany,
+        zero: 'Tenant',
+        one: 'tenant',
+        other: 'Tenants',
         name: 'tenantsTitle',
         desc: 'Title for the Tenants page',
         locale: locale.toString(),
+        args: [howMany],
+        examples: const {'howMany': 2},
       );
 
   String get tenantLessUserMessage => Intl.message(
@@ -36,12 +41,7 @@ class ShipantherLocalizations {
         desc: 'Message to display when a new user signs up',
         locale: locale.toString(),
       );
-  String get tenant => Intl.message(
-        'tenant',
-        name: 'tenant',
-        desc: 'tenant',
-        locale: locale.toString(),
-      );
+
   String get tenantName => Intl.message(
         'Tenant name',
         name: 'tenantName',
@@ -106,18 +106,18 @@ class ShipantherLocalizations {
         locale: locale.toString(),
       );
   //order
-  String get ordersTitle => Intl.message(
-        'Orders',
+  String ordersTitle(int howMany) => Intl.plural(
+        howMany,
+        zero: 'Order',
+        one: 'order',
+        other: 'Orders',
         name: 'ordersTitle',
-        desc: 'Orders',
+        desc: 'Title for the Orders page',
         locale: locale.toString(),
+        args: [howMany],
+        examples: const {'howMany': 2},
       );
-  String get order => Intl.message(
-        'order',
-        name: 'order',
-        desc: 'order',
-        locale: locale.toString(),
-      );
+
   String get orderNumber => Intl.message(
         'Order number',
         name: 'orderNumber',
@@ -143,18 +143,18 @@ class ShipantherLocalizations {
         locale: locale.toString(),
       );
 //user
-  String get usersTitle => Intl.message(
-        'Users',
+  String usersTitle(int howMany) => Intl.plural(
+        howMany,
+        zero: 'User',
+        one: 'user',
+        other: 'Users',
         name: 'usersTitle',
-        desc: 'Users',
+        desc: 'Title for the Users page',
         locale: locale.toString(),
+        args: [howMany],
+        examples: const {'howMany': 2},
       );
-  String get user => Intl.message(
-        'user',
-        name: 'user',
-        desc: 'user',
-        locale: locale.toString(),
-      );
+
   String get userName => Intl.message(
         'User name',
         name: 'userName',
@@ -174,11 +174,16 @@ class ShipantherLocalizations {
         locale: locale.toString(),
       );
 //carrier
-  String get carriersTitle => Intl.message(
-        'Carriers',
+  String carriersTitle(int howMany) => Intl.plural(
+        howMany,
+        zero: 'Carrier',
+        one: 'carrier',
+        other: 'Carriers',
         name: 'carriersTitle',
-        desc: 'Carriers',
+        desc: 'Title for the Carriers page',
         locale: locale.toString(),
+        args: [howMany],
+        examples: const {'howMany': 2},
       );
   String get carriersETA => Intl.message(
         'ETA',
@@ -186,12 +191,7 @@ class ShipantherLocalizations {
         desc: 'ETA',
         locale: locale.toString(),
       );
-  String get carrier => Intl.message(
-        'carrier',
-        name: 'carrier',
-        desc: 'carrier',
-        locale: locale.toString(),
-      );
+
   String get carrierName => Intl.message(
         'Carrier name',
         name: 'carrierName',
@@ -212,11 +212,16 @@ class ShipantherLocalizations {
       );
 
 //container
-  String get containersTitle => Intl.message(
-        'Containers',
+  String containersTitle(int howMany) => Intl.plural(
+        howMany,
+        zero: 'Container',
+        one: 'container',
+        other: 'Containers',
         name: 'containersTitle',
-        desc: 'Containers',
+        desc: 'Title for the Containers page',
         locale: locale.toString(),
+        args: [howMany],
+        examples: const {'howMany': 2},
       );
   String get containerRejectConfirmation => Intl.message(
         'Are you sure you want to reject this delivery?',
@@ -279,12 +284,7 @@ class ShipantherLocalizations {
         desc: 'No items here',
         locale: locale.toString(),
       );
-  String get container => Intl.message(
-        'container',
-        name: 'container',
-        desc: 'container',
-        locale: locale.toString(),
-      );
+
   String get containerSerialNumber => Intl.message(
         'Serial number',
         name: 'containerSerialNumber',
@@ -328,18 +328,18 @@ class ShipantherLocalizations {
         locale: locale.toString(),
       );
   //customer
-  String get customersTitle => Intl.message(
-        'Customers',
+  String customersTitle(int howMany) => Intl.plural(
+        howMany,
+        zero: 'Customer',
+        one: 'customer',
+        other: 'Customers',
         name: 'customersTitle',
-        desc: 'Customers',
+        desc: 'Title for the Customers page',
         locale: locale.toString(),
+        args: [howMany],
+        examples: const {'howMany': 2},
       );
-  String get customer => Intl.message(
-        'customer',
-        name: 'customer',
-        desc: 'customer',
-        locale: locale.toString(),
-      );
+
   String get customerName => Intl.message(
         'Customer name',
         name: 'customername',
@@ -400,6 +400,14 @@ class ShipantherLocalizations {
         name: 'addNewParam',
         args: [param],
         desc: 'Add new param',
+        locale: locale.toString(),
+        examples: const {'param': 'Container'},
+      );
+  String selectParam(String param) => Intl.message(
+        'Select $param',
+        name: 'selectParam',
+        args: [param],
+        desc: 'Select param',
         locale: locale.toString(),
         examples: const {'param': 'Container'},
       );
@@ -639,6 +647,24 @@ class ShipantherLocalizations {
         'An error occured during log-in. Please retry.',
         name: 'loginError',
         desc: 'An error occured during log-in. Please retry.',
+        locale: locale.toString(),
+      );
+  String get driver => Intl.message(
+        'driver',
+        name: 'driver',
+        desc: 'driver',
+        locale: locale.toString(),
+      );
+  String get clear => Intl.message(
+        'Clear',
+        name: 'clear',
+        desc: 'clear',
+        locale: locale.toString(),
+      );
+  String get shipantherTitle => Intl.message(
+        'Shipanther',
+        name: 'shipantherTitle',
+        desc: 'Shipanther',
         locale: locale.toString(),
       );
 }

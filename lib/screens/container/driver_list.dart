@@ -69,7 +69,7 @@ class _DriverContainerListState extends State<DriverContainerList> {
       });
     }
 
-    final title = ShipantherLocalizations.of(context).containersTitle;
+    final title = ShipantherLocalizations.of(context).containersTitle(2);
     final actions = <Widget>[];
     final totalPending = widget.containerLoadedState.containers
         .where((element) => element.status == api.ContainerStatus.accepted)

@@ -22,7 +22,7 @@ class OrderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context).ordersTitle;
+    final title = ShipantherLocalizations.of(context).ordersTitle(2);
     final actions = <Widget>[
       FilterButton<OrderStatus>(
           possibleValues: OrderStatus.values,
@@ -63,23 +63,24 @@ class OrderList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                addColon(
+                displaySubtitle(
                     ShipantherLocalizations.of(context).createdAt,
                     ShipantherLocalizations.of(context)
                         .dateFormatter
                         .format(t.createdAt)),
                 if (t.customer != null)
-                  addColon(ShipantherLocalizations.of(context).customerName,
+                  displaySubtitle(
+                      ShipantherLocalizations.of(context).customerName,
                       t.customer.name)
                 else
                   const Text(''),
-                addColon(
+                displaySubtitle(
                     ShipantherLocalizations.of(context).lastUpdate,
                     ShipantherLocalizations.of(context)
                         .dateFormatter
                         .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
-                  addColon(
+                  displaySubtitle(
                       ShipantherLocalizations.of(context).tenantId, t.tenantId)
                 else
                   const Text(''),

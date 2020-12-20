@@ -21,7 +21,7 @@ class UserList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context).usersTitle;
+    final title = ShipantherLocalizations.of(context).usersTitle(2);
     final actions = <Widget>[
       FilterButton<UserRole>(
         possibleValues: UserRole.values,
@@ -72,20 +72,22 @@ class UserList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                addColon(ShipantherLocalizations.of(context).email, t.email),
-                addColon(ShipantherLocalizations.of(context).role, t.role.text),
-                addColon(
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).email, t.email),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).role, t.role.text),
+                displaySubtitle(
                     ShipantherLocalizations.of(context).createdAt,
                     ShipantherLocalizations.of(context)
                         .dateFormatter
                         .format(t.createdAt)),
-                addColon(
+                displaySubtitle(
                     ShipantherLocalizations.of(context).lastUpdate,
                     ShipantherLocalizations.of(context)
                         .dateFormatter
                         .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
-                  addColon(
+                  displaySubtitle(
                       ShipantherLocalizations.of(context).tenantId, t.tenantId)
                 else
                   const Text(''),

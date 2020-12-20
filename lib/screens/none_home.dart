@@ -12,7 +12,7 @@ class NoneHome extends StatelessWidget {
     return ShipantherScaffold(
       user,
       bottomNavigationBar: null,
-      title: ShipantherLocalizations.of(context).tenantsTitle,
+      title: ShipantherLocalizations.of(context).tenantsTitle(2),
       actions: const [],
       body: Container(
         child: Column(

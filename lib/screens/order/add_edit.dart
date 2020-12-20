@@ -51,9 +51,9 @@ class _OrderAddEditState extends State<OrderAddEdit> {
         title: Text(
           widget.isEdit
               ? ShipantherLocalizations.of(context)
-                  .editParam(ShipantherLocalizations.of(context).order)
-              : ShipantherLocalizations.of(context)
-                  .addNewParam(ShipantherLocalizations.of(context).order),
+                  .editParam(ShipantherLocalizations.of(context).ordersTitle(1))
+              : ShipantherLocalizations.of(context).addNewParam(
+                  ShipantherLocalizations.of(context).ordersTitle(1)),
         ),
         centerTitle: true,
       ),

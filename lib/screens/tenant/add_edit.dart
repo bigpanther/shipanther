@@ -33,10 +33,10 @@ class _TenantAddEditState extends State<TenantAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)
-                  .editParam(ShipantherLocalizations.of(context).tenant)
-              : ShipantherLocalizations.of(context)
-                  .addNewParam(ShipantherLocalizations.of(context).tenant),
+              ? ShipantherLocalizations.of(context).editParam(
+                  ShipantherLocalizations.of(context).tenantsTitle(1))
+              : ShipantherLocalizations.of(context).addNewParam(
+                  ShipantherLocalizations.of(context).tenantsTitle(1)),
         ),
         centerTitle: true,
       ),

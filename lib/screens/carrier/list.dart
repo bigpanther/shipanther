@@ -19,7 +19,7 @@ class CarrierList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context).carriersTitle;
+    final title = ShipantherLocalizations.of(context).carriersTitle(2);
     final actions = <Widget>[];
 
     final Widget body = ListView.builder(
@@ -61,25 +61,25 @@ class CarrierList extends StatelessWidget {
               ),
               children: [
                 if (t.eta != null)
-                  addColon(
+                  displaySubtitle(
                       ShipantherLocalizations.of(context).eta,
                       ShipantherLocalizations.of(context)
                           .dateFormatter
                           .format(t.eta))
                 else
                   const Text(''),
-                addColon(
+                displaySubtitle(
                     ShipantherLocalizations.of(context).createdAt,
                     ShipantherLocalizations.of(context)
                         .dateFormatter
                         .format(t.createdAt)),
-                addColon(
+                displaySubtitle(
                     ShipantherLocalizations.of(context).lastUpdate,
                     ShipantherLocalizations.of(context)
                         .dateFormatter
                         .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
-                  addColon(
+                  displaySubtitle(
                       ShipantherLocalizations.of(context).tenantId, t.tenantId)
                 else
                   const Text(''),

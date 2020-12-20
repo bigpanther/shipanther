@@ -23,7 +23,7 @@ class TenantList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context).tenantsTitle;
+    final title = ShipantherLocalizations.of(context).tenantsTitle(2);
     final actions = <Widget>[
       FilterButton<TenantType>(
         possibleValues: TenantType.values,
@@ -72,12 +72,12 @@ class TenantList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                addColon(
+                displaySubtitle(
                     ShipantherLocalizations.of(context).createdAt,
                     ShipantherLocalizations.of(context)
                         .dateFormatter
                         .format(t.createdAt)),
-                addColon(
+                displaySubtitle(
                     ShipantherLocalizations.of(context).lastUpdate,
                     ShipantherLocalizations.of(context)
                         .dateFormatter

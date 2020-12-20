@@ -18,7 +18,7 @@ class CustomerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context).customersTitle;
+    final title = ShipantherLocalizations.of(context).customersTitle(2);
     final actions = <Widget>[];
 
     final Widget body = ListView.builder(
@@ -59,18 +59,18 @@ class CustomerList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                addColon(
+                displaySubtitle(
                     ShipantherLocalizations.of(context).createdAt,
                     ShipantherLocalizations.of(context)
                         .dateFormatter
                         .format(t.createdAt)),
-                addColon(
+                displaySubtitle(
                     ShipantherLocalizations.of(context).lastUpdate,
                     ShipantherLocalizations.of(context)
                         .dateFormatter
                         .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
-                  addColon(
+                  displaySubtitle(
                       ShipantherLocalizations.of(context).tenantId, t.tenantId)
                 else
                   const Text(''),

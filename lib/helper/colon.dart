@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
 
-Text addColon(String object, String value) {
+Text displaySubtitle(String object, String value) {
   return Text('$object: $value');
 }

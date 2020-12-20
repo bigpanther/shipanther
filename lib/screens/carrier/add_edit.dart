@@ -56,10 +56,10 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)
-                  .editParam(ShipantherLocalizations.of(context).carrier)
-              : ShipantherLocalizations.of(context)
-                  .addNewParam(ShipantherLocalizations.of(context).carrier),
+              ? ShipantherLocalizations.of(context).editParam(
+                  ShipantherLocalizations.of(context).carriersTitle(1))
+              : ShipantherLocalizations.of(context).addNewParam(
+                  ShipantherLocalizations.of(context).carriersTitle(1)),
         ),
         centerTitle: true,
       ),

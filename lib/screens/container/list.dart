@@ -23,7 +23,7 @@ class ContainerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context).containersTitle;
+    final title = ShipantherLocalizations.of(context).containersTitle(2);
     final actions = <Widget>[
       FilterButton<api.ContainerStatus>(
         possibleValues: api.ContainerStatus.values,
@@ -91,20 +91,25 @@ class ContainerList extends StatelessWidget {
               subtitle: Text(ShipantherLocalizations.of(context)
                   .paramFromTo(t.origin, t.destination)),
               children: [
-                addColon(
+                displaySubtitle(
                     ShipantherLocalizations.of(context).lfd,
-                    ShipantherLocalizations.of(context)
-                        .dateFormatter
-                        .format(t.lfd)),
-                addColon(
+                    t.lfd == null
+                        ? ''
+                        : ShipantherLocalizations.of(context)
+                            .dateFormatter
+                            .format(t.lfd)),
+                displaySubtitle(
                     ShipantherLocalizations.of(context).reservationTime,
-                    ShipantherLocalizations.of(context)
-                        .dateFormatter
-                        .format(t.reservationTime)),
-                addColon(ShipantherLocalizations.of(context).size, t.size.text),
-                addColon(
+                    t.reservationTime == null
+                        ? ''
+                        : ShipantherLocalizations.of(context)
+                            .dateFormatter
+                            .format(t.reservationTime)),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).size, t.size.text),
+                displaySubtitle(
                     ShipantherLocalizations.of(context).status, t.status.text),
-                addColon(
+                displaySubtitle(
                     ShipantherLocalizations.of(context).lastUpdate,
                     ShipantherLocalizations.of(context)
                         .dateFormatter

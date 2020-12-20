@@ -41,9 +41,9 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
         title: Text(
           widget.isEdit
               ? ShipantherLocalizations.of(context)
-                  .editParam(ShipantherLocalizations.of(context).customer)
+                  .editParam(ShipantherLocalizations.of(context).customersTitle(1))
               : ShipantherLocalizations.of(context)
-                  .addNewParam(ShipantherLocalizations.of(context).customer),
+                  .addNewParam(ShipantherLocalizations.of(context).customersTitle(1)),
         ),
         centerTitle: true,
       ),
