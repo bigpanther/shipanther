@@ -26,7 +26,7 @@ class ShipantherLocalizations {
   String tenantsTitle(int howMany) => Intl.plural(
         howMany,
         zero: 'Tenant',
-        one: 'tenant',
+        one: 'Tenant',
         other: 'Tenants',
         name: 'tenantsTitle',
         desc: 'Title for the Tenants page',
@@ -109,7 +109,7 @@ class ShipantherLocalizations {
   String ordersTitle(int howMany) => Intl.plural(
         howMany,
         zero: 'Order',
-        one: 'order',
+        one: 'Order',
         other: 'Orders',
         name: 'ordersTitle',
         desc: 'Title for the Orders page',
@@ -146,7 +146,7 @@ class ShipantherLocalizations {
   String usersTitle(int howMany) => Intl.plural(
         howMany,
         zero: 'User',
-        one: 'user',
+        one: 'User',
         other: 'Users',
         name: 'usersTitle',
         desc: 'Title for the Users page',
@@ -177,7 +177,7 @@ class ShipantherLocalizations {
   String carriersTitle(int howMany) => Intl.plural(
         howMany,
         zero: 'Carrier',
-        one: 'carrier',
+        one: 'Carrier',
         other: 'Carriers',
         name: 'carriersTitle',
         desc: 'Title for the Carriers page',
@@ -215,7 +215,7 @@ class ShipantherLocalizations {
   String containersTitle(int howMany) => Intl.plural(
         howMany,
         zero: 'Container',
-        one: 'container',
+        one: 'Container',
         other: 'Containers',
         name: 'containersTitle',
         desc: 'Title for the Containers page',
@@ -237,7 +237,7 @@ class ShipantherLocalizations {
       );
   String get containerReject => Intl.message(
         'Reject',
-        name: 'ContainerReject',
+        name: 'containerReject',
         desc: 'Reject',
         locale: locale.toString(),
       );
@@ -331,7 +331,7 @@ class ShipantherLocalizations {
   String customersTitle(int howMany) => Intl.plural(
         howMany,
         zero: 'Customer',
-        one: 'customer',
+        one: 'Customer',
         other: 'Customers',
         name: 'customersTitle',
         desc: 'Title for the Customers page',
@@ -342,8 +342,8 @@ class ShipantherLocalizations {
 
   String get customerName => Intl.message(
         'Customer name',
-        name: 'customername',
-        desc: 'customerName',
+        name: 'customerName',
+        desc: 'Customer name',
         locale: locale.toString(),
       );
   String get addCustomer => Intl.message(
@@ -469,8 +469,8 @@ class ShipantherLocalizations {
       );
   String get role => Intl.message(
         'Role',
-        name: 'roleParam',
-        desc: 'Role param',
+        name: 'role',
+        desc: 'Role',
         locale: locale.toString(),
       );
 
