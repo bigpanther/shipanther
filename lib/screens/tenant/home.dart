@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
+import 'package:shipanther/helper/colon.dart';
+import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/tenant/add_edit.dart';
 
 class TenantDetail extends StatelessWidget {
@@ -12,10 +14,10 @@ class TenantDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tenant Details'),
+        title: Text(ShipantherLocalizations.of(context).tenantDetail),
         actions: [
           IconButton(
-            tooltip: 'Delete Tenant',
+            tooltip: ShipantherLocalizations.of(context).tenantDelete,
             icon: const Icon(Icons.delete),
             onPressed: () {},
           )
@@ -42,22 +44,22 @@ class TenantDetail extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline5,
                         ),
                       ),
-                      Text(
-                        'Id  ${state.tenant.id}',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                      Text(
-                        'Created At  ${state.tenant.createdAt}',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                      Text(
-                        'Type  ${state.tenant.type}',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
-                      Text(
-                        'Updated At  ${state.tenant.updatedAt}',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
+                      displaySubtitle(
+                          ShipantherLocalizations.of(context).tenantId,
+                          state.tenant.id),
+                      displaySubtitle(
+                          ShipantherLocalizations.of(context).tenantType,
+                          state.tenant.type.toString()),
+                      displaySubtitle(
+                          ShipantherLocalizations.of(context).createdAt,
+                          ShipantherLocalizations.of(context)
+                              .dateFormatter
+                              .format(state.tenant.createdAt)),
+                      displaySubtitle(
+                          ShipantherLocalizations.of(context).lastUpdate,
+                          ShipantherLocalizations.of(context)
+                              .dateFormatter
+                              .format(state.tenant.updatedAt)),
                     ],
                   ),
                 ),
@@ -67,7 +69,7 @@ class TenantDetail extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: 'Edit tenant',
+        tooltip: ShipantherLocalizations.of(context).tenantEdit,
         child: const Icon(Icons.edit),
         onPressed: () {
           Navigator.push(

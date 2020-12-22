@@ -183,15 +183,16 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
           ),
           applicationName: appName,
           applicationVersion: version,
-          applicationLegalese: '©2020 Big Panther Technologies Inc.',
+          applicationLegalese:
+              ShipantherLocalizations.of(context).applicationLegalese,
           children: <Widget>[
             Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: Center(
                   child: Column(
-                    children: const [
-                      Text('Built with ♥️ in Canada'),
-                      Text('Reach us at info@bigpanther.ca'),
+                    children: [
+                      Text(ShipantherLocalizations.of(context).aboutOne),
+                      Text(ShipantherLocalizations.of(context).aboutTwo),
                     ],
                   ),
                 ))

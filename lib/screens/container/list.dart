@@ -30,7 +30,7 @@ class ContainerList extends StatelessWidget {
         isActive: true,
         activeFilter: containerLoadedState.containerStatus,
         onSelected: (t) => context.read<ContainerBloc>()..add(GetContainers(t)),
-        tooltip: 'Filter Order status',
+        tooltip: ShipantherLocalizations.of(context).containerStatusFilter,
       )
     ];
     Widget circularIndicator(api.Container c) {

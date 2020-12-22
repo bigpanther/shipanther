@@ -67,6 +67,25 @@ class ShipantherLocalizations {
         desc: 'Add tenant',
         locale: locale.toString(),
       );
+  String get tenantDetail => Intl.message(
+        'Tenant detail',
+        name: 'tenantDetail',
+        desc: 'Tenant detail',
+        locale: locale.toString(),
+      );
+  String get tenantDelete => Intl.message(
+        'Tenant delete',
+        name: 'tenantDelete',
+        desc: 'Tenant delete',
+        locale: locale.toString(),
+      );
+  String get tenantEdit => Intl.message(
+        'Tenant edit',
+        name: 'tenantEdit',
+        desc: 'Tenant edit',
+        locale: locale.toString(),
+      );
+
   //terminal
   String terminalsTitle(int howMany) => Intl.plural(
         howMany,
@@ -323,6 +342,12 @@ class ShipantherLocalizations {
       );
   String get containerAdd => Intl.message(
         'Add container',
+        name: 'containerAdd',
+        desc: 'Add container',
+        locale: locale.toString(),
+      );
+  String get containerStatusFilter => Intl.message(
+        'Filter container status',
         name: 'containerAdd',
         desc: 'Add container',
         locale: locale.toString(),
@@ -665,6 +690,24 @@ class ShipantherLocalizations {
         'Shipanther',
         name: 'shipantherTitle',
         desc: 'Shipanther',
+        locale: locale.toString(),
+      );
+  String get applicationLegalese => Intl.message(
+        '©2020 Big Panther Technologies Inc.',
+        name: 'applicationLegalese',
+        desc: '©2020 Big Panther Technologies Inc.',
+        locale: locale.toString(),
+      );
+  String get aboutOne => Intl.message(
+        'Built with ♥️ in Canada',
+        name: 'aboutOne',
+        desc: 'Built with ♥️ in Canada',
+        locale: locale.toString(),
+      );
+  String get aboutTwo => Intl.message(
+        'Reach us at info@bigpanther.ca',
+        name: 'aboutTwo',
+        desc: 'Reach us at info@bigpanther.ca',
         locale: locale.toString(),
       );
 }
