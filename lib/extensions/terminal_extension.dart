@@ -15,6 +15,8 @@ extension TerminalTypeExtension on TerminalType {
         return Icons.directions_boat;
       case TerminalType.custom:
         return Icons.local_shipping;
+      case TerminalType.airport:
+        return Icons.airplanemode_on;
     }
     return Icons.broken_image;
   }
