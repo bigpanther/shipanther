@@ -391,7 +391,7 @@ packages:
       name: intl
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.16.1"
+    version: "0.17.0-nullsafety.2"
   intl_translation:
     dependency: "direct dev"
     description:
@@ -683,7 +683,7 @@ packages:
       name: trober_sdk
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.23"
+    version: "0.0.27"
   typed_data:
     dependency: transitive
     description:

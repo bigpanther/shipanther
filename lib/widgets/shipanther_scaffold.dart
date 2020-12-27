@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 
 import 'package:shipanther/screens/carrier/home.dart';
-import 'package:shipanther/screens/container/home.dart';
+import 'package:shipanther/screens/shipment/home.dart';
 import 'package:shipanther/screens/customer/home.dart';
 import 'package:shipanther/screens/order/home.dart';
 import 'package:shipanther/screens/profile.dart';
@@ -143,7 +143,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: MdiIcons.dresser,
-        text: ShipantherLocalizations.of(context).containersTitle(2),
+        text: ShipantherLocalizations.of(context).shipmentsTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<ContainerScreen>(
             builder: (_) => ContainerScreen(user),

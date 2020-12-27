@@ -57,9 +57,9 @@
       }
     }
   },
-  "containersTitle": "{howMany,plural, =0{Container}=1{Container}other{Containers}}",
-  "@containersTitle": {
-    "description": "Title for the Containers page",
+  "shipmentsTitle": "{howMany,plural, =0{Shipment}=1{Shipment}other{Shipments}}",
+  "@shipmentsTitle": {
+    "description": "Title for the Shipments page",
     "type": "text",
     "placeholders": {
       "howMany": {

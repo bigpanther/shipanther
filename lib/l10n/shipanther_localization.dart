@@ -230,126 +230,126 @@ class ShipantherLocalizations {
         locale: locale.toString(),
       );
 
-//container
-  String containersTitle(int howMany) => Intl.plural(
+//shipment
+  String shipmentsTitle(int howMany) => Intl.plural(
         howMany,
         zero: 'Container',
         one: 'Container',
         other: 'Containers',
-        name: 'containersTitle',
+        name: 'shipmentsTitle',
         desc: 'Title for the Containers page',
         locale: locale.toString(),
         args: [howMany],
         examples: const {'howMany': 2},
       );
-  String get containerRejectConfirmation => Intl.message(
+  String get shipmentRejectConfirmation => Intl.message(
         'Are you sure you want to reject this delivery?',
-        name: 'containerRejectConfirmation',
+        name: 'shipmentRejectConfirmation',
         desc: 'Are you sure you want to reject this delivery?',
         locale: locale.toString(),
       );
-  String get containerCancel => Intl.message(
+  String get shipmentCancel => Intl.message(
         'Cancel',
-        name: 'containerCancel',
+        name: 'shipmentCancel',
         desc: 'Cancel',
         locale: locale.toString(),
       );
-  String get containerReject => Intl.message(
+  String get shipmentReject => Intl.message(
         'Reject',
-        name: 'containerReject',
+        name: 'shipmentReject',
         desc: 'Reject',
         locale: locale.toString(),
       );
 
-  String get containerDelivered => Intl.message(
+  String get shipmentDelivered => Intl.message(
         'Delivered',
-        name: 'containerDelivered',
+        name: 'shipmentDelivered',
         desc: 'Delivered',
         locale: locale.toString(),
       );
-  String get containerAccept => Intl.message(
+  String get shipmentAccept => Intl.message(
         'Accept',
-        name: 'containerAccept',
+        name: 'shipmentAccept',
         desc: 'Accept',
         locale: locale.toString(),
       );
-  String get containerPending => Intl.message(
+  String get shipmentPending => Intl.message(
         'Pending',
-        name: 'containerPending',
+        name: 'shipmentPending',
         desc: 'Pending',
         locale: locale.toString(),
       );
-  String get containerCompleted => Intl.message(
+  String get shipmentCompleted => Intl.message(
         'Completed',
-        name: 'containerCompleted',
+        name: 'shipmentCompleted',
         desc: 'Completed',
         locale: locale.toString(),
       );
-  String get containerLFD => Intl.message(
+  String get shipmentLFD => Intl.message(
         'LFD',
-        name: 'containerLFD',
+        name: 'shipmentLFD',
         desc: 'LFD',
         locale: locale.toString(),
       );
-  String get containerReservationTime => Intl.message(
+  String get shipmentReservationTime => Intl.message(
         'Reservation time',
-        name: 'containerReservationTime',
+        name: 'shipmentReservationTime',
         desc: 'Reservation time',
         locale: locale.toString(),
       );
-  String get containerNoItem => Intl.message(
+  String get shipmentNoItem => Intl.message(
         'No items here',
-        name: 'containerNoItem',
+        name: 'shipmentNoItem',
         desc: 'No items here',
         locale: locale.toString(),
       );
 
-  String get containerSerialNumber => Intl.message(
+  String get shipmentSerialNumber => Intl.message(
         'Serial number',
-        name: 'containerSerialNumber',
+        name: 'shipmentSerialNumber',
         desc: 'Serial number',
         locale: locale.toString(),
       );
-  String get containerOrigin => Intl.message(
+  String get shipmentOrigin => Intl.message(
         'Origin',
-        name: 'containerOrigin',
+        name: 'shipmentOrigin',
         desc: 'Origin',
         locale: locale.toString(),
       );
-  String get containerDestination => Intl.message(
+  String get shipmentDestination => Intl.message(
         'Destination',
-        name: 'containerDestination',
+        name: 'shipmentDestination',
         desc: 'Destination',
         locale: locale.toString(),
       );
-  String get containerSize => Intl.message(
+  String get shipmentSize => Intl.message(
         'Container size',
-        name: 'containerSize',
+        name: 'shipmentSize',
         desc: 'Container size',
         locale: locale.toString(),
       );
-  String get containerType => Intl.message(
+  String get shipmentType => Intl.message(
         'Container type',
-        name: 'containerType',
+        name: 'shipmentType',
         desc: 'Container type',
         locale: locale.toString(),
       );
-  String get containerStatus => Intl.message(
+  String get shipmentStatus => Intl.message(
         'Container status',
-        name: 'containerStatus',
+        name: 'shipmentStatus',
         desc: 'Container status',
         locale: locale.toString(),
       );
-  String get containerAdd => Intl.message(
-        'Add container',
-        name: 'containerAdd',
-        desc: 'Add container',
+  String get shipmentAdd => Intl.message(
+        'Add shipment',
+        name: 'shipmentAdd',
+        desc: 'Add shipment',
         locale: locale.toString(),
       );
-  String get containerStatusFilter => Intl.message(
-        'Filter container status',
-        name: 'containerAdd',
-        desc: 'Add container',
+  String get shipmentStatusFilter => Intl.message(
+        'Filter shipment status',
+        name: 'shipmentAdd',
+        desc: 'Add shipment',
         locale: locale.toString(),
       );
   //customer
