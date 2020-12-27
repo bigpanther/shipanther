@@ -41,7 +41,7 @@ class _CarrierScreenState extends State<CarrierScreen> {
         }
         return Scaffold(
           appBar: AppBar(
-            title: Text(ShipantherLocalizations.of(context).carriersTitle),
+            title: Text(ShipantherLocalizations.of(context).carriersTitle(2)),
           ),
           body: const CenteredLoading(),
         );

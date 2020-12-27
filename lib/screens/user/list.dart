@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:shipanther/bloc/user/user_bloc.dart';
+import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/user/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
@@ -20,8 +21,7 @@ class UserList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = ShipantherLocalizations.of(context).dateFormatter;
-    final title = ShipantherLocalizations.of(context).usersTitle;
+    final title = ShipantherLocalizations.of(context).usersTitle(2);
     final actions = <Widget>[
       FilterButton<UserRole>(
         possibleValues: UserRole.values,
@@ -30,7 +30,7 @@ class UserList extends StatelessWidget {
         onSelected: (t) => context.read<UserBloc>().add(
               GetUsers(t),
             ),
-        tooltip: 'Filter User type',
+        tooltip: ShipantherLocalizations.of(context).userTypeFilter,
       )
     ];
 
@@ -72,27 +72,23 @@ class UserList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                Text(
-                  'Email Id: ${t.email}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  'Role: ${t.role}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  'Created At: ${formatter.format(t.createdAt)}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  'Last Update: ${formatter.format(t.updatedAt)}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).email, t.email),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).role, t.role.text),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).createdAt,
+                    ShipantherLocalizations.of(context)
+                        .dateFormatter
+                        .format(t.createdAt)),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).lastUpdate,
+                    ShipantherLocalizations.of(context)
+                        .dateFormatter
+                        .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
-                  Text(
-                    'Tenant ID: ${t.tenantId}',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  )
+                  displaySubtitle(
+                      ShipantherLocalizations.of(context).tenantId, t.tenantId)
                 else
                   const Text(''),
               ],

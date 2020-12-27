@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:shipanther/bloc/order/order_bloc.dart';
+import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/order/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
@@ -21,19 +22,17 @@ class OrderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = ShipantherLocalizations.of(context).dateFormatter;
-    final title = ShipantherLocalizations.of(context).ordersTitle;
+    final title = ShipantherLocalizations.of(context).ordersTitle(2);
     final actions = <Widget>[
       FilterButton<OrderStatus>(
-        possibleValues: OrderStatus.values,
-        isActive: true,
-        activeFilter: orderLoadedState.orderStatus,
-        onSelected: (t) => context.read<OrderBloc>()
-          ..add(
-            GetOrders(t),
-          ),
-        tooltip: 'Filter Order status',
-      )
+          possibleValues: OrderStatus.values,
+          isActive: true,
+          activeFilter: orderLoadedState.orderStatus,
+          onSelected: (t) => context.read<OrderBloc>()
+            ..add(
+              GetOrders(t),
+            ),
+          tooltip: ShipantherLocalizations.of(context).orderStatusFilter)
     ];
 
     final Widget body = ListView.builder(
@@ -64,26 +63,25 @@ class OrderList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                Text(
-                  'Created At: ${formatter.format(t.createdAt)}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).createdAt,
+                    ShipantherLocalizations.of(context)
+                        .dateFormatter
+                        .format(t.createdAt)),
                 if (t.customer != null)
-                  Text(
-                    'Customer: ${t.customer.name}',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  )
+                  displaySubtitle(
+                      ShipantherLocalizations.of(context).customerName,
+                      t.customer.name)
                 else
                   const Text(''),
-                Text(
-                  'Last Update: ${formatter.format(t.updatedAt)}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).lastUpdate,
+                    ShipantherLocalizations.of(context)
+                        .dateFormatter
+                        .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
-                  Text(
-                    'Tenant ID: ${t.tenantId}',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  )
+                  displaySubtitle(
+                      ShipantherLocalizations.of(context).tenantId, t.tenantId)
                 else
                   const Text(''),
               ],
@@ -93,7 +91,7 @@ class OrderList extends StatelessWidget {
       },
     );
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: 'Add order',
+      tooltip: ShipantherLocalizations.of(context).orderAdd,
       child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(

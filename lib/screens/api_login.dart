@@ -45,7 +45,7 @@ class _ApiLoginState extends State<ApiLogin> {
             child: Center(
               child: Column(
                 children: [
-                  const Text('An error occured during log-in. Please retry.'),
+                  Text(ShipantherLocalizations.of(context).loginError),
                   FlatButton(
                     onPressed: () => context.read<AuthBloc>().add(
                           const AuthLogout(),

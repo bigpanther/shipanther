@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
+import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/customer/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
@@ -17,8 +18,7 @@ class CustomerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = ShipantherLocalizations.of(context).dateFormatter;
-    final title = ShipantherLocalizations.of(context).customersTitle;
+    final title = ShipantherLocalizations.of(context).customersTitle(2);
     final actions = <Widget>[];
 
     final Widget body = ListView.builder(
@@ -59,19 +59,19 @@ class CustomerList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                Text(
-                  'Created At: ${formatter.format(t.createdAt)}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  'Last Update: ${formatter.format(t.updatedAt)}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).createdAt,
+                    ShipantherLocalizations.of(context)
+                        .dateFormatter
+                        .format(t.createdAt)),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).lastUpdate,
+                    ShipantherLocalizations.of(context)
+                        .dateFormatter
+                        .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
-                  Text(
-                    'Tenant ID: ${t.tenantId}',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  )
+                  displaySubtitle(
+                      ShipantherLocalizations.of(context).tenantId, t.tenantId)
                 else
                   const Text(''),
               ],
@@ -81,7 +81,7 @@ class CustomerList extends StatelessWidget {
       },
     );
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: 'Add customer',
+      tooltip: ShipantherLocalizations.of(context).addCustomer,
       child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(

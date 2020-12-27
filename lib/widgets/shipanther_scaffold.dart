@@ -81,7 +81,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.business,
-        text: ShipantherLocalizations.of(context).tenantsTitle,
+        text: ShipantherLocalizations.of(context).tenantsTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<SuperAdminHome>(
             builder: (_) => SuperAdminHome(user),
@@ -95,7 +95,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.people,
-        text: ShipantherLocalizations.of(context).usersTitle,
+        text: ShipantherLocalizations.of(context).usersTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<UserScreen>(
             builder: (_) => UserScreen(user),
@@ -107,7 +107,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.connect_without_contact,
-        text: ShipantherLocalizations.of(context).customersTitle,
+        text: ShipantherLocalizations.of(context).customersTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<CustomerHome>(
             builder: (_) => CustomerHome(user),
@@ -131,7 +131,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.local_shipping,
-        text: ShipantherLocalizations.of(context).carriersTitle,
+        text: ShipantherLocalizations.of(context).carriersTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<CarrierScreen>(
             builder: (_) => CarrierScreen(user),
@@ -143,7 +143,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: MdiIcons.dresser,
-        text: ShipantherLocalizations.of(context).containersTitle,
+        text: ShipantherLocalizations.of(context).containersTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<ContainerScreen>(
             builder: (_) => ContainerScreen(user),
@@ -156,7 +156,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.fact_check,
-        text: ShipantherLocalizations.of(context).ordersTitle,
+        text: ShipantherLocalizations.of(context).ordersTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<OrderScreen>(
             builder: (_) => OrderScreen(user),
@@ -183,15 +183,16 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
           ),
           applicationName: appName,
           applicationVersion: version,
-          applicationLegalese: '©2020 Big Panther Technologies Inc.',
+          applicationLegalese:
+              ShipantherLocalizations.of(context).applicationLegalese,
           children: <Widget>[
             Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: Center(
                   child: Column(
-                    children: const [
-                      Text('Built with ♥️ in Canada'),
-                      Text('Reach us at info@bigpanther.ca'),
+                    children: [
+                      Text(ShipantherLocalizations.of(context).aboutOne),
+                      Text(ShipantherLocalizations.of(context).aboutTwo),
                     ],
                   ),
                 ))
@@ -241,11 +242,11 @@ Widget _createDrawerItem(
 
 Widget _createHeader(BuildContext context, api.User user) {
   return UserAccountsDrawerHeader(
-    accountEmail: const Padding(
-      padding: EdgeInsets.only(top: 8.0),
+    accountEmail: Padding(
+      padding: const EdgeInsets.only(top: 8.0),
       child: Text(
-        'Shipanther',
-        style: TextStyle(fontSize: 22),
+        ShipantherLocalizations.of(context).shipantherTitle,
+        style: const TextStyle(fontSize: 22),
       ),
     ),
     onDetailsPressed: () => Navigator.of(context).pushReplacement(

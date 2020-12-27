@@ -49,7 +49,11 @@ class _OrderAddEditState extends State<OrderAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? 'Edit order' : 'Add new order',
+          widget.isEdit
+              ? ShipantherLocalizations.of(context)
+                  .editParam(ShipantherLocalizations.of(context).ordersTitle(1))
+              : ShipantherLocalizations.of(context).addNewParam(
+                  ShipantherLocalizations.of(context).ordersTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -68,17 +72,19 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                     initialValue: widget.order.serialNumber ?? '',
                     autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration:
-                        const InputDecoration(labelText: 'Order Number'),
+                    decoration: InputDecoration(
+                        labelText:
+                            ShipantherLocalizations.of(context).orderNumber),
                     maxLength: 15,
                     validator: (val) => val.trim().isEmpty
-                        ? 'Order number should not be empty'
+                        ? ShipantherLocalizations.of(context).paramEmpty(
+                            ShipantherLocalizations.of(context).orderNumber)
                         : null,
                     onSaved: (value) => _orderSerialNumber = value,
                   ),
                   if (!widget.loggedInUser.isCustomer)
                     smartSelect<api.OrderStatus>(
-                      title: 'Order status',
+                      title: ShipantherLocalizations.of(context).orderStatus,
                       onChange: (state) => _orderStatus = state.value,
                       choiceItems:
                           S2Choice.listFrom<api.OrderStatus, api.OrderStatus>(

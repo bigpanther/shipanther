@@ -1,9 +1,19 @@
 {
   "@@locale": "en",
-  "@@last_modified": "2020-12-17T23:11:52.209313",
-  "tenantsTitle": "Tenants",
+  "@@last_modified": "2020-12-22T21:03:05.022008",
+  "tenantsTitle": "{howMany,plural, =0{Tenant}=1{Tenant}other{Tenants}}",
   "@tenantsTitle": {
     "description": "Title for the Tenants page",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": 2
+      }
+    }
+  },
+  "tenantLessUserMessage": "Thanks for signing up. We will review your registration. We are in a limited beta at the moment. Please check back later.",
+  "@tenantLessUserMessage": {
+    "description": "Message to display when a new user signs up",
     "type": "text",
     "placeholders": {}
   },
@@ -17,9 +27,72 @@
       }
     }
   },
-  "tenantLessUserMessage": "Thanks for signing up. We will review your registration. We are in a limited beta at the moment. Please check back later.",
-  "@tenantLessUserMessage": {
-    "description": "Message to display when a new user signs up",
+  "ordersTitle": "{howMany,plural, =0{Order}=1{Order}other{Orders}}",
+  "@ordersTitle": {
+    "description": "Title for the Orders page",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": 2
+      }
+    }
+  },
+  "usersTitle": "{howMany,plural, =0{User}=1{User}other{Users}}",
+  "@usersTitle": {
+    "description": "Title for the Users page",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": 2
+      }
+    }
+  },
+  "carriersTitle": "{howMany,plural, =0{Carrier}=1{Carrier}other{Carriers}}",
+  "@carriersTitle": {
+    "description": "Title for the Carriers page",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": 2
+      }
+    }
+  },
+  "containersTitle": "{howMany,plural, =0{Container}=1{Container}other{Containers}}",
+  "@containersTitle": {
+    "description": "Title for the Containers page",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": 2
+      }
+    }
+  },
+
+  "customersTitle": "{howMany,plural, =0{Customer}=1{Customer}other{Customers}}",
+  "@customersTitle": {
+    "description": "Title for the Customers page",
+    "type": "text",
+    "placeholders": {
+      "howMany": {
+        "example": 2
+      }
+    }
+  },
+
+
+  "paramRequired": "{param} is required",
+  "@paramRequired": {
+    "description": "Param required",
+    "type": "text",
+    "placeholders": {
+      "param": {
+        "example": "Name"
+      }
+    }
+  },
+  "email": "Email",
+  "@email": {
+    "description": "Email ",
     "type": "text",
     "placeholders": {}
   },
@@ -53,45 +126,10 @@
     "type": "text",
     "placeholders": {}
   },
-  "ordersTitle": "Orders",
-  "@ordersTitle": {
-    "description": "Orders",
-    "type": "text",
-    "placeholders": {}
-  },
-  "usersTitle": "Users",
-  "@usersTitle": {
-    "description": "Users",
-    "type": "text",
-    "placeholders": {}
-  },
-  "carriersTitle": "Carriers",
-  "@carriersTitle": {
-    "description": "Carriers",
-    "type": "text",
-    "placeholders": {}
-  },
-  "containersTitle": "Containers",
-  "@containersTitle": {
-    "description": "Containers",
-    "type": "text",
-    "placeholders": {}
-  },
-  "customersTitle": "Customers",
-  "@customersTitle": {
-    "description": "Customers",
-    "type": "text",
-    "placeholders": {}
-  },
+ 
   "password": "Password",
   "@password": {
     "description": "Password",
-    "type": "text",
-    "placeholders": {}
-  },
-  "email": "Email",
-  "@email": {
-    "description": "Email",
     "type": "text",
     "placeholders": {}
   },
@@ -112,16 +150,6 @@
     "description": "No date chosen",
     "type": "text",
     "placeholders": {}
-  },
-  "paramRequired": "{param} is required",
-  "@paramRequired": {
-    "description": "Param required",
-    "type": "text",
-    "placeholders": {
-      "param": {
-        "example": "Name"
-      }
-    }
   },
   "emailSent": "An Email has been sent to {emailId}. Please check your inbox.",
   "@emailSent": {

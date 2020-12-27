@@ -32,7 +32,11 @@ class _TenantAddEditState extends State<TenantAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? 'Edit tenant' : 'Add new tenant',
+          widget.isEdit
+              ? ShipantherLocalizations.of(context).editParam(
+                  ShipantherLocalizations.of(context).tenantsTitle(1))
+              : ShipantherLocalizations.of(context).addNewParam(
+                  ShipantherLocalizations.of(context).tenantsTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -50,14 +54,16 @@ class _TenantAddEditState extends State<TenantAddEdit> {
                 initialValue: widget.tenant.name ?? '',
                 autofocus: !widget.isEdit,
                 style: Theme.of(context).textTheme.headline5,
-                decoration: const InputDecoration(hintText: 'Tenant Name'),
+                decoration: InputDecoration(
+                    hintText: ShipantherLocalizations.of(context).tenantName),
                 validator: (val) => val.trim().isEmpty
-                    ? 'Tenant name should not be empty'
+                    ? ShipantherLocalizations.of(context).paramEmpty(
+                        ShipantherLocalizations.of(context).tenantName)
                     : null,
                 onSaved: (value) => _tenantName = value,
               ),
               smartSelect<TenantType>(
-                title: 'Tenant type',
+                title: ShipantherLocalizations.of(context).tenantType,
                 onChange: (state) => _tenantType = state.value,
                 choiceItems: S2Choice.listFrom<TenantType, TenantType>(
                   source: TenantType.values,

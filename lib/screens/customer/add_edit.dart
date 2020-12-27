@@ -39,7 +39,11 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.isEdit ? 'Edit customer' : 'Add new customer',
+          widget.isEdit
+              ? ShipantherLocalizations.of(context)
+                  .editParam(ShipantherLocalizations.of(context).customersTitle(1))
+              : ShipantherLocalizations.of(context)
+                  .addNewParam(ShipantherLocalizations.of(context).customersTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -57,10 +61,12 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
                     initialValue: widget.customer.name ?? '',
                     autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
-                    decoration:
-                        const InputDecoration(hintText: 'Customer Name'),
+                    decoration: InputDecoration(
+                        hintText:
+                            ShipantherLocalizations.of(context).customerName),
                     validator: (val) => val.trim().isEmpty
-                        ? 'Customer name should not be empty'
+                        ? ShipantherLocalizations.of(context).paramEmpty(
+                            ShipantherLocalizations.of(context).customerName)
                         : null,
                     onSaved: (value) => _customerName = value,
                   ),

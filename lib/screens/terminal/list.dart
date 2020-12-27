@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/extensions/terminal_extension.dart';
+import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/terminal/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
@@ -21,7 +22,6 @@ class TerminalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = ShipantherLocalizations.of(context).dateFormatter;
     final title = ShipantherLocalizations.of(context).terminalsTitle(2);
     final actions = <Widget>[
       FilterButton<TerminalType>(
@@ -31,7 +31,7 @@ class TerminalList extends StatelessWidget {
         onSelected: (t) => context.read<TerminalBloc>().add(
               GetTerminals(t),
             ),
-        tooltip: 'Filter Terminal type',
+        tooltip: ShipantherLocalizations.of(context).terminalTypeFilter,
       )
     ];
 
@@ -73,19 +73,19 @@ class TerminalList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                Text(
-                  'Created At: ${formatter.format(t.createdAt)}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                Text(
-                  'Last Update: ${formatter.format(t.updatedAt)}',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).createdAt,
+                    ShipantherLocalizations.of(context)
+                        .dateFormatter
+                        .format(t.createdAt)),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).lastUpdate,
+                    ShipantherLocalizations.of(context)
+                        .dateFormatter
+                        .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
-                  Text(
-                    'Tenant ID: ${t.tenantId}',
-                    style: Theme.of(context).textTheme.subtitle1,
-                  )
+                  displaySubtitle(
+                      ShipantherLocalizations.of(context).tenantId, t.tenantId)
                 else
                   const Text(''),
               ],
@@ -95,7 +95,7 @@ class TerminalList extends StatelessWidget {
       },
     );
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: 'Add terminal',
+      tooltip: ShipantherLocalizations.of(context).terminalAdd,
       child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(

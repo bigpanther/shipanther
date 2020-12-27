@@ -41,7 +41,7 @@ class VerifyEmail extends StatelessWidget {
                       CheckVerified(user),
                     );
               },
-              text: 'I Verified',
+              text: ShipantherLocalizations.of(context).iVerified,
             ),
           ),
           Container(
@@ -55,7 +55,7 @@ class VerifyEmail extends StatelessWidget {
                       ResendEmail(user),
                     );
               },
-              text: 'Resend Email',
+              text: ShipantherLocalizations.of(context).resendEmail,
             ),
           ),
         ],
