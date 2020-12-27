@@ -18,8 +18,8 @@ class ShipantherLocalizations {
   }
 
   static List<String> supportedLocales = ['en', 'pa'];
-  DateFormat get dateFormatter => DateFormat('dd-MM-yyyy');
-  DateFormat get dateTimeFormatter => DateFormat('dd-MM-yy - kk:mm');
+  DateFormat get dateFormatter => DateFormat('MMM dd yyyy');
+  DateFormat get dateTimeFormatter => DateFormat('MMM dd yyyy - kk:mm');
   DateFormat get timeFormatter => DateFormat('kk:mm');
 
   //tenant
