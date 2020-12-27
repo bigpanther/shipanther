@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "carriersTitle" : MessageLookupByLibrary.simpleMessage("ਕੈਰੀਅਰ"),
     "changePassword" : MessageLookupByLibrary.simpleMessage("ਪਾਸਵਰਡ ਬਦਲੋ"),
     "confirmPassword" : MessageLookupByLibrary.simpleMessage("ਪਾਸਵਰਡ ਪੱਕਾ ਕਰੋ"),
-    "containersTitle" : MessageLookupByLibrary.simpleMessage("ਕੰਟੇਨਰ"),
+    "shipmentsTitle" : MessageLookupByLibrary.simpleMessage("ਕੰਟੇਨਰ"),
     "create" : MessageLookupByLibrary.simpleMessage("ਬਣਾਓ"),
     "customersTitle" : MessageLookupByLibrary.simpleMessage("ਗਾਹਕ"),
     "edit" : MessageLookupByLibrary.simpleMessage("ਸੰਪਾਦਿਤ ਕਰੋ"),

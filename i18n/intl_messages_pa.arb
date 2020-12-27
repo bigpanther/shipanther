@@ -57,9 +57,9 @@
       }
     }
   },
-   "containersTitle": "{howMany,plural, =0{ਕੰਟੇਨਰ}=1{ਕੰਟੇਨਰ}other{ਕੰਟੇਨਰ}}",
-  "@containersTitle": {
-    "description": "Title for the Containers page",
+   "shipmentsTitle": "{howMany,plural, =0{ਕੰਟੇਨਰ}=1{ਕੰਟੇਨਰ}other{ਕੰਟੇਨਰ}}",
+  "@shipmentsTitle": {
+    "description": "Title for the Shipments page",
     "type": "text",
     "placeholders": {
       "howMany": {

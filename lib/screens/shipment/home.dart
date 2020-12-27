@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:shipanther/bloc/container/container_bloc.dart';
+import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/screens/container/add_edit.dart';
-import 'package:shipanther/screens/container/driver_list.dart';
-import 'package:shipanther/screens/container/list.dart';
+import 'package:shipanther/screens/shipment/add_edit.dart';
+import 'package:shipanther/screens/shipment/driver_list.dart';
+import 'package:shipanther/screens/shipment/list.dart';
 
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
@@ -20,48 +20,48 @@ class ContainerScreen extends StatefulWidget {
 }
 
 class _ContainerScreenState extends State<ContainerScreen> {
-  ContainerBloc bloc;
+  ShipmentBloc bloc;
   @override
   void initState() {
     super.initState();
-    bloc = context.read<ContainerBloc>();
-    bloc.add(const GetContainers(null));
+    bloc = context.read<ShipmentBloc>();
+    bloc.add(const GetShipments(null));
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ContainerBloc, ContainerState>(
+    return BlocConsumer<ShipmentBloc, ShipmentState>(
       listener: (context, state) {
-        if (state is ContainerFailure) {
+        if (state is ShipmentFailure) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.message),
           ));
         }
-        if (state is ContainerLoaded) {
+        if (state is ShipmentLoaded) {
           Navigator.of(context).push(
             MaterialPageRoute<Widget>(
-              builder: (_) => ContainerAddEdit(
+              builder: (_) => ShipmentAddEdit(
                 widget.loggedInUser,
                 isEdit: true,
-                containerBloc: bloc,
-                container: state.container,
+                shipmentBloc: bloc,
+                shipment: state.shipment,
               ),
             ),
           );
         }
       },
       builder: (context, state) {
-        if (state is ContainersLoaded) {
+        if (state is ShipmentsLoaded) {
           return widget.loggedInUser.isDriver
-              ? DriverContainerList(widget.loggedInUser,
-                  containerBloc: bloc, containerLoadedState: state)
-              : ContainerList(widget.loggedInUser,
-                  containerBloc: bloc, containerLoadedState: state);
+              ? DriverShipmentList(widget.loggedInUser,
+                  shipmentBloc: bloc, shipmentsLoadedState: state)
+              : ShipmentList(widget.loggedInUser,
+                  shipmentBloc: bloc, shipmentsLoadedState: state);
         }
         return ShipantherScaffold(
           widget.loggedInUser,
           bottomNavigationBar: null,
-          title: ShipantherLocalizations.of(context).containersTitle(2),
+          title: ShipantherLocalizations.of(context).shipmentsTitle(2),
           actions: const [],
           body: const CenteredLoading(),
           floatingActionButton: null,

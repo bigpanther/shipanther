@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "carriersTitle" : MessageLookupByLibrary.simpleMessage("Carriers"),
     "changePassword" : MessageLookupByLibrary.simpleMessage("Change password"),
     "confirmPassword" : MessageLookupByLibrary.simpleMessage("Confirm password"),
-    "containersTitle" : MessageLookupByLibrary.simpleMessage("Containers"),
+    "shipmentsTitle" : MessageLookupByLibrary.simpleMessage("Containers"),
     "create" : MessageLookupByLibrary.simpleMessage("Create"),
     "customersTitle" : MessageLookupByLibrary.simpleMessage("Customers"),
     "edit" : MessageLookupByLibrary.simpleMessage("Edit"),

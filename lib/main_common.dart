@@ -11,7 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
-import 'package:shipanther/bloc/container/container_bloc.dart';
+import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 import 'package:shipanther/bloc/order/order_bloc.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
@@ -24,8 +24,8 @@ import 'package:shipanther/data/carrier/carrier_repository.dart';
 import 'package:shipanther/data/carrier/remote_carrier_repository.dart';
 import 'package:shipanther/data/customer/customer_repository.dart';
 import 'package:shipanther/data/customer/remote_customer_repository.dart';
-import 'package:shipanther/data/container/container_repository.dart';
-import 'package:shipanther/data/container/remote_container_repository.dart';
+import 'package:shipanther/data/shipment/shipment_repository.dart';
+import 'package:shipanther/data/shipment/remote_shipment_repository.dart';
 import 'package:shipanther/data/order/order_repository.dart';
 import 'package:shipanther/data/order/remote_order_repository.dart';
 import 'package:shipanther/data/tenant/remote_tenant_repository.dart';
@@ -109,9 +109,9 @@ class ShipantherApp extends StatelessWidget {
             RepositoryProvider<CustomerRepository>(
                 create: (context) =>
                     RemoteCustomerRepository(context.read<ApiRepository>())),
-            RepositoryProvider<ContainerRepository>(
+            RepositoryProvider<ShipmentRepository>(
                 create: (context) =>
-                    RemoteContainerRepository(context.read<ApiRepository>())),
+                    RemoteShipmentRepository(context.read<ApiRepository>())),
             RepositoryProvider<CarrierRepository>(
                 create: (context) =>
                     RemoteCarrierRepository(context.read<ApiRepository>())),
@@ -138,7 +138,7 @@ class ShipantherApp extends StatelessWidget {
                       CustomerBloc(context.read<CustomerRepository>())),
               BlocProvider(
                   create: (context) =>
-                      ContainerBloc(context.read<ContainerRepository>())),
+                      ShipmentBloc(context.read<ShipmentRepository>())),
               BlocProvider(
                   create: (context) =>
                       CarrierBloc(context.read<CarrierRepository>())),

@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:shipanther/bloc/container/container_bloc.dart';
+import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/screens/container/add_edit.dart';
-import 'package:shipanther/extensions/container_extension.dart';
+import 'package:shipanther/screens/shipment/add_edit.dart';
+import 'package:shipanther/extensions/shipment_extension.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ContainerList extends StatelessWidget {
-  const ContainerList(
+class ShipmentList extends StatelessWidget {
+  const ShipmentList(
     this.loggedInUser, {
     Key key,
-    @required this.containerLoadedState,
-    this.containerBloc,
+    @required this.shipmentsLoadedState,
+    this.shipmentBloc,
   }) : super(key: key);
-  final ContainerBloc containerBloc;
-  final ContainersLoaded containerLoadedState;
+  final ShipmentBloc shipmentBloc;
+  final ShipmentsLoaded shipmentsLoadedState;
   final api.User loggedInUser;
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context).containersTitle(2);
+    final title = ShipantherLocalizations.of(context).shipmentsTitle(2);
     final actions = <Widget>[
-      FilterButton<api.ContainerStatus>(
-        possibleValues: api.ContainerStatus.values,
+      FilterButton<api.ShipmentStatus>(
+        possibleValues: api.ShipmentStatus.values,
         isActive: true,
-        activeFilter: containerLoadedState.containerStatus,
-        onSelected: (t) => context.read<ContainerBloc>()..add(GetContainers(t)),
-        tooltip: ShipantherLocalizations.of(context).containerStatusFilter,
+        activeFilter: shipmentsLoadedState.shipmentStatus,
+        onSelected: (t) => context.read<ShipmentBloc>()..add(GetShipments(t)),
+        tooltip: ShipantherLocalizations.of(context).shipmentStatusFilter,
       )
     ];
-    Widget circularIndicator(api.Container c) {
+    Widget circularIndicator(api.Shipment c) {
       return CircularPercentIndicator(
         radius: 35.0,
         lineWidth: 5.0,
@@ -44,9 +44,9 @@ class ContainerList extends StatelessWidget {
     }
 
     final Widget body = ListView.builder(
-      itemCount: containerLoadedState.containers.length,
+      itemCount: shipmentsLoadedState.shipments.length,
       itemBuilder: (BuildContext context, int index) {
-        final t = containerLoadedState.containers.elementAt(index);
+        final t = shipmentsLoadedState.shipments.elementAt(index);
         return Padding(
           padding: const EdgeInsets.all(3.0),
           child: Card(
@@ -67,7 +67,7 @@ class ContainerList extends StatelessWidget {
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
-                  containerBloc.add(GetContainer(t.id));
+                  shipmentBloc.add(GetShipment(t.id));
                 },
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
@@ -81,7 +81,7 @@ class ContainerList extends StatelessWidget {
                     width: 3,
                   ),
                   Icon(
-                    t.type == api.ContainerType.incoming
+                    t.type == api.ShipmentType.incoming
                         ? Icons.arrow_circle_down_sharp
                         : Icons.arrow_circle_up_sharp,
                     size: 20,
@@ -122,17 +122,17 @@ class ContainerList extends StatelessWidget {
     );
 
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: ShipantherLocalizations.of(context).containerAdd,
+      tooltip: ShipantherLocalizations.of(context).shipmentAdd,
       child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,
           MaterialPageRoute<Widget>(
-            builder: (_) => ContainerAddEdit(
+            builder: (_) => ShipmentAddEdit(
               loggedInUser,
               isEdit: false,
-              containerBloc: containerBloc,
-              container: api.Container(),
+              shipmentBloc: shipmentBloc,
+              shipment: api.Shipment(),
             ),
           ),
         );

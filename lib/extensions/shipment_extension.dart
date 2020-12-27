@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:trober_sdk/api.dart' as api;
 
-extension ContainerTypeExtension on api.ContainerType {
+extension ShipmentTypeExtension on api.ShipmentType {
   IconData get icon {
     switch (this) {
-      case api.ContainerType.incoming:
+      case api.ShipmentType.incoming:
         return Icons.arrow_downward;
-      case api.ContainerType.outGoing:
+      case api.ShipmentType.outGoing:
         return Icons.arrow_upward;
     }
     return Icons.broken_image;
@@ -19,52 +19,52 @@ extension ContainerTypeExtension on api.ContainerType {
   }
 }
 
-extension ContainerPercent on api.ContainerStatus {
+extension ShipmentPercent on api.ShipmentStatus {
   double get percentage {
     switch (this) {
-      case api.ContainerStatus.unassigned:
+      case api.ShipmentStatus.unassigned:
         return 0.1;
-      case api.ContainerStatus.inTransit:
+      case api.ShipmentStatus.inTransit:
         return 0.2;
-      case api.ContainerStatus.arrived:
+      case api.ShipmentStatus.arrived:
         return 0.3;
-      case api.ContainerStatus.assigned:
+      case api.ShipmentStatus.assigned:
         return 0.4;
-      case api.ContainerStatus.accepted:
+      case api.ShipmentStatus.accepted:
         return 0.5;
-      case api.ContainerStatus.rejected:
+      case api.ShipmentStatus.rejected:
         return 0.6;
-      case api.ContainerStatus.loaded:
+      case api.ShipmentStatus.loaded:
         return 0.7;
-      case api.ContainerStatus.unloaded:
+      case api.ShipmentStatus.unloaded:
         return 0.8;
-      case api.ContainerStatus.abandoned:
+      case api.ShipmentStatus.abandoned:
         return 1;
     }
     return 0.0;
   }
 }
 
-extension ContainerStatusExtension on api.ContainerStatus {
+extension ShipmentStatusExtension on api.ShipmentStatus {
   IconData get icon {
     switch (this) {
-      case api.ContainerStatus.unassigned:
+      case api.ShipmentStatus.unassigned:
         return MdiIcons.accessPointMinus;
-      case api.ContainerStatus.inTransit:
+      case api.ShipmentStatus.inTransit:
         return MdiIcons.accessPointMinus;
-      case api.ContainerStatus.arrived:
+      case api.ShipmentStatus.arrived:
         return MdiIcons.accessPointMinus;
-      case api.ContainerStatus.assigned:
+      case api.ShipmentStatus.assigned:
         return MdiIcons.accessPointMinus;
-      case api.ContainerStatus.accepted:
+      case api.ShipmentStatus.accepted:
         return MdiIcons.accessPointMinus;
-      case api.ContainerStatus.rejected:
+      case api.ShipmentStatus.rejected:
         return MdiIcons.accessPointMinus;
-      case api.ContainerStatus.loaded:
+      case api.ShipmentStatus.loaded:
         return MdiIcons.accessPointMinus;
-      case api.ContainerStatus.unloaded:
+      case api.ShipmentStatus.unloaded:
         return MdiIcons.accessPointMinus;
-      case api.ContainerStatus.abandoned:
+      case api.ShipmentStatus.abandoned:
         return MdiIcons.accessPointMinus;
     }
     return Icons.broken_image;
@@ -73,23 +73,23 @@ extension ContainerStatusExtension on api.ContainerStatus {
   // ignore: missing_return
   Color get color {
     switch (this) {
-      case api.ContainerStatus.unassigned:
+      case api.ShipmentStatus.unassigned:
         return Colors.white;
-      case api.ContainerStatus.inTransit:
+      case api.ShipmentStatus.inTransit:
         return Colors.white;
-      case api.ContainerStatus.arrived:
+      case api.ShipmentStatus.arrived:
         return Colors.greenAccent;
-      case api.ContainerStatus.assigned:
+      case api.ShipmentStatus.assigned:
         return Colors.orangeAccent;
-      case api.ContainerStatus.accepted:
+      case api.ShipmentStatus.accepted:
         return Colors.yellowAccent;
-      case api.ContainerStatus.rejected:
+      case api.ShipmentStatus.rejected:
         return Colors.red;
-      case api.ContainerStatus.loaded:
+      case api.ShipmentStatus.loaded:
         return Colors.white;
-      case api.ContainerStatus.unloaded:
+      case api.ShipmentStatus.unloaded:
         return Colors.white;
-      case api.ContainerStatus.abandoned:
+      case api.ShipmentStatus.abandoned:
         return Colors.white;
     }
   }
@@ -99,18 +99,18 @@ extension ContainerStatusExtension on api.ContainerStatus {
   }
 }
 
-extension ContainerSizeExtension on api.ContainerSize {
+extension ShipmentSizeExtension on api.ShipmentSize {
   IconData get icon {
     switch (this) {
-      case api.ContainerSize.n40sT:
+      case api.ShipmentSize.n40sT:
         return MdiIcons.accessPointMinus;
-      case api.ContainerSize.n20sT:
+      case api.ShipmentSize.n20sT:
         return MdiIcons.accessPointMinus;
-      case api.ContainerSize.n40hC:
+      case api.ShipmentSize.n40hC:
         return MdiIcons.accessPointMinus;
-      case api.ContainerSize.n40hW:
+      case api.ShipmentSize.n40hW:
         return MdiIcons.accessPointMinus;
-      case api.ContainerSize.custom:
+      case api.ShipmentSize.custom:
         return MdiIcons.accessPointMinus;
     }
     return Icons.broken_image;
