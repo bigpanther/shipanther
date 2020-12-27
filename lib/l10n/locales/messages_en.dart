@@ -19,24 +19,35 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static m0(emailId) => "An Email has been sent to ${emailId}. Please check your inbox.";
+  static m0(howMany) => "${Intl.plural(howMany, zero: 'Carrier', one: 'Carrier', other: 'Carriers')}";
 
-  static m1(param) => "${param} is required";
+  static m1(howMany) => "${Intl.plural(howMany, zero: 'Customer', one: 'Customer', other: 'Customers')}";
 
-  static m2(howMany) => "${Intl.plural(howMany, zero: 'Terminal', one: 'Terminal', other: 'Terminals')}";
+  static m2(emailId) => "An Email has been sent to ${emailId}. Please check your inbox.";
+
+  static m3(howMany) => "${Intl.plural(howMany, zero: 'Order', one: 'Order', other: 'Orders')}";
+
+  static m4(param) => "${param} is required";
+
+  static m5(howMany) => "${Intl.plural(howMany, zero: 'Shipment', one: 'Shipment', other: 'Shipments')}";
+
+  static m6(howMany) => "${Intl.plural(howMany, zero: 'Tenant', one: 'Tenant', other: 'Tenants')}";
+
+  static m7(howMany) => "${Intl.plural(howMany, zero: 'Terminal', one: 'Terminal', other: 'Terminals')}";
+
+  static m8(howMany) => "${Intl.plural(howMany, zero: 'User', one: 'User', other: 'Users')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "carriersTitle" : MessageLookupByLibrary.simpleMessage("Carriers"),
+    "carriersTitle" : m0,
     "changePassword" : MessageLookupByLibrary.simpleMessage("Change password"),
     "confirmPassword" : MessageLookupByLibrary.simpleMessage("Confirm password"),
-    "shipmentsTitle" : MessageLookupByLibrary.simpleMessage("Containers"),
     "create" : MessageLookupByLibrary.simpleMessage("Create"),
-    "customersTitle" : MessageLookupByLibrary.simpleMessage("Customers"),
+    "customersTitle" : m1,
     "edit" : MessageLookupByLibrary.simpleMessage("Edit"),
     "email" : MessageLookupByLibrary.simpleMessage("Email"),
     "emailNotVerified" : MessageLookupByLibrary.simpleMessage("This Email Id is not yet verified. Please try again."),
-    "emailSent" : m0,
+    "emailSent" : m2,
     "forgotPassword" : MessageLookupByLibrary.simpleMessage("Forgot Password?"),
     "home" : MessageLookupByLibrary.simpleMessage("Home"),
     "logout" : MessageLookupByLibrary.simpleMessage("Logout"),
@@ -44,8 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "newPassword" : MessageLookupByLibrary.simpleMessage("New password"),
     "noDateChosen" : MessageLookupByLibrary.simpleMessage("No date chosen"),
     "oldPassword" : MessageLookupByLibrary.simpleMessage("Old password"),
-    "ordersTitle" : MessageLookupByLibrary.simpleMessage("Orders"),
-    "paramRequired" : m1,
+    "ordersTitle" : m3,
+    "paramRequired" : m4,
     "passowrdDoesntMatch" : MessageLookupByLibrary.simpleMessage("Passwords do not match"),
     "password" : MessageLookupByLibrary.simpleMessage("Password"),
     "profile" : MessageLookupByLibrary.simpleMessage("Profile"),
@@ -54,12 +65,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "resetPasswordMessage" : MessageLookupByLibrary.simpleMessage("An email with the reset link would be sent to you."),
     "save" : MessageLookupByLibrary.simpleMessage("Save"),
     "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
+    "shipmentsTitle" : m5,
     "signIn" : MessageLookupByLibrary.simpleMessage("Sign In"),
     "tenantLessUserMessage" : MessageLookupByLibrary.simpleMessage("Thanks for signing up. We will review your registration. We are in a limited beta at the moment. Please check back later."),
-    "tenantsTitle" : MessageLookupByLibrary.simpleMessage("Tenants"),
-    "terminalsTitle" : m2,
+    "tenantsTitle" : m6,
+    "terminalsTitle" : m7,
     "username" : MessageLookupByLibrary.simpleMessage("Username"),
-    "usersTitle" : MessageLookupByLibrary.simpleMessage("Users"),
+    "usersTitle" : m8,
     "welcome" : MessageLookupByLibrary.simpleMessage("Welcome to Shipanther")
   };
 }
