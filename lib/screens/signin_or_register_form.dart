@@ -24,7 +24,7 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ShipantherLocalizations.of(context)!.welcome),
+        title: Text(ShipantherLocalizations.of(context).welcome),
       ),
       body: Form(
         key: _formKey,
@@ -38,15 +38,15 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                   TextFormField(
                     controller: _username,
                     decoration: InputDecoration(
-                        labelText: ShipantherLocalizations.of(context)!.name),
+                        labelText: ShipantherLocalizations.of(context).name),
                     autocorrect: false,
                     enableSuggestions: false,
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return ShipantherLocalizations.of(context)!
+                        return ShipantherLocalizations.of(context)
                             .paramRequired(
-                                ShipantherLocalizations.of(context)!.name);
+                                ShipantherLocalizations.of(context).name);
                       }
                       return null;
                     },
@@ -58,26 +58,26 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                   ),
                 TextFormField(
                   decoration: InputDecoration(
-                      labelText: ShipantherLocalizations.of(context)!.email),
+                      labelText: ShipantherLocalizations.of(context).email),
                   autocorrect: false,
                   controller: _userEmail,
                   enableSuggestions: false,
                   keyboardType: TextInputType.emailAddress,
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return ShipantherLocalizations.of(context)!.paramRequired(
-                          ShipantherLocalizations.of(context)!.email);
+                      return ShipantherLocalizations.of(context).paramRequired(
+                          ShipantherLocalizations.of(context).email);
                     }
                     return null;
                   },
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                      labelText: ShipantherLocalizations.of(context)!.password),
+                      labelText: ShipantherLocalizations.of(context).password),
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return ShipantherLocalizations.of(context)!.paramRequired(
-                          ShipantherLocalizations.of(context)!.password);
+                      return ShipantherLocalizations.of(context).paramRequired(
+                          ShipantherLocalizations.of(context).password);
                     }
                     return null;
                   },
@@ -125,7 +125,7 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                       ),
                       if (widget.authTypeSelector == AuthTypeSelector.signIn)
                         TextButton(
-                            child: Text(ShipantherLocalizations.of(context)!
+                            child: Text(ShipantherLocalizations.of(context)
                                 .forgotPassword),
                             onPressed: () => Navigator.push(
                                   context,

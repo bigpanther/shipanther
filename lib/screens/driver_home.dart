@@ -45,7 +45,7 @@ class _DriverHomeState extends State<DriverHome> {
         return ShipantherScaffold(
           widget.loggedInUser,
           bottomNavigationBar: null,
-          title: ShipantherLocalizations.of(context)!.shipmentsTitle(2),
+          title: ShipantherLocalizations.of(context).shipmentsTitle(2),
           actions: const [],
           body: const CenteredLoading(),
           floatingActionButton: null,

@@ -41,7 +41,7 @@ class _CustomerHomeState extends State<CustomerHome> {
         }
         return ShipantherScaffold(
           widget.user,
-          title: ShipantherLocalizations.of(context)!.tenantsTitle(2),
+          title: ShipantherLocalizations.of(context).tenantsTitle(2),
           actions: const [],
           body: const CenteredLoading(),
           floatingActionButton: null,

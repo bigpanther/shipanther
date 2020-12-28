@@ -31,13 +31,4 @@ class RemoteTerminalRepository extends TerminalRepository {
     final client = await _apiRepository.apiClient();
     return await client.terminalsIdPut(id, terminal: terminal);
   }
-
-  @override
-  Future<List<Terminal>> filterTerminals(TerminalType terminalType) async {
-    final terminals = await fetchTerminals();
-    if (terminalType == null) {
-      return terminals;
-    }
-    return terminals.where((e) => e.type == terminalType).toList();
-  }
 }

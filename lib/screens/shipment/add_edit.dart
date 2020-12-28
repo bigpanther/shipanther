@@ -93,15 +93,15 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
           ? widget.shipment.order.serialNumber
           : widget.shipment.orderId;
     }
-    final formatter = ShipantherLocalizations.of(context)!.dateTimeFormatter;
+    final formatter = ShipantherLocalizations.of(context).dateTimeFormatter;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)!.editParam(
-                  ShipantherLocalizations.of(context)!.shipmentsTitle(1))
-              : ShipantherLocalizations.of(context)!.addNewParam(
-                  ShipantherLocalizations.of(context)!.shipmentsTitle(1)),
+              ? ShipantherLocalizations.of(context).editParam(
+                  ShipantherLocalizations.of(context).shipmentsTitle(1))
+              : ShipantherLocalizations.of(context).addNewParam(
+                  ShipantherLocalizations.of(context).shipmentsTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -124,11 +124,11 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                     controller: _serialNumber,
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(
-                        labelText: ShipantherLocalizations.of(context)!
+                        labelText: ShipantherLocalizations.of(context)
                             .shipmentSerialNumber),
                     validator: (val) => val == null || val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context)!.paramEmpty(
-                            ShipantherLocalizations.of(context)!
+                        ? ShipantherLocalizations.of(context).paramEmpty(
+                            ShipantherLocalizations.of(context)
                                 .shipmentSerialNumber)
                         : null,
                   ),
@@ -138,8 +138,8 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                     controller: _origin,
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(
-                        labelText: ShipantherLocalizations.of(context)!
-                            .shipmentOrigin),
+                        labelText:
+                            ShipantherLocalizations.of(context).shipmentOrigin),
                   ),
                   TextFormField(
                     initialValue: widget.shipment.destination,
@@ -147,7 +147,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                     controller: _destination,
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(
-                        labelText: ShipantherLocalizations.of(context)!
+                        labelText: ShipantherLocalizations.of(context)
                             .shipmentDestination),
                   ),
                   Padding(
@@ -157,7 +157,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                       children: [
                         Row(
                           children: [
-                            Text(ShipantherLocalizations.of(context)!
+                            Text(ShipantherLocalizations.of(context)
                                 .shipmentReservationTime),
                           ],
                         ),
@@ -166,7 +166,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                             Text(
                               _reservationTime == null
                                   ? widget.shipment.reservationTime == null
-                                      ? ShipantherLocalizations.of(context)!
+                                      ? ShipantherLocalizations.of(context)
                                           .noDateChosen
                                       : formatter.format(
                                           widget.shipment.reservationTime)
@@ -188,7 +188,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                       children: [
                         Row(
                           children: [
-                            Text(ShipantherLocalizations.of(context)!
+                            Text(ShipantherLocalizations.of(context)
                                 .shipmentLFD),
                           ],
                         ),
@@ -197,7 +197,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                             Text(
                               _lfd == null
                                   ? widget.shipment.lfd == null
-                                      ? ShipantherLocalizations.of(context)!
+                                      ? ShipantherLocalizations.of(context)
                                           .noDateChosen
                                       : formatter.format(widget.shipment.lfd)
                                   : formatter.format(_lfd!),
@@ -212,7 +212,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                     ),
                   ),
                   smartSelect<api.ShipmentSize>(
-                    title: ShipantherLocalizations.of(context)!.shipmentSize,
+                    title: ShipantherLocalizations.of(context).shipmentSize,
                     onChange: (state) => _shipmentSize = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.ShipmentSize, api.ShipmentSize>(
@@ -223,7 +223,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                     value: widget.shipment.size ?? api.ShipmentSize.n20sT,
                   ),
                   smartSelect<api.ShipmentType>(
-                    title: ShipantherLocalizations.of(context)!.shipmentType,
+                    title: ShipantherLocalizations.of(context).shipmentType,
                     onChange: (state) => _shipmentType = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.ShipmentType, api.ShipmentType>(
@@ -234,7 +234,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                     value: widget.shipment.type ?? api.ShipmentType.incoming,
                   ),
                   smartSelect<api.ShipmentStatus>(
-                    title: ShipantherLocalizations.of(context)!.shipmentStatus,
+                    title: ShipantherLocalizations.of(context).shipmentStatus,
                     onChange: (state) => _shipmentStatus = state.value,
                     choiceItems: S2Choice.listFrom<api.ShipmentStatus,
                         api.ShipmentStatus>(
@@ -273,8 +273,8 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context)!.edit
-            : ShipantherLocalizations.of(context)!.create,
+            ? ShipantherLocalizations.of(context).edit
+            : ShipantherLocalizations.of(context).create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () async {
           if (formKey.currentState!.validate()) {

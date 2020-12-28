@@ -37,13 +37,4 @@ class RemoteOrderRepository extends OrderRepository {
     final client = await _apiRepository.apiClient();
     return await client.ordersIdPut(id, order: order);
   }
-
-  @override
-  Future<List<Order>> filterOrders(OrderStatus orderStatus) async {
-    final orders = await fetchOrders();
-    if (orderStatus == null) {
-      return orders;
-    }
-    return orders.where((e) => e.status == orderStatus).toList();
-  }
 }

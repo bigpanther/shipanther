@@ -49,13 +49,4 @@ class RemoteUserRepository extends UserRepository {
     final client = await _apiRepository.apiClient();
     return await client.usersIdPut(id, user: user);
   }
-
-  @override
-  Future<List<User>> filterUsers(UserRole userRole) async {
-    final users = await fetchUsers();
-    if (userRole == null) {
-      return users;
-    }
-    return users.where((e) => e.role == userRole).toList();
-  }
 }

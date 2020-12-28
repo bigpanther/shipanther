@@ -41,19 +41,9 @@ class RemoteShipmentRepository extends ShipmentRepository {
         type: shipmentType,
         size: shipmentSize,
         status: shipmentStatus,
-        //terminalId: terminalId,
         driverId: driverId,
         orderId: orderId,
         serialNumber: serialNumber,
         carrierId: carrierId);
-  }
-
-  @override
-  Future<List<Shipment>> filterShipments(ShipmentStatus shipmentStatus) async {
-    final shipments = await fetchShipments();
-    if (shipmentStatus == null) {
-      return shipments;
-    }
-    return shipments.where((e) => e.status == shipmentStatus).toList();
   }
 }

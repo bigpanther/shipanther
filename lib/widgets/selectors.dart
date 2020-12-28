@@ -18,8 +18,8 @@ List<Widget> tenantSelector(
     TypeAheadFormField<Tenant>(
       textFieldConfiguration: TextFieldConfiguration<Tenant>(
           decoration: InputDecoration(
-            labelText: ShipantherLocalizations.of(context)!.selectParam(
-                ShipantherLocalizations.of(context)!.tenantsTitle(1)),
+            labelText: ShipantherLocalizations.of(context).selectParam(
+                ShipantherLocalizations.of(context).tenantsTitle(1)),
           ),
           controller: textEditingController,
           onTap: () {
@@ -58,8 +58,8 @@ List<Widget> customerSelector(
     TypeAheadFormField<Customer>(
       textFieldConfiguration: TextFieldConfiguration<Customer>(
         decoration: InputDecoration(
-            labelText: ShipantherLocalizations.of(context)!.selectParam(
-                ShipantherLocalizations.of(context)!.customersTitle(1))),
+            labelText: ShipantherLocalizations.of(context).selectParam(
+                ShipantherLocalizations.of(context).customersTitle(1))),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';
@@ -98,8 +98,8 @@ List<Widget> driverSelector(
     TypeAheadFormField<User>(
       textFieldConfiguration: TextFieldConfiguration<User>(
           decoration: InputDecoration(
-              labelText: ShipantherLocalizations.of(context)!
-                  .selectParam(ShipantherLocalizations.of(context)!.driver)),
+              labelText: ShipantherLocalizations.of(context)
+                  .selectParam(ShipantherLocalizations.of(context).driver)),
           controller: textEditingController,
           onTap: () {
             textEditingController.text = '';
@@ -139,8 +139,8 @@ List<Widget> terminalSelector(
     TypeAheadFormField<Terminal>(
       textFieldConfiguration: TextFieldConfiguration<Terminal>(
         decoration: InputDecoration(
-            labelText: ShipantherLocalizations.of(context)!.selectParam(
-                ShipantherLocalizations.of(context)!.terminalsTitle(1))),
+            labelText: ShipantherLocalizations.of(context).selectParam(
+                ShipantherLocalizations.of(context).terminalsTitle(1))),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';
@@ -179,8 +179,8 @@ List<Widget> carrierSelector(
     TypeAheadFormField<Carrier>(
       textFieldConfiguration: TextFieldConfiguration<Carrier>(
         decoration: InputDecoration(
-            labelText: ShipantherLocalizations.of(context)!.selectParam(
-                ShipantherLocalizations.of(context)!.carriersTitle(1))),
+            labelText: ShipantherLocalizations.of(context).selectParam(
+                ShipantherLocalizations.of(context).carriersTitle(1))),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';
@@ -219,8 +219,8 @@ List<Widget> orderSelector(
     TypeAheadFormField<Order>(
       textFieldConfiguration: TextFieldConfiguration<Order>(
         decoration: InputDecoration(
-            labelText: ShipantherLocalizations.of(context)!.selectParam(
-                ShipantherLocalizations.of(context)!.ordersTitle(1))),
+            labelText: ShipantherLocalizations.of(context).selectParam(
+                ShipantherLocalizations.of(context).ordersTitle(1))),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';

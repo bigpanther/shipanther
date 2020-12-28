@@ -18,7 +18,7 @@ class CustomerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context)!.customersTitle(2);
+    final title = ShipantherLocalizations.of(context).customersTitle(2);
     final actions = <Widget>[];
 
     final Widget body = ListView.builder(
@@ -60,18 +60,18 @@ class CustomerList extends StatelessWidget {
               ),
               children: [
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.createdAt,
-                    ShipantherLocalizations.of(context)!
+                    ShipantherLocalizations.of(context).createdAt,
+                    ShipantherLocalizations.of(context)
                         .dateFormatter
                         .format(t.createdAt)),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.lastUpdate,
-                    ShipantherLocalizations.of(context)!
+                    ShipantherLocalizations.of(context).lastUpdate,
+                    ShipantherLocalizations.of(context)
                         .dateFormatter
                         .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
                   displaySubtitle(
-                      ShipantherLocalizations.of(context)!.tenantId, t.tenantId)
+                      ShipantherLocalizations.of(context).tenantId, t.tenantId)
                 else
                   const Text(''),
               ],
@@ -81,7 +81,7 @@ class CustomerList extends StatelessWidget {
       },
     );
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: ShipantherLocalizations.of(context)!.addCustomer,
+      tooltip: ShipantherLocalizations.of(context).addCustomer,
       child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(

@@ -45,12 +45,12 @@ class _ApiLoginState extends State<ApiLogin> {
             child: Center(
               child: Column(
                 children: [
-                  Text(ShipantherLocalizations.of(context)!.loginError),
+                  Text(ShipantherLocalizations.of(context).loginError),
                   FlatButton(
                     onPressed: () => context.read<AuthBloc>().add(
                           const AuthLogout(),
                         ),
-                    child: Text(ShipantherLocalizations.of(context)!.logout),
+                    child: Text(ShipantherLocalizations.of(context).logout),
                   ),
                 ],
               ),

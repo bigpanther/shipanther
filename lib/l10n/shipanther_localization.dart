@@ -8,7 +8,7 @@ class ShipantherLocalizations {
 
   static ShipantherLocalizations of(BuildContext context) {
     return Localizations.of<ShipantherLocalizations>(
-        context, ShipantherLocalizations);
+        context, ShipantherLocalizations)!;
   }
 
   static Future<ShipantherLocalizations> load(Locale locale) {

@@ -36,7 +36,7 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  ShipantherLocalizations.of(context)!
+                  ShipantherLocalizations.of(context)
                       .emailSent(state.user.email),
                 ),
               ),
