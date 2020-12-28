@@ -17,7 +17,7 @@ class TerminalLoaded extends TerminalState {
 class TerminalsLoaded extends TerminalState {
   const TerminalsLoaded(this.terminals, this.terminalType);
   final List<Terminal> terminals;
-  final TerminalType terminalType;
+  final TerminalType? terminalType;
 }
 
 class TerminalFailure extends TerminalState {

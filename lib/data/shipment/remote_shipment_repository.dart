@@ -25,18 +25,25 @@ class RemoteShipmentRepository extends ShipmentRepository {
   }
 
   @override
-  Future<List<Shipment>> fetchShipments() async {
+  Future<List<Shipment>> fetchShipments(
+      {int? page = 1,
+      ShipmentType? shipmentType,
+      ShipmentStatus? shipmentStatus,
+      ShipmentSize? shipmentSize,
+      String? terminalId,
+      String? carrierId,
+      String? driverId,
+      String? orderId,
+      String? serialNumber}) async {
     final client = await _apiRepository.apiClient();
-    return client.shipmentsGet();
-  }
-
-  @override
-  Future<List<Shipment>> filterShipments(
-      ShipmentStatus shipmentStatus) async {
-    final shipments = await fetchShipments();
-    if (shipmentStatus == null) {
-      return shipments;
-    }
-    return shipments.where((e) => e.status == shipmentStatus).toList();
+    return client.shipmentsGet(
+        page: page,
+        type: shipmentType,
+        size: shipmentSize,
+        status: shipmentStatus,
+        driverId: driverId,
+        orderId: orderId,
+        serialNumber: serialNumber,
+        carrierId: carrierId);
   }
 }

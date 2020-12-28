@@ -13,9 +13,14 @@ class RemoteCarrierRepository extends CarrierRepository {
   }
 
   @override
-  Future<List<Carrier>> fetchCarriers() async {
+  Future<List<Carrier>> fetchCarriers(
+      {int? page = 1, CarrierType? carrierType, String? name}) async {
     final client = await _apiRepository.apiClient();
-    return await client.carriersGet();
+    return await client.carriersGet(
+      page: page,
+      type: carrierType,
+      name: name,
+    );
   }
 
   @override
@@ -28,14 +33,5 @@ class RemoteCarrierRepository extends CarrierRepository {
   Future<Carrier> updateCarrier(String id, Carrier carrier) async {
     final client = await _apiRepository.apiClient();
     return await client.carriersIdPut(id, carrier: carrier);
-  }
-
-  @override
-  Future<List<Carrier>> filterCarriers(CarrierType carrierType) async {
-    final carriers = await fetchCarriers();
-    if (carrierType == null) {
-      return carriers;
-    }
-    return carriers.where((e) => e.type == carrierType).toList();
   }
 }

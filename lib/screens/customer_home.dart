@@ -8,7 +8,7 @@ import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
 
 class CustomerHome extends StatefulWidget {
-  const CustomerHome(this.user, {Key key}) : super(key: key);
+  const CustomerHome(this.user, {Key? key}) : super(key: key);
   final User user;
 
   @override
@@ -16,7 +16,7 @@ class CustomerHome extends StatefulWidget {
 }
 
 class _CustomerHomeState extends State<CustomerHome> {
-  OrderBloc bloc;
+  late OrderBloc bloc;
   @override
   void initState() {
     super.initState();
@@ -41,7 +41,7 @@ class _CustomerHomeState extends State<CustomerHome> {
         }
         return ShipantherScaffold(
           widget.user,
-          title: ShipantherLocalizations.of(context).tenantsTitle(2),
+          title: ShipantherLocalizations.of(context)!.tenantsTitle(2),
           actions: const [],
           body: const CenteredLoading(),
           floatingActionButton: null,

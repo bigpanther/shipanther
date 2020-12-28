@@ -6,14 +6,14 @@ import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 
 class VerifyEmail extends StatelessWidget {
-  const VerifyEmail(this.user, {Key key}) : super(key: key);
+  const VerifyEmail(this.user, {Key? key}) : super(key: key);
   final User user;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ShipantherLocalizations.of(context).welcome),
+        title: Text(ShipantherLocalizations.of(context)!.welcome),
         centerTitle: true,
         actions: [
           IconButton(
@@ -28,7 +28,7 @@ class VerifyEmail extends StatelessWidget {
       body: Column(
         children: [
           Text(
-            ShipantherLocalizations.of(context).emailSent(user.email),
+            ShipantherLocalizations.of(context)!.emailSent(user.email),
           ),
           Container(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -41,7 +41,7 @@ class VerifyEmail extends StatelessWidget {
                       CheckVerified(user),
                     );
               },
-              text: ShipantherLocalizations.of(context).iVerified,
+              text: ShipantherLocalizations.of(context)!.iVerified,
             ),
           ),
           Container(
@@ -55,7 +55,7 @@ class VerifyEmail extends StatelessWidget {
                       ResendEmail(user),
                     );
               },
-              text: ShipantherLocalizations.of(context).resendEmail,
+              text: ShipantherLocalizations.of(context)!.resendEmail,
             ),
           ),
         ],

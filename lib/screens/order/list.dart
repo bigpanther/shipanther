@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderList extends StatelessWidget {
   const OrderList(this.loggedInUser,
-      {Key key, @required this.orderLoadedState, this.orderBloc})
+      {Key? key, required this.orderLoadedState, required this.orderBloc})
       : super(key: key);
 
   final OrderBloc orderBloc;
@@ -22,7 +22,7 @@ class OrderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context).ordersTitle(2);
+    final title = ShipantherLocalizations.of(context)!.ordersTitle(2);
     final actions = <Widget>[
       FilterButton<OrderStatus>(
           possibleValues: OrderStatus.values,
@@ -32,7 +32,7 @@ class OrderList extends StatelessWidget {
             ..add(
               GetOrders(t),
             ),
-          tooltip: ShipantherLocalizations.of(context).orderStatusFilter)
+          tooltip: ShipantherLocalizations.of(context)!.orderStatusFilter)
     ];
 
     final Widget body = ListView.builder(
@@ -64,24 +64,24 @@ class OrderList extends StatelessWidget {
               ),
               children: [
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).createdAt,
-                    ShipantherLocalizations.of(context)
+                    ShipantherLocalizations.of(context)!.createdAt,
+                    ShipantherLocalizations.of(context)!
                         .dateFormatter
                         .format(t.createdAt)),
                 if (t.customer != null)
                   displaySubtitle(
-                      ShipantherLocalizations.of(context).customerName,
+                      ShipantherLocalizations.of(context)!.customerName,
                       t.customer.name)
                 else
                   const Text(''),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).lastUpdate,
-                    ShipantherLocalizations.of(context)
+                    ShipantherLocalizations.of(context)!.lastUpdate,
+                    ShipantherLocalizations.of(context)!
                         .dateFormatter
                         .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
                   displaySubtitle(
-                      ShipantherLocalizations.of(context).tenantId, t.tenantId)
+                      ShipantherLocalizations.of(context)!.tenantId, t.tenantId)
                 else
                   const Text(''),
               ],
@@ -91,7 +91,7 @@ class OrderList extends StatelessWidget {
       },
     );
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: ShipantherLocalizations.of(context).orderAdd,
+      tooltip: ShipantherLocalizations.of(context)!.orderAdd,
       child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(

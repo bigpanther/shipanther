@@ -13,9 +13,9 @@ class RemoteCustomerRepository extends CustomerRepository {
   }
 
   @override
-  Future<List<Customer>> fetchCustomers() async {
+  Future<List<Customer>> fetchCustomers({int? page = 1, String? name}) async {
     final client = await _apiRepository.apiClient();
-    return await client.customersGet();
+    return await client.customersGet(page: page, name: name);
   }
 
   @override

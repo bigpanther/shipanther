@@ -4,8 +4,9 @@ mixin ShipantherTheme {
   static ThemeData get theme {
     final themeData = ThemeData.dark();
     final textTheme = themeData.textTheme;
-    final bodyText2 =
-        textTheme.bodyText2.copyWith(decorationColor: Colors.transparent);
+    final bodyText2 = (textTheme.bodyText2 != null)
+        ? textTheme.bodyText2!.copyWith(decorationColor: Colors.transparent)
+        : const TextStyle(decorationColor: Colors.transparent);
 
     return ThemeData.dark().copyWith(
       primaryColor: Colors.grey[800],

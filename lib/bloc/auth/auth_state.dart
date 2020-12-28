@@ -2,34 +2,36 @@ part of 'auth_bloc.dart';
 
 @immutable
 abstract class AuthState {
-  const AuthState(this.authType);
+  const AuthState({this.authType = AuthTypeSelector.signIn});
   final AuthTypeSelector authType;
 }
 
 class AuthInitial extends AuthState {
-  const AuthInitial() : super(AuthTypeSelector.signIn);
+  const AuthInitial() : super();
 }
 
 class AuthLoading extends AuthState {
-  const AuthLoading(AuthTypeSelector authType) : super(authType);
+  const AuthLoading(AuthTypeSelector authType) : super(authType: authType);
 }
 
 class AuthFinished extends AuthState {
-  const AuthFinished(this.user, AuthTypeSelector authType) : super(authType);
+  const AuthFinished(this.user, AuthTypeSelector authType)
+      : super(authType: authType);
   final User user;
 }
 
 class AuthRequested extends AuthState {
-  const AuthRequested(AuthTypeSelector authType) : super(authType);
+  const AuthRequested(AuthTypeSelector authType) : super(authType: authType);
 }
 
 class AuthFailure extends AuthState {
-  const AuthFailure(this.message, AuthTypeSelector authType) : super(authType);
+  const AuthFailure(this.message, AuthTypeSelector authType)
+      : super(authType: authType);
   final String message;
 }
 
 class AuthVerification extends AuthState {
-  const AuthVerification(this.user) : super(null);
+  const AuthVerification(this.user) : super();
   final User user;
 }
 

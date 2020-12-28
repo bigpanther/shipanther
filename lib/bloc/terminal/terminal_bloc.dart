@@ -22,18 +22,18 @@ class TerminalBloc extends Bloc<TerminalEvent, TerminalState> {
         yield TerminalLoaded(await _terminalRepository.fetchTerminal(event.id));
       }
       if (event is GetTerminals) {
-        final terminals =
-            await _terminalRepository.filterTerminals(event.terminalType);
+        final terminals = await _terminalRepository.fetchTerminals(
+            terminalType: event.terminalType);
         yield TerminalsLoaded(terminals, event.terminalType);
       }
       if (event is UpdateTerminal) {
         await _terminalRepository.updateTerminal(event.id, event.terminal);
-        final terminals = await _terminalRepository.filterTerminals(null);
+        final terminals = await _terminalRepository.fetchTerminals();
         yield TerminalsLoaded(terminals, null);
       }
       if (event is CreateTerminal) {
         await _terminalRepository.createTerminal(event.terminal);
-        final terminals = await _terminalRepository.filterTerminals(null);
+        final terminals = await _terminalRepository.fetchTerminals();
         yield TerminalsLoaded(terminals, null);
       }
       if (event is DeleteTerminal) {

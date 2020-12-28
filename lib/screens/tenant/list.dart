@@ -13,9 +13,9 @@ import 'package:shipanther/extensions/tenant_extension.dart';
 class TenantList extends StatelessWidget {
   const TenantList(
     this.loggedInUser, {
-    Key key,
-    @required this.tenantLoadedState,
-    this.tenantBloc,
+    Key? key,
+    required this.tenantLoadedState,
+    required this.tenantBloc,
   }) : super(key: key);
   final TenantBloc tenantBloc;
   final TenantsLoaded tenantLoadedState;
@@ -23,7 +23,7 @@ class TenantList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context).tenantsTitle(2);
+    final title = ShipantherLocalizations.of(context)!.tenantsTitle(2);
     final actions = <Widget>[
       FilterButton<TenantType>(
         possibleValues: TenantType.values,
@@ -32,7 +32,7 @@ class TenantList extends StatelessWidget {
         onSelected: (t) => context.read<TenantBloc>().add(
               GetTenants(t),
             ),
-        tooltip: ShipantherLocalizations.of(context).tenantTypeFilter,
+        tooltip: ShipantherLocalizations.of(context)!.tenantTypeFilter,
       )
     ];
     final Widget body = ListView.builder(
@@ -73,13 +73,13 @@ class TenantList extends StatelessWidget {
               ),
               children: [
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).createdAt,
-                    ShipantherLocalizations.of(context)
+                    ShipantherLocalizations.of(context)!.createdAt,
+                    ShipantherLocalizations.of(context)!
                         .dateFormatter
                         .format(t.createdAt)),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).lastUpdate,
-                    ShipantherLocalizations.of(context)
+                    ShipantherLocalizations.of(context)!.lastUpdate,
+                    ShipantherLocalizations.of(context)!
                         .dateFormatter
                         .format(t.updatedAt)),
               ],
@@ -90,7 +90,7 @@ class TenantList extends StatelessWidget {
     );
 
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: ShipantherLocalizations.of(context).tenantAdd,
+      tooltip: ShipantherLocalizations.of(context)!.tenantAdd,
       child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(

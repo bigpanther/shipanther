@@ -28,17 +28,18 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         yield UserLoaded(await _userRepository.fetchUser(event.id));
       }
       if (event is GetUsers) {
-        final users = await _userRepository.filterUsers(event.userRole);
+        final users =
+            await _userRepository.fetchUsers(userRole: event.userRole);
         yield UsersLoaded(users, event.userRole);
       }
       if (event is UpdateUser) {
         await _userRepository.updateUser(event.id, event.user);
-        final users = await _userRepository.filterUsers(null);
+        final users = await _userRepository.fetchUsers();
         yield UsersLoaded(users, null);
       }
       if (event is CreateUser) {
         await _userRepository.createUser(event.user);
-        final users = await _userRepository.filterUsers(null);
+        final users = await _userRepository.fetchUsers();
         yield UsersLoaded(users, null);
       }
       if (event is DeleteUser) {

@@ -4,7 +4,7 @@ import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 class NoneHome extends StatelessWidget {
-  const NoneHome(this.user, {Key key}) : super(key: key);
+  const NoneHome(this.user, {Key? key}) : super(key: key);
   final api.User user;
 
   @override
@@ -12,13 +12,13 @@ class NoneHome extends StatelessWidget {
     return ShipantherScaffold(
       user,
       bottomNavigationBar: null,
-      title: ShipantherLocalizations.of(context).tenantsTitle(2),
+      title: ShipantherLocalizations.of(context)!.tenantsTitle(2),
       actions: const [],
       body: Container(
         child: Column(
           children: [
-            Text(ShipantherLocalizations.of(context).helloParam(user.name)),
-            Text(ShipantherLocalizations.of(context).tenantLessUserMessage),
+            Text(ShipantherLocalizations.of(context)!.helloParam(user.name)),
+            Text(ShipantherLocalizations.of(context)!.tenantLessUserMessage),
           ],
         ),
       ),

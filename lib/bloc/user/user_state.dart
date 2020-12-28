@@ -22,7 +22,7 @@ class UserLoaded extends UserState {
 class UsersLoaded extends UserState {
   const UsersLoaded(this.users, this.userRole);
   final List<User> users;
-  final UserRole userRole;
+  final UserRole? userRole;
 }
 
 class UserFailure extends UserState {

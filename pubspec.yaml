@@ -15,7 +15,7 @@ publish_to: "none"
 version: 0.0.7+7
 
 environment:
-  sdk: ">=2.10.0 <3.0.0"
+  sdk: ">=2.12.0-0 <3.0.0"
 
 dependencies:
   flutter:
@@ -26,7 +26,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
-  flutter_bloc: ^6.1.1
+  flutter_bloc: ^7.0.0-nullsafety.0
   firebase_core: ^0.5.3
   firebase_auth: ^0.18.3
   flutter_signin_button: ^1.0.0
@@ -34,14 +34,14 @@ dependencies:
   intl: ^0.16.1
   flutter_typeahead: ^1.9.1
   enum_to_string: ^1.0.14
-  trober_sdk: 0.0.27
+  trober_sdk: 0.0.28
   firebase_messaging: ^8.0.0-dev.11
   flutter_datetime_picker: ^1.4.0
   firebase_crashlytics: ^0.2.4
   firebase_analytics: ^6.3.0
   package_info: ^0.4.3+2
   material_design_icons_flutter: ^4.0.5755
-  percent_indicator: ^2.1.8
+  percent_indicator: ^2.1.9
 
 dev_dependencies:
   flutter_test:

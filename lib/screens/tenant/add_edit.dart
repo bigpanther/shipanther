@@ -8,9 +8,9 @@ import 'package:shipanther/extensions/tenant_extension.dart';
 
 class TenantAddEdit extends StatefulWidget {
   const TenantAddEdit({
-    @required this.tenant,
-    @required this.tenantBloc,
-    @required this.isEdit,
+    required this.tenant,
+    required this.tenantBloc,
+    required this.isEdit,
   });
 
   final Tenant tenant;
@@ -24,8 +24,13 @@ class TenantAddEdit extends StatefulWidget {
 class _TenantAddEditState extends State<TenantAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String _tenantName;
-  TenantType _tenantType;
+  TenantType? _tenantType;
+  late TextEditingController _name;
+  @override
+  void initState() {
+    super.initState();
+    _name = TextEditingController(text: widget.tenant.name);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +38,10 @@ class _TenantAddEditState extends State<TenantAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context).editParam(
-                  ShipantherLocalizations.of(context).tenantsTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).tenantsTitle(1)),
+              ? ShipantherLocalizations.of(context)!.editParam(
+                  ShipantherLocalizations.of(context)!.tenantsTitle(1))
+              : ShipantherLocalizations.of(context)!.addNewParam(
+                  ShipantherLocalizations.of(context)!.tenantsTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -51,19 +56,18 @@ class _TenantAddEditState extends State<TenantAddEdit> {
           child: ListView(
             children: [
               TextFormField(
-                initialValue: widget.tenant.name ?? '',
                 autofocus: !widget.isEdit,
+                controller: _name,
                 style: Theme.of(context).textTheme.headline5,
                 decoration: InputDecoration(
-                    hintText: ShipantherLocalizations.of(context).tenantName),
-                validator: (val) => val.trim().isEmpty
-                    ? ShipantherLocalizations.of(context).paramEmpty(
-                        ShipantherLocalizations.of(context).tenantName)
+                    hintText: ShipantherLocalizations.of(context)!.tenantName),
+                validator: (val) => val == null || val.trim().isEmpty
+                    ? ShipantherLocalizations.of(context)!.paramEmpty(
+                        ShipantherLocalizations.of(context)!.tenantName)
                     : null,
-                onSaved: (value) => _tenantName = value,
               ),
               smartSelect<TenantType>(
-                title: ShipantherLocalizations.of(context).tenantType,
+                title: ShipantherLocalizations.of(context)!.tenantType,
                 onChange: (state) => _tenantType = state.value,
                 choiceItems: S2Choice.listFrom<TenantType, TenantType>(
                   source: TenantType.values,
@@ -78,15 +82,13 @@ class _TenantAddEditState extends State<TenantAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+            ? ShipantherLocalizations.of(context)!.edit
+            : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () {
-          final form = formKey.currentState;
-          if (form.validate()) {
-            form.save();
-            widget.tenant.name = _tenantName;
-            widget.tenant.type = _tenantType;
+          if (formKey.currentState!.validate()) {
+            widget.tenant.name = _name.text;
+            widget.tenant.type = _tenantType ?? TenantType.production;
             if (widget.isEdit) {
               widget.tenantBloc.add(
                 UpdateTenant(widget.tenant.id, widget.tenant),
@@ -102,5 +104,11 @@ class _TenantAddEditState extends State<TenantAddEdit> {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _name.dispose();
+    super.dispose();
   }
 }

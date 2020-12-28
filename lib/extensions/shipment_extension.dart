@@ -11,7 +11,6 @@ extension ShipmentTypeExtension on api.ShipmentType {
       case api.ShipmentType.outGoing:
         return Icons.arrow_upward;
     }
-    return Icons.broken_image;
   }
 
   String get text {
@@ -41,7 +40,6 @@ extension ShipmentPercent on api.ShipmentStatus {
       case api.ShipmentStatus.abandoned:
         return 1;
     }
-    return 0.0;
   }
 }
 
@@ -67,10 +65,8 @@ extension ShipmentStatusExtension on api.ShipmentStatus {
       case api.ShipmentStatus.abandoned:
         return MdiIcons.accessPointMinus;
     }
-    return Icons.broken_image;
   }
 
-  // ignore: missing_return
   Color get color {
     switch (this) {
       case api.ShipmentStatus.unassigned:
@@ -113,7 +109,6 @@ extension ShipmentSizeExtension on api.ShipmentSize {
       case api.ShipmentSize.custom:
         return MdiIcons.accessPointMinus;
     }
-    return Icons.broken_image;
   }
 
   String get text {

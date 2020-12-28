@@ -13,9 +13,11 @@ class RemoteTerminalRepository extends TerminalRepository {
   }
 
   @override
-  Future<List<Terminal>> fetchTerminals() async {
+  Future<List<Terminal>> fetchTerminals(
+      {int? page = 1, TerminalType? terminalType, String? name}) async {
     final client = await _apiRepository.apiClient();
-    return await client.terminalsGet();
+    return await client.terminalsGet(
+        page: page, type: terminalType, name: name);
   }
 
   @override
@@ -28,14 +30,5 @@ class RemoteTerminalRepository extends TerminalRepository {
   Future<Terminal> updateTerminal(String id, Terminal terminal) async {
     final client = await _apiRepository.apiClient();
     return await client.terminalsIdPut(id, terminal: terminal);
-  }
-
-  @override
-  Future<List<Terminal>> filterTerminals(TerminalType terminalType) async {
-    final terminals = await fetchTerminals();
-    if (terminalType == null) {
-      return terminals;
-    }
-    return terminals.where((e) => e.type == terminalType).toList();
   }
 }

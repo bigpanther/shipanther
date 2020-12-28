@@ -32,9 +32,10 @@ class RemoteUserRepository extends UserRepository {
   }
 
   @override
-  Future<List<User>> fetchUsers() async {
+  Future<List<User>> fetchUsers(
+      {int? page = 1, UserRole? userRole, String? name}) async {
     final client = await _apiRepository.apiClient();
-    return await client.usersGet();
+    return await client.usersGet(page: page, role: userRole, name: name);
   }
 
   @override
@@ -47,14 +48,5 @@ class RemoteUserRepository extends UserRepository {
   Future<User> updateUser(String id, User user) async {
     final client = await _apiRepository.apiClient();
     return await client.usersIdPut(id, user: user);
-  }
-
-  @override
-  Future<List<User>> filterUsers(UserRole userRole) async {
-    final users = await fetchUsers();
-    if (userRole == null) {
-      return users;
-    }
-    return users.where((e) => e.role == userRole).toList();
   }
 }

@@ -16,16 +16,15 @@ class SignInOrRegistrationForm extends StatefulWidget {
 
 class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  String _userName;
-  String _userEmail;
-  String _password;
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _username = TextEditingController();
+  final TextEditingController _userEmail = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ShipantherLocalizations.of(context).welcome),
+        title: Text(ShipantherLocalizations.of(context)!.welcome),
       ),
       body: Form(
         key: _formKey,
@@ -37,20 +36,20 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
               children: <Widget>[
                 if (widget.authTypeSelector == AuthTypeSelector.register)
                   TextFormField(
+                    controller: _username,
                     decoration: InputDecoration(
-                        labelText: ShipantherLocalizations.of(context).name),
+                        labelText: ShipantherLocalizations.of(context)!.name),
                     autocorrect: false,
                     enableSuggestions: false,
                     keyboardType: TextInputType.emailAddress,
-                    validator: (String value) {
-                      if (value.isEmpty) {
-                        return ShipantherLocalizations.of(context)
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return ShipantherLocalizations.of(context)!
                             .paramRequired(
-                                ShipantherLocalizations.of(context).name);
+                                ShipantherLocalizations.of(context)!.name);
                       }
                       return null;
                     },
-                    onSaved: (val) => setState(() => _userName = val),
                   )
                 else
                   Container(
@@ -59,31 +58,31 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                   ),
                 TextFormField(
                   decoration: InputDecoration(
-                      labelText: ShipantherLocalizations.of(context).email),
+                      labelText: ShipantherLocalizations.of(context)!.email),
                   autocorrect: false,
+                  controller: _userEmail,
                   enableSuggestions: false,
                   keyboardType: TextInputType.emailAddress,
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return ShipantherLocalizations.of(context).paramRequired(
-                          ShipantherLocalizations.of(context).email);
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return ShipantherLocalizations.of(context)!.paramRequired(
+                          ShipantherLocalizations.of(context)!.email);
                     }
                     return null;
                   },
-                  onSaved: (val) => setState(() => _userEmail = val),
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                      labelText: ShipantherLocalizations.of(context).password),
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return ShipantherLocalizations.of(context).paramRequired(
-                          ShipantherLocalizations.of(context).password);
+                      labelText: ShipantherLocalizations.of(context)!.password),
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return ShipantherLocalizations.of(context)!.paramRequired(
+                          ShipantherLocalizations.of(context)!.password);
                     }
                     return null;
                   },
+                  controller: _password,
                   obscureText: true,
-                  onSaved: (val) => setState(() => _password = val),
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -97,17 +96,17 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                             ? Colors.blueGrey
                             : Colors.orange,
                     onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        _formKey.currentState.save();
+                      if (_formKey.currentState!.validate()) {
                         if (widget.authTypeSelector ==
                             AuthTypeSelector.register) {
                           context.read<AuthBloc>().add(
-                                AuthRegister(_userName, _userEmail, _password),
+                                AuthRegister(_username.text, _userEmail.text,
+                                    _password.text),
                               );
                         } else {
                           context
                               .read<AuthBloc>()
-                              .add(AuthSignIn(_userEmail, _password));
+                              .add(AuthSignIn(_userEmail.text, _password.text));
                         }
                       }
                     },
@@ -126,7 +125,7 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                       ),
                       if (widget.authTypeSelector == AuthTypeSelector.signIn)
                         TextButton(
-                            child: Text(ShipantherLocalizations.of(context)
+                            child: Text(ShipantherLocalizations.of(context)!
                                 .forgotPassword),
                             onPressed: () => Navigator.push(
                                   context,
@@ -152,6 +151,9 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
 
   @override
   void dispose() {
+    _username.dispose();
+    _userEmail.dispose();
+    _password.dispose();
     super.dispose();
   }
 }

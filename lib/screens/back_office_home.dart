@@ -4,7 +4,7 @@ import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 class BackOfficeHome extends StatefulWidget {
-  const BackOfficeHome(this.user, {Key key}) : super(key: key);
+  const BackOfficeHome(this.user, {Key? key}) : super(key: key);
 
   final api.User user;
 
@@ -17,8 +17,8 @@ class _BackOfficeHomeState extends State<BackOfficeHome> {
   Widget build(BuildContext context) {
     return ShipantherScaffold(
       widget.user,
-      title: ShipantherLocalizations.of(context).welcome,
-      actions: null,
+      title: ShipantherLocalizations.of(context)!.welcome,
+      actions: const [],
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(

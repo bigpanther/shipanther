@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:test/test.dart';
 
 Future<void> main() async {
-  Map<String, dynamic> englishData;
-  Map<String, dynamic> punjabiData;
+  Map<String, dynamic>? englishData;
+  Map<String, dynamic>? punjabiData;
   setUpAll(() async {
     var f = File('i18n/intl_messages_en.arb');
     var contents = await f.readAsString();
@@ -15,13 +15,13 @@ Future<void> main() async {
     punjabiData = json.decode(contents) as Map<String, dynamic>;
   });
   test('All keys should be translatable', () {
-    expect(punjabiData.keys, englishData.keys);
+    expect(punjabiData!.keys, englishData!.keys);
   });
   group('Verify translated keys', () {
     test('All keys should be translated', () {
       final notTranslated = <String>[];
-      for (final key in englishData.keys) {
-        if (englishData[key] == punjabiData[key]) {
+      for (final key in englishData!.keys) {
+        if (englishData![key] == punjabiData![key]) {
           notTranslated.add(key);
         }
       }

@@ -15,9 +15,9 @@ import 'package:shipanther/extensions/carrier_extension.dart';
 class CarrierAddEdit extends StatefulWidget {
   const CarrierAddEdit(
     this.loggedInUser, {
-    @required this.carrier,
-    @required this.carrierBloc,
-    @required this.isEdit,
+    required this.carrier,
+    required this.carrierBloc,
+    required this.isEdit,
   });
   final api.User loggedInUser;
   final api.Carrier carrier;
@@ -31,15 +31,23 @@ class CarrierAddEdit extends StatefulWidget {
 class _CarrierAddEditState extends State<CarrierAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String _carrierName;
-  api.CarrierType _carrierType;
-  api.Tenant _tenant;
-  DateTime _eta;
+  late TextEditingController _name;
+  @override
+  void initState() {
+    super.initState();
+    _name = TextEditingController(text: widget.carrier.name);
+  }
+
+  api.CarrierType? _carrierType;
+  api.Tenant? _tenant;
+  DateTime? _eta;
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final formatter = ShipantherLocalizations.of(context)!.dateTimeFormatter;
+
     if (widget.isEdit) {
       _tenantTypeAheadController.text = widget.carrier.tenantId;
     }
@@ -56,10 +64,10 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context).editParam(
-                  ShipantherLocalizations.of(context).carriersTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).carriersTitle(1)),
+              ? ShipantherLocalizations.of(context)!.editParam(
+                  ShipantherLocalizations.of(context)!.carriersTitle(1))
+              : ShipantherLocalizations.of(context)!.addNewParam(
+                  ShipantherLocalizations.of(context)!.carriersTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -74,17 +82,16 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
           child: ListView(
             children: [
                   TextFormField(
-                    initialValue: widget.carrier.name ?? '',
                     autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(
                         hintText:
-                            ShipantherLocalizations.of(context).carrierName),
-                    validator: (val) => val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context).paramEmpty(
-                            ShipantherLocalizations.of(context).carrierName)
+                            ShipantherLocalizations.of(context)!.carrierName),
+                    validator: (val) => val == null || val.trim().isEmpty
+                        ? ShipantherLocalizations.of(context)!.paramEmpty(
+                            ShipantherLocalizations.of(context)!.carrierName)
                         : null,
-                    onSaved: (value) => _carrierName = value,
+                    controller: _name,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 13, right: 10, top: 5),
@@ -93,7 +100,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                       children: [
                         Row(
                           children: [
-                            Text(ShipantherLocalizations.of(context)
+                            Text(ShipantherLocalizations.of(context)!
                                 .carriersETA),
                           ],
                         ),
@@ -101,11 +108,11 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                           children: [
                             Text(
                               _eta == null
-                                  ? ShipantherLocalizations.of(context)
-                                      .noDateChosen
-                                  : ShipantherLocalizations.of(context)
-                                      .dateTimeFormatter
-                                      .format(_eta),
+                                  ? widget.carrier.eta == null
+                                      ? ShipantherLocalizations.of(context)!
+                                          .noDateChosen
+                                      : formatter.format(widget.carrier.eta)
+                                  : formatter.format(_eta!),
                             ),
                             IconButton(
                               icon: const Icon(Icons.calendar_today),
@@ -117,7 +124,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                     ),
                   ),
                   smartSelect<api.CarrierType>(
-                    title: ShipantherLocalizations.of(context).carrierType,
+                    title: ShipantherLocalizations.of(context)!.carrierType,
                     onChange: (state) => _carrierType = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.CarrierType, api.CarrierType>(
@@ -140,17 +147,15 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+            ? ShipantherLocalizations.of(context)!.edit
+            : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () async {
-          final form = formKey.currentState;
-          if (form.validate()) {
-            form.save();
-            widget.carrier.name = _carrierName;
+          if (formKey.currentState!.validate()) {
+            widget.carrier.name = _name.text;
             widget.carrier.type = _carrierType;
             if (_tenant != null) {
-              widget.carrier.tenantId = _tenant.id;
+              widget.carrier.tenantId = _tenant!.id;
             }
             widget.carrier.createdBy =
                 (await context.read<UserRepository>().self()).id;
@@ -171,7 +176,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
   @override
   void dispose() {
     _tenantTypeAheadController.dispose();
-
+    _name.dispose();
     super.dispose();
   }
 }

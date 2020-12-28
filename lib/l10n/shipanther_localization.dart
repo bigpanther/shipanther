@@ -6,7 +6,7 @@ class ShipantherLocalizations {
   const ShipantherLocalizations(this.locale);
   final Locale locale;
 
-  static ShipantherLocalizations of(BuildContext context) {
+  static ShipantherLocalizations? of(BuildContext context) {
     return Localizations.of<ShipantherLocalizations>(
         context, ShipantherLocalizations);
   }
@@ -233,11 +233,11 @@ class ShipantherLocalizations {
 //shipment
   String shipmentsTitle(int howMany) => Intl.plural(
         howMany,
-        zero: 'Container',
-        one: 'Container',
-        other: 'Containers',
+        zero: 'Shipment',
+        one: 'Shipment',
+        other: 'Shipments',
         name: 'shipmentsTitle',
-        desc: 'Title for the Containers page',
+        desc: 'Title for the Shipments page',
         locale: locale.toString(),
         args: [howMany],
         examples: const {'howMany': 2},
@@ -323,21 +323,21 @@ class ShipantherLocalizations {
         locale: locale.toString(),
       );
   String get shipmentSize => Intl.message(
-        'Container size',
+        'Shipment size',
         name: 'shipmentSize',
-        desc: 'Container size',
+        desc: 'Shipment size',
         locale: locale.toString(),
       );
   String get shipmentType => Intl.message(
-        'Container type',
+        'Shipment type',
         name: 'shipmentType',
-        desc: 'Container type',
+        desc: 'Shipment type',
         locale: locale.toString(),
       );
   String get shipmentStatus => Intl.message(
-        'Container status',
+        'Shipment status',
         name: 'shipmentStatus',
-        desc: 'Container status',
+        desc: 'Shipment status',
         locale: locale.toString(),
       );
   String get shipmentAdd => Intl.message(
@@ -348,7 +348,7 @@ class ShipantherLocalizations {
       );
   String get shipmentStatusFilter => Intl.message(
         'Filter shipment status',
-        name: 'shipmentAdd',
+        name: 'shipmentStatusFilter',
         desc: 'Add shipment',
         locale: locale.toString(),
       );
@@ -418,7 +418,7 @@ class ShipantherLocalizations {
         args: [param],
         desc: 'Edit param',
         locale: locale.toString(),
-        examples: const {'param': 'Container'},
+        examples: const {'param': 'Shipment'},
       );
   String addNewParam(String param) => Intl.message(
         'Add new $param',
@@ -426,7 +426,7 @@ class ShipantherLocalizations {
         args: [param],
         desc: 'Add new param',
         locale: locale.toString(),
-        examples: const {'param': 'Container'},
+        examples: const {'param': 'Shipment'},
       );
   String selectParam(String param) => Intl.message(
         'Select $param',
@@ -434,7 +434,7 @@ class ShipantherLocalizations {
         args: [param],
         desc: 'Select param',
         locale: locale.toString(),
-        examples: const {'param': 'Container'},
+        examples: const {'param': 'Shipment'},
       );
   //expandable
   String get lfd => Intl.message(
@@ -489,7 +489,7 @@ class ShipantherLocalizations {
   String get email => Intl.message(
         'Email',
         name: 'email',
-        desc: 'Email ',
+        desc: 'Email',
         locale: locale.toString(),
       );
   String get role => Intl.message(
@@ -620,9 +620,9 @@ class ShipantherLocalizations {
         desc: 'create',
         locale: locale.toString(),
       );
-  String get passowrdDoesntMatch => Intl.message(
+  String get passwordDoesntMatch => Intl.message(
         'Passwords do not match',
-        name: 'passowrdDoesntMatch',
+        name: 'passwordDoesntMatch',
         desc: 'Passwords do not match',
         locale: locale.toString(),
       );

@@ -13,9 +13,17 @@ class RemoteOrderRepository extends OrderRepository {
   }
 
   @override
-  Future<List<Order>> fetchOrders() async {
+  Future<List<Order>> fetchOrders(
+      {int? page = 1,
+      OrderStatus? orderStatus,
+      String? customerId,
+      String? serialNumber}) async {
     final client = await _apiRepository.apiClient();
-    return await client.ordersGet();
+    return await client.ordersGet(
+        page: page,
+        status: orderStatus,
+        customerId: customerId,
+        serialNumber: serialNumber);
   }
 
   @override
@@ -28,14 +36,5 @@ class RemoteOrderRepository extends OrderRepository {
   Future<Order> updateOrder(String id, Order order) async {
     final client = await _apiRepository.apiClient();
     return await client.ordersIdPut(id, order: order);
-  }
-
-  @override
-  Future<List<Order>> filterOrders(OrderStatus orderStatus) async {
-    final orders = await fetchOrders();
-    if (orderStatus == null) {
-      return orders;
-    }
-    return orders.where((e) => e.status == orderStatus).toList();
   }
 }

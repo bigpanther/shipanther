@@ -13,9 +13,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ShipmentList extends StatelessWidget {
   const ShipmentList(
     this.loggedInUser, {
-    Key key,
-    @required this.shipmentsLoadedState,
-    this.shipmentBloc,
+    Key? key,
+    required this.shipmentsLoadedState,
+    required this.shipmentBloc,
   }) : super(key: key);
   final ShipmentBloc shipmentBloc;
   final ShipmentsLoaded shipmentsLoadedState;
@@ -23,14 +23,14 @@ class ShipmentList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context).shipmentsTitle(2);
+    final title = ShipantherLocalizations.of(context)!.shipmentsTitle(2);
     final actions = <Widget>[
       FilterButton<api.ShipmentStatus>(
         possibleValues: api.ShipmentStatus.values,
         isActive: true,
         activeFilter: shipmentsLoadedState.shipmentStatus,
         onSelected: (t) => context.read<ShipmentBloc>()..add(GetShipments(t)),
-        tooltip: ShipantherLocalizations.of(context).shipmentStatusFilter,
+        tooltip: ShipantherLocalizations.of(context)!.shipmentStatusFilter,
       )
     ];
     Widget circularIndicator(api.Shipment c) {
@@ -88,30 +88,30 @@ class ShipmentList extends StatelessWidget {
                   )
                 ],
               ),
-              subtitle: Text(ShipantherLocalizations.of(context)
+              subtitle: Text(ShipantherLocalizations.of(context)!
                   .paramFromTo(t.origin, t.destination)),
               children: [
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).lfd,
+                    ShipantherLocalizations.of(context)!.lfd,
                     t.lfd == null
                         ? ''
-                        : ShipantherLocalizations.of(context)
+                        : ShipantherLocalizations.of(context)!
                             .dateFormatter
                             .format(t.lfd)),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).reservationTime,
+                    ShipantherLocalizations.of(context)!.reservationTime,
                     t.reservationTime == null
                         ? ''
-                        : ShipantherLocalizations.of(context)
+                        : ShipantherLocalizations.of(context)!
                             .dateFormatter
                             .format(t.reservationTime)),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).size, t.size.text),
+                    ShipantherLocalizations.of(context)!.size, t.size.text),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).status, t.status.text),
+                    ShipantherLocalizations.of(context)!.status, t.status.text),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).lastUpdate,
-                    ShipantherLocalizations.of(context)
+                    ShipantherLocalizations.of(context)!.lastUpdate,
+                    ShipantherLocalizations.of(context)!
                         .dateFormatter
                         .format(t.updatedAt)),
               ],
@@ -122,7 +122,7 @@ class ShipmentList extends StatelessWidget {
     );
 
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: ShipantherLocalizations.of(context).shipmentAdd,
+      tooltip: ShipantherLocalizations.of(context)!.shipmentAdd,
       child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(

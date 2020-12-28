@@ -5,5 +5,5 @@ abstract class CustomerRepository {
   Future<Customer> fetchCustomer(String id);
   Future<Customer> createCustomer(Customer customer);
   Future<Customer> updateCustomer(String id, Customer customer);
-  Future<List<Customer>> fetchCustomers();
+  Future<List<Customer>> fetchCustomers({int? page = 1, String? name});
 }

@@ -14,7 +14,6 @@ extension CarrierTypeExtension on CarrierType {
       case CarrierType.road:
         return Icons.local_shipping;
     }
-    return Icons.broken_image;
   }
 
   String get text {

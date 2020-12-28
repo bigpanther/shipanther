@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class ExtraActionsButton<T> extends StatelessWidget {
   const ExtraActionsButton({
-    this.onSelected,
-    Key key,
-    @required this.possibleValues,
+    required this.onSelected,
+    required Key key,
+    required this.possibleValues,
   }) : super(key: key);
 
   final List<T> possibleValues;

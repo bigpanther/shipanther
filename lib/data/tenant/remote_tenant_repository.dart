@@ -13,9 +13,10 @@ class RemoteTenantRepository extends TenantRepository {
   }
 
   @override
-  Future<List<Tenant>> fetchTenants() async {
+  Future<List<Tenant>> fetchTenants(
+      {int? page = 1, TenantType? tenantType, String? name}) async {
     final client = await _apiRepository.apiClient();
-    return await client.tenantsGet();
+    return await client.tenantsGet(page: page, type: tenantType, name: name);
   }
 
   @override
@@ -28,14 +29,5 @@ class RemoteTenantRepository extends TenantRepository {
   Future<Tenant> updateTenant(String id, Tenant tenant) async {
     final client = await _apiRepository.apiClient();
     return await client.tenantsIdPut(id, tenant: tenant);
-  }
-
-  @override
-  Future<List<Tenant>> filterTenants(TenantType tenantType) async {
-    final tenants = await fetchTenants();
-    if (tenantType == null) {
-      return tenants;
-    }
-    return tenants.where((e) => e.type == tenantType).toList();
   }
 }

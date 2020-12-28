@@ -4,13 +4,13 @@ import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage(this.user);
 
-  final api.User user;
+  final User user;
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -21,12 +21,18 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _oldPassword = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
-  String _updatedName;
+  late TextEditingController _username;
+  @override
+  void initState() {
+    super.initState();
+    _username = TextEditingController(text: widget.user.name);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ShipantherScaffold(
       widget.user,
-      title: ShipantherLocalizations.of(context).profile,
+      title: ShipantherLocalizations.of(context)!.profile,
       actions: const [],
       body: ListView(
         children: [
@@ -68,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(_updatedName ?? widget.user.name),
+                        Text(widget.user.name),
                       ],
                     ),
                     trailing: const Icon(Icons.edit),
@@ -77,25 +83,23 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         children: [
                           TextFormField(
-                            initialValue: _updatedName ?? widget.user.name,
+                            controller: _username,
                             decoration: InputDecoration(
                                 labelText:
-                                    ShipantherLocalizations.of(context).name),
+                                    ShipantherLocalizations.of(context)!.name),
                             autocorrect: false,
                             enableSuggestions: false,
                             keyboardType: TextInputType.text,
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return ShipantherLocalizations.of(context)
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return ShipantherLocalizations.of(context)!
                                     .paramRequired(
-                                        ShipantherLocalizations.of(context)
+                                        ShipantherLocalizations.of(context)!
                                             .username);
                               }
 
                               return null;
                             },
-                            onSaved: (val) =>
-                                setState(() => _updatedName = val),
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -104,15 +108,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               icon: Icons.save,
                               backgroundColor: Colors.blue,
                               onPressed: () async {
-                                if (_formKeyName.currentState.validate()) {
-                                  _formKeyName.currentState.save();
-                                  widget.user.name = _updatedName;
+                                if (_formKeyName.currentState!.validate()) {
+                                  widget.user.name = _username.text;
 
                                   context.read<UserBloc>().add(
                                       UpdateUser(widget.user.id, widget.user));
                                 }
                               },
-                              text: ShipantherLocalizations.of(context).save,
+                              text: ShipantherLocalizations.of(context)!.save,
                             ),
                           ),
                         ],
@@ -127,7 +130,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: ExpansionTile(
                     title: Text(
-                        ShipantherLocalizations.of(context).changePassword),
+                        ShipantherLocalizations.of(context)!.changePassword),
                     trailing: const Icon(Icons.edit),
                     childrenPadding: const EdgeInsets.all(8),
                     children: [
@@ -136,7 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           TextFormField(
                             controller: _oldPassword,
                             decoration: InputDecoration(
-                                labelText: ShipantherLocalizations.of(context)
+                                labelText: ShipantherLocalizations.of(context)!
                                     .oldPassword),
                             autocorrect: false,
                             enableSuggestions: false,
@@ -144,11 +147,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             obscureText: true,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return ShipantherLocalizations.of(context)
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return ShipantherLocalizations.of(context)!
                                     .paramRequired(
-                                        ShipantherLocalizations.of(context)
+                                        ShipantherLocalizations.of(context)!
                                             .password);
                               }
                               return null;
@@ -157,7 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           TextFormField(
                             controller: _password,
                             decoration: InputDecoration(
-                                labelText: ShipantherLocalizations.of(context)
+                                labelText: ShipantherLocalizations.of(context)!
                                     .newPassword),
                             autocorrect: false,
                             enableSuggestions: false,
@@ -165,11 +168,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             obscureText: true,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return ShipantherLocalizations.of(context)
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return ShipantherLocalizations.of(context)!
                                     .paramRequired(
-                                        ShipantherLocalizations.of(context)
+                                        ShipantherLocalizations.of(context)!
                                             .password);
                               }
                               return null;
@@ -178,7 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           TextFormField(
                             controller: _confirmPassword,
                             decoration: InputDecoration(
-                                labelText: ShipantherLocalizations.of(context)
+                                labelText: ShipantherLocalizations.of(context)!
                                     .confirmPassword),
                             autocorrect: false,
                             enableSuggestions: false,
@@ -186,16 +189,16 @@ class _ProfilePageState extends State<ProfilePage> {
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             obscureText: true,
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return ShipantherLocalizations.of(context)
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return ShipantherLocalizations.of(context)!
                                     .paramRequired(
-                                        ShipantherLocalizations.of(context)
+                                        ShipantherLocalizations.of(context)!
                                             .password);
                               }
                               if (value != _password.text) {
-                                return ShipantherLocalizations.of(context)
-                                    .passowrdDoesntMatch;
+                                return ShipantherLocalizations.of(context)!
+                                    .passwordDoesntMatch;
                               }
                               return null;
                             },
@@ -207,12 +210,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               icon: Icons.lock,
                               backgroundColor: Colors.blue,
                               onPressed: () async {
-                                if (_formKeyPassword.currentState.validate()) {
+                                if (_formKeyPassword.currentState!.validate()) {
                                   context.read<AuthBloc>().add(UpdatePassword(
                                       _oldPassword.text, _password.text));
                                 }
                               },
-                              text: ShipantherLocalizations.of(context)
+                              text: ShipantherLocalizations.of(context)!
                                   .changePassword,
                             ),
                           ),
@@ -233,6 +236,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   void dispose() {
+    _username.dispose();
     _password.dispose();
     _confirmPassword.dispose();
     _oldPassword.dispose();

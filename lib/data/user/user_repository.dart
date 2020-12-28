@@ -8,6 +8,6 @@ abstract class UserRepository {
   Future<User> assign(UserRole role, String tenantId);
   Future<User> createUser(User user);
   Future<User> updateUser(String id, User user);
-  Future<List<User>> fetchUsers();
-  Future<List<User>> filterUsers(UserRole userRole);
+  Future<List<User>> fetchUsers(
+      {int? page = 1, UserRole? userRole, String? name});
 }

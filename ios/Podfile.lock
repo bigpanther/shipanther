@@ -123,7 +123,7 @@ PODS:
   - package_info (0.0.1):
     - Flutter
   - PromisesObjC (1.2.11)
-  - Protobuf (3.13.0)
+  - Protobuf (3.14.0)
 
 DEPENDENCIES:
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
@@ -196,7 +196,7 @@ SPEC CHECKSUMS:
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
-  Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
+  Protobuf: 0cde852566359049847168e51bd1c690e0f70056
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 

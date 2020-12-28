@@ -13,9 +13,9 @@ import 'package:shipanther/extensions/terminal_extension.dart';
 class TerminalAddEdit extends StatefulWidget {
   const TerminalAddEdit(
     this.loggedInUser, {
-    @required this.terminal,
-    @required this.terminalBloc,
-    @required this.isEdit,
+    required this.terminal,
+    required this.terminalBloc,
+    required this.isEdit,
   });
 
   final api.User loggedInUser;
@@ -29,10 +29,15 @@ class TerminalAddEdit extends StatefulWidget {
 
 class _TerminalAddEditState extends State<TerminalAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late TextEditingController _name;
+  @override
+  void initState() {
+    super.initState();
+    _name = TextEditingController(text: widget.terminal.name);
+  }
 
-  String _terminalName;
-  api.TerminalType _terminalType;
-  api.Tenant _tenant;
+  api.TerminalType? _terminalType;
+  api.Tenant? _tenant;
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
 
@@ -45,10 +50,10 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context).editParam(
-                  ShipantherLocalizations.of(context).terminalsTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).terminalsTitle(1)),
+              ? ShipantherLocalizations.of(context)!.editParam(
+                  ShipantherLocalizations.of(context)!.terminalsTitle(1))
+              : ShipantherLocalizations.of(context)!.addNewParam(
+                  ShipantherLocalizations.of(context)!.terminalsTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -63,20 +68,19 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
           child: ListView(
             children: [
                   TextFormField(
-                    initialValue: widget.terminal.name ?? '',
                     autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
+                    controller: _name,
                     decoration: InputDecoration(
                         hintText:
-                            ShipantherLocalizations.of(context).terminalName),
-                    validator: (val) => val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context).paramEmpty(
-                            ShipantherLocalizations.of(context).terminalName)
+                            ShipantherLocalizations.of(context)!.terminalName),
+                    validator: (val) => val == null || val.trim().isEmpty
+                        ? ShipantherLocalizations.of(context)!.paramEmpty(
+                            ShipantherLocalizations.of(context)!.terminalName)
                         : null,
-                    onSaved: (value) => _terminalName = value,
                   ),
                   smartSelect<api.TerminalType>(
-                    title: ShipantherLocalizations.of(context).terminalType,
+                    title: ShipantherLocalizations.of(context)!.terminalType,
                     onChange: (state) => _terminalType = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.TerminalType, api.TerminalType>(
@@ -99,17 +103,15 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+            ? ShipantherLocalizations.of(context)!.edit
+            : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () async {
-          final form = formKey.currentState;
-          if (form.validate()) {
-            form.save();
-            widget.terminal.name = _terminalName;
+          if (formKey.currentState!.validate()) {
+            widget.terminal.name = _name.text;
             widget.terminal.type = _terminalType ?? api.TerminalType.port;
             if (_tenant != null) {
-              widget.terminal.tenantId = _tenant.id;
+              widget.terminal.tenantId = _tenant!.id;
             }
             widget.terminal.createdBy =
                 (await context.read<UserRepository>().self()).id;
@@ -129,6 +131,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
 
   @override
   void dispose() {
+    _name.dispose();
     _tenantTypeAheadController.dispose();
     super.dispose();
   }

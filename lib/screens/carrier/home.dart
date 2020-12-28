@@ -8,7 +8,7 @@ import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:trober_sdk/api.dart' as api;
 
 class CarrierScreen extends StatefulWidget {
-  const CarrierScreen(this.loggedInUser, {Key key}) : super(key: key);
+  const CarrierScreen(this.loggedInUser, {Key? key}) : super(key: key);
   final api.User loggedInUser;
 
   @override
@@ -16,12 +16,12 @@ class CarrierScreen extends StatefulWidget {
 }
 
 class _CarrierScreenState extends State<CarrierScreen> {
-  CarrierBloc bloc;
+  late CarrierBloc bloc;
   @override
   void initState() {
     super.initState();
     bloc = context.read<CarrierBloc>();
-    bloc.add(const GetCarriers(null));
+    bloc.add(const GetCarriers());
   }
 
   @override
@@ -41,7 +41,7 @@ class _CarrierScreenState extends State<CarrierScreen> {
         }
         return Scaffold(
           appBar: AppBar(
-            title: Text(ShipantherLocalizations.of(context).carriersTitle(2)),
+            title: Text(ShipantherLocalizations.of(context)!.carriersTitle(2)),
           ),
           body: const CenteredLoading(),
         );
