@@ -61,36 +61,50 @@ class _BackOfficeHomeState extends State<BackOfficeHome> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                _heading,
-                style: const TextStyle(
-                  fontSize: 25,
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 20,
+                child: FittedBox(
+                  child: Text(
+                    _heading,
+                  ),
                 ),
               ),
-              Text(
-                '18',
-                style: TextStyle(
-                  fontSize: 50,
-                  color: subOneColor,
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 20,
+                child: FittedBox(
+                  child: Text(
+                    '18',
+                    style: TextStyle(
+                      color: subOneColor,
+                    ),
+                  ),
                 ),
               ),
-              Text(
-                _subtitleOne,
-                style: const TextStyle(
-                  fontSize: 18,
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 30,
+                child: FittedBox(
+                  child: Text(
+                    _subtitleOne,
+                  ),
                 ),
               ),
-              const Text(
-                '20',
-                style: TextStyle(
-                  fontSize: 50,
-                  color: Colors.green,
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 20,
+                child: const FittedBox(
+                  child: Text(
+                    '20',
+                    style: TextStyle(
+                      color: Colors.green,
+                    ),
+                  ),
                 ),
               ),
-              Text(
-                _subtitleTwo,
-                style: const TextStyle(
-                  fontSize: 18,
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 30,
+                child: FittedBox(
+                  child: Text(
+                    _subtitleTwo,
+                  ),
                 ),
               )
             ],
