@@ -13,9 +13,17 @@ class RemoteOrderRepository extends OrderRepository {
   }
 
   @override
-  Future<List<Order>> fetchOrders() async {
+  Future<List<Order>> fetchOrders(
+      {int? page = 1,
+      OrderStatus? orderStatus,
+      String? customerId,
+      String? serialNumber}) async {
     final client = await _apiRepository.apiClient();
-    return await client.ordersGet();
+    return await client.ordersGet(
+        page: page,
+        status: orderStatus,
+        customerId: customerId,
+        serialNumber: serialNumber);
   }
 
   @override

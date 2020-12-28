@@ -22,17 +22,18 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         yield OrderLoaded(await _orderRepository.fetchOrder(event.id));
       }
       if (event is GetOrders) {
-        final orders = await _orderRepository.filterOrders(event.orderStatus);
+        final orders =
+            await _orderRepository.fetchOrders(orderStatus: event.orderStatus);
         yield OrdersLoaded(orders, event.orderStatus);
       }
       if (event is UpdateOrder) {
         await _orderRepository.updateOrder(event.id, event.order);
-        final orders = await _orderRepository.filterOrders(null);
+        final orders = await _orderRepository.fetchOrders();
         yield OrdersLoaded(orders, null);
       }
       if (event is CreateOrder) {
         await _orderRepository.createOrder(event.order);
-        final orders = await _orderRepository.filterOrders(null);
+        final orders = await _orderRepository.fetchOrders();
         yield OrdersLoaded(orders, null);
       }
       if (event is DeleteOrder) {

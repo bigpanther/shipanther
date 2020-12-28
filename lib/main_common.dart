@@ -44,11 +44,13 @@ Future<void> commonMain(String apiURL) async {
   await Firebase.initializeApp();
   if (!kIsWeb) {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    final Function originalOnError = FlutterError.onError;
+    final Function? originalOnError = FlutterError.onError;
     FlutterError.onError = (FlutterErrorDetails errorDetails) async {
       await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
       // Forward to original handler.
-      originalOnError(errorDetails);
+      if (originalOnError != null) {
+        originalOnError(errorDetails);
+      }
     };
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }

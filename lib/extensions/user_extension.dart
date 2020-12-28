@@ -37,7 +37,6 @@ extension UserExtension on User {
     return role == UserRole.backOffice;
   }
 
-  // ignore: missing_return
   Widget get homePage {
     switch (role) {
       case UserRole.superAdmin:
@@ -53,6 +52,7 @@ extension UserExtension on User {
       case UserRole.none:
         return NoneHome(this);
     }
+    throw 'invalid role';
   }
 }
 

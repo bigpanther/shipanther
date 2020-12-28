@@ -10,9 +10,9 @@ import 'package:shipanther/extensions/user_extension.dart';
 class CustomerAddEdit extends StatefulWidget {
   const CustomerAddEdit(
     this.loggedInUser, {
-    @required this.customer,
-    @required this.customerBloc,
-    @required this.isEdit,
+    required this.customer,
+    required this.customerBloc,
+    required this.isEdit,
   });
   final api.User loggedInUser;
   final api.Customer customer;
@@ -25,9 +25,9 @@ class CustomerAddEdit extends StatefulWidget {
 
 class _CustomerAddEditState extends State<CustomerAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController _name = TextEditingController();
 
-  String _customerName;
-  api.Tenant _tenant;
+  api.Tenant? _tenant;
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
 
@@ -40,10 +40,10 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)
-                  .editParam(ShipantherLocalizations.of(context).customersTitle(1))
-              : ShipantherLocalizations.of(context)
-                  .addNewParam(ShipantherLocalizations.of(context).customersTitle(1)),
+              ? ShipantherLocalizations.of(context)!.editParam(
+                  ShipantherLocalizations.of(context)!.customersTitle(1))
+              : ShipantherLocalizations.of(context)!.addNewParam(
+                  ShipantherLocalizations.of(context)!.customersTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -63,12 +63,12 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(
                         hintText:
-                            ShipantherLocalizations.of(context).customerName),
-                    validator: (val) => val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context).paramEmpty(
-                            ShipantherLocalizations.of(context).customerName)
+                            ShipantherLocalizations.of(context)!.customerName),
+                    validator: (val) => val == null || val.trim().isEmpty
+                        ? ShipantherLocalizations.of(context)!.paramEmpty(
+                            ShipantherLocalizations.of(context)!.customerName)
                         : null,
-                    onSaved: (value) => _customerName = value,
+                    controller: _name,
                   ),
                   // Hack to avoid runtime type mismatch.
                   Container(width: 0.0, height: 0.0),
@@ -86,16 +86,14 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+            ? ShipantherLocalizations.of(context)!.edit
+            : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () async {
-          final form = formKey.currentState;
-          if (form.validate()) {
-            form.save();
-            widget.customer.name = _customerName;
+          if (formKey.currentState!.validate()) {
+            widget.customer.name = _name.text;
             if (_tenant != null) {
-              widget.customer.tenantId = _tenant.id;
+              widget.customer.tenantId = _tenant!.id;
             } else {
               widget.customer.tenantId = widget.loggedInUser.tenantId;
             }
@@ -117,6 +115,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
 
   @override
   void dispose() {
+    _name.dispose();
     _tenantTypeAheadController.dispose();
     super.dispose();
   }

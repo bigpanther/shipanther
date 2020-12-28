@@ -22,18 +22,18 @@ class CarrierBloc extends Bloc<CarrierEvent, CarrierState> {
         yield CarrierLoaded(await _carrierRepository.fetchCarrier(event.id));
       }
       if (event is GetCarriers) {
-        final carriers =
-            await _carrierRepository.filterCarriers(event.carrierType);
+        final carriers = await _carrierRepository.fetchCarriers(
+            page: event.page, carrierType: event.carrierType);
         yield CarriersLoaded(carriers, event.carrierType);
       }
       if (event is UpdateCarrier) {
         await _carrierRepository.updateCarrier(event.id, event.carrier);
-        final carriers = await _carrierRepository.filterCarriers(null);
+        final carriers = await _carrierRepository.fetchCarriers();
         yield CarriersLoaded(carriers, null);
       }
       if (event is CreateCarrier) {
         await _carrierRepository.createCarrier(event.carrier);
-        final carriers = await _carrierRepository.filterCarriers(null);
+        final carriers = await _carrierRepository.fetchCarriers();
         yield CarriersLoaded(carriers, null);
       }
       if (event is DeleteCarrier) {

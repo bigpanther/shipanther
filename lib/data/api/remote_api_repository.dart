@@ -9,7 +9,7 @@ class RemoteApiRepository extends ApiRepository {
   }
   final AuthRepository _authRepository;
   final String _url;
-  DefaultApi _d;
+  late DefaultApi _d;
 
   @override
   Future<ApiWithUserId> apiClient() async {

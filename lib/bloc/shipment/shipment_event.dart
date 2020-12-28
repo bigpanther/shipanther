@@ -28,5 +28,5 @@ class DeleteShipment extends ShipmentEvent {
 
 class GetShipments extends ShipmentEvent {
   const GetShipments(this.shipmentStatus);
-  final ShipmentStatus shipmentStatus;
+  final ShipmentStatus? shipmentStatus;
 }

@@ -12,9 +12,9 @@ import 'package:shipanther/extensions/user_extension.dart';
 class UserAddEdit extends StatefulWidget {
   const UserAddEdit(
     this.loggedInUser, {
-    @required this.user,
-    @required this.userBloc,
-    @required this.isEdit,
+    required this.user,
+    required this.userBloc,
+    required this.isEdit,
   });
   final api.User loggedInUser;
   final api.User user;
@@ -28,15 +28,15 @@ class UserAddEdit extends StatefulWidget {
 class _UserAddEditState extends State<UserAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  String _userName;
-  api.UserRole _userRole;
-  api.Tenant _tenant;
+  final TextEditingController _name = TextEditingController();
+
+  api.UserRole? _userRole;
+  api.Tenant? _tenant;
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    _userRole = widget.user.role ?? api.UserRole.driver;
     if (widget.isEdit) {
       _tenantTypeAheadController.text = widget.user.tenantId;
     }
@@ -44,10 +44,10 @@ class _UserAddEditState extends State<UserAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)
-                  .editParam(ShipantherLocalizations.of(context).usersTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).usersTitle(1)),
+              ? ShipantherLocalizations.of(context)!
+                  .editParam(ShipantherLocalizations.of(context)!.usersTitle(1))
+              : ShipantherLocalizations.of(context)!.addNewParam(
+                  ShipantherLocalizations.of(context)!.usersTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -64,24 +64,25 @@ class _UserAddEditState extends State<UserAddEdit> {
                   TextFormField(
                     initialValue: widget.user.name ?? '',
                     autofocus: !widget.isEdit,
+                    controller: _name,
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(
-                        hintText: ShipantherLocalizations.of(context).userName),
-                    validator: (val) => val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context).paramEmpty(
-                            ShipantherLocalizations.of(context).userName)
+                        hintText:
+                            ShipantherLocalizations.of(context)!.userName),
+                    validator: (val) => val == null || val.trim().isEmpty
+                        ? ShipantherLocalizations.of(context)!.paramEmpty(
+                            ShipantherLocalizations.of(context)!.userName)
                         : null,
-                    onSaved: (value) => _userName = value,
                   ),
                   smartSelect<api.UserRole>(
-                    title: ShipantherLocalizations.of(context).userType,
+                    title: ShipantherLocalizations.of(context)!.userType,
                     onChange: (state) => _userRole = state.value,
                     choiceItems: S2Choice.listFrom<api.UserRole, api.UserRole>(
                       source: api.UserRole.values,
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    value: _userRole,
+                    value: _userRole ?? widget.user.role,
                   ),
                   // Hack to avoid runtime type mismatch.
                   Container(width: 0.0, height: 0.0),
@@ -96,17 +97,15 @@ class _UserAddEditState extends State<UserAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+            ? ShipantherLocalizations.of(context)!.edit
+            : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () async {
-          final form = formKey.currentState;
-          if (form.validate()) {
-            form.save();
-            widget.user.name = _userName;
+          if (formKey.currentState!.validate()) {
+            widget.user.name = _name.text;
             widget.user.role = _userRole ?? api.UserRole.driver;
             if (_tenant != null) {
-              widget.user.tenantId = _tenant.id;
+              widget.user.tenantId = _tenant!.id;
             }
             widget.user.createdBy =
                 (await context.read<UserRepository>().self()).id;
@@ -125,6 +124,7 @@ class _UserAddEditState extends State<UserAddEdit> {
 
   @override
   void dispose() {
+    _name.dispose();
     _tenantTypeAheadController.dispose();
     super.dispose();
   }

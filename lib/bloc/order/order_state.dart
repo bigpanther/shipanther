@@ -17,7 +17,7 @@ class OrderLoaded extends OrderState {
 class OrdersLoaded extends OrderState {
   const OrdersLoaded(this.orders, this.orderStatus);
   final List<Order> orders;
-  final OrderStatus orderStatus;
+  final OrderStatus? orderStatus;
 }
 
 class OrderFailure extends OrderState {

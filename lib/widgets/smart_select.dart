@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:smart_select/smart_select.dart';
 
 SmartSelect<T> smartSelect<T>(
-    {@required String title,
-    @required void Function(S2SingleState<T>) onChange,
-    @required List<S2Choice<T>> choiceItems,
-    @required T value}) {
+    {required String title,
+    required void Function(S2SingleState<T>) onChange,
+    required List<S2Choice<T>> choiceItems,
+    required T value}) {
   return SmartSelect<T>.single(
     title: title,
     onChange: onChange,

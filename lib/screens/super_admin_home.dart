@@ -9,7 +9,7 @@ import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
 
 class SuperAdminHome extends StatefulWidget {
-  const SuperAdminHome(this.user, {Key key}) : super(key: key);
+  const SuperAdminHome(this.user, {Key? key}) : super(key: key);
   final User user;
 
   @override
@@ -17,7 +17,7 @@ class SuperAdminHome extends StatefulWidget {
 }
 
 class _SuperAdminHomeState extends State<SuperAdminHome> {
-  TenantBloc bloc;
+  late TenantBloc bloc;
   @override
   void initState() {
     super.initState();
@@ -46,7 +46,7 @@ class _SuperAdminHomeState extends State<SuperAdminHome> {
         return ShipantherScaffold(
           widget.user,
           bottomNavigationBar: null,
-          title: ShipantherLocalizations.of(context).tenantsTitle(2),
+          title: ShipantherLocalizations.of(context)!.tenantsTitle(2),
           actions: const [],
           body: const CenteredLoading(),
           floatingActionButton: null,

@@ -22,17 +22,18 @@ class TenantBloc extends Bloc<TenantEvent, TenantState> {
         yield TenantLoaded(await _tenantRepository.fetchTenant(event.id));
       }
       if (event is GetTenants) {
-        final tenants = await _tenantRepository.filterTenants(event.tenantType);
+        final tenants =
+            await _tenantRepository.fetchTenants(tenantType: event.tenantType);
         yield TenantsLoaded(tenants, event.tenantType);
       }
       if (event is UpdateTenant) {
         await _tenantRepository.updateTenant(event.id, event.tenant);
-        final tenants = await _tenantRepository.filterTenants(null);
+        final tenants = await _tenantRepository.fetchTenants();
         yield TenantsLoaded(tenants, null);
       }
       if (event is CreateTenant) {
         await _tenantRepository.createTenant(event.tenant);
-        final tenants = await _tenantRepository.filterTenants(null);
+        final tenants = await _tenantRepository.fetchTenants();
         yield TenantsLoaded(tenants, null);
       }
       if (event is DeleteTenant) {

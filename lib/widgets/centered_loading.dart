@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CenteredLoading extends StatelessWidget {
   const CenteredLoading({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

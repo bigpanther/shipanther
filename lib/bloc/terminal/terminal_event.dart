@@ -28,5 +28,5 @@ class DeleteTerminal extends TerminalEvent {
 
 class GetTerminals extends TerminalEvent {
   const GetTerminals(this.terminalType);
-  final TerminalType terminalType;
+  final TerminalType? terminalType;
 }

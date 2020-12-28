@@ -19,12 +19,11 @@ class ShipmentBloc extends Bloc<ShipmentEvent, ShipmentState> {
     yield ShipmentLoading();
     try {
       if (event is GetShipment) {
-        yield ShipmentLoaded(
-            await _shipmentRepository.fetchShipment(event.id));
+        yield ShipmentLoaded(await _shipmentRepository.fetchShipment(event.id));
       }
       if (event is GetShipments) {
-        final shipments =
-            await _shipmentRepository.filterShipments(event.shipmentStatus);
+        final shipments = await _shipmentRepository.fetchShipments(
+            shipmentStatus: event.shipmentStatus);
         yield ShipmentsLoaded(shipments, event.shipmentStatus);
       }
       if (event is UpdateShipment) {

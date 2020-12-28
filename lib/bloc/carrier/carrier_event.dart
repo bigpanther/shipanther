@@ -27,6 +27,7 @@ class DeleteCarrier extends CarrierEvent {
 }
 
 class GetCarriers extends CarrierEvent {
-  const GetCarriers(this.carrierType);
-  final CarrierType carrierType;
+  const GetCarriers({this.page = 1, this.carrierType});
+  final CarrierType? carrierType;
+  final int page;
 }

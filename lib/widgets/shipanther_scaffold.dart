@@ -20,20 +20,20 @@ import 'package:shipanther/extensions/user_extension.dart';
 class ShipantherScaffold extends StatelessWidget {
   const ShipantherScaffold(
     this.user, {
-    Key key,
-    @required this.title,
-    @required this.actions,
-    @required this.body,
-    @required this.floatingActionButton,
-    @required this.bottomNavigationBar,
+    Key? key,
+    required this.title,
+    required this.actions,
+    required this.body,
+    required this.floatingActionButton,
+    required this.bottomNavigationBar,
   }) : super(key: key);
 
   final String title;
   final List<Widget> actions;
   final Widget body;
-  final Widget floatingActionButton;
+  final Widget? floatingActionButton;
   final api.User user;
-  final Widget bottomNavigationBar;
+  final Widget? bottomNavigationBar;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
   widgets.add(
     _createDrawerItem(
       icon: Icons.home,
-      text: ShipantherLocalizations.of(context).home,
+      text: ShipantherLocalizations.of(context)!.home,
       onTap: () => Navigator.of(context).pushReplacement(
         MaterialPageRoute<Widget>(
           builder: (_) => user.homePage,
@@ -81,7 +81,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.business,
-        text: ShipantherLocalizations.of(context).tenantsTitle(2),
+        text: ShipantherLocalizations.of(context)!.tenantsTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<SuperAdminHome>(
             builder: (_) => SuperAdminHome(user),
@@ -95,7 +95,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.people,
-        text: ShipantherLocalizations.of(context).usersTitle(2),
+        text: ShipantherLocalizations.of(context)!.usersTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<UserScreen>(
             builder: (_) => UserScreen(user),
@@ -107,7 +107,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.connect_without_contact,
-        text: ShipantherLocalizations.of(context).customersTitle(2),
+        text: ShipantherLocalizations.of(context)!.customersTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<CustomerHome>(
             builder: (_) => CustomerHome(user),
@@ -119,7 +119,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.account_balance,
-        text: ShipantherLocalizations.of(context).terminalsTitle(2),
+        text: ShipantherLocalizations.of(context)!.terminalsTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<TerminalScreen>(
             builder: (_) => TerminalScreen(user),
@@ -131,7 +131,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.local_shipping,
-        text: ShipantherLocalizations.of(context).carriersTitle(2),
+        text: ShipantherLocalizations.of(context)!.carriersTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<CarrierScreen>(
             builder: (_) => CarrierScreen(user),
@@ -143,7 +143,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: MdiIcons.dresser,
-        text: ShipantherLocalizations.of(context).shipmentsTitle(2),
+        text: ShipantherLocalizations.of(context)!.shipmentsTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<ContainerScreen>(
             builder: (_) => ContainerScreen(user),
@@ -156,7 +156,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.fact_check,
-        text: ShipantherLocalizations.of(context).ordersTitle(2),
+        text: ShipantherLocalizations.of(context)!.ordersTitle(2),
         onTap: () => Navigator.of(context).pushReplacement(
           MaterialPageRoute<OrderScreen>(
             builder: (_) => OrderScreen(user),
@@ -169,7 +169,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
   widgets.add(
     _createDrawerItem(
       icon: MdiIcons.license,
-      text: ShipantherLocalizations.of(context).aboutUs,
+      text: ShipantherLocalizations.of(context)!.aboutUs,
       onTap: () async {
         final packageInfo = await PackageInfo.fromPlatform();
         final appName = packageInfo.appName;
@@ -184,15 +184,15 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
           applicationName: appName,
           applicationVersion: version,
           applicationLegalese:
-              ShipantherLocalizations.of(context).applicationLegalese,
+              ShipantherLocalizations.of(context)!.applicationLegalese,
           children: <Widget>[
             Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: Center(
                   child: Column(
                     children: [
-                      Text(ShipantherLocalizations.of(context).aboutOne),
-                      Text(ShipantherLocalizations.of(context).aboutTwo),
+                      Text(ShipantherLocalizations.of(context)!.aboutOne),
+                      Text(ShipantherLocalizations.of(context)!.aboutTwo),
                     ],
                   ),
                 ))
@@ -205,7 +205,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
   widgets.add(
     _createDrawerItem(
       icon: Icons.logout,
-      text: ShipantherLocalizations.of(context).logout,
+      text: ShipantherLocalizations.of(context)!.logout,
       onTap: () {
         context.read<AuthBloc>().add(
               const AuthLogout(),
@@ -222,7 +222,9 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
 }
 
 Widget _createDrawerItem(
-    {IconData icon, String text, GestureTapCallback onTap}) {
+    {required IconData icon,
+    required String text,
+    required GestureTapCallback onTap}) {
   return ListTile(
     title: Row(
       children: <Widget>[
@@ -245,7 +247,7 @@ Widget _createHeader(BuildContext context, api.User user) {
     accountEmail: Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Text(
-        ShipantherLocalizations.of(context).shipantherTitle,
+        ShipantherLocalizations.of(context)!.shipantherTitle,
         style: const TextStyle(fontSize: 22),
       ),
     ),

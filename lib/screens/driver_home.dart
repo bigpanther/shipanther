@@ -8,7 +8,7 @@ import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
 
 class DriverHome extends StatefulWidget {
-  const DriverHome(this.loggedInUser, {Key key}) : super(key: key);
+  const DriverHome(this.loggedInUser, {Key? key}) : super(key: key);
   final User loggedInUser;
 
   @override
@@ -16,7 +16,7 @@ class DriverHome extends StatefulWidget {
 }
 
 class _DriverHomeState extends State<DriverHome> {
-  ShipmentBloc bloc;
+  late ShipmentBloc bloc;
   @override
   void initState() {
     super.initState();
@@ -45,7 +45,7 @@ class _DriverHomeState extends State<DriverHome> {
         return ShipantherScaffold(
           widget.loggedInUser,
           bottomNavigationBar: null,
-          title: ShipantherLocalizations.of(context).shipmentsTitle(2),
+          title: ShipantherLocalizations.of(context)!.shipmentsTitle(2),
           actions: const [],
           body: const CenteredLoading(),
           floatingActionButton: null,

@@ -8,7 +8,7 @@ import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 
 class ApiLogin extends StatefulWidget {
-  const ApiLogin({Key key}) : super(key: key);
+  const ApiLogin({Key? key}) : super(key: key);
 
   @override
   _ApiLoginState createState() => _ApiLoginState();
@@ -45,12 +45,12 @@ class _ApiLoginState extends State<ApiLogin> {
             child: Center(
               child: Column(
                 children: [
-                  Text(ShipantherLocalizations.of(context).loginError),
+                  Text(ShipantherLocalizations.of(context)!.loginError),
                   FlatButton(
                     onPressed: () => context.read<AuthBloc>().add(
                           const AuthLogout(),
                         ),
-                    child: Text(ShipantherLocalizations.of(context).logout),
+                    child: Text(ShipantherLocalizations.of(context)!.logout),
                   ),
                 ],
               ),

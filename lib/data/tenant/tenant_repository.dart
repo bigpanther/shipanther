@@ -5,6 +5,6 @@ abstract class TenantRepository {
   Future<Tenant> fetchTenant(String id);
   Future<Tenant> createTenant(Tenant tenant);
   Future<Tenant> updateTenant(String id, Tenant tenant);
-  Future<List<Tenant>> fetchTenants();
-  Future<List<Tenant>> filterTenants(TenantType tenantType);
+  Future<List<Tenant>> fetchTenants(
+      {int? page = 1, TenantType? tenantType, String? name});
 }

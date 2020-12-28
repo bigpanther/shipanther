@@ -4,17 +4,17 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 
 class FilterButton<T> extends StatelessWidget {
   const FilterButton({
-    this.onSelected,
-    this.activeFilter,
-    this.isActive,
-    Key key,
-    @required this.possibleValues,
-    @required this.tooltip,
+    required this.onSelected,
+    required this.activeFilter,
+    required this.isActive,
+    Key? key,
+    required this.possibleValues,
+    required this.tooltip,
   }) : super(key: key);
 
   final List<T> possibleValues;
-  final PopupMenuItemSelected<T> onSelected;
-  final T activeFilter;
+  final PopupMenuItemSelected<T?> onSelected;
+  final T? activeFilter;
   final bool isActive;
   final String tooltip;
 
@@ -22,14 +22,14 @@ class FilterButton<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final defaultStyle = theme.textTheme.bodyText2;
-    final activeStyle = theme.textTheme.bodyText2.copyWith(
+    final activeStyle = theme.textTheme.bodyText2!.copyWith(
       color: theme.accentColor,
     );
-    final button = _Button<T>(
+    final button = _Button<T?>(
       onSelected: onSelected,
       activeFilter: activeFilter,
       activeStyle: activeStyle,
-      defaultStyle: defaultStyle,
+      defaultStyle: defaultStyle!,
       possibleValues: possibleValues,
       tooltip: tooltip,
     );
@@ -44,16 +44,16 @@ class FilterButton<T> extends StatelessWidget {
 
 class _Button<T> extends StatelessWidget {
   const _Button({
-    Key key,
-    @required this.onSelected,
-    @required this.activeFilter,
-    @required this.activeStyle,
-    @required this.defaultStyle,
-    @required this.possibleValues,
-    @required this.tooltip,
+    Key? key,
+    required this.onSelected,
+    required this.activeFilter,
+    required this.activeStyle,
+    required this.defaultStyle,
+    required this.possibleValues,
+    required this.tooltip,
   }) : super(key: key);
 
-  final PopupMenuItemSelected<T> onSelected;
+  final PopupMenuItemSelected<T?> onSelected;
   final T activeFilter;
   final TextStyle activeStyle;
   final TextStyle defaultStyle;
@@ -62,7 +62,7 @@ class _Button<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<T>(
+    return PopupMenuButton<T?>(
       tooltip: tooltip,
       onSelected: onSelected,
       onCanceled: () => onSelected(null),
@@ -82,7 +82,7 @@ class _Button<T> extends StatelessWidget {
           PopupMenuItem<T>(
             value: null,
             child: Text(
-              ShipantherLocalizations.of(context).clear,
+              ShipantherLocalizations.of(context)!.clear,
               style: defaultStyle,
             ),
           ),

@@ -11,12 +11,13 @@ class ResetPassword extends StatefulWidget {
 
 class _ResetPasswordState extends State<ResetPassword> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _email;
+  final TextEditingController _userEmail = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ShipantherLocalizations.of(context).resetPassword),
+        title: Text(ShipantherLocalizations.of(context)!.resetPassword),
       ),
       body: Form(
         key: _formKey,
@@ -26,20 +27,20 @@ class _ResetPasswordState extends State<ResetPassword> {
             children: [
               TextFormField(
                 decoration: InputDecoration(
-                    labelText: ShipantherLocalizations.of(context).email),
+                    labelText: ShipantherLocalizations.of(context)!.email),
                 autocorrect: false,
+                controller: _userEmail,
                 enableSuggestions: false,
                 keyboardType: TextInputType.emailAddress,
-                validator: (String value) {
-                  if (value.isEmpty) {
-                    return ShipantherLocalizations.of(context).paramRequired(
-                        ShipantherLocalizations.of(context).email);
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return ShipantherLocalizations.of(context)!.paramRequired(
+                        ShipantherLocalizations.of(context)!.email);
                   }
                   return null;
                 },
-                onSaved: (val) => setState(() => _email = val),
               ),
-              Text(ShipantherLocalizations.of(context).resetPasswordMessage),
+              Text(ShipantherLocalizations.of(context)!.resetPasswordMessage),
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 alignment: Alignment.center,
@@ -47,16 +48,14 @@ class _ResetPasswordState extends State<ResetPassword> {
                   icon: Icons.email,
                   backgroundColor: Colors.green,
                   onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      _formKey.currentState.save();
-
+                    if (_formKey.currentState!.validate()) {
                       context
                           .read<AuthBloc>()
-                          .add(ForgotPassword(_email.trim()));
+                          .add(ForgotPassword(_userEmail.text));
                       Navigator.pop(context);
                     }
                   },
-                  text: ShipantherLocalizations.of(context).resetPassword,
+                  text: ShipantherLocalizations.of(context)!.resetPassword,
                 ),
               ),
             ],
@@ -68,6 +67,7 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   void dispose() {
+    _userEmail.dispose();
     super.dispose();
   }
 }

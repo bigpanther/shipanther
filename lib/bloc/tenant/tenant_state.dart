@@ -17,7 +17,7 @@ class TenantLoaded extends TenantState {
 class TenantsLoaded extends TenantState {
   const TenantsLoaded(this.tenants, this.tenantType);
   final List<Tenant> tenants;
-  final TenantType tenantType;
+  final TenantType? tenantType;
 }
 
 class TenantFailure extends TenantState {
