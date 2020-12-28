@@ -348,7 +348,7 @@ class ShipantherLocalizations {
       );
   String get shipmentStatusFilter => Intl.message(
         'Filter shipment status',
-        name: 'shipmentAdd',
+        name: 'shipmentStatusFilter',
         desc: 'Add shipment',
         locale: locale.toString(),
       );

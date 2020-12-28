@@ -1,5 +1,5 @@
 run:
-	flutter run --flavor dev
+	flutter run --flavor dev --no-sound-null-safety
 run-prod:
 	flutter run --flavor prod -t lib/main_prod.dart
 extract-arb:
