@@ -22,7 +22,7 @@ class TerminalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context).terminalsTitle(2);
+    final title = ShipantherLocalizations.of(context)!.terminalsTitle(2);
     final actions = <Widget>[
       FilterButton<TerminalType>(
         possibleValues: TerminalType.values,
@@ -31,7 +31,7 @@ class TerminalList extends StatelessWidget {
         onSelected: (t) => context.read<TerminalBloc>().add(
               GetTerminals(t),
             ),
-        tooltip: ShipantherLocalizations.of(context).terminalTypeFilter,
+        tooltip: ShipantherLocalizations.of(context)!.terminalTypeFilter,
       )
     ];
 
@@ -74,18 +74,18 @@ class TerminalList extends StatelessWidget {
               ),
               children: [
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).createdAt,
-                    ShipantherLocalizations.of(context)
+                    ShipantherLocalizations.of(context)!.createdAt,
+                    ShipantherLocalizations.of(context)!
                         .dateFormatter
                         .format(t.createdAt)),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).lastUpdate,
-                    ShipantherLocalizations.of(context)
+                    ShipantherLocalizations.of(context)!.lastUpdate,
+                    ShipantherLocalizations.of(context)!
                         .dateFormatter
                         .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
                   displaySubtitle(
-                      ShipantherLocalizations.of(context).tenantId, t.tenantId)
+                      ShipantherLocalizations.of(context)!.tenantId, t.tenantId)
                 else
                   const Text(''),
               ],
@@ -95,7 +95,7 @@ class TerminalList extends StatelessWidget {
       },
     );
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: ShipantherLocalizations.of(context).terminalAdd,
+      tooltip: ShipantherLocalizations.of(context)!.terminalAdd,
       child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(

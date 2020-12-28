@@ -42,7 +42,7 @@ class _UserScreenState extends State<UserScreen> {
         }
         return Scaffold(
           appBar: AppBar(
-            title: Text(ShipantherLocalizations.of(context).usersTitle(2)),
+            title: Text(ShipantherLocalizations.of(context)!.usersTitle(2)),
           ),
           body: const CenteredLoading(),
         );

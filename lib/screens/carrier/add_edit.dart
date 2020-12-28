@@ -31,7 +31,12 @@ class CarrierAddEdit extends StatefulWidget {
 class _CarrierAddEditState extends State<CarrierAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final TextEditingController _name = TextEditingController();
+  late TextEditingController _name;
+  @override
+  void initState() {
+    super.initState();
+    _name = TextEditingController(text: widget.carrier.name);
+  }
 
   api.CarrierType? _carrierType;
   api.Tenant? _tenant;
@@ -41,7 +46,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = ShipantherLocalizations.of(context).dateTimeFormatter;
+    final formatter = ShipantherLocalizations.of(context)!.dateTimeFormatter;
 
     if (widget.isEdit) {
       _tenantTypeAheadController.text = widget.carrier.tenantId;
@@ -59,10 +64,10 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context).editParam(
-                  ShipantherLocalizations.of(context).carriersTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).carriersTitle(1)),
+              ? ShipantherLocalizations.of(context)!.editParam(
+                  ShipantherLocalizations.of(context)!.carriersTitle(1))
+              : ShipantherLocalizations.of(context)!.addNewParam(
+                  ShipantherLocalizations.of(context)!.carriersTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -77,15 +82,14 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
           child: ListView(
             children: [
                   TextFormField(
-                    initialValue: widget.carrier.name,
                     autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(
                         hintText:
-                            ShipantherLocalizations.of(context).carrierName),
+                            ShipantherLocalizations.of(context)!.carrierName),
                     validator: (val) => val == null || val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context).paramEmpty(
-                            ShipantherLocalizations.of(context).carrierName)
+                        ? ShipantherLocalizations.of(context)!.paramEmpty(
+                            ShipantherLocalizations.of(context)!.carrierName)
                         : null,
                     controller: _name,
                   ),
@@ -96,7 +100,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                       children: [
                         Row(
                           children: [
-                            Text(ShipantherLocalizations.of(context)
+                            Text(ShipantherLocalizations.of(context)!
                                 .carriersETA),
                           ],
                         ),
@@ -105,7 +109,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                             Text(
                               _eta == null
                                   ? widget.carrier.eta == null
-                                      ? ShipantherLocalizations.of(context)
+                                      ? ShipantherLocalizations.of(context)!
                                           .noDateChosen
                                       : formatter.format(widget.carrier.eta)
                                   : formatter.format(_eta!),
@@ -120,7 +124,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                     ),
                   ),
                   smartSelect<api.CarrierType>(
-                    title: ShipantherLocalizations.of(context).carrierType,
+                    title: ShipantherLocalizations.of(context)!.carrierType,
                     onChange: (state) => _carrierType = state.value,
                     choiceItems:
                         S2Choice.listFrom<api.CarrierType, api.CarrierType>(
@@ -143,8 +147,8 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+            ? ShipantherLocalizations.of(context)!.edit
+            : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () async {
           if (formKey.currentState!.validate()) {

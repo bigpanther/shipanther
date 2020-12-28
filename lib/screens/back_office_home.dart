@@ -17,7 +17,7 @@ class _BackOfficeHomeState extends State<BackOfficeHome> {
   Widget build(BuildContext context) {
     return ShipantherScaffold(
       widget.user,
-      title: ShipantherLocalizations.of(context).welcome,
+      title: ShipantherLocalizations.of(context)!.welcome,
       actions: const [],
       body: Padding(
         padding: const EdgeInsets.all(8),

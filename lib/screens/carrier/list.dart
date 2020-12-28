@@ -19,7 +19,7 @@ class CarrierList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context).carriersTitle(2);
+    final title = ShipantherLocalizations.of(context)!.carriersTitle(2);
     final actions = <Widget>[];
 
     final Widget body = ListView.builder(
@@ -62,25 +62,25 @@ class CarrierList extends StatelessWidget {
               children: [
                 if (t.eta != null)
                   displaySubtitle(
-                      ShipantherLocalizations.of(context).eta,
-                      ShipantherLocalizations.of(context)
+                      ShipantherLocalizations.of(context)!.eta,
+                      ShipantherLocalizations.of(context)!
                           .dateFormatter
                           .format(t.eta))
                 else
                   const Text(''),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).createdAt,
-                    ShipantherLocalizations.of(context)
+                    ShipantherLocalizations.of(context)!.createdAt,
+                    ShipantherLocalizations.of(context)!
                         .dateFormatter
                         .format(t.createdAt)),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).lastUpdate,
-                    ShipantherLocalizations.of(context)
+                    ShipantherLocalizations.of(context)!.lastUpdate,
+                    ShipantherLocalizations.of(context)!
                         .dateFormatter
                         .format(t.updatedAt)),
                 if (loggedInUser.isSuperAdmin)
                   displaySubtitle(
-                      ShipantherLocalizations.of(context).tenantId, t.tenantId)
+                      ShipantherLocalizations.of(context)!.tenantId, t.tenantId)
                 else
                   const Text(''),
               ],
@@ -90,7 +90,7 @@ class CarrierList extends StatelessWidget {
       },
     );
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: ShipantherLocalizations.of(context).addCarrier,
+      tooltip: ShipantherLocalizations.of(context)!.addCarrier,
       child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(

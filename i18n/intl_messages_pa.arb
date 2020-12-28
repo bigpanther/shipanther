@@ -17,6 +17,48 @@
     "type": "text",
     "placeholders": {}
   },
+  "tenantName": "Tenant name",
+  "@tenantName": {
+    "description": "Tenant name",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenantType": "Tenant type",
+  "@tenantType": {
+    "description": "Tenant type",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenantTypeFilter": "Filter tenant type",
+  "@tenantTypeFilter": {
+    "description": "Filter tenant type",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenantAdd": "Add tenant",
+  "@tenantAdd": {
+    "description": "Add tenant",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenantDetail": "Tenant detail",
+  "@tenantDetail": {
+    "description": "Tenant detail",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenantDelete": "Tenant delete",
+  "@tenantDelete": {
+    "description": "Tenant delete",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenantEdit": "Tenant edit",
+  "@tenantEdit": {
+    "description": "Tenant edit",
+    "type": "text",
+    "placeholders": {}
+  },
   "terminalsTitle": "{howMany,plural, =0{ਟਰਮੀਨਲ}=1{ਟਰਮੀਨਲ}other{ਟਰਮੀਨਲ}}",
   "@terminalsTitle": {
     "description": "Title for the Terminals page",
@@ -27,7 +69,31 @@
       }
     }
   },
-   "ordersTitle": "{howMany,plural, =0{ਆਰਡਰਸ}=1{ਆਰਡਰਸ}other{ਆਰਡਰਸ}}",
+  "terminalName": "Terminal name",
+  "@terminalName": {
+    "description": "Terminal name",
+    "type": "text",
+    "placeholders": {}
+  },
+  "terminalType": "Terminal type",
+  "@terminalType": {
+    "description": "Terminal type",
+    "type": "text",
+    "placeholders": {}
+  },
+  "terminalTypeFilter": "Filter terminal type",
+  "@terminalTypeFilter": {
+    "description": "Filter terminal type",
+    "type": "text",
+    "placeholders": {}
+  },
+  "terminalAdd": "Add terminal",
+  "@terminalAdd": {
+    "description": "Add terminal",
+    "type": "text",
+    "placeholders": {}
+  },
+  "ordersTitle": "{howMany,plural, =0{ਆਰਡਰਸ}=1{ਆਰਡਰਸ}other{ਆਰਡਰਸ}}",
   "@ordersTitle": {
     "description": "Title for the Orders page",
     "type": "text",
@@ -36,6 +102,30 @@
         "example": 2
       }
     }
+  },
+  "orderNumber": "Order number",
+  "@orderNumber": {
+    "description": "Order number",
+    "type": "text",
+    "placeholders": {}
+  },
+  "orderStatus": "Order status",
+  "@orderStatus": {
+    "description": "Order status",
+    "type": "text",
+    "placeholders": {}
+  },
+  "orderStatusFilter": "Filter order status",
+  "@orderStatusFilter": {
+    "description": "Filter Order status",
+    "type": "text",
+    "placeholders": {}
+  },
+  "orderAdd": "Add order",
+  "@orderAdd": {
+    "description": "Add order",
+    "type": "text",
+    "placeholders": {}
   },
   "usersTitle": "{howMany,plural, =0{ਉਪਭੋਗਤਾ}=1{ਉਪਭੋਗਤਾ}other{ਉਪਭੋਗਤਾ}}",
   "@usersTitle": {
@@ -47,7 +137,25 @@
       }
     }
   },
-   "carriersTitle": "{howMany,plural, =0{ਕੈਰੀਅਰ}=1{ਕੈਰੀਅਰ}other{ਕੈਰੀਅਰ}}",
+  "userName": "User name",
+  "@userName": {
+    "description": "User name",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userType": "User type",
+  "@userType": {
+    "description": "User type",
+    "type": "text",
+    "placeholders": {}
+  },
+  "userTypeFilter": "Filter user type",
+  "@userTypeFilter": {
+    "description": "Filter user type",
+    "type": "text",
+    "placeholders": {}
+  },
+  "carriersTitle": "{howMany,plural, =0{ਕੈਰੀਅਰ}=1{ਕੈਰੀਅਰ}other{ਕੈਰੀਅਰ}}",
   "@carriersTitle": {
     "description": "Title for the Carriers page",
     "type": "text",
@@ -57,7 +165,31 @@
       }
     }
   },
-   "shipmentsTitle": "{howMany,plural, =0{ਕੰਟੇਨਰ}=1{ਕੰਟੇਨਰ}other{ਕੰਟੇਨਰ}}",
+  "carriersETA": "ETA",
+  "@carriersETA": {
+    "description": "ETA",
+    "type": "text",
+    "placeholders": {}
+  },
+  "carrierName": "Carrier name",
+  "@carrierName": {
+    "description": "Carrier name",
+    "type": "text",
+    "placeholders": {}
+  },
+  "carrierType": "Carrier type",
+  "@carrierType": {
+    "description": "Carrier type",
+    "type": "text",
+    "placeholders": {}
+  },
+  "addCarrier": "Add carrier",
+  "@addCarrier": {
+    "description": "Add carrier",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentsTitle": "{howMany,plural, =0{ਕੰਟੇਨਰ}=1{ਕੰਟੇਨਰ}other{ਕੰਟੇਨਰ}}",
   "@shipmentsTitle": {
     "description": "Title for the Shipments page",
     "type": "text",
@@ -67,13 +199,143 @@
       }
     }
   },
-   "customersTitle": "{howMany,plural, =0{ਗਾਹਕ}=1{ਗਾਹਕ}other{ਗਾਹਕ}}",
+  "shipmentRejectConfirmation": "Are you sure you want to reject this delivery?",
+  "@shipmentRejectConfirmation": {
+    "description": "Are you sure you want to reject this delivery?",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentCancel": "Cancel",
+  "@shipmentCancel": {
+    "description": "Cancel",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentReject": "Reject",
+  "@shipmentReject": {
+    "description": "Reject",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentDelivered": "Delivered",
+  "@shipmentDelivered": {
+    "description": "Delivered",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentAccept": "Accept",
+  "@shipmentAccept": {
+    "description": "Accept",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentPending": "Pending",
+  "@shipmentPending": {
+    "description": "Pending",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentCompleted": "Completed",
+  "@shipmentCompleted": {
+    "description": "Completed",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentLFD": "LFD",
+  "@shipmentLFD": {
+    "description": "LFD",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentReservationTime": "Reservation time",
+  "@shipmentReservationTime": {
+    "description": "Reservation time",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentNoItem": "No items here",
+  "@shipmentNoItem": {
+    "description": "No items here",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentSerialNumber": "Serial number",
+  "@shipmentSerialNumber": {
+    "description": "Serial number",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentOrigin": "Origin",
+  "@shipmentOrigin": {
+    "description": "Origin",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentDestination": "Destination",
+  "@shipmentDestination": {
+    "description": "Destination",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentSize": "Shipment size",
+  "@shipmentSize": {
+    "description": "Shipment size",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentType": "Shipment type",
+  "@shipmentType": {
+    "description": "Shipment type",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentStatus": "Shipment status",
+  "@shipmentStatus": {
+    "description": "Shipment status",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentAdd": "Add shipment",
+  "@shipmentAdd": {
+    "description": "Add shipment",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipmentStatusFilter": "Filter shipment status",
+  "@shipmentStatusFilter": {
+    "description": "Add shipment",
+    "type": "text",
+    "placeholders": {}
+  },
+  "customersTitle": "{howMany,plural, =0{ਗਾਹਕ}=1{ਗਾਹਕ}other{ਗਾਹਕ}}",
   "@customersTitle": {
     "description": "Title for the Customers page",
     "type": "text",
     "placeholders": {
       "howMany": {
         "example": 2
+      }
+    }
+  },
+  "customerName": "Customer name",
+  "@customerName": {
+    "description": "Customer name",
+    "type": "text",
+    "placeholders": {}
+  },
+  "addCustomer": "Add customer",
+  "@addCustomer": {
+    "description": "Add customer",
+    "type": "text",
+    "placeholders": {}
+  },
+  "paramEmpty": "{param} should not be empty",
+  "@paramEmpty": {
+    "description": "Param should not be empty",
+    "type": "text",
+    "placeholders": {
+      "param": {
+        "example": "Serial number"
       }
     }
   },
@@ -87,9 +349,116 @@
       }
     }
   },
-   "email": "ਈ-ਮੇਲ",
+  "paramFromTo": "{paramFrom} to {paramTo}",
+  "@paramFromTo": {
+    "description": "ParamFrom to ParamTo",
+    "type": "text",
+    "placeholders": {
+      "paramFrom": {
+        "example": "Canada"
+      },
+      "paramTo": {
+        "example": "China"
+      }
+    }
+  },
+  "helloParam": "Hello {param}",
+  "@helloParam": {
+    "description": "Hello param",
+    "type": "text",
+    "placeholders": {
+      "param": {
+        "example": "Username"
+      }
+    }
+  },
+  "editParam": "Edit {param}",
+  "@editParam": {
+    "description": "Edit param",
+    "type": "text",
+    "placeholders": {
+      "param": {
+        "example": "Shipment"
+      }
+    }
+  },
+  "addNewParam": "Add new {param}",
+  "@addNewParam": {
+    "description": "Add new param",
+    "type": "text",
+    "placeholders": {
+      "param": {
+        "example": "Shipment"
+      }
+    }
+  },
+  "selectParam": "Select {param}",
+  "@selectParam": {
+    "description": "Select param",
+    "type": "text",
+    "placeholders": {
+      "param": {
+        "example": "Shipment"
+      }
+    }
+  },
+  "lfd": "LFD",
+  "@lfd": {
+    "description": "LFD ",
+    "type": "text",
+    "placeholders": {}
+  },
+  "reservationTime": "Reservation time",
+  "@reservationTime": {
+    "description": "Reservation time ",
+    "type": "text",
+    "placeholders": {}
+  },
+  "size": "Size",
+  "@size": {
+    "description": "Size ",
+    "type": "text",
+    "placeholders": {}
+  },
+  "status": "Status",
+  "@status": {
+    "description": "Status ",
+    "type": "text",
+    "placeholders": {}
+  },
+  "eta": "ETA",
+  "@eta": {
+    "description": "ETA ",
+    "type": "text",
+    "placeholders": {}
+  },
+  "createdAt": "Created at",
+  "@createdAt": {
+    "description": "Created at ",
+    "type": "text",
+    "placeholders": {}
+  },
+  "lastUpdate": "Last update",
+  "@lastUpdate": {
+    "description": "Last update ",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tenantId": "Tenant ID",
+  "@tenantId": {
+    "description": "Tenant ID ",
+    "type": "text",
+    "placeholders": {}
+  },
+  "email": "ਈ-ਮੇਲ",
   "@email": {
     "description": "Email",
+    "type": "text",
+    "placeholders": {}
+  },
+  "role": "Role",
+  "@role": {
+    "description": "Role",
     "type": "text",
     "placeholders": {}
   },
@@ -123,15 +492,18 @@
     "type": "text",
     "placeholders": {}
   },
- 
- 
+   "aboutUs": "About Us",
+  "@aboutUs": {
+    "description": "About Us",
+    "type": "text",
+    "placeholders": {}
+  },
   "password": "ਪਾਸਵਰਡ",
   "@password": {
     "description": "Password",
     "type": "text",
     "placeholders": {}
   },
- 
   "name": "ਨਾਮ",
   "@name": {
     "description": "Name",
@@ -208,8 +580,8 @@
     "type": "text",
     "placeholders": {}
   },
-  "passowrdDoesntMatch": "ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ",
-  "@passowrdDoesntMatch": {
+  "passwordDoesntMatch": "ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ",
+  "@passwordDoesntMatch": {
     "description": "Passwords do not match",
     "type": "text",
     "placeholders": {}
@@ -241,6 +613,60 @@
   "oldPassword": "ਪੁਰਾਣਾ ਪਾਸਵਰਡ",
   "@oldPassword": {
     "description": "old password",
+    "type": "text",
+    "placeholders": {}
+  },
+  "iVerified": "I verified",
+  "@iVerified": {
+    "description": "I verified",
+    "type": "text",
+    "placeholders": {}
+  },
+  "resendEmail": "Resend email",
+  "@resendEmail": {
+    "description": "Resend email",
+    "type": "text",
+    "placeholders": {}
+  },
+  "loginError": "An error occured during log-in. Please retry.",
+  "@loginError": {
+    "description": "An error occured during log-in. Please retry.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "driver": "driver",
+  "@driver": {
+    "description": "driver",
+    "type": "text",
+    "placeholders": {}
+  },
+  "clear": "Clear",
+  "@clear": {
+    "description": "clear",
+    "type": "text",
+    "placeholders": {}
+  },
+  "shipantherTitle": "Shipanther",
+  "@shipantherTitle": {
+    "description": "Shipanther",
+    "type": "text",
+    "placeholders": {}
+  },
+  "applicationLegalese": "©2020 Big Panther Technologies Inc.",
+  "@applicationLegalese": {
+    "description": "©2020 Big Panther Technologies Inc.",
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutOne": "Built with ♥️ in Canada",
+  "@aboutOne": {
+    "description": "Built with ♥️ in Canada",
+    "type": "text",
+    "placeholders": {}
+  },
+  "aboutTwo": "Reach us at info@bigpanther.ca",
+  "@aboutTwo": {
+    "description": "Reach us at info@bigpanther.ca",
     "type": "text",
     "placeholders": {}
   }

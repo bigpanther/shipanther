@@ -29,7 +29,13 @@ class OrderAddEdit extends StatefulWidget {
 class _OrderAddEditState extends State<OrderAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final TextEditingController _serialNumber = TextEditingController();
+  late TextEditingController _serialNumber;
+  @override
+  void initState() {
+    super.initState();
+    _serialNumber = TextEditingController(text: widget.order.serialNumber);
+  }
+
   api.OrderStatus? _orderStatus;
   api.Tenant? _tenant;
   api.Customer? _customer;
@@ -50,10 +56,10 @@ class _OrderAddEditState extends State<OrderAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)
-                  .editParam(ShipantherLocalizations.of(context).ordersTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).ordersTitle(1)),
+              ? ShipantherLocalizations.of(context)!.editParam(
+                  ShipantherLocalizations.of(context)!.ordersTitle(1))
+              : ShipantherLocalizations.of(context)!.addNewParam(
+                  ShipantherLocalizations.of(context)!.ordersTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -69,22 +75,21 @@ class _OrderAddEditState extends State<OrderAddEdit> {
           child: ListView(
             children: [
                   TextFormField(
-                    initialValue: widget.order.serialNumber,
                     autofocus: !widget.isEdit,
                     controller: _serialNumber,
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(
                         labelText:
-                            ShipantherLocalizations.of(context).orderNumber),
+                            ShipantherLocalizations.of(context)!.orderNumber),
                     maxLength: 15,
                     validator: (val) => val == null || val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context).paramEmpty(
-                            ShipantherLocalizations.of(context).orderNumber)
+                        ? ShipantherLocalizations.of(context)!.paramEmpty(
+                            ShipantherLocalizations.of(context)!.orderNumber)
                         : null,
                   ),
                   if (!widget.loggedInUser.isCustomer)
                     smartSelect<api.OrderStatus>(
-                      title: ShipantherLocalizations.of(context).orderStatus,
+                      title: ShipantherLocalizations.of(context)!.orderStatus,
                       onChange: (state) => _orderStatus = state.value,
                       choiceItems:
                           S2Choice.listFrom<api.OrderStatus, api.OrderStatus>(
@@ -120,8 +125,8 @@ class _OrderAddEditState extends State<OrderAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+            ? ShipantherLocalizations.of(context)!.edit
+            : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () async {
           if (formKey.currentState!.validate()) {

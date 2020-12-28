@@ -19,59 +19,168 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static m0(howMany) => "${Intl.plural(howMany, zero: 'Carrier', one: 'Carrier', other: 'Carriers')}";
+  static m0(param) => "Add new ${param}";
 
-  static m1(howMany) => "${Intl.plural(howMany, zero: 'Customer', one: 'Customer', other: 'Customers')}";
+  static m1(howMany) =>
+      "${Intl.plural(howMany, zero: 'Carrier', one: 'Carrier', other: 'Carriers')}";
 
-  static m2(emailId) => "An Email has been sent to ${emailId}. Please check your inbox.";
+  static m2(howMany) =>
+      "${Intl.plural(howMany, zero: 'Customer', one: 'Customer', other: 'Customers')}";
 
-  static m3(howMany) => "${Intl.plural(howMany, zero: 'Order', one: 'Order', other: 'Orders')}";
+  static m3(param) => "Edit ${param}";
 
-  static m4(param) => "${param} is required";
+  static m4(emailId) =>
+      "An Email has been sent to ${emailId}. Please check your inbox.";
 
-  static m5(howMany) => "${Intl.plural(howMany, zero: 'Shipment', one: 'Shipment', other: 'Shipments')}";
+  static m5(param) => "Hello ${param}";
 
-  static m6(howMany) => "${Intl.plural(howMany, zero: 'Tenant', one: 'Tenant', other: 'Tenants')}";
+  static m6(howMany) =>
+      "${Intl.plural(howMany, zero: 'Order', one: 'Order', other: 'Orders')}";
 
-  static m7(howMany) => "${Intl.plural(howMany, zero: 'Terminal', one: 'Terminal', other: 'Terminals')}";
+  static m7(param) => "${param} should not be empty";
 
-  static m8(howMany) => "${Intl.plural(howMany, zero: 'User', one: 'User', other: 'Users')}";
+  static m8(paramFrom, paramTo) => "${paramFrom} to ${paramTo}";
+
+  static m9(param) => "${param} is required";
+
+  static m10(param) => "Select ${param}";
+
+  static m11(howMany) =>
+      "${Intl.plural(howMany, zero: 'Shipment', one: 'Shipment', other: 'Shipments')}";
+
+  static m12(howMany) =>
+      "${Intl.plural(howMany, zero: 'Tenant', one: 'Tenant', other: 'Tenants')}";
+
+  static m13(howMany) =>
+      "${Intl.plural(howMany, zero: 'Terminal', one: 'Terminal', other: 'Terminals')}";
+
+  static m14(howMany) =>
+      "${Intl.plural(howMany, zero: 'User', one: 'User', other: 'Users')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static _notInlinedMessages(_) => <String, Function> {
-    "carriersTitle" : m0,
-    "changePassword" : MessageLookupByLibrary.simpleMessage("Change password"),
-    "confirmPassword" : MessageLookupByLibrary.simpleMessage("Confirm password"),
-    "create" : MessageLookupByLibrary.simpleMessage("Create"),
-    "customersTitle" : m1,
-    "edit" : MessageLookupByLibrary.simpleMessage("Edit"),
-    "email" : MessageLookupByLibrary.simpleMessage("Email"),
-    "emailNotVerified" : MessageLookupByLibrary.simpleMessage("This Email Id is not yet verified. Please try again."),
-    "emailSent" : m2,
-    "forgotPassword" : MessageLookupByLibrary.simpleMessage("Forgot Password?"),
-    "home" : MessageLookupByLibrary.simpleMessage("Home"),
-    "logout" : MessageLookupByLibrary.simpleMessage("Logout"),
-    "name" : MessageLookupByLibrary.simpleMessage("Name"),
-    "newPassword" : MessageLookupByLibrary.simpleMessage("New password"),
-    "noDateChosen" : MessageLookupByLibrary.simpleMessage("No date chosen"),
-    "oldPassword" : MessageLookupByLibrary.simpleMessage("Old password"),
-    "ordersTitle" : m3,
-    "paramRequired" : m4,
-    "passowrdDoesntMatch" : MessageLookupByLibrary.simpleMessage("Passwords do not match"),
-    "password" : MessageLookupByLibrary.simpleMessage("Password"),
-    "profile" : MessageLookupByLibrary.simpleMessage("Profile"),
-    "register" : MessageLookupByLibrary.simpleMessage("Register"),
-    "resetPassword" : MessageLookupByLibrary.simpleMessage("Reset Password"),
-    "resetPasswordMessage" : MessageLookupByLibrary.simpleMessage("An email with the reset link would be sent to you."),
-    "save" : MessageLookupByLibrary.simpleMessage("Save"),
-    "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
-    "shipmentsTitle" : m5,
-    "signIn" : MessageLookupByLibrary.simpleMessage("Sign In"),
-    "tenantLessUserMessage" : MessageLookupByLibrary.simpleMessage("Thanks for signing up. We will review your registration. We are in a limited beta at the moment. Please check back later."),
-    "tenantsTitle" : m6,
-    "terminalsTitle" : m7,
-    "username" : MessageLookupByLibrary.simpleMessage("Username"),
-    "usersTitle" : m8,
-    "welcome" : MessageLookupByLibrary.simpleMessage("Welcome to Shipanther")
-  };
+  static _notInlinedMessages(_) => <String, Function>{
+        "aboutOne":
+            MessageLookupByLibrary.simpleMessage("Built with ♥️ in Canada"),
+        "aboutTwo": MessageLookupByLibrary.simpleMessage(
+            "Reach us at info@bigpanther.ca"),
+        "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
+        "addCarrier": MessageLookupByLibrary.simpleMessage("Add carrier"),
+        "addCustomer": MessageLookupByLibrary.simpleMessage("Add customer"),
+        "addNewParam": m0,
+        "applicationLegalese": MessageLookupByLibrary.simpleMessage(
+            "©2020 Big Panther Technologies Inc."),
+        "carrierName": MessageLookupByLibrary.simpleMessage("Carrier name"),
+        "carrierType": MessageLookupByLibrary.simpleMessage("Carrier type"),
+        "carriersETA": MessageLookupByLibrary.simpleMessage("ETA"),
+        "carriersTitle": m1,
+        "changePassword":
+            MessageLookupByLibrary.simpleMessage("Change password"),
+        "clear": MessageLookupByLibrary.simpleMessage("Clear"),
+        "confirmPassword":
+            MessageLookupByLibrary.simpleMessage("Confirm password"),
+        "create": MessageLookupByLibrary.simpleMessage("Create"),
+        "createdAt": MessageLookupByLibrary.simpleMessage("Created at"),
+        "customerName": MessageLookupByLibrary.simpleMessage("Customer name"),
+        "customersTitle": m2,
+        "driver": MessageLookupByLibrary.simpleMessage("driver"),
+        "edit": MessageLookupByLibrary.simpleMessage("Edit"),
+        "editParam": m3,
+        "email": MessageLookupByLibrary.simpleMessage("Email"),
+        "emailNotVerified": MessageLookupByLibrary.simpleMessage(
+            "This Email Id is not yet verified. Please try again."),
+        "emailSent": m4,
+        "eta": MessageLookupByLibrary.simpleMessage("ETA"),
+        "forgotPassword":
+            MessageLookupByLibrary.simpleMessage("Forgot Password?"),
+        "helloParam": m5,
+        "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "iVerified": MessageLookupByLibrary.simpleMessage("I verified"),
+        "lastUpdate": MessageLookupByLibrary.simpleMessage("Last update"),
+        "lfd": MessageLookupByLibrary.simpleMessage("LFD"),
+        "loginError": MessageLookupByLibrary.simpleMessage(
+            "An error occured during log-in. Please retry."),
+        "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "newPassword": MessageLookupByLibrary.simpleMessage("New password"),
+        "noDateChosen": MessageLookupByLibrary.simpleMessage("No date chosen"),
+        "oldPassword": MessageLookupByLibrary.simpleMessage("Old password"),
+        "orderAdd": MessageLookupByLibrary.simpleMessage("Add order"),
+        "orderNumber": MessageLookupByLibrary.simpleMessage("Order number"),
+        "orderStatus": MessageLookupByLibrary.simpleMessage("Order status"),
+        "orderStatusFilter":
+            MessageLookupByLibrary.simpleMessage("Filter order status"),
+        "ordersTitle": m6,
+        "paramEmpty": m7,
+        "paramFromTo": m8,
+        "paramRequired": m9,
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "passwordDoesntMatch":
+            MessageLookupByLibrary.simpleMessage("Passwords do not match"),
+        "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "register": MessageLookupByLibrary.simpleMessage("Register"),
+        "resendEmail": MessageLookupByLibrary.simpleMessage("Resend email"),
+        "reservationTime":
+            MessageLookupByLibrary.simpleMessage("Reservation time"),
+        "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "resetPasswordMessage": MessageLookupByLibrary.simpleMessage(
+            "An email with the reset link would be sent to you."),
+        "role": MessageLookupByLibrary.simpleMessage("Role"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "selectParam": m10,
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "shipantherTitle": MessageLookupByLibrary.simpleMessage("Shipanther"),
+        "shipmentAccept": MessageLookupByLibrary.simpleMessage("Accept"),
+        "shipmentAdd": MessageLookupByLibrary.simpleMessage("Add shipment"),
+        "shipmentCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "shipmentCompleted": MessageLookupByLibrary.simpleMessage("Completed"),
+        "shipmentDelivered": MessageLookupByLibrary.simpleMessage("Delivered"),
+        "shipmentDestination":
+            MessageLookupByLibrary.simpleMessage("Destination"),
+        "shipmentLFD": MessageLookupByLibrary.simpleMessage("LFD"),
+        "shipmentNoItem": MessageLookupByLibrary.simpleMessage("No items here"),
+        "shipmentOrigin": MessageLookupByLibrary.simpleMessage("Origin"),
+        "shipmentPending": MessageLookupByLibrary.simpleMessage("Pending"),
+        "shipmentReject": MessageLookupByLibrary.simpleMessage("Reject"),
+        "shipmentRejectConfirmation": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to reject this delivery?"),
+        "shipmentReservationTime":
+            MessageLookupByLibrary.simpleMessage("Reservation time"),
+        "shipmentSerialNumber":
+            MessageLookupByLibrary.simpleMessage("Serial number"),
+        "shipmentSize": MessageLookupByLibrary.simpleMessage("Shipment size"),
+        "shipmentStatus":
+            MessageLookupByLibrary.simpleMessage("Shipment status"),
+        "shipmentStatusFilter":
+            MessageLookupByLibrary.simpleMessage("Filter shipment status"),
+        "shipmentType": MessageLookupByLibrary.simpleMessage("Shipment type"),
+        "shipmentsTitle": m11,
+        "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
+        "size": MessageLookupByLibrary.simpleMessage("Size"),
+        "status": MessageLookupByLibrary.simpleMessage("Status"),
+        "tenantAdd": MessageLookupByLibrary.simpleMessage("Add tenant"),
+        "tenantDelete": MessageLookupByLibrary.simpleMessage("Tenant delete"),
+        "tenantDetail": MessageLookupByLibrary.simpleMessage("Tenant detail"),
+        "tenantEdit": MessageLookupByLibrary.simpleMessage("Tenant edit"),
+        "tenantId": MessageLookupByLibrary.simpleMessage("Tenant ID"),
+        "tenantLessUserMessage": MessageLookupByLibrary.simpleMessage(
+            "Thanks for signing up. We will review your registration. We are in a limited beta at the moment. Please check back later."),
+        "tenantName": MessageLookupByLibrary.simpleMessage("Tenant name"),
+        "tenantType": MessageLookupByLibrary.simpleMessage("Tenant type"),
+        "tenantTypeFilter":
+            MessageLookupByLibrary.simpleMessage("Filter tenant type"),
+        "tenantsTitle": m12,
+        "terminalAdd": MessageLookupByLibrary.simpleMessage("Add terminal"),
+        "terminalName": MessageLookupByLibrary.simpleMessage("Terminal name"),
+        "terminalType": MessageLookupByLibrary.simpleMessage("Terminal type"),
+        "terminalTypeFilter":
+            MessageLookupByLibrary.simpleMessage("Filter terminal type"),
+        "terminalsTitle": m13,
+        "userName": MessageLookupByLibrary.simpleMessage("User name"),
+        "userType": MessageLookupByLibrary.simpleMessage("User type"),
+        "userTypeFilter":
+            MessageLookupByLibrary.simpleMessage("Filter user type"),
+        "username": MessageLookupByLibrary.simpleMessage("Username"),
+        "usersTitle": m14,
+        "welcome": MessageLookupByLibrary.simpleMessage("Welcome to Shipanther")
+      };
 }

@@ -15,13 +15,11 @@ extension OrderStatusExtension on OrderStatus {
         return Icons.check_circle_outline;
       case OrderStatus.invoiced:
         return Icons.attach_money;
-        break;
       case OrderStatus.paymentReceived:
         return Icons.money;
       case OrderStatus.accepted:
         return Icons.check;
     }
-    return Icons.broken_image;
   }
 
   String get text {

@@ -18,7 +18,6 @@ extension TerminalTypeExtension on TerminalType {
       case TerminalType.airport:
         return Icons.airplanemode_on;
     }
-    return Icons.broken_image;
   }
 
   String get text {

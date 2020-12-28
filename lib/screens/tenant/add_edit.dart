@@ -24,9 +24,13 @@ class TenantAddEdit extends StatefulWidget {
 class _TenantAddEditState extends State<TenantAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final TextEditingController _name = TextEditingController();
-
   TenantType? _tenantType;
+  late TextEditingController _name;
+  @override
+  void initState() {
+    super.initState();
+    _name = TextEditingController(text: widget.tenant.name);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +38,10 @@ class _TenantAddEditState extends State<TenantAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context).editParam(
-                  ShipantherLocalizations.of(context).tenantsTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).tenantsTitle(1)),
+              ? ShipantherLocalizations.of(context)!.editParam(
+                  ShipantherLocalizations.of(context)!.tenantsTitle(1))
+              : ShipantherLocalizations.of(context)!.addNewParam(
+                  ShipantherLocalizations.of(context)!.tenantsTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -52,19 +56,18 @@ class _TenantAddEditState extends State<TenantAddEdit> {
           child: ListView(
             children: [
               TextFormField(
-                initialValue: widget.tenant.name ?? '',
                 autofocus: !widget.isEdit,
                 controller: _name,
                 style: Theme.of(context).textTheme.headline5,
                 decoration: InputDecoration(
-                    hintText: ShipantherLocalizations.of(context).tenantName),
+                    hintText: ShipantherLocalizations.of(context)!.tenantName),
                 validator: (val) => val == null || val.trim().isEmpty
-                    ? ShipantherLocalizations.of(context).paramEmpty(
-                        ShipantherLocalizations.of(context).tenantName)
+                    ? ShipantherLocalizations.of(context)!.paramEmpty(
+                        ShipantherLocalizations.of(context)!.tenantName)
                     : null,
               ),
               smartSelect<TenantType>(
-                title: ShipantherLocalizations.of(context).tenantType,
+                title: ShipantherLocalizations.of(context)!.tenantType,
                 onChange: (state) => _tenantType = state.value,
                 choiceItems: S2Choice.listFrom<TenantType, TenantType>(
                   source: TenantType.values,
@@ -79,8 +82,8 @@ class _TenantAddEditState extends State<TenantAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+            ? ShipantherLocalizations.of(context)!.edit
+            : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () {
           if (formKey.currentState!.validate()) {

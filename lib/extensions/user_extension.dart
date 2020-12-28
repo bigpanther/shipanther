@@ -72,7 +72,6 @@ extension UserRoleExtension on UserRole {
       case UserRole.none:
         return Icons.not_accessible;
     }
-    return Icons.broken_image;
   }
 
   String get text {

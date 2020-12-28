@@ -15,10 +15,10 @@ class TenantDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ShipantherLocalizations.of(context).tenantDetail),
+        title: Text(ShipantherLocalizations.of(context)!.tenantDetail),
         actions: [
           IconButton(
-            tooltip: ShipantherLocalizations.of(context).tenantDelete,
+            tooltip: ShipantherLocalizations.of(context)!.tenantDelete,
             icon: const Icon(Icons.delete),
             onPressed: () {},
           )
@@ -46,19 +46,19 @@ class TenantDetail extends StatelessWidget {
                         ),
                       ),
                       displaySubtitle(
-                          ShipantherLocalizations.of(context).tenantId,
+                          ShipantherLocalizations.of(context)!.tenantId,
                           state.tenant.id),
                       displaySubtitle(
-                          ShipantherLocalizations.of(context).tenantType,
+                          ShipantherLocalizations.of(context)!.tenantType,
                           state.tenant.type.toString()),
                       displaySubtitle(
-                          ShipantherLocalizations.of(context).createdAt,
-                          ShipantherLocalizations.of(context)
+                          ShipantherLocalizations.of(context)!.createdAt,
+                          ShipantherLocalizations.of(context)!
                               .dateFormatter
                               .format(state.tenant.createdAt)),
                       displaySubtitle(
-                          ShipantherLocalizations.of(context).lastUpdate,
-                          ShipantherLocalizations.of(context)
+                          ShipantherLocalizations.of(context)!.lastUpdate,
+                          ShipantherLocalizations.of(context)!
                               .dateFormatter
                               .format(state.tenant.updatedAt)),
                     ],
@@ -70,7 +70,7 @@ class TenantDetail extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: ShipantherLocalizations.of(context).tenantEdit,
+        tooltip: ShipantherLocalizations.of(context)!.tenantEdit,
         child: const Icon(Icons.edit),
         onPressed: () {
           Navigator.push(

@@ -12,14 +12,14 @@ import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart' as api;
 import 'package:shipanther/extensions/user_extension.dart';
 
-class ContainerScreen extends StatefulWidget {
-  const ContainerScreen(this.loggedInUser);
+class ShipmentScreen extends StatefulWidget {
+  const ShipmentScreen(this.loggedInUser);
   final api.User loggedInUser;
   @override
-  _ContainerScreenState createState() => _ContainerScreenState();
+  _ShipmentScreenState createState() => _ShipmentScreenState();
 }
 
-class _ContainerScreenState extends State<ContainerScreen> {
+class _ShipmentScreenState extends State<ShipmentScreen> {
   late ShipmentBloc bloc;
   @override
   void initState() {
@@ -61,7 +61,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
         return ShipantherScaffold(
           widget.loggedInUser,
           bottomNavigationBar: null,
-          title: ShipantherLocalizations.of(context).shipmentsTitle(2),
+          title: ShipantherLocalizations.of(context)!.shipmentsTitle(2),
           actions: const [],
           body: const CenteredLoading(),
           floatingActionButton: null,

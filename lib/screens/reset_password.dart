@@ -17,7 +17,7 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(ShipantherLocalizations.of(context).resetPassword),
+        title: Text(ShipantherLocalizations.of(context)!.resetPassword),
       ),
       body: Form(
         key: _formKey,
@@ -27,20 +27,20 @@ class _ResetPasswordState extends State<ResetPassword> {
             children: [
               TextFormField(
                 decoration: InputDecoration(
-                    labelText: ShipantherLocalizations.of(context).email),
+                    labelText: ShipantherLocalizations.of(context)!.email),
                 autocorrect: false,
                 controller: _userEmail,
                 enableSuggestions: false,
                 keyboardType: TextInputType.emailAddress,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return ShipantherLocalizations.of(context).paramRequired(
-                        ShipantherLocalizations.of(context).email);
+                    return ShipantherLocalizations.of(context)!.paramRequired(
+                        ShipantherLocalizations.of(context)!.email);
                   }
                   return null;
                 },
               ),
-              Text(ShipantherLocalizations.of(context).resetPasswordMessage),
+              Text(ShipantherLocalizations.of(context)!.resetPasswordMessage),
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 alignment: Alignment.center,
@@ -55,7 +55,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       Navigator.pop(context);
                     }
                   },
-                  text: ShipantherLocalizations.of(context).resetPassword,
+                  text: ShipantherLocalizations.of(context)!.resetPassword,
                 ),
               ),
             ],

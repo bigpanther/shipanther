@@ -82,7 +82,7 @@ class _Button<T> extends StatelessWidget {
           PopupMenuItem<T>(
             value: null,
             child: Text(
-              ShipantherLocalizations.of(context).clear,
+              ShipantherLocalizations.of(context)!.clear,
               style: defaultStyle,
             ),
           ),

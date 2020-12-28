@@ -42,7 +42,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
         }
         return Scaffold(
           appBar: AppBar(
-            title: Text(ShipantherLocalizations.of(context).terminalsTitle(2)),
+            title: Text(ShipantherLocalizations.of(context)!.terminalsTitle(2)),
           ),
           body: const CenteredLoading(),
         );

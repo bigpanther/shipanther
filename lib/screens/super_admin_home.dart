@@ -46,7 +46,7 @@ class _SuperAdminHomeState extends State<SuperAdminHome> {
         return ShipantherScaffold(
           widget.user,
           bottomNavigationBar: null,
-          title: ShipantherLocalizations.of(context).tenantsTitle(2),
+          title: ShipantherLocalizations.of(context)!.tenantsTitle(2),
           actions: const [],
           body: const CenteredLoading(),
           floatingActionButton: null,

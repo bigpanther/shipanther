@@ -25,7 +25,12 @@ class CustomerAddEdit extends StatefulWidget {
 
 class _CustomerAddEditState extends State<CustomerAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController _name = TextEditingController();
+  late TextEditingController _name;
+  @override
+  void initState() {
+    super.initState();
+    _name = TextEditingController(text: widget.customer.name);
+  }
 
   api.Tenant? _tenant;
   final TextEditingController _tenantTypeAheadController =
@@ -40,10 +45,10 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context).editParam(
-                  ShipantherLocalizations.of(context).customersTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).customersTitle(1)),
+              ? ShipantherLocalizations.of(context)!.editParam(
+                  ShipantherLocalizations.of(context)!.customersTitle(1))
+              : ShipantherLocalizations.of(context)!.addNewParam(
+                  ShipantherLocalizations.of(context)!.customersTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -58,15 +63,14 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
           child: ListView(
             children: [
                   TextFormField(
-                    initialValue: widget.customer.name ?? '',
                     autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(
                         hintText:
-                            ShipantherLocalizations.of(context).customerName),
+                            ShipantherLocalizations.of(context)!.customerName),
                     validator: (val) => val == null || val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context).paramEmpty(
-                            ShipantherLocalizations.of(context).customerName)
+                        ? ShipantherLocalizations.of(context)!.paramEmpty(
+                            ShipantherLocalizations.of(context)!.customerName)
                         : null,
                     controller: _name,
                   ),
@@ -86,8 +90,8 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+            ? ShipantherLocalizations.of(context)!.edit
+            : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () async {
           if (formKey.currentState!.validate()) {

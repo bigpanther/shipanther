@@ -28,7 +28,12 @@ class UserAddEdit extends StatefulWidget {
 class _UserAddEditState extends State<UserAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final TextEditingController _name = TextEditingController();
+  late TextEditingController _name;
+  @override
+  void initState() {
+    super.initState();
+    _name = TextEditingController(text: widget.user.name);
+  }
 
   api.UserRole? _userRole;
   api.Tenant? _tenant;
@@ -44,10 +49,10 @@ class _UserAddEditState extends State<UserAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)
-                  .editParam(ShipantherLocalizations.of(context).usersTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).usersTitle(1)),
+              ? ShipantherLocalizations.of(context)!
+                  .editParam(ShipantherLocalizations.of(context)!.usersTitle(1))
+              : ShipantherLocalizations.of(context)!.addNewParam(
+                  ShipantherLocalizations.of(context)!.usersTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -62,19 +67,19 @@ class _UserAddEditState extends State<UserAddEdit> {
           child: ListView(
             children: [
                   TextFormField(
-                    initialValue: widget.user.name ?? '',
                     autofocus: !widget.isEdit,
                     controller: _name,
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(
-                        hintText: ShipantherLocalizations.of(context).userName),
+                        hintText:
+                            ShipantherLocalizations.of(context)!.userName),
                     validator: (val) => val == null || val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context).paramEmpty(
-                            ShipantherLocalizations.of(context).userName)
+                        ? ShipantherLocalizations.of(context)!.paramEmpty(
+                            ShipantherLocalizations.of(context)!.userName)
                         : null,
                   ),
                   smartSelect<api.UserRole>(
-                    title: ShipantherLocalizations.of(context).userType,
+                    title: ShipantherLocalizations.of(context)!.userType,
                     onChange: (state) => _userRole = state.value,
                     choiceItems: S2Choice.listFrom<api.UserRole, api.UserRole>(
                       source: api.UserRole.values,
@@ -96,8 +101,8 @@ class _UserAddEditState extends State<UserAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+            ? ShipantherLocalizations.of(context)!.edit
+            : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () async {
           if (formKey.currentState!.validate()) {

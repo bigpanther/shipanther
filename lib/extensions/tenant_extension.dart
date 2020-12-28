@@ -12,7 +12,6 @@ extension TenantTypeExtension on TenantType {
       case TenantType.test:
         return Icons.home_work;
     }
-    return Icons.broken_image;
   }
 
   String get text {

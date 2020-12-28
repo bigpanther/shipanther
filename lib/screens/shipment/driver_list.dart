@@ -29,13 +29,13 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
   Widget build(BuildContext context) {
     void showAlertDialog(BuildContext context, api.Shipment t) {
       final Widget cancelButton = FlatButton(
-        child: Text(ShipantherLocalizations.of(context).shipmentCancel),
+        child: Text(ShipantherLocalizations.of(context)!.shipmentCancel),
         onPressed: () {
           Navigator.of(context).pop();
         },
       );
       final Widget continueButton = FlatButton(
-        child: Text(ShipantherLocalizations.of(context).shipmentReject),
+        child: Text(ShipantherLocalizations.of(context)!.shipmentReject),
         textColor: Colors.red,
         onPressed: () {
           t.status = api.ShipmentStatus.rejected;
@@ -46,9 +46,9 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
       );
 
       final alert = AlertDialog(
-        title: Text(ShipantherLocalizations.of(context).shipmentReject),
+        title: Text(ShipantherLocalizations.of(context)!.shipmentReject),
         content: Text(
-            ShipantherLocalizations.of(context).shipmentRejectConfirmation),
+            ShipantherLocalizations.of(context)!.shipmentRejectConfirmation),
         actions: [
           cancelButton,
           continueButton,
@@ -69,7 +69,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
       });
     }
 
-    final title = ShipantherLocalizations.of(context).shipmentsTitle(2);
+    final title = ShipantherLocalizations.of(context)!.shipmentsTitle(2);
     final actions = <Widget>[];
     final totalPending = widget.shipmentsLoadedState.shipments
         .where((element) => element.status == api.ShipmentStatus.accepted)
@@ -83,7 +83,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
 
     final body = items.isEmpty
         ? Center(
-            child: Text(ShipantherLocalizations.of(context).shipmentNoItem))
+            child: Text(ShipantherLocalizations.of(context)!.shipmentNoItem))
         : ListView.builder(
             itemCount: items.length,
             itemBuilder: (BuildContext context, int index) {
@@ -109,7 +109,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          ShipantherLocalizations.of(context)
+                          ShipantherLocalizations.of(context)!
                               .dateFormatter
                               .format(
                                 t.reservationTime ?? DateTime.now(),
@@ -120,7 +120,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                           ),
                         ),
                         Text(
-                          ShipantherLocalizations.of(context)
+                          ShipantherLocalizations.of(context)!
                               .timeFormatter
                               .format(
                                 t.reservationTime ?? DateTime.now(),
@@ -146,7 +146,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                         )
                       ],
                     ),
-                    subtitle: Text(ShipantherLocalizations.of(context)
+                    subtitle: Text(ShipantherLocalizations.of(context)!
                         .paramFromTo(t.origin, t.destination)),
                     children: [
                       if (t.status == api.ShipmentStatus.accepted)
@@ -156,7 +156,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                             t.status = api.ShipmentStatus.arrived;
                             widget.shipmentBloc.add(UpdateShipment(t.id, t));
                           },
-                          child: Text(ShipantherLocalizations.of(context)
+                          child: Text(ShipantherLocalizations.of(context)!
                               .shipmentDelivered),
                         )
                       else
@@ -177,7 +177,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                             widget.shipmentBloc.add(UpdateShipment(t.id, t));
                           },
                           child: Text(
-                            ShipantherLocalizations.of(context).shipmentAccept,
+                            ShipantherLocalizations.of(context)!.shipmentAccept,
                           ),
                         ),
                         FlatButton(
@@ -186,7 +186,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                             showAlertDialog(context, t);
                           },
                           child: Text(
-                            ShipantherLocalizations.of(context).shipmentReject,
+                            ShipantherLocalizations.of(context)!.shipmentReject,
                           ),
                         )
                       ],
@@ -212,7 +212,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
       onTap: onTabTapped,
       items: [
         BottomNavigationBarItem(
-          label: ShipantherLocalizations.of(context).shipmentPending,
+          label: ShipantherLocalizations.of(context)!.shipmentPending,
           icon: Stack(
             children: <Widget>[
               const Icon(Icons.pending),
@@ -242,7 +242,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
           ),
         ),
         BottomNavigationBarItem(
-          label: ShipantherLocalizations.of(context).shipmentCompleted,
+          label: ShipantherLocalizations.of(context)!.shipmentCompleted,
           icon: const Icon(
             Icons.check,
             color: Colors.green,
