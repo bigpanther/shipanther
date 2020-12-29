@@ -217,8 +217,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                   smartSelect<ShipmentSize>(
                     title: ShipantherLocalizations.of(context)!.shipmentSize,
                     onChange: (state) => _shipmentSize = state.value,
-                    choiceItems:
-                        S2Choice.listFrom<ShipmentSize, ShipmentSize>(
+                    choiceItems: S2Choice.listFrom<ShipmentSize, ShipmentSize>(
                       source: ShipmentSize.values,
                       value: (index, item) => item,
                       title: (index, item) => item.text,
@@ -228,8 +227,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                   smartSelect<ShipmentType>(
                     title: ShipantherLocalizations.of(context)!.shipmentType,
                     onChange: (state) => _shipmentType = state.value,
-                    choiceItems:
-                        S2Choice.listFrom<ShipmentType, ShipmentType>(
+                    choiceItems: S2Choice.listFrom<ShipmentType, ShipmentType>(
                       source: ShipmentType.values,
                       value: (index, item) => item,
                       title: (index, item) => item.text,
@@ -239,14 +237,13 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                   smartSelect<ShipmentStatus>(
                     title: ShipantherLocalizations.of(context)!.shipmentStatus,
                     onChange: (state) => _shipmentStatus = state.value,
-                    choiceItems: S2Choice.listFrom<ShipmentStatus,
-                        ShipmentStatus>(
+                    choiceItems:
+                        S2Choice.listFrom<ShipmentStatus, ShipmentStatus>(
                       source: ShipmentStatus.values,
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    value:
-                        widget.shipment.status ?? ShipmentStatus.unassigned,
+                    value: widget.shipment.status ?? ShipmentStatus.unassigned,
                   ),
                 ] +
                 tenantSelector(

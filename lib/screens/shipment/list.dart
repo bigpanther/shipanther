@@ -29,7 +29,8 @@ class ShipmentList extends StatelessWidget {
         possibleValues: ShipmentStatus.values,
         isActive: true,
         activeFilter: shipmentsLoadedState.shipmentStatus,
-        onSelected: (t) => context.read<ShipmentBloc>()..add(GetShipments(shipmentStatus:t)),
+        onSelected: (t) =>
+            context.read<ShipmentBloc>()..add(GetShipments(shipmentStatus: t)),
         tooltip: ShipantherLocalizations.of(context)!.shipmentStatusFilter,
       )
     ];

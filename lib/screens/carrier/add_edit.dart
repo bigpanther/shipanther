@@ -126,8 +126,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                   smartSelect<CarrierType>(
                     title: ShipantherLocalizations.of(context)!.carrierType,
                     onChange: (state) => _carrierType = state.value,
-                    choiceItems:
-                        S2Choice.listFrom<CarrierType, CarrierType>(
+                    choiceItems: S2Choice.listFrom<CarrierType, CarrierType>(
                       source: CarrierType.values,
                       value: (index, item) => item,
                       title: (index, item) => item.text,

@@ -91,8 +91,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                     smartSelect<OrderStatus>(
                       title: ShipantherLocalizations.of(context)!.orderStatus,
                       onChange: (state) => _orderStatus = state.value,
-                      choiceItems:
-                          S2Choice.listFrom<OrderStatus, OrderStatus>(
+                      choiceItems: S2Choice.listFrom<OrderStatus, OrderStatus>(
                         source: OrderStatus.values,
                         value: (index, item) => item,
                         title: (index, item) => item.text,
