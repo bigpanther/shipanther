@@ -9,12 +9,12 @@ import 'package:shipanther/screens/shipment/list.dart';
 
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 
 class ShipmentScreen extends StatefulWidget {
   const ShipmentScreen(this.loggedInUser);
-  final api.User loggedInUser;
+  final User loggedInUser;
   @override
   _ShipmentScreenState createState() => _ShipmentScreenState();
 }

@@ -8,7 +8,7 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/extensions/carrier_extension.dart';
 
@@ -19,8 +19,8 @@ class CarrierAddEdit extends StatefulWidget {
     required this.carrierBloc,
     required this.isEdit,
   });
-  final api.User loggedInUser;
-  final api.Carrier carrier;
+  final User loggedInUser;
+  final Carrier carrier;
   final CarrierBloc carrierBloc;
   final bool isEdit;
 
@@ -38,8 +38,8 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
     _name = TextEditingController(text: widget.carrier.name);
   }
 
-  api.CarrierType? _carrierType;
-  api.Tenant? _tenant;
+  CarrierType? _carrierType;
+  Tenant? _tenant;
   DateTime? _eta;
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
@@ -123,23 +123,23 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                       ],
                     ),
                   ),
-                  smartSelect<api.CarrierType>(
+                  smartSelect<CarrierType>(
                     title: ShipantherLocalizations.of(context)!.carrierType,
                     onChange: (state) => _carrierType = state.value,
                     choiceItems:
-                        S2Choice.listFrom<api.CarrierType, api.CarrierType>(
-                      source: api.CarrierType.values,
+                        S2Choice.listFrom<CarrierType, CarrierType>(
+                      source: CarrierType.values,
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    value: widget.carrier.type ?? api.CarrierType.vessel,
+                    value: widget.carrier.type ?? CarrierType.vessel,
                   ),
                   // Hack to avoid runtime type mismatch.
                   Container(width: 0.0, height: 0.0),
                 ] +
                 tenantSelector(
                     context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                    (api.Tenant suggestion) {
+                    (Tenant suggestion) {
                   _tenant = suggestion;
                 }, _tenantTypeAheadController),
           ),

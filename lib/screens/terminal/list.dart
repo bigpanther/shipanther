@@ -29,7 +29,7 @@ class TerminalList extends StatelessWidget {
         isActive: true,
         activeFilter: terminalLoadedState.terminalType,
         onSelected: (t) => context.read<TerminalBloc>().add(
-              GetTerminals(t),
+              GetTerminals(terminalType:t),
             ),
         tooltip: ShipantherLocalizations.of(context)!.terminalTypeFilter,
       )

@@ -6,7 +6,7 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 
 class UserAddEdit extends StatefulWidget {
@@ -16,8 +16,8 @@ class UserAddEdit extends StatefulWidget {
     required this.userBloc,
     required this.isEdit,
   });
-  final api.User loggedInUser;
-  final api.User user;
+  final User loggedInUser;
+  final User user;
   final UserBloc userBloc;
   final bool isEdit;
 
@@ -35,8 +35,8 @@ class _UserAddEditState extends State<UserAddEdit> {
     _name = TextEditingController(text: widget.user.name);
   }
 
-  api.UserRole? _userRole;
-  api.Tenant? _tenant;
+  UserRole? _userRole;
+  Tenant? _tenant;
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
 
@@ -78,11 +78,11 @@ class _UserAddEditState extends State<UserAddEdit> {
                             ShipantherLocalizations.of(context)!.userName)
                         : null,
                   ),
-                  smartSelect<api.UserRole>(
+                  smartSelect<UserRole>(
                     title: ShipantherLocalizations.of(context)!.userType,
                     onChange: (state) => _userRole = state.value,
-                    choiceItems: S2Choice.listFrom<api.UserRole, api.UserRole>(
-                      source: api.UserRole.values,
+                    choiceItems: S2Choice.listFrom<UserRole, UserRole>(
+                      source: UserRole.values,
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
@@ -93,7 +93,7 @@ class _UserAddEditState extends State<UserAddEdit> {
                 ] +
                 tenantSelector(
                     context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                    (api.Tenant suggestion) {
+                    (Tenant suggestion) {
                   _tenant = suggestion;
                 }, _tenantTypeAheadController),
           ),
@@ -107,7 +107,7 @@ class _UserAddEditState extends State<UserAddEdit> {
         onPressed: () async {
           if (formKey.currentState!.validate()) {
             widget.user.name = _name.text;
-            widget.user.role = _userRole ?? api.UserRole.driver;
+            widget.user.role = _userRole ?? UserRole.driver;
             if (_tenant != null) {
               widget.user.tenantId = _tenant!.id;
             }

@@ -14,7 +14,7 @@ import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:shipanther/screens/terminal/home.dart';
 import 'package:shipanther/screens/user/home.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 
 class ShipantherScaffold extends StatelessWidget {
@@ -32,7 +32,7 @@ class ShipantherScaffold extends StatelessWidget {
   final List<Widget> actions;
   final Widget body;
   final Widget? floatingActionButton;
-  final api.User user;
+  final User user;
   final Widget? bottomNavigationBar;
 
   @override
@@ -63,7 +63,7 @@ class ShipantherScaffold extends StatelessWidget {
   }
 }
 
-List<Widget> drawerItemsFor(BuildContext context, api.User user) {
+List<Widget> drawerItemsFor(BuildContext context, User user) {
   final widgets = <Widget>[];
   widgets.add(
     _createDrawerItem(
@@ -152,7 +152,7 @@ List<Widget> drawerItemsFor(BuildContext context, api.User user) {
       ),
     );
   }
-  if (user.role != api.UserRole.driver && user.role != api.UserRole.none) {
+  if (user.role != UserRole.driver && user.role != UserRole.none) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.fact_check,
@@ -242,7 +242,7 @@ Widget _createDrawerItem(
   );
 }
 
-Widget _createHeader(BuildContext context, api.User user) {
+Widget _createHeader(BuildContext context, User user) {
   return UserAccountsDrawerHeader(
     accountEmail: Padding(
       padding: const EdgeInsets.only(top: 8.0),

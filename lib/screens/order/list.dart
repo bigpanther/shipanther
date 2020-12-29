@@ -30,7 +30,7 @@ class OrderList extends StatelessWidget {
           activeFilter: orderLoadedState.orderStatus,
           onSelected: (t) => context.read<OrderBloc>()
             ..add(
-              GetOrders(t),
+              GetOrders(orderStatus:t),
             ),
           tooltip: ShipantherLocalizations.of(context)!.orderStatusFilter)
     ];

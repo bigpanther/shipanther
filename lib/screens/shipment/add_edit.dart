@@ -6,7 +6,7 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/extensions/shipment_extension.dart';
 
@@ -17,8 +17,8 @@ class ShipmentAddEdit extends StatefulWidget {
     required this.shipmentBloc,
     required this.isEdit,
   });
-  final api.User loggedInUser;
-  final api.Shipment shipment;
+  final User loggedInUser;
+  final Shipment shipment;
   final ShipmentBloc shipmentBloc;
   final bool isEdit;
 
@@ -28,14 +28,14 @@ class ShipmentAddEdit extends StatefulWidget {
 
 class _ShipmentAddEditState extends State<ShipmentAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  api.Terminal? _terminal;
-  api.Carrier? _carrier;
-  api.Order? _order;
-  api.Tenant? _tenant;
-  api.ShipmentSize? _shipmentSize;
-  api.ShipmentType? _shipmentType;
-  api.ShipmentStatus? _shipmentStatus;
-  api.User? _driver;
+  Terminal? _terminal;
+  Carrier? _carrier;
+  Order? _order;
+  Tenant? _tenant;
+  ShipmentSize? _shipmentSize;
+  ShipmentType? _shipmentType;
+  ShipmentStatus? _shipmentStatus;
+  User? _driver;
   DateTime? _reservationTime;
   DateTime? _lfd;
 
@@ -214,59 +214,59 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                       ],
                     ),
                   ),
-                  smartSelect<api.ShipmentSize>(
+                  smartSelect<ShipmentSize>(
                     title: ShipantherLocalizations.of(context)!.shipmentSize,
                     onChange: (state) => _shipmentSize = state.value,
                     choiceItems:
-                        S2Choice.listFrom<api.ShipmentSize, api.ShipmentSize>(
-                      source: api.ShipmentSize.values,
+                        S2Choice.listFrom<ShipmentSize, ShipmentSize>(
+                      source: ShipmentSize.values,
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    value: widget.shipment.size ?? api.ShipmentSize.n20sT,
+                    value: widget.shipment.size ?? ShipmentSize.n20sT,
                   ),
-                  smartSelect<api.ShipmentType>(
+                  smartSelect<ShipmentType>(
                     title: ShipantherLocalizations.of(context)!.shipmentType,
                     onChange: (state) => _shipmentType = state.value,
                     choiceItems:
-                        S2Choice.listFrom<api.ShipmentType, api.ShipmentType>(
-                      source: api.ShipmentType.values,
+                        S2Choice.listFrom<ShipmentType, ShipmentType>(
+                      source: ShipmentType.values,
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    value: widget.shipment.type ?? api.ShipmentType.incoming,
+                    value: widget.shipment.type ?? ShipmentType.incoming,
                   ),
-                  smartSelect<api.ShipmentStatus>(
+                  smartSelect<ShipmentStatus>(
                     title: ShipantherLocalizations.of(context)!.shipmentStatus,
                     onChange: (state) => _shipmentStatus = state.value,
-                    choiceItems: S2Choice.listFrom<api.ShipmentStatus,
-                        api.ShipmentStatus>(
-                      source: api.ShipmentStatus.values,
+                    choiceItems: S2Choice.listFrom<ShipmentStatus,
+                        ShipmentStatus>(
+                      source: ShipmentStatus.values,
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
                     value:
-                        widget.shipment.status ?? api.ShipmentStatus.unassigned,
+                        widget.shipment.status ?? ShipmentStatus.unassigned,
                   ),
                 ] +
                 tenantSelector(
                     context, !widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                    (api.Tenant suggestion) {
+                    (Tenant suggestion) {
                   _tenant = suggestion;
                 }, _tenantTypeAheadController) +
-                orderSelector(context, true, (api.Order suggestion) {
+                orderSelector(context, true, (Order suggestion) {
                   _order = suggestion;
                 }, _orderTypeAheadController) +
-                carrierSelector(context, true, (api.Carrier suggestion) {
+                carrierSelector(context, true, (Carrier suggestion) {
                   _carrier = suggestion;
                 }, _carrierTypeAheadController) +
-                terminalSelector(context, true, (api.Terminal suggestion) {
+                terminalSelector(context, true, (Terminal suggestion) {
                   _terminal = suggestion;
                 }, _terminalTypeAheadController) +
                 driverSelector(
                   context,
                   true,
-                  (api.User suggestion) {
+                  (User suggestion) {
                     _driver = suggestion;
                   },
                   _driverTypeAheadController,
@@ -287,10 +287,10 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
             widget.shipment.serialNumber = _serialNumber.text;
             widget.shipment.origin = _origin.text;
             widget.shipment.destination = _destination.text;
-            widget.shipment.type = _shipmentType ?? api.ShipmentType.incoming;
+            widget.shipment.type = _shipmentType ?? ShipmentType.incoming;
             widget.shipment.status =
-                _shipmentStatus ?? api.ShipmentStatus.unassigned;
-            widget.shipment.size = _shipmentSize ?? api.ShipmentSize.n20sT;
+                _shipmentStatus ?? ShipmentStatus.unassigned;
+            widget.shipment.size = _shipmentSize ?? ShipmentSize.n20sT;
             if (_tenant != null) {
               widget.shipment.tenantId = _tenant!.id;
             }

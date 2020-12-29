@@ -5,12 +5,12 @@ import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/user/list.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen(this.loggedInUser, {Key? key}) : super(key: key);
 
-  final api.User loggedInUser;
+  final User loggedInUser;
 
   @override
   _UserScreenState createState() => _UserScreenState();

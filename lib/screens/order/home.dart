@@ -5,11 +5,11 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/order/add_edit.dart';
 import 'package:shipanther/screens/order/list.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen(this.loggedInUser, {Key? key}) : super(key: key);
-  final api.User loggedInUser;
+  final User loggedInUser;
 
   @override
   _OrderScreenState createState() => _OrderScreenState();

@@ -28,7 +28,7 @@ class UserList extends StatelessWidget {
         isActive: true,
         activeFilter: userLoadedState.userRole,
         onSelected: (t) => context.read<UserBloc>().add(
-              GetUsers(t),
+              GetUsers(userRole:t),
             ),
         tooltip: ShipantherLocalizations.of(context)!.userTypeFilter,
       )
