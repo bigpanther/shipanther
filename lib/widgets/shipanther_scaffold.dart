@@ -43,7 +43,7 @@ class ShipantherScaffold extends StatelessWidget {
         actions: actions,
         centerTitle: true,
       ),
-      body: body,
+      body: SafeArea(child: body),
       floatingActionButton: floatingActionButton,
       drawer: Drawer(
         child: ListView(

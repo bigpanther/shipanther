@@ -64,26 +64,19 @@ class OrderList extends StatelessWidget {
               ),
               children: [
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.createdAt,
-                    ShipantherLocalizations.of(context)!
-                        .dateFormatter
-                        .format(t.createdAt)),
+                    ShipantherLocalizations.of(context)!.createdAt, t.createdAt,
+                    formatter:
+                        ShipantherLocalizations.of(context)!.dateFormatter),
                 if (t.customer != null)
                   displaySubtitle(
                       ShipantherLocalizations.of(context)!.customerName,
                       t.customer.name)
                 else
-                  const Text(''),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context)!.lastUpdate,
-                    ShipantherLocalizations.of(context)!
-                        .dateFormatter
-                        .format(t.updatedAt)),
-                if (loggedInUser.isSuperAdmin)
-                  displaySubtitle(
-                      ShipantherLocalizations.of(context)!.tenantId, t.tenantId)
-                else
-                  const Text(''),
+                  Container(width: 0.0, height: 0.0),
+                displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
+                    t.updatedAt,
+                    formatter:
+                        ShipantherLocalizations.of(context)!.dateFormatter),
               ],
             ),
           ),

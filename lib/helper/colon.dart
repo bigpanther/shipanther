@@ -1,5 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
-Text displaySubtitle(String object, String value) {
-  return Text('$object: $value');
+Text displaySubtitle<T>(String key, T? value, {DateFormat? formatter}) {
+  if (value == null) {
+    return Text('$key:');
+  }
+  if (value is DateTime) {
+    if (formatter == null) {
+      throw ArgumentError.notNull();
+    }
+    return Text('$key: ${formatter.format(value)}');
+  }
+  return Text('$key: $value');
 }
