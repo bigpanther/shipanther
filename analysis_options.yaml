@@ -4,9 +4,10 @@ analyzer:
     - lib/l10n/locales/*.dart
   errors:
     # treat missing required parameters as a warning (not a hint)
-    missing_required_param: warning
+    missing_required_param: error
     # treat missing returns as a warning (not a hint)
-    missing_return: warning
+    missing_return: error
+    import_of_legacy_library_into_null_safe: ignore
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false

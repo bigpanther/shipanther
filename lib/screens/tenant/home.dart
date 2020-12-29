@@ -53,14 +53,14 @@ class TenantDetail extends StatelessWidget {
                           state.tenant.type.toString()),
                       displaySubtitle(
                           ShipantherLocalizations.of(context)!.createdAt,
-                          ShipantherLocalizations.of(context)!
-                              .dateFormatter
-                              .format(state.tenant.createdAt)),
+                          state.tenant.createdAt,
+                          formatter: ShipantherLocalizations.of(context)!
+                              .dateFormatter),
                       displaySubtitle(
                           ShipantherLocalizations.of(context)!.lastUpdate,
-                          ShipantherLocalizations.of(context)!
-                              .dateFormatter
-                              .format(state.tenant.updatedAt)),
+                          state.tenant.updatedAt,
+                          formatter: ShipantherLocalizations.of(context)!
+                              .dateFormatter),
                     ],
                   ),
                 ),

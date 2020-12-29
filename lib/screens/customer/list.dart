@@ -4,7 +4,6 @@ import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/customer/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:shipanther/extensions/user_extension.dart';
 
 import 'package:trober_sdk/api.dart';
 
@@ -60,20 +59,13 @@ class CustomerList extends StatelessWidget {
               ),
               children: [
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.createdAt,
-                    ShipantherLocalizations.of(context)!
-                        .dateFormatter
-                        .format(t.createdAt)),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context)!.lastUpdate,
-                    ShipantherLocalizations.of(context)!
-                        .dateFormatter
-                        .format(t.updatedAt)),
-                if (loggedInUser.isSuperAdmin)
-                  displaySubtitle(
-                      ShipantherLocalizations.of(context)!.tenantId, t.tenantId)
-                else
-                  const Text(''),
+                    ShipantherLocalizations.of(context)!.createdAt, t.createdAt,
+                    formatter:
+                        ShipantherLocalizations.of(context)!.dateFormatter),
+                displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
+                    t.updatedAt,
+                    formatter:
+                        ShipantherLocalizations.of(context)!.dateFormatter),
               ],
             ),
           ),

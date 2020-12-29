@@ -18,7 +18,7 @@ class FireBaseAuthRepository extends AuthRepository {
       password: password,
     );
     final user = userCreds.user;
-
+    //ignore:unnecessary_null_comparison
     if (user == null) {
       throw AuthenticationException();
     }
@@ -40,6 +40,7 @@ class FireBaseAuthRepository extends AuthRepository {
       password: password,
     );
     final user = userCreds.user;
+    //ignore:unnecessary_null_comparison
     if (user == null) {
       throw AuthenticationException();
     }
