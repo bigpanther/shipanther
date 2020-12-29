@@ -18,7 +18,7 @@ class VerifyEmail extends StatelessWidget {
         actions: [
           IconButton(
               icon: const Icon(Icons.logout),
-              onPressed: () async {
+              onPressed: () {
                 context.read<AuthBloc>().add(
                       const AuthLogout(),
                     );

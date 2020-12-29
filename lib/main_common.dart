@@ -149,7 +149,8 @@ class ShipantherApp extends StatelessWidget {
                       OrderBloc(context.read<OrderRepository>())),
             ],
             child: MaterialApp(
-              title: ShipantherLocalizations.of(context)!.shipantherTitle,
+              onGenerateTitle: (context) =>
+                  ShipantherLocalizations.of(context)!.shipantherTitle,
               debugShowCheckedModeBanner: false,
               theme: ShipantherTheme.theme,
               home: SignInOrRegistrationPage(),

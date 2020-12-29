@@ -107,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: SignInButtonBuilder(
                               icon: Icons.save,
                               backgroundColor: Colors.blue,
-                              onPressed: () async {
+                              onPressed: () {
                                 if (_formKeyName.currentState!.validate()) {
                                   widget.user.name = _username.text;
 
@@ -209,7 +209,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: SignInButtonBuilder(
                               icon: Icons.lock,
                               backgroundColor: Colors.blue,
-                              onPressed: () async {
+                              onPressed: () {
                                 if (_formKeyPassword.currentState!.validate()) {
                                   context.read<AuthBloc>().add(UpdatePassword(
                                       _oldPassword.text, _password.text));

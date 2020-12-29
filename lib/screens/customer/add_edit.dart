@@ -93,7 +93,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
             ? ShipantherLocalizations.of(context)!.edit
             : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
-        onPressed: () async {
+        onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.customer.name = _name.text;
             if (_tenant != null) {
@@ -101,8 +101,6 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
             } else {
               widget.customer.tenantId = widget.loggedInUser.tenantId;
             }
-            widget.customer.createdBy =
-                (await context.read<UserRepository>().self()).id;
             if (widget.isEdit) {
               widget.customerBloc
                   .add(UpdateCustomer(widget.customer.id, widget.customer));

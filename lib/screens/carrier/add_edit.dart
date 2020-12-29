@@ -149,15 +149,13 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
             ? ShipantherLocalizations.of(context)!.edit
             : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
-        onPressed: () async {
+        onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.carrier.name = _name.text;
             widget.carrier.type = _carrierType;
             if (_tenant != null) {
               widget.carrier.tenantId = _tenant!.id;
             }
-            widget.carrier.createdBy =
-                (await context.read<UserRepository>().self()).id;
             if (widget.isEdit) {
               widget.carrierBloc
                   .add(UpdateCarrier(widget.carrier.id, widget.carrier));
