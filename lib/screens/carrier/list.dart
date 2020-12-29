@@ -6,7 +6,6 @@ import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/carrier/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:shipanther/extensions/user_extension.dart';
 import 'package:trober_sdk/api.dart';
 
 class CarrierList extends StatelessWidget {

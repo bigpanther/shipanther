@@ -8,7 +8,6 @@ import 'package:shipanther/screens/terminal/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
-import 'package:shipanther/extensions/user_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TerminalList extends StatelessWidget {

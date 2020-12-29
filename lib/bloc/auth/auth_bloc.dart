@@ -45,6 +45,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
       if (event is AuthCheck) {
         final user = _authRepository.loggedInUser();
+        //ignore:unnecessary_null_comparison
         if (user != null) {
           if (user.emailVerified) {
             yield AuthFinished(user, event.authType);
