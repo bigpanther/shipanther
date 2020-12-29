@@ -105,15 +105,13 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
             ? ShipantherLocalizations.of(context)!.edit
             : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
-        onPressed: () async {
+        onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.terminal.name = _name.text;
             widget.terminal.type = _terminalType ?? TerminalType.port;
             if (_tenant != null) {
               widget.terminal.tenantId = _tenant!.id;
             }
-            widget.terminal.createdBy =
-                (await context.read<UserRepository>().self()).id;
             if (widget.isEdit) {
               widget.terminalBloc
                   .add(UpdateTerminal(widget.terminal.id, widget.terminal));

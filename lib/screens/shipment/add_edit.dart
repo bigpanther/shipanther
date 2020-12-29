@@ -276,7 +276,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
             ? ShipantherLocalizations.of(context)!.edit
             : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
-        onPressed: () async {
+        onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.shipment.reservationTime =
                 _reservationTime ?? widget.shipment.reservationTime;

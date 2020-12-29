@@ -95,7 +95,7 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                         (widget.authTypeSelector == AuthTypeSelector.register)
                             ? Colors.blueGrey
                             : Colors.orange,
-                    onPressed: () async {
+                    onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         if (widget.authTypeSelector ==
                             AuthTypeSelector.register) {

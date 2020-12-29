@@ -127,7 +127,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
             ? ShipantherLocalizations.of(context)!.edit
             : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
-        onPressed: () async {
+        onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.order.serialNumber = _serialNumber.text;
             widget.order.status = _orderStatus ?? OrderStatus.open;
@@ -141,8 +141,6 @@ class _OrderAddEditState extends State<OrderAddEdit> {
             if (_tenant != null) {
               widget.order.tenantId = _tenant!.id;
             }
-            widget.order.createdBy =
-                (await context.read<UserRepository>().self()).id;
             if (widget.isEdit) {
               widget.orderBloc.add(UpdateOrder(widget.order.id, widget.order));
             } else {

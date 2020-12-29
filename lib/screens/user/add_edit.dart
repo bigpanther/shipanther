@@ -104,15 +104,13 @@ class _UserAddEditState extends State<UserAddEdit> {
             ? ShipantherLocalizations.of(context)!.edit
             : ShipantherLocalizations.of(context)!.create,
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
-        onPressed: () async {
+        onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.user.name = _name.text;
             widget.user.role = _userRole ?? UserRole.driver;
             if (_tenant != null) {
               widget.user.tenantId = _tenant!.id;
             }
-            widget.user.createdBy =
-                (await context.read<UserRepository>().self()).id;
             if (widget.isEdit) {
               widget.userBloc.add(UpdateUser(widget.user.id, widget.user));
             } else {

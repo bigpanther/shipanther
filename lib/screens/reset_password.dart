@@ -47,7 +47,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 child: SignInButtonBuilder(
                   icon: Icons.email,
                   backgroundColor: Colors.green,
-                  onPressed: () async {
+                  onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       context
                           .read<AuthBloc>()
