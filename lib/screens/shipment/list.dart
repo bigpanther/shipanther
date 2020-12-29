@@ -7,7 +7,7 @@ import 'package:shipanther/screens/shipment/add_edit.dart';
 import 'package:shipanther/extensions/shipment_extension.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShipmentList extends StatelessWidget {
@@ -19,21 +19,22 @@ class ShipmentList extends StatelessWidget {
   }) : super(key: key);
   final ShipmentBloc shipmentBloc;
   final ShipmentsLoaded shipmentsLoadedState;
-  final api.User loggedInUser;
+  final User loggedInUser;
 
   @override
   Widget build(BuildContext context) {
     final title = ShipantherLocalizations.of(context)!.shipmentsTitle(2);
     final actions = <Widget>[
-      FilterButton<api.ShipmentStatus>(
-        possibleValues: api.ShipmentStatus.values,
+      FilterButton<ShipmentStatus>(
+        possibleValues: ShipmentStatus.values,
         isActive: true,
         activeFilter: shipmentsLoadedState.shipmentStatus,
-        onSelected: (t) => context.read<ShipmentBloc>()..add(GetShipments(t)),
+        onSelected: (t) =>
+            context.read<ShipmentBloc>()..add(GetShipments(shipmentStatus: t)),
         tooltip: ShipantherLocalizations.of(context)!.shipmentStatusFilter,
       )
     ];
-    Widget circularIndicator(api.Shipment c) {
+    Widget circularIndicator(Shipment c) {
       return CircularPercentIndicator(
         radius: 35.0,
         lineWidth: 5.0,
@@ -81,7 +82,7 @@ class ShipmentList extends StatelessWidget {
                     width: 3,
                   ),
                   Icon(
-                    t.type == api.ShipmentType.incoming
+                    t.type == ShipmentType.incoming
                         ? Icons.arrow_circle_down_sharp
                         : Icons.arrow_circle_up_sharp,
                     size: 20,
@@ -132,7 +133,7 @@ class ShipmentList extends StatelessWidget {
               loggedInUser,
               isEdit: false,
               shipmentBloc: shipmentBloc,
-              shipment: api.Shipment(),
+              shipment: Shipment(),
             ),
           ),
         );

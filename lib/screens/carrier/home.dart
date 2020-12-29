@@ -5,11 +5,11 @@ import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/carrier/list.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 
 class CarrierScreen extends StatefulWidget {
   const CarrierScreen(this.loggedInUser, {Key? key}) : super(key: key);
-  final api.User loggedInUser;
+  final User loggedInUser;
 
   @override
   _CarrierScreenState createState() => _CarrierScreenState();

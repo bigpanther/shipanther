@@ -5,7 +5,7 @@ import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/shipment_extension.dart';
 
 class DriverShipmentList extends StatefulWidget {
@@ -17,7 +17,7 @@ class DriverShipmentList extends StatefulWidget {
   }) : super(key: key);
   final ShipmentBloc shipmentBloc;
   final ShipmentsLoaded shipmentsLoadedState;
-  final api.User loggedInUser;
+  final User loggedInUser;
 
   @override
   _DriverShipmentListState createState() => _DriverShipmentListState();
@@ -27,7 +27,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    void showAlertDialog(BuildContext context, api.Shipment t) {
+    void showAlertDialog(BuildContext context, Shipment t) {
       final Widget cancelButton = FlatButton(
         child: Text(ShipantherLocalizations.of(context)!.shipmentCancel),
         onPressed: () {
@@ -38,7 +38,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
         child: Text(ShipantherLocalizations.of(context)!.shipmentReject),
         textColor: Colors.red,
         onPressed: () {
-          t.status = api.ShipmentStatus.rejected;
+          t.status = ShipmentStatus.rejected;
           t.driverId = null;
           widget.shipmentBloc.add(UpdateShipment(t.id, t));
           Navigator.of(context).pop();
@@ -72,14 +72,14 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
     final title = ShipantherLocalizations.of(context)!.shipmentsTitle(2);
     final actions = <Widget>[];
     final totalPending = widget.shipmentsLoadedState.shipments
-        .where((element) => element.status == api.ShipmentStatus.accepted)
+        .where((element) => element.status == ShipmentStatus.accepted)
         .length;
     final items = _currentIndex == 0
         ? widget.shipmentsLoadedState.shipments.where((element) =>
-            element.status == api.ShipmentStatus.accepted ||
-            element.status == api.ShipmentStatus.assigned)
+            element.status == ShipmentStatus.accepted ||
+            element.status == ShipmentStatus.assigned)
         : widget.shipmentsLoadedState.shipments
-            .where((element) => element.status == api.ShipmentStatus.arrived);
+            .where((element) => element.status == ShipmentStatus.arrived);
 
     final body = items.isEmpty
         ? Center(
@@ -97,7 +97,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                         const Icon(Icons.home_work),
                         Text(
                           t.size == null
-                              ? api.ShipmentSize.n20sT.text
+                              ? ShipmentSize.n20sT.text
                               : t.size.text,
                           style: const TextStyle(
                             color: Color.fromRGBO(204, 255, 0, 1),
@@ -139,7 +139,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                           width: 3,
                         ),
                         Icon(
-                          t.type == api.ShipmentType.incoming
+                          t.type == ShipmentType.incoming
                               ? Icons.arrow_circle_down_sharp
                               : Icons.arrow_circle_up_sharp,
                           size: 20,
@@ -149,11 +149,11 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                     subtitle: Text(ShipantherLocalizations.of(context)!
                         .paramFromTo(t.origin, t.destination)),
                     children: [
-                      if (t.status == api.ShipmentStatus.accepted)
+                      if (t.status == ShipmentStatus.accepted)
                         FlatButton(
                           color: Colors.green,
                           onPressed: () {
-                            t.status = api.ShipmentStatus.arrived;
+                            t.status = ShipmentStatus.arrived;
                             widget.shipmentBloc.add(UpdateShipment(t.id, t));
                           },
                           child: Text(ShipantherLocalizations.of(context)!
@@ -166,14 +166,14 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                         ),
                     ],
                   ),
-                  if (t.status == api.ShipmentStatus.assigned)
+                  if (t.status == ShipmentStatus.assigned)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         FlatButton(
                           color: Colors.green,
                           onPressed: () {
-                            t.status = api.ShipmentStatus.accepted;
+                            t.status = ShipmentStatus.accepted;
                             widget.shipmentBloc.add(UpdateShipment(t.id, t));
                           },
                           child: Text(

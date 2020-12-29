@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 
 class BackOfficeHome extends StatefulWidget {
   const BackOfficeHome(this.user, {Key? key}) : super(key: key);
 
-  final api.User user;
+  final User user;
 
   @override
   _BackOfficeHomeState createState() => _BackOfficeHomeState();

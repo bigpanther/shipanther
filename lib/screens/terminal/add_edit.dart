@@ -6,7 +6,7 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/extensions/terminal_extension.dart';
 
@@ -18,8 +18,8 @@ class TerminalAddEdit extends StatefulWidget {
     required this.isEdit,
   });
 
-  final api.User loggedInUser;
-  final api.Terminal terminal;
+  final User loggedInUser;
+  final Terminal terminal;
   final TerminalBloc terminalBloc;
   final bool isEdit;
 
@@ -36,8 +36,8 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
     _name = TextEditingController(text: widget.terminal.name);
   }
 
-  api.TerminalType? _terminalType;
-  api.Tenant? _tenant;
+  TerminalType? _terminalType;
+  Tenant? _tenant;
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
 
@@ -79,23 +79,22 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                             ShipantherLocalizations.of(context)!.terminalName)
                         : null,
                   ),
-                  smartSelect<api.TerminalType>(
+                  smartSelect<TerminalType>(
                     title: ShipantherLocalizations.of(context)!.terminalType,
                     onChange: (state) => _terminalType = state.value,
-                    choiceItems:
-                        S2Choice.listFrom<api.TerminalType, api.TerminalType>(
-                      source: api.TerminalType.values,
+                    choiceItems: S2Choice.listFrom<TerminalType, TerminalType>(
+                      source: TerminalType.values,
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    value: widget.terminal.type ?? api.TerminalType.port,
+                    value: widget.terminal.type ?? TerminalType.port,
                   ),
                   // Hack to avoid runtime type mismatch.
                   Container(width: 0.0, height: 0.0),
                 ] +
                 tenantSelector(
                     context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                    (api.Tenant suggestion) {
+                    (Tenant suggestion) {
                   _tenant = suggestion;
                 }, _tenantTypeAheadController),
           ),
@@ -109,7 +108,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
         onPressed: () async {
           if (formKey.currentState!.validate()) {
             widget.terminal.name = _name.text;
-            widget.terminal.type = _terminalType ?? api.TerminalType.port;
+            widget.terminal.type = _terminalType ?? TerminalType.port;
             if (_tenant != null) {
               widget.terminal.tenantId = _tenant!.id;
             }

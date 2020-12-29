@@ -4,7 +4,7 @@ import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/selectors.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 
 class CustomerAddEdit extends StatefulWidget {
@@ -14,8 +14,8 @@ class CustomerAddEdit extends StatefulWidget {
     required this.customerBloc,
     required this.isEdit,
   });
-  final api.User loggedInUser;
-  final api.Customer customer;
+  final User loggedInUser;
+  final Customer customer;
   final CustomerBloc customerBloc;
   final bool isEdit;
 
@@ -32,7 +32,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
     _name = TextEditingController(text: widget.customer.name);
   }
 
-  api.Tenant? _tenant;
+  Tenant? _tenant;
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
 
@@ -80,7 +80,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
                 tenantSelector(
                   context,
                   widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                  (api.Tenant suggestion) {
+                  (Tenant suggestion) {
                     _tenant = suggestion;
                   },
                   _tenantTypeAheadController,

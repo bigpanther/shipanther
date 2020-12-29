@@ -27,6 +27,6 @@ class DeleteTenant extends TenantEvent {
 }
 
 class GetTenants extends TenantEvent {
-  const GetTenants(this.tenantType);
+  const GetTenants({this.tenantType});
   final TenantType? tenantType;
 }

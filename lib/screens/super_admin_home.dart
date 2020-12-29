@@ -22,7 +22,7 @@ class _SuperAdminHomeState extends State<SuperAdminHome> {
   void initState() {
     super.initState();
     bloc = context.read<TenantBloc>();
-    bloc.add(const GetTenants(null));
+    bloc.add(const GetTenants());
   }
 
   @override

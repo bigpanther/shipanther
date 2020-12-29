@@ -6,7 +6,7 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/extensions/order_extension.dart';
 
@@ -17,8 +17,8 @@ class OrderAddEdit extends StatefulWidget {
     required this.orderBloc,
     required this.isEdit,
   });
-  final api.User loggedInUser;
-  final api.Order order;
+  final User loggedInUser;
+  final Order order;
   final OrderBloc orderBloc;
   final bool isEdit;
 
@@ -36,9 +36,9 @@ class _OrderAddEditState extends State<OrderAddEdit> {
     _serialNumber = TextEditingController(text: widget.order.serialNumber);
   }
 
-  api.OrderStatus? _orderStatus;
-  api.Tenant? _tenant;
-  api.Customer? _customer;
+  OrderStatus? _orderStatus;
+  Tenant? _tenant;
+  Customer? _customer;
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
   final TextEditingController _customerTypeAheadController =
@@ -69,7 +69,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
           onWillPop: () {
-            widget.orderBloc.add(const GetOrders(null));
+            widget.orderBloc.add(const GetOrders());
             return Future(() => true);
           },
           child: ListView(
@@ -88,16 +88,15 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                         : null,
                   ),
                   if (!widget.loggedInUser.isCustomer)
-                    smartSelect<api.OrderStatus>(
+                    smartSelect<OrderStatus>(
                       title: ShipantherLocalizations.of(context)!.orderStatus,
                       onChange: (state) => _orderStatus = state.value,
-                      choiceItems:
-                          S2Choice.listFrom<api.OrderStatus, api.OrderStatus>(
-                        source: api.OrderStatus.values,
+                      choiceItems: S2Choice.listFrom<OrderStatus, OrderStatus>(
+                        source: OrderStatus.values,
                         value: (index, item) => item,
                         title: (index, item) => item.text,
                       ),
-                      value: widget.order.status ?? api.OrderStatus.open,
+                      value: widget.order.status ?? OrderStatus.open,
                     )
                   else
                     Container(width: 0.0, height: 0.0),
@@ -107,7 +106,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                 tenantSelector(
                   context,
                   widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                  (api.Tenant suggestion) {
+                  (Tenant suggestion) {
                     _tenant = suggestion;
                   },
                   _tenantTypeAheadController,
@@ -115,7 +114,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                 customerSelector(
                   context,
                   !widget.loggedInUser.isCustomer,
-                  (api.Customer suggestion) {
+                  (Customer suggestion) {
                     _customer = suggestion;
                   },
                   _customerTypeAheadController,
@@ -131,7 +130,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
         onPressed: () async {
           if (formKey.currentState!.validate()) {
             widget.order.serialNumber = _serialNumber.text;
-            widget.order.status = _orderStatus ?? api.OrderStatus.open;
+            widget.order.status = _orderStatus ?? OrderStatus.open;
             if (widget.loggedInUser.isCustomer) {
               widget.order.customerId = widget.loggedInUser.customerId;
               _customer = null;
