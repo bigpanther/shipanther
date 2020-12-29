@@ -21,7 +21,7 @@ class _DriverHomeState extends State<DriverHome> {
   void initState() {
     super.initState();
     bloc = context.read<ShipmentBloc>();
-    bloc.add(const GetShipments(null));
+    bloc.add(const GetShipments());
   }
 
   @override

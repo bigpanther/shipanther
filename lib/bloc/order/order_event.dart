@@ -27,6 +27,6 @@ class DeleteOrder extends OrderEvent {
 }
 
 class GetOrders extends OrderEvent {
-  const GetOrders(this.orderStatus);
+  const GetOrders({this.orderStatus});
   final OrderStatus? orderStatus;
 }

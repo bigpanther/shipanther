@@ -22,7 +22,7 @@ class _UserScreenState extends State<UserScreen> {
   void initState() {
     super.initState();
     bloc = context.read<UserBloc>();
-    bloc.add(const GetUsers(null));
+    bloc.add(const GetUsers());
   }
 
   @override

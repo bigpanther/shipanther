@@ -25,7 +25,7 @@ class _ShipmentScreenState extends State<ShipmentScreen> {
   void initState() {
     super.initState();
     bloc = context.read<ShipmentBloc>();
-    bloc.add(const GetShipments(null));
+    bloc.add(const GetShipments());
   }
 
   @override

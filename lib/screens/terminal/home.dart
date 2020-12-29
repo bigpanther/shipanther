@@ -22,7 +22,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
   void initState() {
     super.initState();
     bloc = context.read<TerminalBloc>();
-    bloc.add(const GetTerminals(null));
+    bloc.add(const GetTerminals());
   }
 
   @override

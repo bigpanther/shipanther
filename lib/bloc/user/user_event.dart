@@ -32,6 +32,6 @@ class DeleteUser extends UserEvent {
 }
 
 class GetUsers extends UserEvent {
-  const GetUsers(this.userRole);
+  const GetUsers({this.userRole});
   final UserRole? userRole;
 }

@@ -69,7 +69,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
           onWillPop: () {
-            widget.orderBloc.add(const GetOrders(null));
+            widget.orderBloc.add(const GetOrders());
             return Future(() => true);
           },
           child: ListView(

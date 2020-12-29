@@ -118,7 +118,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
           key: formKey,
           autovalidateMode: AutovalidateMode.disabled,
           onWillPop: () {
-            widget.shipmentBloc.add(const GetShipments(null));
+            widget.shipmentBloc.add(const GetShipments());
             return Future(() => true);
           },
           child: ListView(

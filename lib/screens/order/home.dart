@@ -21,7 +21,7 @@ class _OrderScreenState extends State<OrderScreen> {
   void initState() {
     super.initState();
     bloc = context.read<OrderBloc>();
-    bloc.add(const GetOrders(null));
+    bloc.add(const GetOrders());
   }
 
   @override
