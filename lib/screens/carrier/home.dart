@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/carrier/list.dart';
-import 'package:shipanther/widgets/centered_loading.dart';
+import 'package:shipanther/widgets/loading_widget.dart';
 import 'package:trober_sdk/api.dart';
 
 class CarrierScreen extends StatefulWidget {
@@ -39,12 +39,9 @@ class _CarrierScreenState extends State<CarrierScreen> {
           return CarrierList(widget.loggedInUser,
               carrierBloc: bloc, carrierLoadedState: state);
         }
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(ShipantherLocalizations.of(context)!.carriersTitle(2)),
-          ),
-          body: const CenteredLoading(),
-        );
+        return LoadingWidget(
+            loggedInUser: widget.loggedInUser,
+            title: ShipantherLocalizations.of(context)!.carriersTitle(2));
       },
     );
   }
