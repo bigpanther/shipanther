@@ -32,9 +32,10 @@ class _OrderAddEditState extends State<OrderAddEdit> {
   void initState() {
     super.initState();
     _serialNumber = TextEditingController(text: widget.order.serialNumber);
+    _orderStatus = widget.order.status;
   }
 
-  OrderStatus? _orderStatus;
+  late OrderStatus _orderStatus;
   Tenant? _tenant;
   Customer? _customer;
   final TextEditingController _tenantTypeAheadController =
@@ -94,7 +95,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                         value: (index, item) => item,
                         title: (index, item) => item.text,
                       ),
-                      value: widget.order.status ?? OrderStatus.open,
+                      value: widget.order.status,
                     )
                   else
                     Container(width: 0.0, height: 0.0),
@@ -115,6 +116,11 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                   (Customer suggestion) {
                     _customer = suggestion;
                   },
+                  (val) => (val == null || val.trim().isEmpty)
+                      ? ShipantherLocalizations.of(context)!.paramEmpty(
+                          ShipantherLocalizations.of(context)!
+                              .customersTitle(1))
+                      : null,
                   _customerTypeAheadController,
                 ),
           ),
@@ -128,7 +134,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.order.serialNumber = _serialNumber.text;
-            widget.order.status = _orderStatus ?? OrderStatus.open;
+            widget.order.status = _orderStatus;
             if (widget.loggedInUser.isCustomer) {
               widget.order.customerId = widget.loggedInUser.customerId;
               _customer = null;

@@ -99,7 +99,7 @@ class TenantList extends StatelessWidget {
             builder: (_) => TenantAddEdit(
               isEdit: false,
               tenantBloc: tenantBloc,
-              tenant: Tenant(),
+              tenant: Tenant()..type = TenantType.test,
             ),
           ),
         );

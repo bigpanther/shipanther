@@ -32,24 +32,19 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
   Carrier? _carrier;
   Order? _order;
   Tenant? _tenant;
-  ShipmentSize? _shipmentSize;
-  ShipmentType? _shipmentType;
-  ShipmentStatus? _shipmentStatus;
+  late ShipmentSize _shipmentSize;
+  late ShipmentType _shipmentType;
+  late ShipmentStatus _shipmentStatus;
   User? _driver;
   DateTime? _reservationTime;
   DateTime? _lfd;
 
-  final TextEditingController _tenantTypeAheadController =
-      TextEditingController();
+  late TextEditingController _tenantTypeAheadController;
 
-  final TextEditingController _driverTypeAheadController =
-      TextEditingController();
-  final TextEditingController _terminalTypeAheadController =
-      TextEditingController();
-  final TextEditingController _orderTypeAheadController =
-      TextEditingController();
-  final TextEditingController _carrierTypeAheadController =
-      TextEditingController();
+  late TextEditingController _driverTypeAheadController;
+  late TextEditingController _terminalTypeAheadController;
+  late TextEditingController _orderTypeAheadController;
+  late TextEditingController _carrierTypeAheadController;
 
   late TextEditingController _origin;
   late TextEditingController _destination;
@@ -60,6 +55,27 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
     _serialNumber = TextEditingController(text: widget.shipment.serialNumber);
     _origin = TextEditingController(text: widget.shipment.origin);
     _destination = TextEditingController(text: widget.shipment.destination);
+    _shipmentStatus = widget.shipment.status;
+    _shipmentSize = widget.shipment.size;
+    _shipmentType = widget.shipment.type;
+    _tenantTypeAheadController =
+        TextEditingController(text: widget.shipment.tenantId);
+    _driverTypeAheadController = TextEditingController(
+        text: (widget.shipment.driver != null)
+            ? widget.shipment.driver.name
+            : widget.shipment.driverId);
+    _terminalTypeAheadController = TextEditingController(
+        text: (widget.shipment.terminal != null)
+            ? widget.shipment.terminal.name
+            : widget.shipment.terminalId);
+    _carrierTypeAheadController = TextEditingController(
+        text: (widget.shipment.carrier != null)
+            ? widget.shipment.carrier.name
+            : widget.shipment.carrierId);
+    _orderTypeAheadController = TextEditingController(
+        text: (widget.shipment.order != null)
+            ? widget.shipment.order.serialNumber
+            : widget.shipment.orderId);
   }
 
   void _presentDateTimePickerReservationTime() {
@@ -84,21 +100,6 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isEdit) {
-      _tenantTypeAheadController.text = widget.shipment.tenantId;
-      _driverTypeAheadController.text = (widget.shipment.driver != null)
-          ? widget.shipment.driver.name
-          : widget.shipment.driverId;
-      _terminalTypeAheadController.text = (widget.shipment.terminal != null)
-          ? widget.shipment.terminal.name
-          : widget.shipment.terminalId;
-      _carrierTypeAheadController.text = (widget.shipment.carrier != null)
-          ? widget.shipment.carrier.name
-          : widget.shipment.carrierId;
-      _orderTypeAheadController.text = (widget.shipment.order != null)
-          ? widget.shipment.order.serialNumber
-          : widget.shipment.orderId;
-    }
     final formatter = ShipantherLocalizations.of(context)!.dateTimeFormatter;
     return Scaffold(
       appBar: AppBar(
@@ -222,7 +223,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    value: widget.shipment.size ?? ShipmentSize.n20sT,
+                    value: widget.shipment.size,
                   ),
                   smartSelect<ShipmentType>(
                     title: ShipantherLocalizations.of(context)!.shipmentType,
@@ -232,7 +233,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    value: widget.shipment.type ?? ShipmentType.incoming,
+                    value: widget.shipment.type,
                   ),
                   smartSelect<ShipmentStatus>(
                     title: ShipantherLocalizations.of(context)!.shipmentStatus,
@@ -243,7 +244,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    value: widget.shipment.status ?? ShipmentStatus.unassigned,
+                    value: widget.shipment.status,
                   ),
                 ] +
                 tenantSelector(
@@ -284,10 +285,9 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
             widget.shipment.serialNumber = _serialNumber.text;
             widget.shipment.origin = _origin.text;
             widget.shipment.destination = _destination.text;
-            widget.shipment.type = _shipmentType ?? ShipmentType.incoming;
-            widget.shipment.status =
-                _shipmentStatus ?? ShipmentStatus.unassigned;
-            widget.shipment.size = _shipmentSize ?? ShipmentSize.n20sT;
+            widget.shipment.type = _shipmentType;
+            widget.shipment.status = _shipmentStatus;
+            widget.shipment.size = _shipmentSize;
             if (_tenant != null) {
               widget.shipment.tenantId = _tenant!.id;
             }

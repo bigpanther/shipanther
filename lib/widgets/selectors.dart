@@ -50,6 +50,7 @@ List<Widget> customerSelector(
     BuildContext context,
     bool shouldShow,
     void Function(Customer) onSuggestionSelected,
+    FormFieldValidator<String> validator,
     TextEditingController textEditingController) {
   if (!shouldShow) {
     return [];
@@ -65,6 +66,7 @@ List<Widget> customerSelector(
           textEditingController.text = '';
         },
       ),
+      validator: validator,
       suggestionsCallback: (pattern) async {
         final client = await context.read<ApiRepository>().apiClient();
         return (await client.customersGet()).where(

@@ -34,9 +34,11 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
   void initState() {
     super.initState();
     _name = TextEditingController(text: widget.carrier.name);
+    _carrierType = widget.carrier.type;
+    _eta = widget.carrier.eta;
   }
 
-  CarrierType? _carrierType;
+  late CarrierType _carrierType;
   Tenant? _tenant;
   DateTime? _eta;
   final TextEditingController _tenantTypeAheadController =
@@ -55,7 +57,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
         setState(() {
           _eta = date;
         });
-      }, currentTime: DateTime.now());
+      }, currentTime: _eta ?? DateTime.now());
     }
 
     return Scaffold(
@@ -82,8 +84,10 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                   TextFormField(
                     autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
+                    maxLengthEnforced: true,
+                    maxLength: 20,
                     decoration: InputDecoration(
-                        hintText:
+                        labelText:
                             ShipantherLocalizations.of(context)!.carrierName),
                     validator: (val) => val == null || val.trim().isEmpty
                         ? ShipantherLocalizations.of(context)!.paramEmpty(
@@ -129,7 +133,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    value: widget.carrier.type ?? CarrierType.vessel,
+                    value: widget.carrier.type,
                   ),
                   // Hack to avoid runtime type mismatch.
                   Container(width: 0.0, height: 0.0),
@@ -151,6 +155,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
           if (formKey.currentState!.validate()) {
             widget.carrier.name = _name.text;
             widget.carrier.type = _carrierType;
+            widget.carrier.eta = _eta;
             if (_tenant != null) {
               widget.carrier.tenantId = _tenant!.id;
             }

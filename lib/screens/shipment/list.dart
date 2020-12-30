@@ -107,7 +107,7 @@ class ShipmentList extends StatelessWidget {
                 displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
                     t.updatedAt,
                     formatter:
-                        ShipantherLocalizations.of(context)!.dateFormatter),
+                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
               ],
             ),
           ),
@@ -126,7 +126,9 @@ class ShipmentList extends StatelessWidget {
               loggedInUser,
               isEdit: false,
               shipmentBloc: shipmentBloc,
-              shipment: Shipment(),
+              shipment: Shipment()
+                ..status = ShipmentStatus.unassigned
+                ..type = ShipmentType.incoming,
             ),
           ),
         );
