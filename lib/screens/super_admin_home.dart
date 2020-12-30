@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/screens/tenant/home.dart';
 import 'package:shipanther/screens/tenant/list.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
@@ -39,9 +38,6 @@ class _SuperAdminHomeState extends State<SuperAdminHome> {
         if (state is TenantsLoaded) {
           return TenantList(widget.user,
               tenantBloc: bloc, tenantLoadedState: state);
-        }
-        if (state is TenantLoaded) {
-          return TenantDetail(tenantBloc: bloc, state: state);
         }
         return ShipantherScaffold(
           widget.user,

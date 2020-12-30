@@ -4,7 +4,7 @@ import 'package:shipanther/bloc/order/order_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/order/add_edit.dart';
 import 'package:shipanther/screens/order/list.dart';
-import 'package:shipanther/widgets/centered_loading.dart';
+import 'package:shipanther/widgets/loading_widget.dart';
 import 'package:trober_sdk/api.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -51,12 +51,9 @@ class _OrderScreenState extends State<OrderScreen> {
           return OrderList(widget.loggedInUser,
               orderBloc: bloc, orderLoadedState: state);
         }
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(ShipantherLocalizations.of(context)!.ordersTitle(2)),
-          ),
-          body: const CenteredLoading(),
-        );
+        return LoadingWidget(
+            loggedInUser: widget.loggedInUser,
+            title: ShipantherLocalizations.of(context)!.ordersTitle(2));
       },
     );
   }
