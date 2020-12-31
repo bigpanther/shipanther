@@ -75,11 +75,11 @@ class TerminalList extends StatelessWidget {
                 displaySubtitle(
                     ShipantherLocalizations.of(context)!.createdAt, t.createdAt,
                     formatter:
-                        ShipantherLocalizations.of(context)!.dateFormatter),
+                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
                 displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
                     t.updatedAt,
                     formatter:
-                        ShipantherLocalizations.of(context)!.dateFormatter),
+                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
               ],
             ),
           ),
@@ -97,7 +97,7 @@ class TerminalList extends StatelessWidget {
               loggedInUser,
               isEdit: false,
               terminalBloc: terminalBloc,
-              terminal: Terminal(),
+              terminal: Terminal()..type = TerminalType.port,
             ),
           ),
         );

@@ -69,7 +69,7 @@ class _UserAddEditState extends State<UserAddEdit> {
                     controller: _name,
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(
-                        hintText:
+                        labelText:
                             ShipantherLocalizations.of(context)!.userName),
                     validator: (val) => val == null || val.trim().isEmpty
                         ? ShipantherLocalizations.of(context)!.paramEmpty(

@@ -19,8 +19,8 @@ class ShipantherLocalizations {
 
   static List<String> supportedLocales = ['en', 'pa'];
   DateFormat get dateFormatter => DateFormat('MMM dd yyyy');
-  DateFormat get dateTimeFormatter => DateFormat('MMM dd yyyy - kk:mm');
-  DateFormat get timeFormatter => DateFormat('kk:mm');
+  DateFormat get dateTimeFormatter => DateFormat('MMM dd yyyy - h:mm a');
+  DateFormat get timeFormatter => DateFormat('h:mm a');
 
   //tenant
   String tenantsTitle(int howMany) => Intl.plural(

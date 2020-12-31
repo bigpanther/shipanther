@@ -65,7 +65,7 @@ class OrderList extends StatelessWidget {
                 displaySubtitle(
                     ShipantherLocalizations.of(context)!.createdAt, t.createdAt,
                     formatter:
-                        ShipantherLocalizations.of(context)!.dateFormatter),
+                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
                 if (t.customer != null)
                   displaySubtitle(
                       ShipantherLocalizations.of(context)!.customerName,
@@ -75,7 +75,7 @@ class OrderList extends StatelessWidget {
                 displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
                     t.updatedAt,
                     formatter:
-                        ShipantherLocalizations.of(context)!.dateFormatter),
+                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
               ],
             ),
           ),
@@ -89,12 +89,10 @@ class OrderList extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute<Widget>(
-            builder: (_) => OrderAddEdit(
-              loggedInUser,
-              isEdit: false,
-              orderBloc: orderBloc,
-              order: Order(),
-            ),
+            builder: (_) => OrderAddEdit(loggedInUser,
+                isEdit: false,
+                orderBloc: orderBloc,
+                order: Order()..status = OrderStatus.open),
           ),
         );
       },

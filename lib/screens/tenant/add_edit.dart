@@ -24,11 +24,12 @@ class TenantAddEdit extends StatefulWidget {
 class _TenantAddEditState extends State<TenantAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  TenantType? _tenantType;
+  late TenantType _tenantType;
   late TextEditingController _name;
   @override
   void initState() {
     super.initState();
+    _tenantType = widget.tenant.type;
     _name = TextEditingController(text: widget.tenant.name);
   }
 
@@ -60,7 +61,7 @@ class _TenantAddEditState extends State<TenantAddEdit> {
                 controller: _name,
                 style: Theme.of(context).textTheme.headline5,
                 decoration: InputDecoration(
-                    hintText: ShipantherLocalizations.of(context)!.tenantName),
+                    labelText: ShipantherLocalizations.of(context)!.tenantName),
                 validator: (val) => val == null || val.trim().isEmpty
                     ? ShipantherLocalizations.of(context)!.paramEmpty(
                         ShipantherLocalizations.of(context)!.tenantName)
@@ -74,7 +75,7 @@ class _TenantAddEditState extends State<TenantAddEdit> {
                   value: (index, item) => item,
                   title: (index, item) => item.text,
                 ),
-                value: widget.tenant.type ?? TenantType.production,
+                value: widget.tenant.type,
               ),
             ],
           ),
@@ -88,7 +89,7 @@ class _TenantAddEditState extends State<TenantAddEdit> {
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.tenant.name = _name.text;
-            widget.tenant.type = _tenantType ?? TenantType.production;
+            widget.tenant.type = _tenantType;
             if (widget.isEdit) {
               widget.tenantBloc.add(
                 UpdateTenant(widget.tenant.id, widget.tenant),

@@ -61,15 +61,15 @@ class CarrierList extends StatelessWidget {
               children: [
                 displaySubtitle(ShipantherLocalizations.of(context)!.eta, t.eta,
                     formatter:
-                        ShipantherLocalizations.of(context)!.dateFormatter),
+                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
                 displaySubtitle(
                     ShipantherLocalizations.of(context)!.createdAt, t.createdAt,
                     formatter:
-                        ShipantherLocalizations.of(context)!.dateFormatter),
+                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
                 displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
                     t.updatedAt,
                     formatter:
-                        ShipantherLocalizations.of(context)!.dateFormatter),
+                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
               ],
             ),
           ),
@@ -87,7 +87,7 @@ class CarrierList extends StatelessWidget {
               loggedInUser,
               isEdit: false,
               carrierBloc: carrierBloc,
-              carrier: Carrier(),
+              carrier: Carrier()..type = CarrierType.vessel,
             ),
           ),
         );

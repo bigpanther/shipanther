@@ -64,7 +64,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
                     autofocus: !widget.isEdit,
                     style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(
-                        hintText:
+                        labelText:
                             ShipantherLocalizations.of(context)!.customerName),
                     validator: (val) => val == null || val.trim().isEmpty
                         ? ShipantherLocalizations.of(context)!.paramEmpty(

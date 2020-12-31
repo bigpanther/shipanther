@@ -32,9 +32,10 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
   void initState() {
     super.initState();
     _name = TextEditingController(text: widget.terminal.name);
+    _terminalType = widget.terminal.type;
   }
 
-  TerminalType? _terminalType;
+  late TerminalType _terminalType;
   Tenant? _tenant;
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
@@ -70,7 +71,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                     style: Theme.of(context).textTheme.headline5,
                     controller: _name,
                     decoration: InputDecoration(
-                        hintText:
+                        labelText:
                             ShipantherLocalizations.of(context)!.terminalName),
                     validator: (val) => val == null || val.trim().isEmpty
                         ? ShipantherLocalizations.of(context)!.paramEmpty(
@@ -85,7 +86,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                       value: (index, item) => item,
                       title: (index, item) => item.text,
                     ),
-                    value: widget.terminal.type ?? TerminalType.port,
+                    value: widget.terminal.type,
                   ),
                   // Hack to avoid runtime type mismatch.
                   Container(width: 0.0, height: 0.0),
@@ -106,7 +107,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.terminal.name = _name.text;
-            widget.terminal.type = _terminalType ?? TerminalType.port;
+            widget.terminal.type = _terminalType;
             if (_tenant != null) {
               widget.terminal.tenantId = _tenant!.id;
             }
