@@ -152,7 +152,9 @@ class ShipantherApp extends StatelessWidget {
               onGenerateTitle: (context) =>
                   ShipantherLocalizations.of(context)!.shipantherTitle,
               debugShowCheckedModeBanner: false,
-              theme: ShipantherTheme.theme,
+              darkTheme: ShipantherTheme.darkTheme,
+              theme: ShipantherTheme.lightTheme,
+              themeMode: ThemeMode.system,
               home: SignInOrRegistrationPage(),
               navigatorObservers: <NavigatorObserver>[observer],
               localizationsDelegates: const [
