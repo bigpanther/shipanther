@@ -76,17 +76,12 @@ class ShipmentList extends StatelessWidget {
                 children: [
                   Text(
                     t.serialNumber,
-                    style: TextStyle(color: t.status.color, fontSize: 20),
+                    style: TextStyle(
+                        color: t.status.color(
+                            baseColor:
+                                Theme.of(context).textTheme.bodyText1!.color),
+                        fontSize: 20),
                   ),
-                  const SizedBox(
-                    width: 3,
-                  ),
-                  Icon(
-                    t.type == ShipmentType.incoming
-                        ? Icons.arrow_circle_down_sharp
-                        : Icons.arrow_circle_up_sharp,
-                    size: 20,
-                  )
                 ],
               ),
               subtitle: Text(ShipantherLocalizations.of(context)!
@@ -94,12 +89,12 @@ class ShipmentList extends StatelessWidget {
               children: [
                 displaySubtitle(ShipantherLocalizations.of(context)!.lfd, t.lfd,
                     formatter:
-                        ShipantherLocalizations.of(context)!.dateFormatter),
+                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
                 displaySubtitle(
                     ShipantherLocalizations.of(context)!.reservationTime,
                     t.reservationTime,
                     formatter:
-                        ShipantherLocalizations.of(context)!.dateFormatter),
+                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
                 displaySubtitle(
                     ShipantherLocalizations.of(context)!.size, t.size.text),
                 displaySubtitle(

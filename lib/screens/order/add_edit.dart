@@ -36,7 +36,6 @@ class _OrderAddEditState extends State<OrderAddEdit> {
   }
 
   late OrderStatus _orderStatus;
-  Tenant? _tenant;
   Customer? _customer;
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
@@ -76,7 +75,6 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                   TextFormField(
                     autofocus: !widget.isEdit,
                     controller: _serialNumber,
-                    style: Theme.of(context).textTheme.headline5,
                     decoration: InputDecoration(
                         labelText:
                             ShipantherLocalizations.of(context)!.orderNumber),
@@ -102,14 +100,6 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                   // Hack to avoid runtime type mismatch.
                   Container(width: 0.0, height: 0.0),
                 ] +
-                tenantSelector(
-                  context,
-                  widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                  (Tenant suggestion) {
-                    _tenant = suggestion;
-                  },
-                  _tenantTypeAheadController,
-                ) +
                 customerSelector(
                   context,
                   !widget.loggedInUser.isCustomer,
@@ -141,9 +131,6 @@ class _OrderAddEditState extends State<OrderAddEdit> {
             }
             if (_customer != null) {
               widget.order.customerId = _customer!.id;
-            }
-            if (_tenant != null) {
-              widget.order.tenantId = _tenant!.id;
             }
             if (widget.isEdit) {
               widget.orderBloc.add(UpdateOrder(widget.order.id, widget.order));

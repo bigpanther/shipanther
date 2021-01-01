@@ -133,17 +133,14 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                       children: [
                         Text(
                           t.serialNumber,
-                          style: TextStyle(color: t.status.color, fontSize: 20),
+                          style: TextStyle(
+                              color: t.status.color(
+                                  baseColor: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .color),
+                              fontSize: 20),
                         ),
-                        const SizedBox(
-                          width: 3,
-                        ),
-                        Icon(
-                          t.type == ShipmentType.incoming
-                              ? Icons.arrow_circle_down_sharp
-                              : Icons.arrow_circle_up_sharp,
-                          size: 20,
-                        )
                       ],
                     ),
                     subtitle: Text(ShipantherLocalizations.of(context)!

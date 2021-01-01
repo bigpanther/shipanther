@@ -67,26 +67,26 @@ extension ShipmentStatusExtension on ShipmentStatus {
     }
   }
 
-  Color get color {
+  Color? color({Color? baseColor}) {
     switch (this) {
       case ShipmentStatus.unassigned:
-        return Colors.white;
+        return baseColor;
       case ShipmentStatus.inTransit:
-        return Colors.white;
+        return Colors.blue;
       case ShipmentStatus.arrived:
-        return Colors.greenAccent;
+        return Colors.green;
       case ShipmentStatus.assigned:
-        return Colors.orangeAccent;
+        return Colors.orange;
       case ShipmentStatus.accepted:
-        return Colors.yellowAccent;
+        return Colors.yellow;
       case ShipmentStatus.rejected:
         return Colors.red;
       case ShipmentStatus.loaded:
-        return Colors.white;
+        return baseColor;
       case ShipmentStatus.unloaded:
-        return Colors.white;
+        return baseColor;
       case ShipmentStatus.abandoned:
-        return Colors.white;
+        return baseColor;
     }
   }
 

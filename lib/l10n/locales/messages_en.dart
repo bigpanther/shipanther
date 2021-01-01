@@ -59,10 +59,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function>{
-        "aboutOne":
+        "madeWithLove":
             MessageLookupByLibrary.simpleMessage("Built with ♥️ in Canada"),
-        "aboutTwo": MessageLookupByLibrary.simpleMessage(
-            "Reach us at info@bigpanther.ca"),
+        "reachUsAt": MessageLookupByLibrary.simpleMessage("Reach us at"),
         "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
         "addCarrier": MessageLookupByLibrary.simpleMessage("Add carrier"),
         "addCustomer": MessageLookupByLibrary.simpleMessage("Add customer"),

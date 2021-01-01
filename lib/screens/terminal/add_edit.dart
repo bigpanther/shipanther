@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
-import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/extensions/terminal_extension.dart';
 
 class TerminalAddEdit extends StatefulWidget {
@@ -36,7 +34,6 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
   }
 
   late TerminalType _terminalType;
-  Tenant? _tenant;
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
 
@@ -64,39 +61,28 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
           onWillPop: () {
             return Future(() => true);
           },
-          child: ListView(
-            children: [
-                  TextFormField(
-                    autofocus: !widget.isEdit,
-                    style: Theme.of(context).textTheme.headline5,
-                    controller: _name,
-                    decoration: InputDecoration(
-                        labelText:
-                            ShipantherLocalizations.of(context)!.terminalName),
-                    validator: (val) => val == null || val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context)!.paramEmpty(
-                            ShipantherLocalizations.of(context)!.terminalName)
-                        : null,
-                  ),
-                  smartSelect<TerminalType>(
-                    title: ShipantherLocalizations.of(context)!.terminalType,
-                    onChange: (state) => _terminalType = state.value,
-                    choiceItems: S2Choice.listFrom<TerminalType, TerminalType>(
-                      source: TerminalType.values,
-                      value: (index, item) => item,
-                      title: (index, item) => item.text,
-                    ),
-                    value: widget.terminal.type,
-                  ),
-                  // Hack to avoid runtime type mismatch.
-                  Container(width: 0.0, height: 0.0),
-                ] +
-                tenantSelector(
-                    context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                    (Tenant suggestion) {
-                  _tenant = suggestion;
-                }, _tenantTypeAheadController),
-          ),
+          child: ListView(children: [
+            TextFormField(
+              autofocus: !widget.isEdit,
+              controller: _name,
+              decoration: InputDecoration(
+                  labelText: ShipantherLocalizations.of(context)!.terminalName),
+              validator: (val) => val == null || val.trim().isEmpty
+                  ? ShipantherLocalizations.of(context)!.paramEmpty(
+                      ShipantherLocalizations.of(context)!.terminalName)
+                  : null,
+            ),
+            smartSelect<TerminalType>(
+              title: ShipantherLocalizations.of(context)!.terminalType,
+              onChange: (state) => _terminalType = state.value,
+              choiceItems: S2Choice.listFrom<TerminalType, TerminalType>(
+                source: TerminalType.values,
+                value: (index, item) => item,
+                title: (index, item) => item.text,
+              ),
+              value: widget.terminal.type,
+            ),
+          ]),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -108,9 +94,6 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
           if (formKey.currentState!.validate()) {
             widget.terminal.name = _name.text;
             widget.terminal.type = _terminalType;
-            if (_tenant != null) {
-              widget.terminal.tenantId = _tenant!.id;
-            }
             if (widget.isEdit) {
               widget.terminalBloc
                   .add(UpdateTerminal(widget.terminal.id, widget.terminal));

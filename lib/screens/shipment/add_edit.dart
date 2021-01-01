@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-
 import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/widgets/date_time_picker.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
-import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/extensions/shipment_extension.dart';
 
 class ShipmentAddEdit extends StatefulWidget {
@@ -36,8 +34,8 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
   late ShipmentType _shipmentType;
   late ShipmentStatus _shipmentStatus;
   User? _driver;
-  DateTime? _reservationTime;
-  DateTime? _lfd;
+  late TextEditingController _reservationTimeController;
+  late TextEditingController _lfdController;
 
   late TextEditingController _tenantTypeAheadController;
 
@@ -46,15 +44,17 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
   late TextEditingController _orderTypeAheadController;
   late TextEditingController _carrierTypeAheadController;
 
-  late TextEditingController _origin;
-  late TextEditingController _destination;
-  late TextEditingController _serialNumber;
+  late TextEditingController _originController;
+  late TextEditingController _destinationController;
+  late TextEditingController _serialNumberController;
   @override
   void initState() {
     super.initState();
-    _serialNumber = TextEditingController(text: widget.shipment.serialNumber);
-    _origin = TextEditingController(text: widget.shipment.origin);
-    _destination = TextEditingController(text: widget.shipment.destination);
+    _serialNumberController =
+        TextEditingController(text: widget.shipment.serialNumber);
+    _originController = TextEditingController(text: widget.shipment.origin);
+    _destinationController =
+        TextEditingController(text: widget.shipment.destination);
     _shipmentStatus = widget.shipment.status;
     _shipmentSize = widget.shipment.size;
     _shipmentType = widget.shipment.type;
@@ -76,31 +76,18 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
         text: (widget.shipment.order != null)
             ? widget.shipment.order.serialNumber
             : widget.shipment.orderId);
-  }
-
-  void _presentDateTimePickerReservationTime() {
-    DatePicker.showDateTimePicker(context, showTitleActions: true,
-        onConfirm: (date) {
-      setState(() {
-        _reservationTime = date;
-      });
-    },
-        currentTime:
-            widget.isEdit ? widget.shipment.reservationTime : DateTime.now());
-  }
-
-  void _presentDateTimePickerlfd() {
-    DatePicker.showDateTimePicker(context, showTitleActions: true,
-        onConfirm: (date) {
-      setState(() {
-        _lfd = date;
-      });
-    }, currentTime: widget.isEdit ? widget.shipment.lfd : DateTime.now());
+    _reservationTimeController = TextEditingController(
+        text: (widget.shipment.reservationTime == null)
+            ? null
+            : widget.shipment.reservationTime.toString());
+    _lfdController = TextEditingController(
+        text: (widget.shipment.lfd == null)
+            ? null
+            : widget.shipment.lfd.toString());
   }
 
   @override
   Widget build(BuildContext context) {
-    final formatter = ShipantherLocalizations.of(context)!.dateTimeFormatter;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -127,8 +114,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                   TextFormField(
                     autofocus: !widget.isEdit,
                     maxLength: 15,
-                    controller: _serialNumber,
-                    style: Theme.of(context).textTheme.headline5,
+                    controller: _serialNumberController,
                     decoration: InputDecoration(
                         labelText: ShipantherLocalizations.of(context)!
                             .shipmentSerialNumber),
@@ -140,81 +126,37 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                   ),
                   TextFormField(
                     autofocus: !widget.isEdit,
-                    controller: _origin,
-                    style: Theme.of(context).textTheme.headline5,
+                    controller: _originController,
+                    maxLength: 50,
                     decoration: InputDecoration(
                         labelText: ShipantherLocalizations.of(context)!
                             .shipmentOrigin),
                   ),
                   TextFormField(
                     autofocus: !widget.isEdit,
-                    controller: _destination,
-                    style: Theme.of(context).textTheme.headline5,
+                    controller: _destinationController,
+                    maxLength: 50,
                     decoration: InputDecoration(
                         labelText: ShipantherLocalizations.of(context)!
                             .shipmentDestination),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 13, right: 10, top: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(ShipantherLocalizations.of(context)!
-                                .shipmentReservationTime),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              _reservationTime == null
-                                  ? widget.shipment.reservationTime == null
-                                      ? ShipantherLocalizations.of(context)!
-                                          .noDateChosen
-                                      : formatter.format(
-                                          widget.shipment.reservationTime)
-                                  : formatter.format(_reservationTime!),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.calendar_today),
-                              onPressed: _presentDateTimePickerReservationTime,
-                            )
-                          ],
-                        )
-                      ],
-                    ),
+                  TextFormField(
+                    autofocus: !widget.isEdit,
+                    controller: _destinationController,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                        labelText: ShipantherLocalizations.of(context)!
+                            .shipmentReservationTime),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 13, right: 10, top: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(ShipantherLocalizations.of(context)!
-                                .shipmentLFD),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              _lfd == null
-                                  ? widget.shipment.lfd == null
-                                      ? ShipantherLocalizations.of(context)!
-                                          .noDateChosen
-                                      : formatter.format(widget.shipment.lfd)
-                                  : formatter.format(_lfd!),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.calendar_today),
-                              onPressed: _presentDateTimePickerlfd,
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
+                  dateTimePicker(
+                      context,
+                      ShipantherLocalizations.of(context)!
+                          .shipmentReservationTime,
+                      _reservationTimeController),
+                  dateTimePicker(
+                      context,
+                      ShipantherLocalizations.of(context)!.shipmentLFD,
+                      _lfdController),
                   smartSelect<ShipmentSize>(
                     title: ShipantherLocalizations.of(context)!.shipmentSize,
                     onChange: (state) => _shipmentSize = state.value,
@@ -246,12 +188,8 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                     ),
                     value: widget.shipment.status,
                   ),
+                  const SizedBox(height: 8),
                 ] +
-                tenantSelector(
-                    context, !widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                    (Tenant suggestion) {
-                  _tenant = suggestion;
-                }, _tenantTypeAheadController) +
                 orderSelector(context, true, (Order suggestion) {
                   _order = suggestion;
                 }, _orderTypeAheadController) +
@@ -280,11 +218,11 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.shipment.reservationTime =
-                _reservationTime ?? widget.shipment.reservationTime;
-            widget.shipment.lfd = _lfd ?? widget.shipment.lfd;
-            widget.shipment.serialNumber = _serialNumber.text;
-            widget.shipment.origin = _origin.text;
-            widget.shipment.destination = _destination.text;
+                DateTime.tryParse(_reservationTimeController.text);
+            widget.shipment.lfd = DateTime.tryParse(_lfdController.text);
+            widget.shipment.serialNumber = _serialNumberController.text;
+            widget.shipment.origin = _originController.text;
+            widget.shipment.destination = _destinationController.text;
             widget.shipment.type = _shipmentType;
             widget.shipment.status = _shipmentStatus;
             widget.shipment.size = _shipmentSize;
@@ -321,14 +259,16 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
 
   @override
   void dispose() {
-    _serialNumber.dispose();
-    _origin.dispose();
-    _destination.dispose();
+    _serialNumberController.dispose();
+    _originController.dispose();
+    _destinationController.dispose();
     _tenantTypeAheadController.dispose();
     _terminalTypeAheadController.dispose();
     _carrierTypeAheadController.dispose();
     _orderTypeAheadController.dispose();
     _driverTypeAheadController.dispose();
+    _reservationTimeController.dispose();
+    _lfdController.dispose();
     super.dispose();
   }
 }

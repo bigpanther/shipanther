@@ -6,10 +6,13 @@ mixin ShipantherTheme {
         colors: FlexColor.schemes[FlexScheme.indigo]!.light,
         // Use comfortable on desktops instead of compact, devices use default.
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
+        fontFamily: 'Roboto',
       ).toTheme;
-  static ThemeData get darkTheme => FlexColorScheme.light(
+  static ThemeData get darkTheme => FlexColorScheme.dark(
         colors: FlexColor.schemes[FlexScheme.indigo]!.dark,
         // Use comfortable on desktops instead of compact, devices use default.
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
+        darkIsTrueBlack: true,
+        fontFamily: 'Roboto',
       ).toTheme;
 }
