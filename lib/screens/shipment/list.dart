@@ -76,7 +76,11 @@ class ShipmentList extends StatelessWidget {
                 children: [
                   Text(
                     t.serialNumber,
-                    style: TextStyle(color: t.status.color, fontSize: 20),
+                    style: TextStyle(
+                        color: t.status.color(
+                            baseColor:
+                                Theme.of(context).textTheme.bodyText1!.color),
+                        fontSize: 20),
                   ),
                 ],
               ),
