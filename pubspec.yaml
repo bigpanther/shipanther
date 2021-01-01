@@ -42,6 +42,7 @@ dependencies:
   package_info: ^0.4.3+2
   material_design_icons_flutter: ^4.0.5755
   percent_indicator: ^2.1.9
+  flex_color_scheme: ^1.1.1
 
 dev_dependencies:
   flutter_test:
