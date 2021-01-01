@@ -698,16 +698,16 @@ class ShipantherLocalizations {
         desc: '©2020 Big Panther Technologies Inc.',
         locale: locale.toString(),
       );
-  String get aboutOne => Intl.message(
+  String get madeWithLove => Intl.message(
         'Built with ♥️ in Canada',
-        name: 'aboutOne',
+        name: 'madeWithLove',
         desc: 'Built with ♥️ in Canada',
         locale: locale.toString(),
       );
-  String get aboutTwo => Intl.message(
-        'Reach us at info@bigpanther.ca',
-        name: 'aboutTwo',
-        desc: 'Reach us at info@bigpanther.ca',
+  String get reachUsAt => Intl.message(
+        'Reach us at',
+        name: 'reachUsAt',
+        desc: 'Reach us at',
         locale: locale.toString(),
       );
 }

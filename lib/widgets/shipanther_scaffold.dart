@@ -175,6 +175,9 @@ List<Widget> drawerItemsFor(BuildContext context, User user) {
         final packageInfo = await PackageInfo.fromPlatform();
         final appName = packageInfo.appName;
         final version = packageInfo.version;
+        final themeData = Theme.of(context);
+        final msgStyle = themeData.textTheme.bodyText1;
+        final linkStyle = msgStyle!.copyWith(color: themeData.primaryColor);
         showAboutDialog(
           context: context,
           applicationIcon: const Image(
@@ -188,15 +191,24 @@ List<Widget> drawerItemsFor(BuildContext context, User user) {
               ShipantherLocalizations.of(context)!.applicationLegalese,
           children: <Widget>[
             Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: Center(
-                  child: Column(
-                    children: [
-                      Text(ShipantherLocalizations.of(context)!.aboutOne),
-                      Text(ShipantherLocalizations.of(context)!.aboutTwo),
-                    ],
-                  ),
-                ))
+              padding: const EdgeInsets.only(top: 15),
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                        style: msgStyle,
+                        text: ShipantherLocalizations.of(context)!.reachUsAt),
+                    TextSpan(style: linkStyle, text: ' info@bigpanther.ca'),
+                    const TextSpan(text: '\n'),
+                    TextSpan(
+                      style: themeData.textTheme.caption,
+                      text: ShipantherLocalizations.of(context)!.madeWithLove,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         );
       },

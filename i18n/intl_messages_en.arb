@@ -658,15 +658,15 @@
     "type": "text",
     "placeholders": {}
   },
-  "aboutOne": "Built with ♥️ in Canada",
-  "@aboutOne": {
+  "madeWithLove": "Built with ♥️ in Canada",
+  "@madeWithLove": {
     "description": "Built with ♥️ in Canada",
     "type": "text",
     "placeholders": {}
   },
-  "aboutTwo": "Reach us at info@bigpanther.ca",
-  "@aboutTwo": {
-    "description": "Reach us at info@bigpanther.ca",
+  "reachUsAt": "Reach us at",
+  "@reachUsAt": {
+    "description": "Reach us at",
     "type": "text",
     "placeholders": {}
   }
