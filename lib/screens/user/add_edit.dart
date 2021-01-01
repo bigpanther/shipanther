@@ -26,11 +26,11 @@ class UserAddEdit extends StatefulWidget {
 class _UserAddEditState extends State<UserAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  late TextEditingController _name;
+  late TextEditingController _nameController;
   @override
   void initState() {
     super.initState();
-    _name = TextEditingController(text: widget.user.name);
+    _nameController = TextEditingController(text: widget.user.name);
   }
 
   UserRole? _userRole;
@@ -64,36 +64,32 @@ class _UserAddEditState extends State<UserAddEdit> {
           },
           child: ListView(
             children: [
-                  TextFormField(
-                    autofocus: !widget.isEdit,
-                    controller: _name,
-                    style: Theme.of(context).textTheme.headline5,
-                    decoration: InputDecoration(
-                        labelText:
-                            ShipantherLocalizations.of(context)!.userName),
-                    validator: (val) => val == null || val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context)!.paramEmpty(
-                            ShipantherLocalizations.of(context)!.userName)
-                        : null,
-                  ),
-                  smartSelect<UserRole>(
-                    title: ShipantherLocalizations.of(context)!.userType,
-                    onChange: (state) => _userRole = state.value,
-                    choiceItems: S2Choice.listFrom<UserRole, UserRole>(
-                      source: UserRole.values,
-                      value: (index, item) => item,
-                      title: (index, item) => item.text,
-                    ),
-                    value: _userRole ?? widget.user.role,
-                  ),
-                  // Hack to avoid runtime type mismatch.
-                  Container(width: 0.0, height: 0.0),
-                ] +
-                tenantSelector(
-                    context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                    (Tenant suggestion) {
-                  _tenant = suggestion;
-                }, _tenantTypeAheadController),
+              TextFormField(
+                autofocus: !widget.isEdit,
+                controller: _nameController,
+                decoration: InputDecoration(
+                    labelText: ShipantherLocalizations.of(context)!.userName),
+                validator: (val) => val == null || val.trim().isEmpty
+                    ? ShipantherLocalizations.of(context)!.paramEmpty(
+                        ShipantherLocalizations.of(context)!.userName)
+                    : null,
+              ),
+              smartSelect<UserRole>(
+                title: ShipantherLocalizations.of(context)!.userType,
+                onChange: (state) => _userRole = state.value,
+                choiceItems: S2Choice.listFrom<UserRole, UserRole>(
+                  source: UserRole.values,
+                  value: (index, item) => item,
+                  title: (index, item) => item.text,
+                ),
+                value: _userRole ?? widget.user.role,
+              ),
+              tenantSelector(
+                  context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
+                  (Tenant suggestion) {
+                _tenant = suggestion;
+              }, _tenantTypeAheadController),
+            ],
           ),
         ),
       ),
@@ -104,7 +100,7 @@ class _UserAddEditState extends State<UserAddEdit> {
         child: Icon(widget.isEdit ? Icons.check : Icons.add),
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.user.name = _name.text;
+            widget.user.name = _nameController.text;
             widget.user.role = _userRole ?? UserRole.driver;
             if (_tenant != null) {
               widget.user.tenantId = _tenant!.id;
@@ -124,7 +120,7 @@ class _UserAddEditState extends State<UserAddEdit> {
 
   @override
   void dispose() {
-    _name.dispose();
+    _nameController.dispose();
     _tenantTypeAheadController.dispose();
     super.dispose();
   }

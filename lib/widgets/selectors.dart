@@ -6,44 +6,40 @@ import 'package:trober_sdk/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 
-List<Widget> tenantSelector(
+TypeAheadFormField<Tenant> tenantSelector(
     BuildContext context,
     bool shouldShow,
     void Function(Tenant) onSuggestionSelected,
     TextEditingController textEditingController) {
-  if (!shouldShow) {
-    return [];
-  }
-  return [
-    TypeAheadFormField<Tenant>(
-      textFieldConfiguration: TextFieldConfiguration<Tenant>(
-          decoration: InputDecoration(
-            labelText: ShipantherLocalizations.of(context)!.selectParam(
-                ShipantherLocalizations.of(context)!.tenantsTitle(1)),
-          ),
-          controller: textEditingController,
-          onTap: () {
-            textEditingController.text = '';
-          }),
-      suggestionsCallback: (pattern) async {
-        final client = await context.read<ApiRepository>().apiClient();
-        return (await client.tenantsGet()).where(
-          (element) => element.name.toLowerCase().startsWith(pattern),
-        );
-      },
-      itemBuilder: (context, Tenant tenant) {
-        return ListTile(
-          leading: const Icon(Icons.business),
-          title: Text(tenant.name),
-          subtitle: Text(tenant.id),
-        );
-      },
-      onSuggestionSelected: (suggestion) {
-        onSuggestionSelected(suggestion);
-        textEditingController.text = suggestion.name;
-      },
-    ),
-  ];
+  return TypeAheadFormField<Tenant>(
+    textFieldConfiguration: TextFieldConfiguration<Tenant>(
+        decoration: InputDecoration(
+          labelText: ShipantherLocalizations.of(context)!.selectParam(
+              ShipantherLocalizations.of(context)!.tenantsTitle(1)),
+        ),
+        controller: textEditingController,
+        onTap: () {
+          textEditingController.text = '';
+        }),
+    enabled: shouldShow,
+    suggestionsCallback: (pattern) async {
+      final client = await context.read<ApiRepository>().apiClient();
+      return (await client.tenantsGet()).where(
+        (element) => element.name.toLowerCase().startsWith(pattern),
+      );
+    },
+    itemBuilder: (context, Tenant tenant) {
+      return ListTile(
+        leading: const Icon(Icons.business),
+        title: Text(tenant.name),
+        subtitle: Text(tenant.id),
+      );
+    },
+    onSuggestionSelected: (suggestion) {
+      onSuggestionSelected(suggestion);
+      textEditingController.text = suggestion.name;
+    },
+  );
 }
 
 List<Widget> customerSelector(

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/widgets/selectors.dart';
 import 'package:trober_sdk/api.dart';
-import 'package:shipanther/extensions/user_extension.dart';
 
 class CustomerAddEdit extends StatefulWidget {
   const CustomerAddEdit(
@@ -30,7 +28,6 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
     _name = TextEditingController(text: widget.customer.name);
   }
 
-  Tenant? _tenant;
   final TextEditingController _tenantTypeAheadController =
       TextEditingController();
 
@@ -58,32 +55,18 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
           onWillPop: () {
             return Future(() => true);
           },
-          child: ListView(
-            children: [
-                  TextFormField(
-                    autofocus: !widget.isEdit,
-                    style: Theme.of(context).textTheme.headline5,
-                    decoration: InputDecoration(
-                        labelText:
-                            ShipantherLocalizations.of(context)!.customerName),
-                    validator: (val) => val == null || val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context)!.paramEmpty(
-                            ShipantherLocalizations.of(context)!.customerName)
-                        : null,
-                    controller: _name,
-                  ),
-                  // Hack to avoid runtime type mismatch.
-                  Container(width: 0.0, height: 0.0),
-                ] +
-                tenantSelector(
-                  context,
-                  widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                  (Tenant suggestion) {
-                    _tenant = suggestion;
-                  },
-                  _tenantTypeAheadController,
-                ),
-          ),
+          child: ListView(children: [
+            TextFormField(
+              autofocus: !widget.isEdit,
+              decoration: InputDecoration(
+                  labelText: ShipantherLocalizations.of(context)!.customerName),
+              validator: (val) => val == null || val.trim().isEmpty
+                  ? ShipantherLocalizations.of(context)!.paramEmpty(
+                      ShipantherLocalizations.of(context)!.customerName)
+                  : null,
+              controller: _name,
+            ),
+          ]),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -94,11 +77,6 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.customer.name = _name.text;
-            if (_tenant != null) {
-              widget.customer.tenantId = _tenant!.id;
-            } else {
-              widget.customer.tenantId = widget.loggedInUser.tenantId;
-            }
             if (widget.isEdit) {
               widget.customerBloc
                   .add(UpdateCustomer(widget.customer.id, widget.customer));
