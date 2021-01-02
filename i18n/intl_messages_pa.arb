@@ -664,7 +664,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "reachUsAt": "ਤੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ",
+  "reachUsAt": "ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ",
   "@reachUsAt": {
     "description": "Reach us at",
     "type": "text",
