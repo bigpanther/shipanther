@@ -17,13 +17,13 @@
     "type": "text",
     "placeholders": {}
   },
-  "tenantName": ਖਾਤੇ ਦਾ ਨਾਂ",
+  "tenantName": "ਖਾਤੇ ਦਾ ਨਾਂ",
   "@tenantName": {
     "description": "Tenant name",
     "type": "text",
     "placeholders": {}
   },
-  "tenantType": ਖਾਤਾ ਕਿਸਮ",
+  "tenantType": "ਖਾਤਾ ਕਿਸਮ",
   "@tenantType": {
     "description": "Tenant type",
     "type": "text",
