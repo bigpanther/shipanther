@@ -41,20 +41,23 @@ class _ApiLoginState extends State<ApiLogin> {
       },
       builder: (context, state) {
         if (state is UserFailure) {
-          return Container(
-            child: Center(
-              child: Column(
-                children: [
-                  Text(ShipantherLocalizations.of(context)!.loginError),
-                  FlatButton(
-                    onPressed: () => context.read<AuthBloc>().add(
-                          const AuthLogout(),
-                        ),
-                    child: Text(ShipantherLocalizations.of(context)!.logout),
-                  ),
-                ],
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Column(
+                  children: [
+                    Text(ShipantherLocalizations.of(context)!.loginError),
+                    FlatButton(
+                      onPressed: () => context.read<AuthBloc>().add(
+                            const AuthLogout(),
+                          ),
+                      child: Text(ShipantherLocalizations.of(context)!.logout),
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
           );
         }
         return const CenteredLoading();

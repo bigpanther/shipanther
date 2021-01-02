@@ -25,40 +25,42 @@ class VerifyEmail extends StatelessWidget {
               })
         ],
       ),
-      body: Column(
-        children: [
-          Text(
-            ShipantherLocalizations.of(context)!.emailSent(user.email),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            alignment: Alignment.center,
-            child: SignInButtonBuilder(
-              icon: Icons.verified_user,
-              backgroundColor: Colors.green,
-              onPressed: () {
-                context.read<AuthBloc>().add(
-                      CheckVerified(user),
-                    );
-              },
-              text: ShipantherLocalizations.of(context)!.iVerified,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Text(
+              ShipantherLocalizations.of(context)!.emailSent(user.email),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            alignment: Alignment.center,
-            child: SignInButtonBuilder(
-              icon: Icons.email,
-              backgroundColor: Colors.amber,
-              onPressed: () {
-                context.read<AuthBloc>().add(
-                      ResendEmail(user),
-                    );
-              },
-              text: ShipantherLocalizations.of(context)!.resendEmail,
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              alignment: Alignment.center,
+              child: SignInButtonBuilder(
+                icon: Icons.verified_user,
+                backgroundColor: Colors.green,
+                onPressed: () {
+                  context.read<AuthBloc>().add(
+                        CheckVerified(user),
+                      );
+                },
+                text: ShipantherLocalizations.of(context)!.iVerified,
+              ),
             ),
-          ),
-        ],
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              alignment: Alignment.center,
+              child: SignInButtonBuilder(
+                icon: Icons.email,
+                backgroundColor: Colors.amber,
+                onPressed: () {
+                  context.read<AuthBloc>().add(
+                        ResendEmail(user),
+                      );
+                },
+                text: ShipantherLocalizations.of(context)!.resendEmail,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
