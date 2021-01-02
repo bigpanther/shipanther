@@ -652,9 +652,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "applicationLegalese": "©2020 ਬਿਗਪੈਂਥਰ ਟੈਕਨੋਲੋਜੀਜ਼ ਇੰਕ.",
+  "applicationLegalese": "©2020-2021 ਬਿਗਪੈਂਥਰ ਟੈਕਨੋਲੋਜੀਜ਼ ਇੰਕ.",
   "@applicationLegalese": {
-    "description": "©2020 Big Panther Technologies Inc.",
+    "description": "©2020-2021 Big Panther Technologies Inc.",
     "type": "text",
     "placeholders": {}
   },
