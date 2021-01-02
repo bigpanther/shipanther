@@ -17,43 +17,43 @@
     "type": "text",
     "placeholders": {}
   },
-  "tenantName": "Tenant name",
+  "tenantName": ਖਾਤੇ ਦਾ ਨਾਂ",
   "@tenantName": {
     "description": "Tenant name",
     "type": "text",
     "placeholders": {}
   },
-  "tenantType": "Tenant type",
+  "tenantType": ਖਾਤਾ ਕਿਸਮ",
   "@tenantType": {
     "description": "Tenant type",
     "type": "text",
     "placeholders": {}
   },
-  "tenantTypeFilter": "Filter tenant type",
+  "tenantTypeFilter": "ਖਾਤਾ ਫਿਲਟਰ ਕਰੋ",
   "@tenantTypeFilter": {
     "description": "Filter tenant type",
     "type": "text",
     "placeholders": {}
   },
-  "tenantAdd": "Add tenant",
+  "tenantAdd": "ਖਾਤਾ ਸ਼ਾਮਲ ਕਰੋ",
   "@tenantAdd": {
     "description": "Add tenant",
     "type": "text",
     "placeholders": {}
   },
-  "tenantDetail": "Tenant detail",
+  "tenantDetail": "ਖਾਤੇ ਦਾ ਵੇਰਵਾ",
   "@tenantDetail": {
     "description": "Tenant detail",
     "type": "text",
     "placeholders": {}
   },
-  "tenantDelete": "Tenant delete",
+  "tenantDelete": "ਖਾਤਾ ਮਿਟਾਓ",
   "@tenantDelete": {
     "description": "Tenant delete",
     "type": "text",
     "placeholders": {}
   },
-  "tenantEdit": "Tenant edit",
+  "tenantEdit": "ਖਾਤਾ ਸੋਧ",
   "@tenantEdit": {
     "description": "Tenant edit",
     "type": "text",
@@ -69,25 +69,25 @@
       }
     }
   },
-  "terminalName": "Terminal name",
+  "terminalName": "ਟਰਮੀਨਲ ਨਾਮ",
   "@terminalName": {
     "description": "Terminal name",
     "type": "text",
     "placeholders": {}
   },
-  "terminalType": "Terminal type",
+  "terminalType": "ਟਰਮੀਨਲ ਕਿਸਮ",
   "@terminalType": {
     "description": "Terminal type",
     "type": "text",
     "placeholders": {}
   },
-  "terminalTypeFilter": "Filter terminal type",
+  "terminalTypeFilter": "ਟਰਮੀਨਲ ਕਿਸਮ ਨੂੰ ਫਿਲਟਰ ਕਰੋ",
   "@terminalTypeFilter": {
     "description": "Filter terminal type",
     "type": "text",
     "placeholders": {}
   },
-  "terminalAdd": "Add terminal",
+  "terminalAdd": "ਟਰਮੀਨਲ ਸ਼ਾਮਲ ਕਰੋ",
   "@terminalAdd": {
     "description": "Add terminal",
     "type": "text",
@@ -103,25 +103,25 @@
       }
     }
   },
-  "orderNumber": "Order number",
+  "orderNumber": "ਕ੍ਰਮ ਸੰਖਿਆ",
   "@orderNumber": {
     "description": "Order number",
     "type": "text",
     "placeholders": {}
   },
-  "orderStatus": "Order status",
+  "orderStatus": "ਕ੍ਰਮ ਸਥਿਤੀ",
   "@orderStatus": {
     "description": "Order status",
     "type": "text",
     "placeholders": {}
   },
-  "orderStatusFilter": "Filter order status",
+  "orderStatusFilter": "ਕ੍ਰਮ ਸਥਿਤੀ ਨੂੰ ਫਿਲਟਰ ਕਰੋ",
   "@orderStatusFilter": {
     "description": "Filter Order status",
     "type": "text",
     "placeholders": {}
   },
-  "orderAdd": "Add order",
+  "orderAdd": "ਕ੍ਰਮ ਸ਼ਾਮਲ ਕਰੋ",
   "@orderAdd": {
     "description": "Add order",
     "type": "text",
@@ -137,19 +137,19 @@
       }
     }
   },
-  "userName": "User name",
+  "userName": "ਉਪਭੋਗਤਾ ਨਾਮ",
   "@userName": {
     "description": "User name",
     "type": "text",
     "placeholders": {}
   },
-  "userType": "User type",
+  "userType": "ਉਪਭੋਗਤਾ ਕਿਸਮ",
   "@userType": {
     "description": "User type",
     "type": "text",
     "placeholders": {}
   },
-  "userTypeFilter": "Filter user type",
+  "userTypeFilter": "ਉਪਭੋਗਤਾ ਕਿਸਮ ਨੂੰ ਫਿਲਟਰ ਕਰੋ",
   "@userTypeFilter": {
     "description": "Filter user type",
     "type": "text",
@@ -165,25 +165,25 @@
       }
     }
   },
-  "carriersETA": "ETA",
+  "carriersETA": "ਸਮੇਂ ਦਾ ਅਨੁਮਾਨ",
   "@carriersETA": {
     "description": "ETA",
     "type": "text",
     "placeholders": {}
   },
-  "carrierName": "Carrier name",
+  "carrierName": "ਕੈਰੀਅਰ ਦਾ ਨਾਮ",
   "@carrierName": {
     "description": "Carrier name",
     "type": "text",
     "placeholders": {}
   },
-  "carrierType": "Carrier type",
+  "carrierType": "ਕੈਰੀਅਰ ਦੀ ਕਿਸਮ",
   "@carrierType": {
     "description": "Carrier type",
     "type": "text",
     "placeholders": {}
   },
-  "addCarrier": "Add carrier",
+  "addCarrier": "ਕੈਰੀਅਰ ਸ਼ਾਮਲ ਕਰੋ",
   "@addCarrier": {
     "description": "Add carrier",
     "type": "text",
@@ -199,111 +199,111 @@
       }
     }
   },
-  "shipmentRejectConfirmation": "Are you sure you want to reject this delivery?",
+  "shipmentRejectConfirmation": "ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਸੀਂ ਇਸ ਸਪੁਰਦਗੀ ਨੂੰ ਰੱਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?",
   "@shipmentRejectConfirmation": {
     "description": "Are you sure you want to reject this delivery?",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentCancel": "Cancel",
+  "shipmentCancel": "ਰੱਦ ਕਰੋ",
   "@shipmentCancel": {
     "description": "Cancel",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentReject": "Reject",
+  "shipmentReject": "ਰੱਦ ਕਰੋ",
   "@shipmentReject": {
     "description": "Reject",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentDelivered": "Delivered",
+  "shipmentDelivered": "ਮਾਲ ਸਪੁਰਦਗੀ ਕੀਤੀ ਗਈ",
   "@shipmentDelivered": {
     "description": "Delivered",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentAccept": "Accept",
+  "shipmentAccept": "ਸਵੀਕਾਰ ਕਰੋ",
   "@shipmentAccept": {
     "description": "Accept",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentPending": "Pending",
+  "shipmentPending": "ਬਕਾਇਆ",
   "@shipmentPending": {
     "description": "Pending",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentCompleted": "Completed",
+  "shipmentCompleted": "ਮੁਕੰਮਲ",
   "@shipmentCompleted": {
     "description": "Completed",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentLFD": "LFD",
+  "shipmentLFD": "ਐਲ.ਐਫ.ਡੀ.",
   "@shipmentLFD": {
     "description": "LFD",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentReservationTime": "Reservation time",
+  "shipmentReservationTime": "ਰਿਜ਼ਰਵੇਸ਼ਨ ਟਾਈਮ",
   "@shipmentReservationTime": {
     "description": "Reservation time",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentNoItem": "No items here",
+  "shipmentNoItem": "ਇੱਥੇ ਕੋਈ ਆਈਟਮ ਨਹੀਂ ਹੈ",
   "@shipmentNoItem": {
     "description": "No items here",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentSerialNumber": "Serial number",
+  "shipmentSerialNumber": "ਕ੍ਰਮ ਸੰਖਿਆ",
   "@shipmentSerialNumber": {
     "description": "Serial number",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentOrigin": "Origin",
+  "shipmentOrigin": "ਮੂਲ",
   "@shipmentOrigin": {
     "description": "Origin",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentDestination": "Destination",
+  "shipmentDestination": "ਮੰਜ਼ਿਲ",
   "@shipmentDestination": {
     "description": "Destination",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentSize": "Shipment size",
+  "shipmentSize": "ਮਾਲ ਦਾ ਆਕਾਰ",
   "@shipmentSize": {
     "description": "Shipment size",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentType": "Shipment type",
+  "shipmentType": "ਮਾਲ ਦੀ ਕਿਸਮ",
   "@shipmentType": {
     "description": "Shipment type",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentStatus": "Shipment status",
+  "shipmentStatus": "ਮਾਲ ਦੀ ਸਥਿਤੀ",
   "@shipmentStatus": {
     "description": "Shipment status",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentAdd": "Add shipment",
+  "shipmentAdd": "ਮਾਲ ਸ਼ਾਮਲ ਕਰੋ",
   "@shipmentAdd": {
     "description": "Add shipment",
     "type": "text",
     "placeholders": {}
   },
-  "shipmentStatusFilter": "Filter shipment status",
+  "shipmentStatusFilter": "ਮਾਲ ਦੀ ਸਥਿਤੀ ਨੂੰ ਫਿਲਟਰ ਕਰੋ ",
   "@shipmentStatusFilter": {
-    "description": "Add shipment",
+    "description": "filter shipment",
     "type": "text",
     "placeholders": {}
   },
@@ -317,19 +317,19 @@
       }
     }
   },
-  "customerName": "Customer name",
+  "customerName": "ਗਾਹਕ ਦਾ ਨਾਮ",
   "@customerName": {
     "description": "Customer name",
     "type": "text",
     "placeholders": {}
   },
-  "addCustomer": "Add customer",
+  "addCustomer": "ਗਾਹਕ ਸ਼ਾਮਲ ਕਰੋ",
   "@addCustomer": {
     "description": "Add customer",
     "type": "text",
     "placeholders": {}
   },
-  "paramEmpty": "{param} should not be empty",
+  "paramEmpty": "{param} ਖਾਲੀ ਨਹੀਂ ਹੋਣਾ ਚਾਹੀਦਾ",
   "@paramEmpty": {
     "description": "Param should not be empty",
     "type": "text",
@@ -349,7 +349,7 @@
       }
     }
   },
-  "paramFromTo": "{paramFrom} to {paramTo}",
+  "paramFromTo": "{paramFrom} ਤੋਂ {paramTo}",
   "@paramFromTo": {
     "description": "ParamFrom to ParamTo",
     "type": "text",
@@ -362,7 +362,7 @@
       }
     }
   },
-  "helloParam": "Hello {param}",
+  "helloParam": "ਹੈਲੋ {param}",
   "@helloParam": {
     "description": "Hello param",
     "type": "text",
@@ -372,7 +372,7 @@
       }
     }
   },
-  "editParam": "Edit {param}",
+  "editParam": "{param} ਨੂੰ ਸੰਪਾਦਿਤ ਕਰੋ",
   "@editParam": {
     "description": "Edit param",
     "type": "text",
@@ -382,7 +382,7 @@
       }
     }
   },
-  "addNewParam": "Add new {param}",
+  "addNewParam": "ਨਵਾਂ {param} ਸ਼ਾਮਲ ਕਰੋ",
   "@addNewParam": {
     "description": "Add new param",
     "type": "text",
@@ -392,7 +392,7 @@
       }
     }
   },
-  "selectParam": "Select {param}",
+  "selectParam": "{param} ਚੁਣੋ",
   "@selectParam": {
     "description": "Select param",
     "type": "text",
@@ -402,49 +402,49 @@
       }
     }
   },
-  "lfd": "LFD",
+  "lfd": "ਐਲ.ਐਫ.ਡੀ.",
   "@lfd": {
     "description": "LFD ",
     "type": "text",
     "placeholders": {}
   },
-  "reservationTime": "Reservation time",
+  "reservationTime": "ਰਿਜ਼ਰਵੇਸ਼ਨ ਟਾਈਮ",
   "@reservationTime": {
     "description": "Reservation time ",
     "type": "text",
     "placeholders": {}
   },
-  "size": "Size",
+  "size": "ਆਕਾਰ",
   "@size": {
     "description": "Size ",
     "type": "text",
     "placeholders": {}
   },
-  "status": "Status",
+  "status": "ਸਥਿਤੀ",
   "@status": {
     "description": "Status ",
     "type": "text",
     "placeholders": {}
   },
-  "eta": "ETA",
+  "eta": "ਸਮੇਂ ਦਾ ਅਨੁਮਾਨ",
   "@eta": {
     "description": "ETA ",
     "type": "text",
     "placeholders": {}
   },
-  "createdAt": "Created at",
+  "createdAt": "ਤੇ ਬਣਾਇਆ ਗਿਆ",
   "@createdAt": {
     "description": "Created at ",
     "type": "text",
     "placeholders": {}
   },
-  "lastUpdate": "Last update",
+  "lastUpdate": "ਆਖਰੀ ਅਪਡੇਟ",
   "@lastUpdate": {
     "description": "Last update ",
     "type": "text",
     "placeholders": {}
   },
-  "tenantId": "Tenant ID",
+  "tenantId": "ਖਾਤਾ ID",
   "@tenantId": {
     "description": "Tenant ID ",
     "type": "text",
@@ -456,7 +456,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "role": "Role",
+  "role": "ਭੂਮਿਕਾ",
   "@role": {
     "description": "Role",
     "type": "text",
@@ -492,7 +492,7 @@
     "type": "text",
     "placeholders": {}
   },
-   "aboutUs": "About Us",
+   "aboutUs": "ਸਾਡੇ ਬਾਰੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ",
   "@aboutUs": {
     "description": "About Us",
     "type": "text",
@@ -616,55 +616,55 @@
     "type": "text",
     "placeholders": {}
   },
-  "iVerified": "I verified",
+  "iVerified": "ਮੈਂ ਤਸਦੀਕ ਕੀਤਾ",
   "@iVerified": {
     "description": "I verified",
     "type": "text",
     "placeholders": {}
   },
-  "resendEmail": "Resend email",
+  "resendEmail": "ਈਮੇਲ ਦੁਬਾਰਾ ਭੇਜੋ",
   "@resendEmail": {
     "description": "Resend email",
     "type": "text",
     "placeholders": {}
   },
-  "loginError": "An error occured during log-in. Please retry.",
+  "loginError": "ਲੌਗ ਇਨ ਕਰਨ ਦੌਰਾਨ ਇੱਕ ਤਰੁੱਟੀ ਉਤਪੰਨ ਹੋਈ ਹੈ. ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ.",
   "@loginError": {
     "description": "An error occured during log-in. Please retry.",
     "type": "text",
     "placeholders": {}
   },
-  "driver": "driver",
+  "driver": "ਡਰਾਈਵਰ",
   "@driver": {
     "description": "driver",
     "type": "text",
     "placeholders": {}
   },
-  "clear": "Clear",
+  "clear": "ਸਾਫ",
   "@clear": {
     "description": "clear",
     "type": "text",
     "placeholders": {}
   },
-  "shipantherTitle": "Shipanther",
+  "shipantherTitle": "ਸ਼ਿੱਪਐਨਥਰ",
   "@shipantherTitle": {
     "description": "Shipanther",
     "type": "text",
     "placeholders": {}
   },
-  "applicationLegalese": "©2020 Big Panther Technologies Inc.",
+  "applicationLegalese": "©2020 ਬਿਗਪੈਂਥਰ ਟੈਕਨੋਲੋਜੀਜ਼ ਇੰਕ.",
   "@applicationLegalese": {
     "description": "©2020 Big Panther Technologies Inc.",
     "type": "text",
     "placeholders": {}
   },
-  "madeWithLove": "Built with ♥️ in Canada",
+  "madeWithLove": "ਕਨੇਡਾ ਵਿੱਚ ♥ ਨਾਲ ਬਣਾਇਆ ਗਿਆ",
   "@madeWithLove": {
     "description": "Built with ♥️ in Canada",
     "type": "text",
     "placeholders": {}
   },
-  "reachUsAt": "Reach us at",
+  "reachUsAt": "ਤੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ",
   "@reachUsAt": {
     "description": "Reach us at",
     "type": "text",
