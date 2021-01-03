@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/screens/api_login.dart';
+import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/screens/signin_or_register_form.dart';
 import 'package:shipanther/screens/verify_email.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
@@ -26,7 +26,7 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) async {
+        listener: (context, state) {
           if (state is AuthFailure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(state.message),
@@ -42,6 +42,13 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
               ),
             );
           }
+          if (state is AuthFinished) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute<Widget>(builder: (_) {
+                return state.user.homePage;
+              }),
+            );
+          }
         },
         builder: (context, state) {
           return _body(context, state);
@@ -55,9 +62,6 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
         state is AuthInitial ||
         state is AuthFailure) {
       return SignInOrRegistrationForm(state.authType);
-    }
-    if (state is AuthFinished) {
-      return const ApiLogin();
     }
     if (state is AuthVerification) {
       return VerifyEmail(state.user);

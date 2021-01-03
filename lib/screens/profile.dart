@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
@@ -211,8 +210,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               backgroundColor: Colors.blue,
                               onPressed: () {
                                 if (_formKeyPassword.currentState!.validate()) {
-                                  context.read<AuthBloc>().add(UpdatePassword(
-                                      _oldPassword.text, _password.text));
+                                  print('not supported yet');
+                                  // context.read<AuthBloc>().add(UpdatePassword(
+                                  //     _oldPassword.text, _password.text));
                                 }
                               },
                               text: ShipantherLocalizations.of(context)!
