@@ -99,114 +99,111 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding:
-            const EdgeInsets.only(left: 16.0, right: 16, top: 16, bottom: 100),
-        child: Form(
-          key: formKey,
-          autovalidateMode: AutovalidateMode.disabled,
-          onWillPop: () {
-            widget.shipmentBloc.add(const GetShipments());
-            return Future(() => true);
-          },
-          child: ListView(
-            children: [
-                  TextFormField(
-                    autofocus: !widget.isEdit,
-                    maxLength: 15,
-                    controller: _serialNumberController,
-                    decoration: InputDecoration(
-                        labelText: ShipantherLocalizations.of(context)!
-                            .shipmentSerialNumber),
-                    validator: (val) => val == null || val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context)!.paramEmpty(
-                            ShipantherLocalizations.of(context)!
-                                .shipmentSerialNumber)
-                        : null,
-                  ),
-                  TextFormField(
-                    autofocus: !widget.isEdit,
-                    controller: _originController,
-                    maxLength: 50,
-                    decoration: InputDecoration(
-                        labelText: ShipantherLocalizations.of(context)!
-                            .shipmentOrigin),
-                  ),
-                  TextFormField(
-                    autofocus: !widget.isEdit,
-                    controller: _destinationController,
-                    maxLength: 50,
-                    decoration: InputDecoration(
-                        labelText: ShipantherLocalizations.of(context)!
-                            .shipmentDestination),
-                  ),
-                  TextFormField(
-                    autofocus: !widget.isEdit,
-                    controller: _destinationController,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                        labelText: ShipantherLocalizations.of(context)!
-                            .shipmentReservationTime),
-                  ),
-                  dateTimePicker(
-                      context,
-                      ShipantherLocalizations.of(context)!
-                          .shipmentReservationTime,
-                      _reservationTimeController),
-                  dateTimePicker(
-                      context,
-                      ShipantherLocalizations.of(context)!.shipmentLFD,
-                      _lfdController),
-                  smartSelect<ShipmentSize>(
-                    title: ShipantherLocalizations.of(context)!.shipmentSize,
-                    onChange: (state) => _shipmentSize = state.value,
-                    choiceItems: S2Choice.listFrom<ShipmentSize, ShipmentSize>(
-                      source: ShipmentSize.values,
-                      value: (index, item) => item,
-                      title: (index, item) => item.text,
+      body: SafeArea(
+        child: Padding(
+          padding:
+              const EdgeInsets.only(left: 16.0, right: 16, top: 16, bottom: 16),
+          child: Form(
+            key: formKey,
+            autovalidateMode: AutovalidateMode.disabled,
+            onWillPop: () {
+              widget.shipmentBloc.add(const GetShipments());
+              return Future(() => true);
+            },
+            child: ListView(
+              children: [
+                    TextFormField(
+                      autofocus: !widget.isEdit,
+                      maxLength: 15,
+                      controller: _serialNumberController,
+                      decoration: InputDecoration(
+                          labelText: ShipantherLocalizations.of(context)!
+                              .shipmentSerialNumber),
+                      validator: (val) => val == null || val.trim().isEmpty
+                          ? ShipantherLocalizations.of(context)!.paramEmpty(
+                              ShipantherLocalizations.of(context)!
+                                  .shipmentSerialNumber)
+                          : null,
                     ),
-                    value: widget.shipment.size,
-                  ),
-                  smartSelect<ShipmentType>(
-                    title: ShipantherLocalizations.of(context)!.shipmentType,
-                    onChange: (state) => _shipmentType = state.value,
-                    choiceItems: S2Choice.listFrom<ShipmentType, ShipmentType>(
-                      source: ShipmentType.values,
-                      value: (index, item) => item,
-                      title: (index, item) => item.text,
+                    TextFormField(
+                      autofocus: !widget.isEdit,
+                      controller: _originController,
+                      maxLength: 50,
+                      decoration: InputDecoration(
+                          labelText: ShipantherLocalizations.of(context)!
+                              .shipmentOrigin),
                     ),
-                    value: widget.shipment.type,
-                  ),
-                  smartSelect<ShipmentStatus>(
-                    title: ShipantherLocalizations.of(context)!.shipmentStatus,
-                    onChange: (state) => _shipmentStatus = state.value,
-                    choiceItems:
-                        S2Choice.listFrom<ShipmentStatus, ShipmentStatus>(
-                      source: ShipmentStatus.values,
-                      value: (index, item) => item,
-                      title: (index, item) => item.text,
+                    TextFormField(
+                      autofocus: !widget.isEdit,
+                      controller: _destinationController,
+                      maxLength: 50,
+                      decoration: InputDecoration(
+                          labelText: ShipantherLocalizations.of(context)!
+                              .shipmentDestination),
                     ),
-                    value: widget.shipment.status,
+                    dateTimePicker(
+                        context,
+                        ShipantherLocalizations.of(context)!
+                            .shipmentReservationTime,
+                        _reservationTimeController),
+                    dateTimePicker(
+                        context,
+                        ShipantherLocalizations.of(context)!.shipmentLFD,
+                        _lfdController),
+                    smartSelect<ShipmentSize>(
+                      title: ShipantherLocalizations.of(context)!.shipmentSize,
+                      onChange: (state) => _shipmentSize = state.value,
+                      choiceItems:
+                          S2Choice.listFrom<ShipmentSize, ShipmentSize>(
+                        source: ShipmentSize.values,
+                        value: (index, item) => item,
+                        title: (index, item) => item.text,
+                      ),
+                      value: widget.shipment.size,
+                    ),
+                    smartSelect<ShipmentType>(
+                      title: ShipantherLocalizations.of(context)!.shipmentType,
+                      onChange: (state) => _shipmentType = state.value,
+                      choiceItems:
+                          S2Choice.listFrom<ShipmentType, ShipmentType>(
+                        source: ShipmentType.values,
+                        value: (index, item) => item,
+                        title: (index, item) => item.text,
+                      ),
+                      value: widget.shipment.type,
+                    ),
+                    smartSelect<ShipmentStatus>(
+                      title:
+                          ShipantherLocalizations.of(context)!.shipmentStatus,
+                      onChange: (state) => _shipmentStatus = state.value,
+                      choiceItems:
+                          S2Choice.listFrom<ShipmentStatus, ShipmentStatus>(
+                        source: ShipmentStatus.values,
+                        value: (index, item) => item,
+                        title: (index, item) => item.text,
+                      ),
+                      value: widget.shipment.status,
+                    ),
+                    const SizedBox(height: 8),
+                  ] +
+                  orderSelector(context, true, (Order suggestion) {
+                    _order = suggestion;
+                  }, _orderTypeAheadController) +
+                  carrierSelector(context, true, (Carrier suggestion) {
+                    _carrier = suggestion;
+                  }, _carrierTypeAheadController) +
+                  terminalSelector(context, true, (Terminal suggestion) {
+                    _terminal = suggestion;
+                  }, _terminalTypeAheadController) +
+                  driverSelector(
+                    context,
+                    true,
+                    (User suggestion) {
+                      _driver = suggestion;
+                    },
+                    _driverTypeAheadController,
                   ),
-                  const SizedBox(height: 8),
-                ] +
-                orderSelector(context, true, (Order suggestion) {
-                  _order = suggestion;
-                }, _orderTypeAheadController) +
-                carrierSelector(context, true, (Carrier suggestion) {
-                  _carrier = suggestion;
-                }, _carrierTypeAheadController) +
-                terminalSelector(context, true, (Terminal suggestion) {
-                  _terminal = suggestion;
-                }, _terminalTypeAheadController) +
-                driverSelector(
-                  context,
-                  true,
-                  (User suggestion) {
-                    _driver = suggestion;
-                  },
-                  _driverTypeAheadController,
-                ),
+            ),
           ),
         ),
       ),
