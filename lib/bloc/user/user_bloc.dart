@@ -19,11 +19,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   ) async* {
     yield UserLoading();
     try {
-      if (event is UserLogin) {
-        final deviceToken = await event.deviceToken;
-        final user = await _userRepository.registerDeviceToken(deviceToken);
-        yield UserLoggedIn(user);
-      }
       if (event is GetUser) {
         yield UserLoaded(await _userRepository.fetchUser(event.id));
       }

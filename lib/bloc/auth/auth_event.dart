@@ -28,13 +28,11 @@ class AuthCheck extends AuthEvent {
 }
 
 class CheckVerified extends AuthEvent {
-  const CheckVerified(this.user) : super();
-  final User user;
+  const CheckVerified() : super();
 }
 
 class ResendEmail extends AuthEvent {
-  const ResendEmail(this.user) : super();
-  final User user;
+  const ResendEmail() : super();
 }
 
 class ForgotPassword extends AuthEvent {
@@ -42,16 +40,11 @@ class ForgotPassword extends AuthEvent {
   final String email;
 }
 
-class UpdatePassword extends AuthEvent {
-  const UpdatePassword(this.oldPassword, this.newPassword) : super();
-  final String oldPassword;
-  final String newPassword;
-}
-
-class UpdateName extends AuthEvent {
-  const UpdateName(this.name) : super();
-  final String name;
-}
+// class UpdatePassword extends AuthEvent {
+//   const UpdatePassword(this.oldPassword, this.newPassword) : super();
+//   final String oldPassword;
+//   final String newPassword;
+// }
 
 class AuthSignIn extends AuthEvent {
   const AuthSignIn(this.username, this.password) : super();

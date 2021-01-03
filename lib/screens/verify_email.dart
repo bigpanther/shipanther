@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -6,8 +5,8 @@ import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 
 class VerifyEmail extends StatelessWidget {
-  const VerifyEmail(this.user, {Key? key}) : super(key: key);
-  final User user;
+  const VerifyEmail(this.emailId, {Key? key}) : super(key: key);
+  final String emailId;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class VerifyEmail extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              ShipantherLocalizations.of(context)!.emailSent(user.email),
+              ShipantherLocalizations.of(context)!.emailSent(emailId),
             ),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -39,7 +38,7 @@ class VerifyEmail extends StatelessWidget {
                 backgroundColor: Colors.green,
                 onPressed: () {
                   context.read<AuthBloc>().add(
-                        CheckVerified(user),
+                        const CheckVerified(),
                       );
                 },
                 text: ShipantherLocalizations.of(context)!.iVerified,
@@ -53,7 +52,7 @@ class VerifyEmail extends StatelessWidget {
                 backgroundColor: Colors.amber,
                 onPressed: () {
                   context.read<AuthBloc>().add(
-                        ResendEmail(user),
+                        const ResendEmail(),
                       );
                 },
                 text: ShipantherLocalizations.of(context)!.resendEmail,

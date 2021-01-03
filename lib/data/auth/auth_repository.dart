@@ -1,14 +1,21 @@
 import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:openapi_dart_common/openapi.dart';
+import 'package:trober_sdk/api.dart';
 
 abstract class AuthRepository {
   const AuthRepository();
-  Future<User> fetchAuthUser(String username, String password);
+  Future<User> signIn(String username, String password);
   Future<User> registerUser(String name, String username, String password);
-  Future<User> refreshUserProfile();
-  User loggedInUser();
-  Future<String> deviceToken();
+  Future<User> loggedInUser();
+  Future<User> logIn();
   Future<void> logout();
-  Future<void> resetPassword(String email);
+  Future<User> verifyEmail();
+  Future<void> forgotPassword(String email);
+  Future<ApiWithUserId> apiClient();
+  Future<String> sendEmailForVerification();
+}
+
+class ApiWithUserId extends DefaultApi {
+  ApiWithUserId(ApiClient apiClient, this.userId) : super(apiClient);
+  final String userId;
 }

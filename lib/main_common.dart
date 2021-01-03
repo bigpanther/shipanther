@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -16,10 +17,8 @@ import 'package:shipanther/bloc/order/order_bloc.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
-import 'package:shipanther/data/api/api_repository.dart';
-import 'package:shipanther/data/api/remote_api_repository.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
-import 'package:shipanther/data/auth/firebase_auth_repository.dart';
+import 'package:shipanther/data/auth/remote_auth_repository.dart';
 import 'package:shipanther/data/carrier/carrier_repository.dart';
 import 'package:shipanther/data/carrier/remote_carrier_repository.dart';
 import 'package:shipanther/data/customer/customer_repository.dart';
@@ -93,79 +92,74 @@ class ShipantherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<AuthRepository>(
-      create: (context) => FireBaseAuthRepository(FirebaseMessaging.instance),
-      child: RepositoryProvider<ApiRepository>(
-        create: (context) =>
-            RemoteApiRepository(context.read<AuthRepository>(), apiURL),
-        child: MultiRepositoryProvider(
+      create: (context) => RemoteAuthRepository(
+          FirebaseAuth.instance, FirebaseMessaging.instance, apiURL),
+      child: MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider<UserRepository>(
+              create: (context) =>
+                  RemoteUserRepository(context.read<AuthRepository>())),
+          RepositoryProvider<TenantRepository>(
+              create: (context) =>
+                  RemoteTenantRepository(context.read<AuthRepository>())),
+          RepositoryProvider<TerminalRepository>(
+              create: (context) =>
+                  RemoteTerminalRepository(context.read<AuthRepository>())),
+          RepositoryProvider<CustomerRepository>(
+              create: (context) =>
+                  RemoteCustomerRepository(context.read<AuthRepository>())),
+          RepositoryProvider<ShipmentRepository>(
+              create: (context) =>
+                  RemoteShipmentRepository(context.read<AuthRepository>())),
+          RepositoryProvider<CarrierRepository>(
+              create: (context) =>
+                  RemoteCarrierRepository(context.read<AuthRepository>())),
+          RepositoryProvider<OrderRepository>(
+              create: (context) =>
+                  RemoteOrderRepository(context.read<AuthRepository>())),
+        ],
+        child: MultiBlocProvider(
           providers: [
-            RepositoryProvider<UserRepository>(
+            BlocProvider(
+                create: (context) => AuthBloc(context.read<AuthRepository>())),
+            BlocProvider(
                 create: (context) =>
-                    RemoteUserRepository(context.read<ApiRepository>())),
-            RepositoryProvider<TenantRepository>(
+                    TenantBloc(context.read<TenantRepository>())),
+            BlocProvider(
+                create: (context) => UserBloc(context.read<UserRepository>())),
+            BlocProvider(
                 create: (context) =>
-                    RemoteTenantRepository(context.read<ApiRepository>())),
-            RepositoryProvider<TerminalRepository>(
+                    TerminalBloc(context.read<TerminalRepository>())),
+            BlocProvider(
                 create: (context) =>
-                    RemoteTerminalRepository(context.read<ApiRepository>())),
-            RepositoryProvider<CustomerRepository>(
+                    CustomerBloc(context.read<CustomerRepository>())),
+            BlocProvider(
                 create: (context) =>
-                    RemoteCustomerRepository(context.read<ApiRepository>())),
-            RepositoryProvider<ShipmentRepository>(
+                    ShipmentBloc(context.read<ShipmentRepository>())),
+            BlocProvider(
                 create: (context) =>
-                    RemoteShipmentRepository(context.read<ApiRepository>())),
-            RepositoryProvider<CarrierRepository>(
+                    CarrierBloc(context.read<CarrierRepository>())),
+            BlocProvider(
                 create: (context) =>
-                    RemoteCarrierRepository(context.read<ApiRepository>())),
-            RepositoryProvider<OrderRepository>(
-                create: (context) =>
-                    RemoteOrderRepository(context.read<ApiRepository>())),
+                    OrderBloc(context.read<OrderRepository>())),
           ],
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                  create: (context) =>
-                      AuthBloc(context.read<AuthRepository>())),
-              BlocProvider(
-                  create: (context) =>
-                      TenantBloc(context.read<TenantRepository>())),
-              BlocProvider(
-                  create: (context) =>
-                      UserBloc(context.read<UserRepository>())),
-              BlocProvider(
-                  create: (context) =>
-                      TerminalBloc(context.read<TerminalRepository>())),
-              BlocProvider(
-                  create: (context) =>
-                      CustomerBloc(context.read<CustomerRepository>())),
-              BlocProvider(
-                  create: (context) =>
-                      ShipmentBloc(context.read<ShipmentRepository>())),
-              BlocProvider(
-                  create: (context) =>
-                      CarrierBloc(context.read<CarrierRepository>())),
-              BlocProvider(
-                  create: (context) =>
-                      OrderBloc(context.read<OrderRepository>())),
+          child: MaterialApp(
+            onGenerateTitle: (context) =>
+                ShipantherLocalizations.of(context)!.shipantherTitle,
+            debugShowCheckedModeBanner: false,
+            darkTheme: ShipantherTheme.darkTheme,
+            theme: ShipantherTheme.lightTheme,
+            themeMode: ThemeMode.system,
+            home: SignInOrRegistrationPage(),
+            navigatorObservers: <NavigatorObserver>[observer],
+            localizationsDelegates: const [
+              ShipantherLocalizationsDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
             ],
-            child: MaterialApp(
-              onGenerateTitle: (context) =>
-                  ShipantherLocalizations.of(context)!.shipantherTitle,
-              debugShowCheckedModeBanner: false,
-              darkTheme: ShipantherTheme.darkTheme,
-              theme: ShipantherTheme.lightTheme,
-              themeMode: ThemeMode.system,
-              home: SignInOrRegistrationPage(),
-              navigatorObservers: <NavigatorObserver>[observer],
-              localizationsDelegates: const [
-                ShipantherLocalizationsDelegate(),
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              supportedLocales: ShipantherLocalizations.supportedLocales
-                  .map((e) => Locale(e)),
-            ),
+            supportedLocales:
+                ShipantherLocalizations.supportedLocales.map((e) => Locale(e)),
           ),
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:shipanther/data/api/api_repository.dart';
+import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +23,7 @@ TypeAheadFormField<Tenant> tenantSelector(
         }),
     enabled: shouldShow,
     suggestionsCallback: (pattern) async {
-      final client = await context.read<ApiRepository>().apiClient();
+      final client = await context.read<AuthRepository>().apiClient();
       return (await client.tenantsGet()).where(
         (element) => element.name.toLowerCase().startsWith(pattern),
       );
@@ -64,7 +64,7 @@ List<Widget> customerSelector(
       ),
       validator: validator,
       suggestionsCallback: (pattern) async {
-        final client = await context.read<ApiRepository>().apiClient();
+        final client = await context.read<AuthRepository>().apiClient();
         return (await client.customersGet()).where(
           (element) => element.name.toLowerCase().startsWith(pattern),
         );
@@ -103,7 +103,7 @@ List<Widget> driverSelector(
             textEditingController.text = '';
           }),
       suggestionsCallback: (pattern) async {
-        final client = await context.read<ApiRepository>().apiClient();
+        final client = await context.read<AuthRepository>().apiClient();
         return (await client.usersGet()).where(
           (element) =>
               element.isDriver &&
@@ -145,7 +145,7 @@ List<Widget> terminalSelector(
         },
       ),
       suggestionsCallback: (pattern) async {
-        final client = await context.read<ApiRepository>().apiClient();
+        final client = await context.read<AuthRepository>().apiClient();
         return (await client.terminalsGet()).where(
           (element) => element.name.toLowerCase().startsWith(pattern),
         );
@@ -185,7 +185,7 @@ List<Widget> carrierSelector(
         },
       ),
       suggestionsCallback: (pattern) async {
-        final client = await context.read<ApiRepository>().apiClient();
+        final client = await context.read<AuthRepository>().apiClient();
         return (await client.carriersGet()).where(
           (element) => element.name.toLowerCase().startsWith(pattern),
         );
@@ -225,7 +225,7 @@ List<Widget> orderSelector(
         },
       ),
       suggestionsCallback: (pattern) async {
-        final client = await context.read<ApiRepository>().apiClient();
+        final client = await context.read<AuthRepository>().apiClient();
         return (await client.ordersGet()).where(
           (element) => element.serialNumber.toLowerCase().startsWith(pattern),
         );

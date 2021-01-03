@@ -15,9 +15,8 @@ class AuthLoading extends AuthState {
 }
 
 class AuthFinished extends AuthState {
-  const AuthFinished(this.user, AuthTypeSelector authType)
-      : super(authType: authType);
-  final User user;
+  const AuthFinished(this.user) : super();
+  final api.User user;
 }
 
 class AuthRequested extends AuthState {
@@ -31,12 +30,12 @@ class AuthFailure extends AuthState {
 }
 
 class AuthVerification extends AuthState {
-  const AuthVerification(this.user) : super();
-  final User user;
+  const AuthVerification(this.emailId) : super();
+  final String emailId;
 }
 
 class AuthEmailResent extends AuthVerification {
-  const AuthEmailResent(User user) : super(user);
+  const AuthEmailResent(String emailId) : super(emailId);
 }
 
 enum AuthTypeSelector {
