@@ -50,8 +50,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield const AuthInitial();
       }
       if (event is ResendEmail) {
-        await event.user.sendEmailVerification();
-        yield AuthEmailResent(event.user);
+        final emailId = await _authRepository.sendEmailForVerification();
+        yield AuthEmailResent(emailId);
       }
       // if (event is UpdatePassword) {
       //   final user = _authRepository.loggedInUser();
@@ -60,7 +60,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       //   yield const AuthInitial();
       // }
     } on EmailNotVerified catch (e) {
-      yield AuthVerification(e.user);
+      yield AuthVerification(e.emailId);
     } on UnAuthenticatedException {
       yield const AuthInitial();
     } catch (e) {

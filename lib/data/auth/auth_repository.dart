@@ -12,6 +12,7 @@ abstract class AuthRepository {
   Future<User> verifyEmail();
   Future<void> forgotPassword(String email);
   Future<ApiWithUserId> apiClient();
+  Future<String> sendEmailForVerification();
 }
 
 class ApiWithUserId extends DefaultApi {

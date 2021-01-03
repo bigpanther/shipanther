@@ -28,13 +28,11 @@ class AuthCheck extends AuthEvent {
 }
 
 class CheckVerified extends AuthEvent {
-  const CheckVerified(this.user) : super();
-  final firebase.User user;
+  const CheckVerified() : super();
 }
 
 class ResendEmail extends AuthEvent {
-  const ResendEmail(this.user) : super();
-  final firebase.User user;
+  const ResendEmail() : super();
 }
 
 class ForgotPassword extends AuthEvent {

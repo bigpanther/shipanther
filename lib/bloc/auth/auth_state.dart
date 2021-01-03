@@ -30,12 +30,12 @@ class AuthFailure extends AuthState {
 }
 
 class AuthVerification extends AuthState {
-  const AuthVerification(this.user) : super();
-  final firebase.User user;
+  const AuthVerification(this.emailId) : super();
+  final String emailId;
 }
 
 class AuthEmailResent extends AuthVerification {
-  const AuthEmailResent(firebase.User user) : super(user);
+  const AuthEmailResent(String emailId) : super(emailId);
 }
 
 enum AuthTypeSelector {

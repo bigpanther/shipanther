@@ -29,7 +29,7 @@ class RemoteAuthRepository extends AuthRepository {
     await user.updateProfile(displayName: name);
     await user.sendEmailVerification();
     if (!user.emailVerified) {
-      throw EmailNotVerified(user);
+      throw EmailNotVerified(user.email);
     }
     return loggedInUser();
   }
@@ -47,19 +47,21 @@ class RemoteAuthRepository extends AuthRepository {
     }
     await _firebaseMessaging.setAutoInitEnabled(true);
     if (!user.emailVerified) {
-      throw EmailNotVerified(user);
+      throw EmailNotVerified(user.email);
     }
     final self = await loggedInUser();
-    if (self.role != api.UserRole.none) {
-      await _registerDeviceToken();
-    }
+    await _registerDeviceToken(self);
     return self;
   }
 
   @override
   Future<void> logout() async {
     await _firebaseMessaging.setAutoInitEnabled(false);
-    await _deleteDeviceToken();
+    try {
+      await _deleteDeviceToken();
+    } catch (_) {
+      //ignore
+    }
     await _firebaseMessaging.deleteToken();
     await _auth.signOut();
   }
@@ -87,7 +89,7 @@ class RemoteAuthRepository extends AuthRepository {
   @override
   Future<api.User> logIn() async {
     final user = await loggedInUser();
-    await _registerDeviceToken();
+    await _registerDeviceToken(user);
     return user;
   }
 
@@ -97,7 +99,10 @@ class RemoteAuthRepository extends AuthRepository {
     return client.selfGet();
   }
 
-  Future<void> _registerDeviceToken() async {
+  Future<void> _registerDeviceToken(api.User user) async {
+    if (user.role != api.UserRole.none) {
+      return;
+    }
     final client = await apiClient();
     final deviceToken = await _firebaseMessaging.getToken();
     return client.selfDeviceRegisterPost(
@@ -117,9 +122,15 @@ class RemoteAuthRepository extends AuthRepository {
     // See https://github.com/FirebaseExtended/flutterfire/issues/717
     await user.reload();
     if (!user.emailVerified) {
-      throw EmailNotVerified(user);
+      throw EmailNotVerified(user.email);
     }
     return loggedInUser();
+  }
+
+  @override
+  Future<String> sendEmailForVerification() async {
+    await _auth.currentUser.sendEmailVerification();
+    return _auth.currentUser.email;
   }
 }
 
@@ -128,6 +139,6 @@ class AuthenticationException implements Exception {}
 class UnAuthenticatedException implements Exception {}
 
 class EmailNotVerified implements Exception {
-  const EmailNotVerified(this.user);
-  final firebase.User user;
+  const EmailNotVerified(this.emailId);
+  final String emailId;
 }
