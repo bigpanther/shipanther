@@ -85,7 +85,7 @@ class _TenantAddEditState extends State<TenantAddEdit> {
         tooltip: widget.isEdit
             ? ShipantherLocalizations.of(context)!.edit
             : ShipantherLocalizations.of(context)!.create,
-        child: Icon(Icons.check),
+        child: const Icon(Icons.check),
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.tenant.name = _name.text;
