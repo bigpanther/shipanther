@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:shipanther/data/auth/remote_auth_repository.dart';
 import 'package:trober_sdk/api.dart' as api;
 import 'package:meta/meta.dart';
@@ -13,6 +12,11 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this._authRepository) : super(const AuthInitial());
   final AuthRepository _authRepository;
+
+  @override
+  void onTransition(Transition<AuthEvent, AuthState> transition) {
+    super.onTransition(transition);
+  }
 
   @override
   Stream<AuthState> mapEventToState(
