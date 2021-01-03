@@ -89,7 +89,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
         tooltip: widget.isEdit
             ? ShipantherLocalizations.of(context)!.edit
             : ShipantherLocalizations.of(context)!.create,
-        child: Icon(widget.isEdit ? Icons.check : Icons.add),
+        child: const Icon(Icons.check),
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.terminal.name = _name.text;
