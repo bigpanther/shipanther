@@ -73,7 +73,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
         tooltip: widget.isEdit
             ? ShipantherLocalizations.of(context)!.edit
             : ShipantherLocalizations.of(context)!.create,
-        child: Icon(widget.isEdit ? Icons.check : Icons.add),
+        child: Icon(Icons.check),
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.customer.name = _name.text;
