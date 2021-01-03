@@ -13,6 +13,7 @@ class RemoteAuthRepository extends AuthRepository {
   final String _url;
   late api.DefaultApi _d;
   final FirebaseMessaging _firebaseMessaging;
+  api.User? _self;
 
   @override
   Future<api.User> registerUser(
@@ -64,6 +65,7 @@ class RemoteAuthRepository extends AuthRepository {
     }
     await _firebaseMessaging.deleteToken();
     await _auth.signOut();
+    _self = null;
   }
 
   @override
@@ -95,8 +97,12 @@ class RemoteAuthRepository extends AuthRepository {
 
   @override
   Future<api.User> loggedInUser() async {
+    if (_self != null) {
+      return _self!;
+    }
     final client = await apiClient();
-    return client.selfGet();
+    _self = await client.selfGet();
+    return _self!;
   }
 
   Future<void> _registerDeviceToken(api.User user) async {
