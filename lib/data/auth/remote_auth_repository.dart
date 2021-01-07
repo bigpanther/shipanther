@@ -106,7 +106,7 @@ class RemoteAuthRepository extends AuthRepository {
   }
 
   Future<void> _registerDeviceToken(api.User user) async {
-    if (user.role != api.UserRole.none) {
+    if (user.role == api.UserRole.none) {
       return;
     }
     final client = await apiClient();

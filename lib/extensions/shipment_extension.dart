@@ -26,18 +26,16 @@ extension ShipmentPercent on ShipmentStatus {
       case ShipmentStatus.inTransit:
         return 0.2;
       case ShipmentStatus.arrived:
-        return 0.3;
-      case ShipmentStatus.assigned:
-        return 0.4;
-      case ShipmentStatus.accepted:
         return 0.5;
+      case ShipmentStatus.assigned:
+        return 0.55;
       case ShipmentStatus.rejected:
-        return 0.6;
-      case ShipmentStatus.loaded:
-        return 0.7;
-      case ShipmentStatus.unloaded:
+        return 0.60;
+      case ShipmentStatus.accepted:
         return 0.8;
-      case ShipmentStatus.abandoned:
+      case ShipmentStatus.loaded:
+        return 0.9;
+      case ShipmentStatus.delivered:
         return 1;
     }
   }
@@ -60,9 +58,7 @@ extension ShipmentStatusExtension on ShipmentStatus {
         return MdiIcons.accessPointMinus;
       case ShipmentStatus.loaded:
         return MdiIcons.accessPointMinus;
-      case ShipmentStatus.unloaded:
-        return MdiIcons.accessPointMinus;
-      case ShipmentStatus.abandoned:
+      case ShipmentStatus.delivered:
         return MdiIcons.accessPointMinus;
     }
   }
@@ -83,10 +79,8 @@ extension ShipmentStatusExtension on ShipmentStatus {
         return Colors.red;
       case ShipmentStatus.loaded:
         return baseColor;
-      case ShipmentStatus.unloaded:
-        return baseColor;
-      case ShipmentStatus.abandoned:
-        return baseColor;
+      case ShipmentStatus.delivered:
+        return Colors.green;
     }
   }
 

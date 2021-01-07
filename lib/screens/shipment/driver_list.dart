@@ -1,4 +1,9 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 
@@ -25,6 +30,37 @@ class DriverShipmentList extends StatefulWidget {
 
 class _DriverShipmentListState extends State<DriverShipmentList> {
   int _currentIndex = 0;
+
+  Future<void> handleDelivery(User driver, Shipment t) async {
+    late PickedFile file;
+    try {
+      file = await ImagePicker()
+          .getImage(source: ImageSource.camera, imageQuality: 50);
+    } catch (e) {
+      print('hsm $e');
+    }
+    //ignore:unnecessary_null_comparison
+    if (file == null) {
+      return;
+    }
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('files/${t.tenantId}/${t.customerId}')
+        .child('/${t.id}.jpg');
+    final metadata = SettableMetadata(
+        contentType: 'image/jpeg',
+        customMetadata: {'picked-file-path': file.path});
+    late UploadTask uploadTask;
+    if (kIsWeb) {
+      uploadTask = ref.putData(await file.readAsBytes(), metadata);
+    } else {
+      uploadTask = ref.putFile(File(file.path), metadata);
+    }
+    await uploadTask;
+    t.status = ShipmentStatus.delivered;
+    widget.shipmentBloc.add(UpdateShipment(t.id, t));
+  }
+
   @override
   Widget build(BuildContext context) {
     void showAlertDialog(BuildContext context, Shipment t) {
@@ -79,7 +115,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
             element.status == ShipmentStatus.accepted ||
             element.status == ShipmentStatus.assigned)
         : widget.shipmentsLoadedState.shipments
-            .where((element) => element.status == ShipmentStatus.arrived);
+            .where((element) => element.status == ShipmentStatus.delivered);
 
     final body = items.isEmpty
         ? Center(
@@ -150,8 +186,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                         FlatButton(
                           color: Colors.green,
                           onPressed: () {
-                            t.status = ShipmentStatus.arrived;
-                            widget.shipmentBloc.add(UpdateShipment(t.id, t));
+                            handleDelivery(widget.loggedInUser, t);
                           },
                           child: Text(ShipantherLocalizations.of(context)!
                               .shipmentDelivered),
