@@ -257,38 +257,26 @@ Widget _createDrawerItem(
 
 Widget _createHeader(BuildContext context, User user) {
   return UserAccountsDrawerHeader(
-    accountEmail: Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: Text(
-        ShipantherLocalizations.of(context)!.shipantherTitle,
-        style: const TextStyle(fontSize: 22),
-      ),
-    ),
+    accountEmail: Text(user.email),
     onDetailsPressed: () => Navigator.of(context).pushReplacement(
       MaterialPageRoute<ProfilePage>(
         builder: (_) => ProfilePage(user),
       ),
     ),
-    accountName: Row(
+    currentAccountPicture: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: const [
+        CircleAvatar(
+          child: Icon(Icons.person),
+        ),
+      ],
+    ),
+    accountName: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Container(
-          width: 50,
-          height: 50,
-          decoration: const BoxDecoration(shape: BoxShape.circle),
-          child: const CircleAvatar(
-            child: Icon(Icons.person),
-          ),
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(user.name),
-            Text(user.email),
-          ],
-        ),
+        Text(user.name),
       ],
     ),
   );

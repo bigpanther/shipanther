@@ -732,7 +732,7 @@ packages:
       name: trober_sdk
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.30"
+    version: "0.0.35"
   typed_data:
     dependency: transitive
     description:
