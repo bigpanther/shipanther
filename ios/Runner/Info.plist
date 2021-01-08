@@ -37,6 +37,8 @@
 	<string>Main</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera access is required to upload images for actions like proof of delivery.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Library access is required to upload images for actions like proof of delivery.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
