@@ -66,7 +66,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
           child: ListView(children: [
             TextFormField(
               autofocus: !widget.isEdit,
-              maxLengthEnforced: true,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
               maxLength: 20,
               decoration: InputDecoration(
                   labelText: ShipantherLocalizations.of(context)!.carrierName),

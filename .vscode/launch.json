@@ -10,7 +10,8 @@
             "type": "dart",
             "args": [
                 "--flavor",
-                "dev"
+                "dev",
+                "--no-sound-null-safety"
             ]
         }
     ]
