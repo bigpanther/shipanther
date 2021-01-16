@@ -4,6 +4,10 @@ Manage your shipment business like a panther.
 
 For details on how to get started, read the project wiki [here](https://github.com/bigpanther/shipanther/wiki).
 
+```bash
+make run # Ensure flutter dev channel is activated
+```
+
 Contributions are welcome.
 
 To signup for the early access program, follow the instructions [here](https://github.com/bigpanther/shipanther/wiki/Mobile-devices-beta-program-enrollment).

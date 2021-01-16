@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/date_time_picker.dart';
@@ -66,7 +67,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
           child: ListView(children: [
             TextFormField(
               autofocus: !widget.isEdit,
-              maxLengthEnforced: true,
+              maxLengthEnforcement: MaxLengthEnforcement.enforced,
               maxLength: 20,
               decoration: InputDecoration(
                   labelText: ShipantherLocalizations.of(context)!.carrierName),
