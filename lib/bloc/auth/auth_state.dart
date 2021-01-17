@@ -10,6 +10,10 @@ class AuthInitial extends AuthState {
   const AuthInitial() : super();
 }
 
+class ForgotPasswordRequested extends AuthState {
+  const ForgotPasswordRequested() : super();
+}
+
 class AuthLoading extends AuthState {
   const AuthLoading(AuthTypeSelector authType) : super(authType: authType);
 }

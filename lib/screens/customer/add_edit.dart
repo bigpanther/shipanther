@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:trober_sdk/api.dart';
 
 class CustomerAddEdit extends StatefulWidget {
@@ -56,10 +57,8 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
             return Future(() => true);
           },
           child: ListView(children: [
-            TextFormField(
-              autofocus: !widget.isEdit,
-              decoration: InputDecoration(
-                  labelText: ShipantherLocalizations.of(context)!.customerName),
+            ShipantherTextFormField(
+              labelText: ShipantherLocalizations.of(context)!.customerName,
               validator: (val) => val == null || val.trim().isEmpty
                   ? ShipantherLocalizations.of(context)!.paramEmpty(
                       ShipantherLocalizations.of(context)!.customerName)

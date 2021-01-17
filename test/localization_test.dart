@@ -4,6 +4,10 @@ import 'dart:io';
 import 'package:test/test.dart';
 
 Future<void> main() async {
+  // See https://github.com/flutter/flutter/issues/20907
+  if (Directory.current.path.endsWith('/test')) {
+    Directory.current = Directory.current.parent;
+  }
   Map<String, dynamic>? englishData;
   Map<String, dynamic>? punjabiData;
   setUpAll(() async {

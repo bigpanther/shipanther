@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/extensions/user_extension.dart';
+import 'package:shipanther/screens/reset_password.dart';
 import 'package:shipanther/screens/signin_or_register_form.dart';
 import 'package:shipanther/screens/verify_email.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
+import 'package:shipanther/widgets/shipanther_scaffold.dart';
 
 class SignInOrRegistrationPage extends StatefulWidget {
   @override
@@ -24,7 +26,9 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ShipantherScaffold(
+      null,
+      title: ShipantherLocalizations.of(context)!.welcome,
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthFailure) {
@@ -64,6 +68,9 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
     }
     if (state is AuthVerification) {
       return VerifyEmail(state.emailId);
+    }
+    if (state is ForgotPasswordRequested) {
+      return ResetPassword();
     }
     return const CenteredLoading();
   }

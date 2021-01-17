@@ -710,6 +710,12 @@ class ShipantherLocalizations {
         desc: 'Reach us at',
         locale: locale.toString(),
       );
+  String get homePageText => Intl.message(
+        'Manage your shipping business with ease. Shipanther helps you track your deliveries, update customers and manage orders.',
+        name: 'homePageText',
+        desc: 'Home Page text',
+        locale: locale.toString(),
+      );
 }
 
 class ShipantherLocalizationsDelegate

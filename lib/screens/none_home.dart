@@ -11,9 +11,7 @@ class NoneHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShipantherScaffold(
       user,
-      bottomNavigationBar: null,
       title: ShipantherLocalizations.of(context)!.shipantherTitle,
-      actions: const [],
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -23,7 +21,6 @@ class NoneHome extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: null,
     );
   }
 }

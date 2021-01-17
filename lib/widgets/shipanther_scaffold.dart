@@ -22,55 +22,67 @@ class ShipantherScaffold extends StatelessWidget {
     this.user, {
     Key? key,
     required this.title,
-    required this.actions,
+    this.actions = const [],
     required this.body,
-    required this.floatingActionButton,
-    required this.bottomNavigationBar,
+    this.floatingActionButton,
+    this.bottomNavigationBar,
   }) : super(key: key);
 
   final String title;
   final List<Widget> actions;
   final Widget body;
   final Widget? floatingActionButton;
-  final User user;
+  final User? user;
   final Widget? bottomNavigationBar;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text(title),
+        title: Text(
+          title,
+        ),
         actions: actions,
         centerTitle: true,
       ),
-      body: SafeArea(child: body),
-      floatingActionButton: floatingActionButton,
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-                _createHeader(context, user),
-                const SizedBox(
-                  height: 10,
-                ),
-              ] +
-              drawerItemsFor(context, user),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: body,
         ),
       ),
+      floatingActionButton: floatingActionButton,
+      drawer: (user == null)
+          ? null
+          : Drawer(
+              child: ListView(
+                // Important: Remove any padding from the ListView.
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+                      _createHeader(context, user),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ] +
+                    drawerItemsFor(context, user),
+              ),
+            ),
       bottomNavigationBar: bottomNavigationBar,
     );
   }
 }
 
-List<Widget> drawerItemsFor(BuildContext context, User user) {
+List<Widget> drawerItemsFor(BuildContext context, User? user) {
   final widgets = <Widget>[];
+  if (user == null) {
+    return widgets;
+  }
+  final navigation = Navigator.of(context);
+  final localization = ShipantherLocalizations.of(context)!;
   widgets.add(
     _createDrawerItem(
       icon: Icons.home,
-      text: ShipantherLocalizations.of(context)!.home,
-      onTap: () => Navigator.of(context).pushReplacement(
+      text: localization.home,
+      onTap: () => navigation.pushReplacement(
         MaterialPageRoute<Widget>(
           builder: (_) => user.homePage,
         ),
@@ -82,8 +94,8 @@ List<Widget> drawerItemsFor(BuildContext context, User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.business,
-        text: ShipantherLocalizations.of(context)!.tenantsTitle(2),
-        onTap: () => Navigator.of(context).pushReplacement(
+        text: localization.tenantsTitle(2),
+        onTap: () => navigation.pushReplacement(
           MaterialPageRoute<SuperAdminHome>(
             builder: (_) => SuperAdminHome(user),
           ),
@@ -96,8 +108,8 @@ List<Widget> drawerItemsFor(BuildContext context, User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.people,
-        text: ShipantherLocalizations.of(context)!.usersTitle(2),
-        onTap: () => Navigator.of(context).pushReplacement(
+        text: localization.usersTitle(2),
+        onTap: () => navigation.pushReplacement(
           MaterialPageRoute<UserScreen>(
             builder: (_) => UserScreen(user),
           ),
@@ -108,8 +120,8 @@ List<Widget> drawerItemsFor(BuildContext context, User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.connect_without_contact,
-        text: ShipantherLocalizations.of(context)!.customersTitle(2),
-        onTap: () => Navigator.of(context).pushReplacement(
+        text: localization.customersTitle(2),
+        onTap: () => navigation.pushReplacement(
           MaterialPageRoute<CustomerHome>(
             builder: (_) => CustomerHome(user),
           ),
@@ -120,8 +132,8 @@ List<Widget> drawerItemsFor(BuildContext context, User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.account_balance,
-        text: ShipantherLocalizations.of(context)!.terminalsTitle(2),
-        onTap: () => Navigator.of(context).pushReplacement(
+        text: localization.terminalsTitle(2),
+        onTap: () => navigation.pushReplacement(
           MaterialPageRoute<TerminalScreen>(
             builder: (_) => TerminalScreen(user),
           ),
@@ -132,8 +144,8 @@ List<Widget> drawerItemsFor(BuildContext context, User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.local_shipping,
-        text: ShipantherLocalizations.of(context)!.carriersTitle(2),
-        onTap: () => Navigator.of(context).pushReplacement(
+        text: localization.carriersTitle(2),
+        onTap: () => navigation.pushReplacement(
           MaterialPageRoute<CarrierScreen>(
             builder: (_) => CarrierScreen(user),
           ),
@@ -144,8 +156,8 @@ List<Widget> drawerItemsFor(BuildContext context, User user) {
     widgets.add(
       _createDrawerItem(
         icon: MdiIcons.dresser,
-        text: ShipantherLocalizations.of(context)!.shipmentsTitle(2),
-        onTap: () => Navigator.of(context).pushReplacement(
+        text: localization.shipmentsTitle(2),
+        onTap: () => navigation.pushReplacement(
           MaterialPageRoute<ShipmentScreen>(
             builder: (_) => ShipmentScreen(user),
           ),
@@ -157,8 +169,8 @@ List<Widget> drawerItemsFor(BuildContext context, User user) {
     widgets.add(
       _createDrawerItem(
         icon: Icons.fact_check,
-        text: ShipantherLocalizations.of(context)!.ordersTitle(2),
-        onTap: () => Navigator.of(context).pushReplacement(
+        text: localization.ordersTitle(2),
+        onTap: () => navigation.pushReplacement(
           MaterialPageRoute<OrderScreen>(
             builder: (_) => OrderScreen(user),
           ),
@@ -166,64 +178,15 @@ List<Widget> drawerItemsFor(BuildContext context, User user) {
       ),
     );
   }
-
-  widgets.add(
-    _createDrawerItem(
-      icon: MdiIcons.license,
-      text: ShipantherLocalizations.of(context)!.aboutUs,
-      onTap: () async {
-        final packageInfo = await PackageInfo.fromPlatform();
-        final appName = packageInfo.appName;
-        final version = packageInfo.version;
-        final themeData = Theme.of(context);
-        final msgStyle = themeData.textTheme.bodyText1;
-        final linkStyle = msgStyle!.copyWith(color: themeData.primaryColor);
-        showAboutDialog(
-          context: context,
-          applicationIcon: const Image(
-            image: AssetImage('assets/images/shipanther_logo.png'),
-            width: 48.0,
-            height: 48.0,
-          ),
-          applicationName: appName,
-          applicationVersion: version,
-          applicationLegalese:
-              ShipantherLocalizations.of(context)!.applicationLegalese,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  children: <TextSpan>[
-                    TextSpan(
-                        style: msgStyle,
-                        text: ShipantherLocalizations.of(context)!.reachUsAt),
-                    TextSpan(style: linkStyle, text: ' info@bigpanther.ca'),
-                    const TextSpan(text: '\n'),
-                    TextSpan(
-                      style: themeData.textTheme.caption,
-                      text: ShipantherLocalizations.of(context)!.madeWithLove,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    ),
-  );
-
   widgets.add(
     _createDrawerItem(
       icon: Icons.logout,
-      text: ShipantherLocalizations.of(context)!.logout,
+      text: localization.logout,
       onTap: () {
         context.read<AuthBloc>().add(
               const AuthLogout(),
             );
-        Navigator.of(context).pushReplacement(
+        navigation.pushReplacement(
           MaterialPageRoute<SignInOrRegistrationPage>(
             builder: (_) => SignInOrRegistrationPage(),
           ),
@@ -231,6 +194,68 @@ List<Widget> drawerItemsFor(BuildContext context, User user) {
       },
     ),
   );
+
+  widgets
+    ..add(
+      const Divider(
+        height: 50,
+      ),
+    )
+    ..add(
+      _createDrawerItem(
+        icon: MdiIcons.license,
+        text: localization.aboutUs,
+        onTap: () async {
+          final packageInfo = await PackageInfo.fromPlatform();
+          final appName = packageInfo.appName;
+          final version = packageInfo.version;
+          final themeData = Theme.of(context);
+          final msgStyle = themeData.textTheme.bodyText1;
+          final linkStyle = msgStyle!.copyWith(color: themeData.primaryColor);
+          showAboutDialog(
+            context: context,
+            applicationIcon: const Image(
+              image: AssetImage(
+                'assets/images/shipanther_logo.png',
+              ),
+              width: 48.0,
+              height: 48.0,
+            ),
+            applicationName: appName,
+            applicationVersion: version,
+            applicationLegalese: localization.applicationLegalese,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        style: msgStyle,
+                        text: localization.reachUsAt,
+                      ),
+                      TextSpan(
+                        style: linkStyle,
+                        text: ' info@bigpanther.ca',
+                      ),
+                      const TextSpan(
+                        text: '\n',
+                      ),
+                      TextSpan(
+                        style: themeData.textTheme.caption,
+                        text: localization.madeWithLove,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+
   return widgets;
 }
 
@@ -243,10 +268,14 @@ Widget _createDrawerItem(
       children: <Widget>[
         Icon(icon),
         Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+          padding: const EdgeInsets.only(
+            left: 8.0,
+          ),
           child: Text(
             text,
-            style: const TextStyle(fontSize: 18),
+            style: const TextStyle(
+              fontSize: 18,
+            ),
           ),
         )
       ],
@@ -255,7 +284,13 @@ Widget _createDrawerItem(
   );
 }
 
-Widget _createHeader(BuildContext context, User user) {
+Widget _createHeader(BuildContext context, User? user) {
+  if (user == null) {
+    return Container(
+      height: 0,
+      width: 0,
+    );
+  }
   return UserAccountsDrawerHeader(
     accountEmail: Text(user.email),
     onDetailsPressed: () => Navigator.of(context).pushReplacement(
@@ -268,7 +303,9 @@ Widget _createHeader(BuildContext context, User user) {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: const [
         CircleAvatar(
-          child: Icon(Icons.person),
+          child: Icon(
+            Icons.person,
+          ),
         ),
       ],
     ),
@@ -276,7 +313,9 @@ Widget _createHeader(BuildContext context, User user) {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Text(user.name),
+        Text(
+          user.name,
+        ),
       ],
     ),
   );

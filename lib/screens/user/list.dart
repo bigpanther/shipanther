@@ -92,10 +92,6 @@ class UserList extends StatelessWidget {
     );
 
     return ShipantherScaffold(loggedInUser,
-        bottomNavigationBar: null,
-        title: title,
-        actions: actions,
-        body: body,
-        floatingActionButton: null);
+        title: title, actions: actions, body: body, floatingActionButton: null);
   }
 }

@@ -105,7 +105,6 @@ class TerminalList extends StatelessWidget {
     );
 
     return ShipantherScaffold(loggedInUser,
-        bottomNavigationBar: null,
         title: title,
         actions: actions,
         body: body,

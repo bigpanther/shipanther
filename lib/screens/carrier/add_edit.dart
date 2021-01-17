@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/date_time_picker.dart';
+import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
@@ -65,12 +66,10 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
             return Future(() => true);
           },
           child: ListView(children: [
-            TextFormField(
-              autofocus: !widget.isEdit,
+            ShipantherTextFormField(
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               maxLength: 20,
-              decoration: InputDecoration(
-                  labelText: ShipantherLocalizations.of(context)!.carrierName),
+              labelText: ShipantherLocalizations.of(context)!.carrierName,
               validator: (val) => val == null || val.trim().isEmpty
                   ? ShipantherLocalizations.of(context)!.paramEmpty(
                       ShipantherLocalizations.of(context)!.carrierName)

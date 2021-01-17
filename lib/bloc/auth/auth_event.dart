@@ -36,8 +36,8 @@ class ResendEmail extends AuthEvent {
 }
 
 class ForgotPassword extends AuthEvent {
-  const ForgotPassword(this.email) : super();
-  final String email;
+  const ForgotPassword({this.email}) : super();
+  final String? email;
 }
 
 // class UpdatePassword extends AuthEvent {

@@ -13,10 +13,6 @@ class LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShipantherScaffold(loggedInUser,
-        title: title,
-        actions: const [],
-        body: const CenteredLoading(),
-        floatingActionButton: null,
-        bottomNavigationBar: null);
+        title: title, body: const CenteredLoading(), bottomNavigationBar: null);
   }
 }

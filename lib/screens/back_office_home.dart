@@ -13,7 +13,6 @@ class BackOfficeHome extends StatelessWidget {
     return ShipantherScaffold(
       user,
       title: ShipantherLocalizations.of(context)!.welcome,
-      actions: const [],
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
@@ -40,8 +39,6 @@ class BackOfficeHome extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: null,
-      bottomNavigationBar: null,
     );
   }
 }

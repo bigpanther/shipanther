@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/order/order_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/selectors.dart';
+import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
@@ -72,12 +73,9 @@ class _OrderAddEditState extends State<OrderAddEdit> {
           },
           child: ListView(
             children: [
-                  TextFormField(
-                    autofocus: !widget.isEdit,
+                  ShipantherTextFormField(
                     controller: _serialNumber,
-                    decoration: InputDecoration(
-                        labelText:
-                            ShipantherLocalizations.of(context)!.orderNumber),
+                    labelText: ShipantherLocalizations.of(context)!.orderNumber,
                     maxLength: 15,
                     validator: (val) => val == null || val.trim().isEmpty
                         ? ShipantherLocalizations.of(context)!.paramEmpty(

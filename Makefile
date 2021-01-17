@@ -18,9 +18,11 @@ release-dev-android:
 release-dev-ios:
 	flutter build ios --flavor dev --release --no-sound-null-safety
 release-dev: clean release-dev-android release-dev-ios
+.PHONY: clean
 clean:
 	flutter clean
 lint:
 	flutter analyze
-test: lint
-	flutter test test/localization_test.dart
+.PHONY: test
+test:
+	flutter test --no-sound-null-safety -v
