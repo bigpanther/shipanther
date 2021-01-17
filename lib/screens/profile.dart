@@ -3,6 +3,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
+import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -81,11 +82,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Column(
                         children: [
-                          TextFormField(
+                          shipantherTextFormField(
                             controller: _username,
-                            decoration: InputDecoration(
-                                labelText:
-                                    ShipantherLocalizations.of(context)!.name),
+                            labelText:
+                                ShipantherLocalizations.of(context)!.name,
                             autocorrect: false,
                             enableSuggestions: false,
                             keyboardType: TextInputType.text,
@@ -96,7 +96,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                         ShipantherLocalizations.of(context)!
                                             .username);
                               }
-
                               return null;
                             },
                           ),
@@ -135,17 +134,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Column(
                         children: [
-                          TextFormField(
+                          ShipantherPasswordFormField(
                             controller: _oldPassword,
-                            decoration: InputDecoration(
-                                labelText: ShipantherLocalizations.of(context)!
-                                    .oldPassword),
-                            autocorrect: false,
-                            enableSuggestions: false,
-                            keyboardType: TextInputType.text,
-                            obscureText: true,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            labelText: ShipantherLocalizations.of(context)!
+                                .oldPassword,
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
                                 return ShipantherLocalizations.of(context)!
@@ -156,17 +148,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               return null;
                             },
                           ),
-                          TextFormField(
+                          ShipantherPasswordFormField(
                             controller: _password,
-                            decoration: InputDecoration(
-                                labelText: ShipantherLocalizations.of(context)!
-                                    .newPassword),
-                            autocorrect: false,
-                            enableSuggestions: false,
-                            keyboardType: TextInputType.text,
-                            obscureText: true,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            labelText: ShipantherLocalizations.of(context)!
+                                .newPassword,
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
                                 return ShipantherLocalizations.of(context)!
@@ -177,17 +162,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               return null;
                             },
                           ),
-                          TextFormField(
+                          ShipantherPasswordFormField(
                             controller: _confirmPassword,
-                            decoration: InputDecoration(
-                                labelText: ShipantherLocalizations.of(context)!
-                                    .confirmPassword),
-                            autocorrect: false,
-                            enableSuggestions: false,
-                            keyboardType: TextInputType.text,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            obscureText: true,
+                            labelText: ShipantherLocalizations.of(context)!
+                                .confirmPassword,
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
                                 return ShipantherLocalizations.of(context)!

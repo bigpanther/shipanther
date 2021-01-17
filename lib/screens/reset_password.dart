@@ -3,6 +3,7 @@ import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 
 class ResetPassword extends StatefulWidget {
   @override
@@ -25,9 +26,8 @@ class _ResetPasswordState extends State<ResetPassword> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              TextFormField(
-                decoration: InputDecoration(
-                    labelText: ShipantherLocalizations.of(context)!.email),
+              shipantherTextFormField(
+                labelText: ShipantherLocalizations.of(context)!.email,
                 autocorrect: false,
                 controller: _userEmail,
                 enableSuggestions: false,

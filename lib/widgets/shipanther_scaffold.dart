@@ -38,7 +38,6 @@ class ShipantherScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text(title),
         actions: actions,

@@ -3,6 +3,7 @@ import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/date_time_picker.dart';
 import 'package:shipanther/widgets/selectors.dart';
+import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
@@ -112,34 +113,28 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
             },
             child: ListView(
               children: [
-                    TextFormField(
-                      autofocus: !widget.isEdit,
+                    shipantherTextFormField(
                       maxLength: 15,
                       controller: _serialNumberController,
-                      decoration: InputDecoration(
-                          labelText: ShipantherLocalizations.of(context)!
-                              .shipmentSerialNumber),
+                      labelText: ShipantherLocalizations.of(context)!
+                          .shipmentSerialNumber,
                       validator: (val) => val == null || val.trim().isEmpty
                           ? ShipantherLocalizations.of(context)!.paramEmpty(
                               ShipantherLocalizations.of(context)!
                                   .shipmentSerialNumber)
                           : null,
                     ),
-                    TextFormField(
-                      autofocus: !widget.isEdit,
+                    shipantherTextFormField(
                       controller: _originController,
                       maxLength: 50,
-                      decoration: InputDecoration(
-                          labelText: ShipantherLocalizations.of(context)!
-                              .shipmentOrigin),
+                      labelText:
+                          ShipantherLocalizations.of(context)!.shipmentOrigin,
                     ),
-                    TextFormField(
-                      autofocus: !widget.isEdit,
+                    shipantherTextFormField(
                       controller: _destinationController,
                       maxLength: 50,
-                      decoration: InputDecoration(
-                          labelText: ShipantherLocalizations.of(context)!
-                              .shipmentDestination),
+                      labelText: ShipantherLocalizations.of(context)!
+                          .shipmentDestination,
                     ),
                     dateTimePicker(
                         context,

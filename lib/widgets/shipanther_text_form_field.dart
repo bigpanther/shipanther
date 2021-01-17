@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 TextFormField shipantherTextFormField({
@@ -10,6 +11,9 @@ TextFormField shipantherTextFormField({
   bool enableSuggestions = true,
   bool obscureText = false,
   bool isPasswordField = false,
+  AutovalidateMode? autovalidateMode,
+  MaxLengthEnforcement? maxLengthEnforcement,
+  int? maxLength,
   IconData? suffixIconData,
   void Function()? onSuffixButtonPressed,
 }) {
@@ -34,6 +38,9 @@ TextFormField shipantherTextFormField({
       enableSuggestions: enableSuggestions,
       keyboardType: keyboardType,
       obscureText: obscureText,
+      autovalidateMode: autovalidateMode,
+      maxLengthEnforcement: maxLengthEnforcement,
+      maxLength: maxLength,
       validator: validator);
 }
 
@@ -64,6 +71,8 @@ class ShipantherPasswordFormFieldState
           });
         },
         isPasswordField: true,
+        enableSuggestions: false,
+        autocorrect: false,
         validator: widget.validator,
         obscureText: !_visible);
   }
