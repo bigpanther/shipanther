@@ -15,44 +15,39 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(ShipantherLocalizations.of(context)!.resetPassword),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              ShipantherTextFormField(
-                labelText: ShipantherLocalizations.of(context)!.email,
-                autocorrect: false,
-                controller: _userEmail,
-                enableSuggestions: false,
-                keyboardType: TextInputType.emailAddress,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return ShipantherLocalizations.of(context)!.paramRequired(
-                        ShipantherLocalizations.of(context)!.email);
-                  }
-                  return null;
-                },
-              ),
-              Text(ShipantherLocalizations.of(context)!.resetPasswordMessage),
-              ShipantherButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    context
-                        .read<AuthBloc>()
-                        .add(ForgotPassword(_userEmail.text));
-                    Navigator.pop(context);
-                  }
-                },
-                labelText: ShipantherLocalizations.of(context)!.resetPassword,
-              ),
-            ],
-          ),
+    return Form(
+      key: _formKey,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            ShipantherTextFormField(
+              labelText: ShipantherLocalizations.of(context)!.email,
+              autocorrect: false,
+              controller: _userEmail,
+              enableSuggestions: false,
+              keyboardType: TextInputType.emailAddress,
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return ShipantherLocalizations.of(context)!.paramRequired(
+                      ShipantherLocalizations.of(context)!.email);
+                }
+                return null;
+              },
+            ),
+            Text(ShipantherLocalizations.of(context)!.resetPasswordMessage),
+            ShipantherButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  context
+                      .read<AuthBloc>()
+                      .add(ForgotPassword(email: _userEmail.text));
+                  Navigator.pop(context);
+                }
+              },
+              labelText: ShipantherLocalizations.of(context)!.resetPassword,
+            ),
+          ],
         ),
       ),
     );

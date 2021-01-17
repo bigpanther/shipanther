@@ -49,7 +49,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield AuthFinished(user);
       }
       if (event is ForgotPassword) {
-        await _authRepository.forgotPassword(event.email);
+        if (event.email == null) {
+          yield const ForgotPasswordRequested();
+          return;
+        }
+        await _authRepository.forgotPassword(event.email!);
         yield const AuthInitial();
       }
       if (event is ResendEmail) {

@@ -32,7 +32,6 @@ class _ProfilePageState extends State<ProfilePage> {
     return ShipantherScaffold(
       widget.user,
       title: ShipantherLocalizations.of(context)!.profile,
-      actions: const [],
       body: ListView(
         children: [
           Column(
@@ -195,8 +194,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
       ),
-      floatingActionButton: null,
-      bottomNavigationBar: null,
     );
   }
 

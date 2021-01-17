@@ -289,7 +289,6 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
       title: title,
       actions: actions,
       body: body,
-      floatingActionButton: null,
     );
   }
 }
