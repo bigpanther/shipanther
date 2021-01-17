@@ -57,7 +57,7 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
             return Future(() => true);
           },
           child: ListView(children: [
-            shipantherTextFormField(
+            ShipantherTextFormField(
               labelText: ShipantherLocalizations.of(context)!.customerName,
               validator: (val) => val == null || val.trim().isEmpty
                   ? ShipantherLocalizations.of(context)!.paramEmpty(

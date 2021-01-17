@@ -63,7 +63,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
             return Future(() => true);
           },
           child: ListView(children: [
-            shipantherTextFormField(
+            ShipantherTextFormField(
               controller: _name,
               labelText: ShipantherLocalizations.of(context)!.terminalName,
               validator: (val) => val == null || val.trim().isEmpty

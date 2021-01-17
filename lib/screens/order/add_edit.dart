@@ -73,7 +73,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
           },
           child: ListView(
             children: [
-                  shipantherTextFormField(
+                  ShipantherTextFormField(
                     controller: _serialNumber,
                     labelText: ShipantherLocalizations.of(context)!.orderNumber,
                     maxLength: 15,

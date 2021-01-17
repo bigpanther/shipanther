@@ -61,7 +61,7 @@ Future<void> commonMain(String apiURL) async {
       print('Message also contained a notification: ${message.notification}');
     }
   });
-  final settings = await FirebaseMessaging.instance.requestPermission(
+  await FirebaseMessaging.instance.requestPermission(
     alert: true,
     announcement: false,
     badge: true,
@@ -70,7 +70,6 @@ Future<void> commonMain(String apiURL) async {
     provisional: false,
     sound: true,
   );
-  print('User granted permission: ${settings.authorizationStatus}');
 
   runZonedGuarded(() {
     runApp(ShipantherApp(apiURL));

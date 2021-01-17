@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
@@ -82,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Column(
                         children: [
-                          shipantherTextFormField(
+                          ShipantherTextFormField(
                             controller: _username,
                             labelText:
                                 ShipantherLocalizations.of(context)!.name,
@@ -99,22 +98,17 @@ class _ProfilePageState extends State<ProfilePage> {
                               return null;
                             },
                           ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            alignment: Alignment.center,
-                            child: SignInButtonBuilder(
-                              icon: Icons.save,
-                              backgroundColor: Colors.blue,
-                              onPressed: () {
-                                if (_formKeyName.currentState!.validate()) {
-                                  widget.user.name = _username.text;
+                          ShipantherButton(
+                            onPressed: () {
+                              if (_formKeyName.currentState!.validate()) {
+                                widget.user.name = _username.text;
 
-                                  context.read<UserBloc>().add(
-                                      UpdateUser(widget.user.id, widget.user));
-                                }
-                              },
-                              text: ShipantherLocalizations.of(context)!.save,
-                            ),
+                                context.read<UserBloc>().add(
+                                    UpdateUser(widget.user.id, widget.user));
+                              }
+                            },
+                            labelText:
+                                ShipantherLocalizations.of(context)!.save,
                           ),
                         ],
                       ),
@@ -180,22 +174,16 @@ class _ProfilePageState extends State<ProfilePage> {
                               return null;
                             },
                           ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            alignment: Alignment.center,
-                            child: SignInButtonBuilder(
-                              icon: Icons.lock,
-                              backgroundColor: Colors.blue,
-                              onPressed: () {
-                                if (_formKeyPassword.currentState!.validate()) {
-                                  print('not supported yet');
-                                  // context.read<AuthBloc>().add(UpdatePassword(
-                                  //     _oldPassword.text, _password.text));
-                                }
-                              },
-                              text: ShipantherLocalizations.of(context)!
-                                  .changePassword,
-                            ),
+                          ShipantherButton(
+                            onPressed: () {
+                              if (_formKeyPassword.currentState!.validate()) {
+                                print('not supported yet');
+                                // context.read<AuthBloc>().add(UpdatePassword(
+                                //     _oldPassword.text, _password.text));
+                              }
+                            },
+                            labelText: ShipantherLocalizations.of(context)!
+                                .changePassword,
                           ),
                         ],
                       ),

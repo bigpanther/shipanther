@@ -113,7 +113,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
             },
             child: ListView(
               children: [
-                    shipantherTextFormField(
+                    ShipantherTextFormField(
                       maxLength: 15,
                       controller: _serialNumberController,
                       labelText: ShipantherLocalizations.of(context)!
@@ -124,13 +124,13 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                                   .shipmentSerialNumber)
                           : null,
                     ),
-                    shipantherTextFormField(
+                    ShipantherTextFormField(
                       controller: _originController,
                       maxLength: 50,
                       labelText:
                           ShipantherLocalizations.of(context)!.shipmentOrigin,
                     ),
-                    shipantherTextFormField(
+                    ShipantherTextFormField(
                       controller: _destinationController,
                       maxLength: 50,
                       labelText: ShipantherLocalizations.of(context)!

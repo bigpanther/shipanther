@@ -57,7 +57,7 @@ class _TenantAddEditState extends State<TenantAddEdit> {
           },
           child: ListView(
             children: [
-              shipantherTextFormField(
+              ShipantherTextFormField(
                 controller: _name,
                 labelText: ShipantherLocalizations.of(context)!.tenantName,
                 validator: (val) => val == null || val.trim().isEmpty

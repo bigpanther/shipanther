@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +25,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              shipantherTextFormField(
+              ShipantherTextFormField(
                 labelText: ShipantherLocalizations.of(context)!.email,
                 autocorrect: false,
                 controller: _userEmail,
@@ -41,22 +40,16 @@ class _ResetPasswordState extends State<ResetPassword> {
                 },
               ),
               Text(ShipantherLocalizations.of(context)!.resetPasswordMessage),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                alignment: Alignment.center,
-                child: SignInButtonBuilder(
-                  icon: Icons.email,
-                  backgroundColor: Colors.green,
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      context
-                          .read<AuthBloc>()
-                          .add(ForgotPassword(_userEmail.text));
-                      Navigator.pop(context);
-                    }
-                  },
-                  text: ShipantherLocalizations.of(context)!.resetPassword,
-                ),
+              ShipantherButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    context
+                        .read<AuthBloc>()
+                        .add(ForgotPassword(_userEmail.text));
+                    Navigator.pop(context);
+                  }
+                },
+                labelText: ShipantherLocalizations.of(context)!.resetPassword,
               ),
             ],
           ),

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:shipanther/data/auth/remote_auth_repository.dart';
 import 'package:trober_sdk/api.dart' as api;
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
@@ -63,7 +62,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       //   await user.updatePassword(event.oldPassword, event.newPassword);
       //   yield const AuthInitial();
       // }
-    } on EmailNotVerified catch (e) {
+    } on EmailNotVerifiedException catch (e) {
       yield AuthVerification(e.emailId);
     } on UnAuthenticatedException {
       yield const AuthInitial();

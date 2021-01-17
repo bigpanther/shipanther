@@ -22,9 +22,10 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = ShipantherLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text(ShipantherLocalizations.of(context)!.welcome),
+        title: Text(localization.welcome),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -34,23 +35,19 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 if (widget.authTypeSelector == AuthTypeSelector.register)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: shipantherTextFormField(
-                      controller: _username,
-                      labelText: ShipantherLocalizations.of(context)!.name,
-                      autocorrect: false,
-                      enableSuggestions: false,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return ShipantherLocalizations.of(context)!
-                              .paramRequired(
-                                  ShipantherLocalizations.of(context)!.name);
-                        }
-                        return null;
-                      },
-                    ),
+                  ShipantherTextFormField(
+                    controller: _username,
+                    labelText: localization.name,
+                    autocorrect: false,
+                    enableSuggestions: false,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return ShipantherLocalizations.of(context)!
+                            .paramRequired(localization.name);
+                      }
+                      return null;
+                    },
                   )
                 else
                   Padding(
@@ -65,38 +62,28 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                       ),
                     ),
                   ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: shipantherTextFormField(
-                    labelText: ShipantherLocalizations.of(context)!.email,
-                    autocorrect: false,
-                    controller: _userEmail,
-                    enableSuggestions: false,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return ShipantherLocalizations.of(context)!
-                            .paramRequired(
-                                ShipantherLocalizations.of(context)!.email);
-                      }
-                      return null;
-                    },
-                  ),
+                ShipantherTextFormField(
+                  labelText: localization.email,
+                  autocorrect: false,
+                  controller: _userEmail,
+                  enableSuggestions: false,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return localization.paramRequired(localization.email);
+                    }
+                    return null;
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ShipantherPasswordFormField(
-                    labelText: ShipantherLocalizations.of(context)!.password,
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return ShipantherLocalizations.of(context)!
-                            .paramRequired(
-                                ShipantherLocalizations.of(context)!.password);
-                      }
-                      return null;
-                    },
-                    controller: _password,
-                  ),
+                ShipantherPasswordFormField(
+                  labelText: localization.password,
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return localization.paramRequired(localization.password);
+                    }
+                    return null;
+                  },
+                  controller: _password,
                 ),
                 if (widget.authTypeSelector == AuthTypeSelector.signIn)
                   Padding(
@@ -120,69 +107,44 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                     height: 0,
                     width: 0,
                   ),
+                ShipantherButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      if (widget.authTypeSelector ==
+                          AuthTypeSelector.register) {
+                        context.read<AuthBloc>().add(
+                              AuthRegister(_username.text, _userEmail.text,
+                                  _password.text),
+                            );
+                      } else {
+                        context
+                            .read<AuthBloc>()
+                            .add(AuthSignIn(_userEmail.text, _password.text));
+                      }
+                    }
+                  },
+                  labelText: widget.authTypeSelector.text,
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          child: RaisedButton(
-                            padding: const EdgeInsets.all(20),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40.0),
-                            ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                if (widget.authTypeSelector ==
-                                    AuthTypeSelector.register) {
-                                  context.read<AuthBloc>().add(
-                                        AuthRegister(_username.text,
-                                            _userEmail.text, _password.text),
-                                      );
-                                } else {
-                                  context.read<AuthBloc>().add(AuthSignIn(
-                                      _userEmail.text, _password.text));
-                                }
-                              }
-                            },
-                            child: Text(widget.authTypeSelector.text),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        TextButton(
+                          child: Text(
+                            (widget.authTypeSelector == AuthTypeSelector.signIn)
+                                ? localization.register
+                                : localization.signIn,
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                if (widget.authTypeSelector == AuthTypeSelector.signIn)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Column(
-                        children: [
-                          TextButton(
-                            child: Text(
-                                ShipantherLocalizations.of(context)!.register),
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute<Widget>(
-                                settings:
-                                    const RouteSettings(name: 'RegisterPage'),
-                                builder: (context) =>
-                                    const SignInOrRegistrationForm(
-                                        AuthTypeSelector.register),
+                          onPressed: () => context.read<AuthBloc>().add(
+                                AuthTypeOtherRequest(widget.authTypeSelector),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  )
-                else
-                  Container(
-                    height: 0,
-                    width: 0,
                   ),
+                )
               ],
             ),
           ),

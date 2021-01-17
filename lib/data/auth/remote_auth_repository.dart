@@ -29,10 +29,7 @@ class RemoteAuthRepository extends AuthRepository {
     }
     await user.updateProfile(displayName: name);
     await user.sendEmailVerification();
-    if (!user.emailVerified) {
-      throw EmailNotVerified(user.email);
-    }
-    return loggedInUser();
+    return logIn();
   }
 
   @override
@@ -46,13 +43,7 @@ class RemoteAuthRepository extends AuthRepository {
     if (user == null) {
       throw AuthenticationException();
     }
-    await _firebaseMessaging.setAutoInitEnabled(true);
-    if (!user.emailVerified) {
-      throw EmailNotVerified(user.email);
-    }
-    final self = await loggedInUser();
-    await _registerDeviceToken(self);
-    return self;
+    return logIn();
   }
 
   @override
@@ -90,6 +81,15 @@ class RemoteAuthRepository extends AuthRepository {
 
   @override
   Future<api.User> logIn() async {
+    await _firebaseMessaging.setAutoInitEnabled(true);
+    final u = _auth.currentUser;
+    //ignore:unnecessary_null_comparison
+    if (u == null) {
+      throw UnAuthenticatedException();
+    }
+    if (!u.emailVerified) {
+      throw EmailNotVerifiedException(u.email);
+    }
     final user = await loggedInUser();
     await _registerDeviceToken(user);
     return user;
@@ -128,7 +128,7 @@ class RemoteAuthRepository extends AuthRepository {
     // See https://github.com/FirebaseExtended/flutterfire/issues/717
     await user.reload();
     if (!user.emailVerified) {
-      throw EmailNotVerified(user.email);
+      throw EmailNotVerifiedException(user.email);
     }
     return loggedInUser();
   }
@@ -138,13 +138,4 @@ class RemoteAuthRepository extends AuthRepository {
     await _auth.currentUser.sendEmailVerification();
     return _auth.currentUser.email;
   }
-}
-
-class AuthenticationException implements Exception {}
-
-class UnAuthenticatedException implements Exception {}
-
-class EmailNotVerified implements Exception {
-  const EmailNotVerified(this.emailId);
-  final String emailId;
 }

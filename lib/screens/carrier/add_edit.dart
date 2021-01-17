@@ -66,7 +66,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
             return Future(() => true);
           },
           child: ListView(children: [
-            shipantherTextFormField(
+            ShipantherTextFormField(
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               maxLength: 20,
               labelText: ShipantherLocalizations.of(context)!.carrierName,
