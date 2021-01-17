@@ -1,10 +1,3 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -14,7 +7,6 @@ import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:mockito/mockito.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
-import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 
 class VerifyEmail extends StatelessWidget {
@@ -11,22 +11,24 @@ class VerifyEmail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShipantherScaffold(
-      null,
-      title: ShipantherLocalizations.of(context)!.welcome,
-      actions: [
-        IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              context.read<AuthBloc>().add(
-                    const AuthLogout(),
-                  );
-            })
-      ],
-      body: Column(
+    final localization = ShipantherLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Icon(
+            MdiIcons.emailSend,
+            size: 100,
+            color: theme.accentColor,
+          ),
           Text(
-            ShipantherLocalizations.of(context)!.emailSent(emailId),
+            localization.emailSent(emailId),
+            style: theme.textTheme.bodyText1!.copyWith(
+              color: theme.hintColor,
+            ),
+            textAlign: TextAlign.center,
           ),
           ShipantherButton(
             onPressed: () {
@@ -34,7 +36,7 @@ class VerifyEmail extends StatelessWidget {
                     const CheckVerified(),
                   );
             },
-            labelText: ShipantherLocalizations.of(context)!.iVerified,
+            labelText: localization.iVerified,
           ),
           ShipantherButton(
             onPressed: () {
@@ -42,7 +44,7 @@ class VerifyEmail extends StatelessWidget {
                     const ResendEmail(),
                   );
             },
-            labelText: ShipantherLocalizations.of(context)!.resendEmail,
+            labelText: localization.resendEmail,
           ),
         ],
       ),
