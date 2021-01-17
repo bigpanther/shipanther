@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/reset_password.dart';
@@ -23,6 +24,7 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
   @override
   Widget build(BuildContext context) {
     final localization = ShipantherLocalizations.of(context)!;
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(localization.welcome),
@@ -34,6 +36,24 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Icon(
+                        MdiIcons.truckDelivery,
+                        size: 100,
+                        color: theme.accentColor,
+                      ),
+                      Text(
+                        localization.homePageText,
+                        style: theme.textTheme.bodyText1!
+                            .copyWith(color: theme.hintColor),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
                 if (widget.authTypeSelector == AuthTypeSelector.register)
                   ShipantherTextFormField(
                     controller: _username,
@@ -50,17 +70,9 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                     },
                   )
                 else
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Container(
-                      child: Center(
-                        child: Text(
-                          'Manage your shipping business with ease. Shipanther helps you track your deliveries, update customers and manage orders.',
-                          style: Theme.of(context).textTheme.bodyText1,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
+                  Container(
+                    height: 0,
+                    width: 0,
                   ),
                 ShipantherTextFormField(
                   labelText: localization.email,
@@ -93,7 +105,7 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                           child: Text(
                               ShipantherLocalizations.of(context)!
                                   .forgotPassword,
-                              style: Theme.of(context).textTheme.caption),
+                              style: theme.textTheme.caption),
                           onPressed: () => Navigator.push(
                                 context,
                                 MaterialPageRoute<Widget>(
