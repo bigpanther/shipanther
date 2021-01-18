@@ -21,6 +21,7 @@ Steps to reproduce the behavior:
 A clear and concise description of what you expected to happen.
 
 **Platform**
+<!--- You can  put x in [] to check the box. Like [x] --->
 - [ ] android
 - [ ] ios
 - [ ] web
