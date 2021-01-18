@@ -8,7 +8,7 @@ You can read more at the project wiki [here](https://github.com/bigpanther/shipa
 make run # Ensure flutter dev channel is activated
 ```
 
-Contributions are welcome. Please read our [contribution guide](./github/CONTRIBUTING.md) to get started.
+Contributions are welcome. Please read our [contribution guide](./.github/CONTRIBUTING.md) to get started.
 
 To signup for the early access program, follow the instructions [here](https://github.com/bigpanther/shipanther/wiki/Mobile-devices-beta-program-enrollment). You can download the ios app by signing up as a tester on the [App Sore](https://testflight.apple.com/join/NGxZ6OYF)
 
