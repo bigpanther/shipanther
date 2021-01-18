@@ -1,6 +1,6 @@
 # Shipanther
 
-Manage your shipment business like a panther.
+Manage your shipment business like a panther. Shipanther a cross platform app built for android, ios and web (macos, linux and windows coming soon). This app is meant for small businesses in the shipment and logistics area. The app is built with Flutter.
 
 For details on how to get started, read the project wiki [here](https://github.com/bigpanther/shipanther/wiki).
 
@@ -8,11 +8,11 @@ For details on how to get started, read the project wiki [here](https://github.c
 make run # Ensure flutter dev channel is activated
 ```
 
-Contributions are welcome.
+Contributions are welcome. Please read our [contribution guide](./github/CONTRIBUTING.md) to get started.
 
 To signup for the early access program, follow the instructions [here](https://github.com/bigpanther/shipanther/wiki/Mobile-devices-beta-program-enrollment).
 
-[![Get it on Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=ca.bigpanther.shipanthertest&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1) 
+[![Get it on Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=ca.bigpanther.shipanthertest&pcampaignid=github) 
 
 
 *Google Play and the Google Play logo are trademarks of Google LLC.*
