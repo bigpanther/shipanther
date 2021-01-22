@@ -2,9 +2,7 @@
 name: Feature request
 about: 'Please describe your feature request below:'
 title: "[Feature]"
-labels: 
-    - enhancement
-    - needs triage
+labels: 'enhancement,needs triage'
 assignees: ''
 
 ---
