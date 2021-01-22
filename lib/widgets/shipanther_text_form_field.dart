@@ -137,10 +137,12 @@ class ShipantherButton extends StatelessWidget {
         children: [
           Expanded(
             child: SizedBox(
-              child: RaisedButton(
-                padding: const EdgeInsets.all(20),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40.0),
+                  ),
                 ),
                 onPressed: onPressed,
                 child: Text(
