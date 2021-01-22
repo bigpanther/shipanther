@@ -45,6 +45,7 @@ class VerifyEmail extends StatelessWidget {
                   );
             },
             labelText: localization.resendEmail,
+            secondary: true,
           ),
         ],
       ),

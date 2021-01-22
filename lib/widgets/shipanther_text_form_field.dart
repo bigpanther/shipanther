@@ -121,12 +121,14 @@ class ShipantherButton extends StatelessWidget {
     Key? key,
     required this.labelText,
     required this.onPressed,
+    this.secondary = false,
   }) : super(
           key: key,
         );
 
   final String labelText;
   final void Function()? onPressed;
+  final bool secondary;
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +141,9 @@ class ShipantherButton extends StatelessWidget {
             child: SizedBox(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                  primary: secondary
+                      ? Theme.of(context).scaffoldBackgroundColor
+                      : Theme.of(context).primaryColor,
                   padding: const EdgeInsets.all(20),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40.0),
@@ -147,6 +152,11 @@ class ShipantherButton extends StatelessWidget {
                 onPressed: onPressed,
                 child: Text(
                   labelText,
+                  style: TextStyle(
+                    color: secondary
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).scaffoldBackgroundColor,
+                  ),
                 ),
               ),
             ),
