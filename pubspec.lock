@@ -42,7 +42,7 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0-nullsafety.0"
+    version: "7.0.0-nullsafety.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -341,7 +341,7 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0-nullsafety.0"
+    version: "7.0.0-nullsafety.1"
   flutter_keyboard_visibility:
     dependency: transitive
     description:
@@ -393,7 +393,7 @@ packages:
       name: flutter_typeahead
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.9.1"
+    version: "2.0.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -524,7 +524,7 @@ packages:
       name: mockito
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0-nullsafety.3"
+    version: "5.0.0-nullsafety.4"
   nested:
     dependency: transitive
     description:
@@ -622,7 +622,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0-nullsafety.2"
+    version: "5.0.0-nullsafety.3"
   pub_semver:
     dependency: transitive
     description:
@@ -746,7 +746,7 @@ packages:
       name: test
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.16.0-nullsafety.15"
+    version: "1.16.0-nullsafety.16"
   test_api:
     dependency: transitive
     description:
@@ -760,7 +760,7 @@ packages:
       name: test_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.12-nullsafety.14"
+    version: "0.3.12-nullsafety.15"
   trober_sdk:
     dependency: "direct main"
     description:
@@ -826,4 +826,4 @@ packages:
     version: "2.2.1"
 sdks:
   dart: ">=2.12.0-0.0 <3.0.0"
-  flutter: ">=1.20.0 <2.0.0"
+  flutter: ">=1.20.0"

@@ -12,7 +12,7 @@ TypeAheadFormField<Tenant> tenantSelector(
     void Function(Tenant) onSuggestionSelected,
     TextEditingController textEditingController) {
   return TypeAheadFormField<Tenant>(
-    textFieldConfiguration: TextFieldConfiguration<Tenant>(
+    textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
           labelText: ShipantherLocalizations.of(context)!.selectParam(
               ShipantherLocalizations.of(context)!.tenantsTitle(1)),
@@ -53,7 +53,7 @@ List<Widget> customerSelector(
   }
   return [
     TypeAheadFormField<Customer>(
-      textFieldConfiguration: TextFieldConfiguration<Customer>(
+      textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context)!.selectParam(
                 ShipantherLocalizations.of(context)!.customersTitle(1))),
@@ -94,7 +94,7 @@ List<Widget> driverSelector(
   }
   return [
     TypeAheadFormField<User>(
-      textFieldConfiguration: TextFieldConfiguration<User>(
+      textFieldConfiguration: TextFieldConfiguration(
           decoration: InputDecoration(
               labelText: ShipantherLocalizations.of(context)!
                   .selectParam(ShipantherLocalizations.of(context)!.driver)),
@@ -135,7 +135,7 @@ List<Widget> terminalSelector(
   }
   return [
     TypeAheadFormField<Terminal>(
-      textFieldConfiguration: TextFieldConfiguration<Terminal>(
+      textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context)!.selectParam(
                 ShipantherLocalizations.of(context)!.terminalsTitle(1))),
@@ -175,7 +175,7 @@ List<Widget> carrierSelector(
   }
   return [
     TypeAheadFormField<Carrier>(
-      textFieldConfiguration: TextFieldConfiguration<Carrier>(
+      textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context)!.selectParam(
                 ShipantherLocalizations.of(context)!.carriersTitle(1))),
@@ -215,7 +215,7 @@ List<Widget> orderSelector(
   }
   return [
     TypeAheadFormField<Order>(
-      textFieldConfiguration: TextFieldConfiguration<Order>(
+      textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context)!.selectParam(
                 ShipantherLocalizations.of(context)!.ordersTitle(1))),

@@ -64,15 +64,15 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
   @override
   Widget build(BuildContext context) {
     void showAlertDialog(BuildContext context, Shipment t) {
-      final Widget cancelButton = FlatButton(
+      final Widget cancelButton = TextButton(
         child: Text(ShipantherLocalizations.of(context)!.shipmentCancel),
         onPressed: () {
           Navigator.of(context).pop();
         },
       );
-      final Widget continueButton = FlatButton(
+      final Widget continueButton = TextButton(
         child: Text(ShipantherLocalizations.of(context)!.shipmentReject),
-        textColor: Colors.red,
+        style: TextButton.styleFrom(primary: Theme.of(context).errorColor),
         onPressed: () {
           t.status = ShipmentStatus.rejected;
           t.driverId = null;
@@ -183,8 +183,9 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                         .paramFromTo(t.origin, t.destination)),
                     children: [
                       if (t.status == ShipmentStatus.accepted)
-                        FlatButton(
-                          color: Colors.green,
+                        TextButton(
+                          style: TextButton.styleFrom(
+                              primary: Theme.of(context).primaryColor),
                           onPressed: () {
                             handleDelivery(widget.loggedInUser, t);
                           },
@@ -202,8 +203,9 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        FlatButton(
-                          color: Colors.green,
+                        TextButton(
+                          style: TextButton.styleFrom(
+                              primary: Theme.of(context).primaryColor),
                           onPressed: () {
                             t.status = ShipmentStatus.accepted;
                             widget.shipmentBloc.add(UpdateShipment(t.id, t));
@@ -212,8 +214,9 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                             ShipantherLocalizations.of(context)!.shipmentAccept,
                           ),
                         ),
-                        FlatButton(
-                          color: Colors.red,
+                        TextButton(
+                          style: TextButton.styleFrom(
+                              primary: Theme.of(context).errorColor),
                           onPressed: () {
                             showAlertDialog(context, t);
                           },

@@ -127,26 +127,15 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
             },
             labelText: widget.authTypeSelector.text,
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              alignment: Alignment.center,
-              child: Column(
-                children: [
-                  TextButton(
-                    child: Text(
-                      (widget.authTypeSelector == AuthTypeSelector.signIn)
-                          ? localization.register
-                          : localization.signIn,
-                    ),
-                    onPressed: () => context.read<AuthBloc>().add(
-                          AuthTypeOtherRequest(widget.authTypeSelector),
-                        ),
-                  ),
-                ],
-              ),
-            ),
-          )
+          ShipantherButton(
+            onPressed: () => context.read<AuthBloc>().add(
+                  AuthTypeOtherRequest(widget.authTypeSelector),
+                ),
+            labelText: (widget.authTypeSelector == AuthTypeSelector.signIn)
+                ? localization.register
+                : localization.signIn,
+            secondary: true,
+          ),
         ],
       ),
     );

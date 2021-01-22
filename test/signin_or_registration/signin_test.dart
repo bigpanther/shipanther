@@ -38,9 +38,18 @@ void main() {
         ),
       ));
       await tester.pumpAndSettle();
-      expect(find.byType(SignInOrRegistrationPage), findsOneWidget);
-      expect(find.byType(ShipantherButton), findsOneWidget);
-      expect(find.byType(ShipantherTextFormField), findsNWidgets(2));
+      expect(
+        find.byType(SignInOrRegistrationPage),
+        findsOneWidget,
+      );
+      expect(
+        find.byType(ShipantherButton),
+        findsNWidgets(2),
+      );
+      expect(
+        find.byType(ShipantherTextFormField),
+        findsNWidgets(2),
+      );
     });
   });
 }
