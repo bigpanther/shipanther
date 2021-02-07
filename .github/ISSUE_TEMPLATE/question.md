@@ -1,9 +1,7 @@
 ---
 name: Question
 about: Ask a question
-labels: 
-    - question
-    - needs triage
+labels: 'question,needs triage'
 assignees: ''
 ---
 
