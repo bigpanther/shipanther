@@ -23,7 +23,6 @@ class RemoteAuthRepository extends AuthRepository {
       password: password,
     );
     final user = userCreds.user;
-    //ignore:unnecessary_null_comparison
     if (user == null) {
       throw AuthenticationException();
     }
@@ -39,7 +38,6 @@ class RemoteAuthRepository extends AuthRepository {
       password: password,
     );
     final user = userCreds.user;
-    //ignore:unnecessary_null_comparison
     if (user == null) {
       throw AuthenticationException();
     }
@@ -67,7 +65,6 @@ class RemoteAuthRepository extends AuthRepository {
   @override
   Future<ApiWithUserId> apiClient() async {
     final authUser = _auth.currentUser;
-    //ignore:unnecessary_null_comparison
     if (authUser == null) {
       throw UnAuthenticatedException();
     }
@@ -83,7 +80,6 @@ class RemoteAuthRepository extends AuthRepository {
   Future<api.User> logIn() async {
     await _firebaseMessaging.setAutoInitEnabled(true);
     final u = _auth.currentUser;
-    //ignore:unnecessary_null_comparison
     if (u == null) {
       throw UnAuthenticatedException();
     }
@@ -125,6 +121,9 @@ class RemoteAuthRepository extends AuthRepository {
   @override
   Future<api.User> verifyEmail() async {
     final user = _auth.currentUser;
+    if (user == null) {
+      throw AuthenticationException();
+    }
     // See https://github.com/FirebaseExtended/flutterfire/issues/717
     await user.reload();
     if (!user.emailVerified) {
@@ -134,8 +133,12 @@ class RemoteAuthRepository extends AuthRepository {
   }
 
   @override
-  Future<String> sendEmailForVerification() async {
-    await _auth.currentUser.sendEmailVerification();
-    return _auth.currentUser.email;
+  Future<String?> sendEmailForVerification() async {
+    final user = _auth.currentUser;
+    if (user == null) {
+      throw AuthenticationException();
+    }
+    await user.sendEmailVerification();
+    return user.email;
   }
 }
