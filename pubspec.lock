@@ -30,7 +30,7 @@ packages:
     source: hosted
     version: "1.6.0"
   async:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: async
       url: "https://pub.dartlang.org"
@@ -42,9 +42,9 @@ packages:
       name: bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0-nullsafety.1"
+    version: "7.0.0-nullsafety.2"
   boolean_selector:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: boolean_selector
       url: "https://pub.dartlang.org"
@@ -77,9 +77,9 @@ packages:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0-nullsafety.5"
+    version: "1.1.0"
   charcode:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: charcode
       url: "https://pub.dartlang.org"
@@ -93,7 +93,7 @@ packages:
     source: hosted
     version: "0.2.0"
   clock:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: clock
       url: "https://pub.dartlang.org"
@@ -107,7 +107,7 @@ packages:
     source: hosted
     version: "3.6.0"
   collection:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: collection
       url: "https://pub.dartlang.org"
@@ -182,7 +182,7 @@ packages:
       name: fake_async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0-nullsafety.3"
+    version: "1.2.0"
   file:
     dependency: transitive
     description:
@@ -341,28 +341,28 @@ packages:
       name: flutter_bloc
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0-nullsafety.1"
+    version: "7.0.0-nullsafety.2"
   flutter_keyboard_visibility:
     dependency: transitive
     description:
       name: flutter_keyboard_visibility
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.2"
+    version: "5.0.0-nullsafety.1"
   flutter_keyboard_visibility_platform_interface:
     dependency: transitive
     description:
       name: flutter_keyboard_visibility_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "2.0.0-nullsafety.0"
   flutter_keyboard_visibility_web:
     dependency: transitive
     description:
       name: flutter_keyboard_visibility_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "2.0.0-nullsafety.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -381,7 +381,7 @@ packages:
       name: flutter_plugin_android_lifecycle
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.11"
+    version: "2.0.0-nullsafety.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -393,7 +393,7 @@ packages:
       name: flutter_typeahead
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "3.0.0-nullsafety.0"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -414,12 +414,12 @@ packages:
     source: hosted
     version: "0.14.0+4"
   http:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2"
+    version: "0.13.0"
   http_multi_server:
     dependency: transitive
     description:
@@ -447,14 +447,14 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.7+22"
+    version: "0.7.0-nullsafety"
   image_picker_platform_interface:
     dependency: transitive
     description:
       name: image_picker_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.1"
+    version: "2.0.0-nullsafety"
   intl:
     dependency: "direct main"
     description:
@@ -477,7 +477,7 @@ packages:
     source: hosted
     version: "0.3.4"
   js:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: js
       url: "https://pub.dartlang.org"
@@ -491,7 +491,7 @@ packages:
     source: hosted
     version: "0.11.4"
   matcher:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: matcher
       url: "https://pub.dartlang.org"
@@ -505,7 +505,7 @@ packages:
     source: hosted
     version: "4.0.5855"
   meta:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: meta
       url: "https://pub.dartlang.org"
@@ -575,7 +575,7 @@ packages:
     source: hosted
     version: "0.5.0-nullsafety"
   path:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: path
       url: "https://pub.dartlang.org"
@@ -699,35 +699,35 @@ packages:
     source: hosted
     version: "0.10.10"
   source_span:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.1"
+    version: "1.8.0"
   stack_trace:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: stack_trace
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.10.0"
   stream_channel:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: stream_channel
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
   string_scanner:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: string_scanner
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
   term_glyph:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: term_glyph
       url: "https://pub.dartlang.org"
@@ -741,7 +741,7 @@ packages:
     source: hosted
     version: "1.16.0"
   test_api:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: test_api
       url: "https://pub.dartlang.org"
@@ -762,7 +762,7 @@ packages:
     source: hosted
     version: "0.0.36"
   typed_data:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       name: typed_data
       url: "https://pub.dartlang.org"
@@ -774,7 +774,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0-nullsafety.5"
+    version: "2.1.0"
   vm_service:
     dependency: transitive
     description:
