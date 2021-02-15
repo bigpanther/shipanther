@@ -12,7 +12,7 @@ abstract class AuthRepository {
   Future<User> verifyEmail();
   Future<void> forgotPassword(String email);
   Future<ApiWithUserId> apiClient();
-  Future<String> sendEmailForVerification();
+  Future<String?> sendEmailForVerification();
 }
 
 class ApiWithUserId extends DefaultApi {
@@ -29,5 +29,5 @@ class UnAuthenticatedException implements Exception {}
 //EmailNotVerifiedException is thrown when the user's email is not verified
 class EmailNotVerifiedException implements Exception {
   const EmailNotVerifiedException(this.emailId);
-  final String emailId;
+  final String? emailId;
 }

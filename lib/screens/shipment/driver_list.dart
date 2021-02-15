@@ -32,14 +32,13 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
   int _currentIndex = 0;
 
   Future<void> handleDelivery(User driver, Shipment t) async {
-    late PickedFile file;
+    PickedFile? file;
     try {
       file = await ImagePicker()
           .getImage(source: ImageSource.camera, imageQuality: 50);
     } catch (e) {
       print('hsm $e');
     }
-    //ignore:unnecessary_null_comparison
     if (file == null) {
       return;
     }
