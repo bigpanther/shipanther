@@ -1,3 +1,4 @@
+.PHONY: run
 run:
 	flutter run --flavor dev --no-sound-null-safety
 run-prod:
@@ -21,6 +22,7 @@ release-dev: clean release-dev-android release-dev-ios
 .PHONY: clean
 clean:
 	flutter clean
+.PHONY: lint
 lint:
 	flutter analyze
 .PHONY: test
