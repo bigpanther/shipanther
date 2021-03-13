@@ -95,7 +95,6 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
         tooltip: widget.isEdit
             ? ShipantherLocalizations.of(context)!.edit
             : ShipantherLocalizations.of(context)!.create,
-        child: const Icon(Icons.check),
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.carrier.name = _name.text;
@@ -111,6 +110,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
             Navigator.pop(context);
           }
         },
+        child: const Icon(Icons.check),
       ),
     );
   }

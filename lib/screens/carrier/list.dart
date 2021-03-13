@@ -78,7 +78,6 @@ class CarrierList extends StatelessWidget {
     );
     final Widget floatingActionButton = FloatingActionButton(
       tooltip: ShipantherLocalizations.of(context)!.addCarrier,
-      child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,
@@ -92,6 +91,7 @@ class CarrierList extends StatelessWidget {
           ),
         );
       },
+      child: const Icon(Icons.add),
     );
 
     return ShipantherScaffold(loggedInUser,

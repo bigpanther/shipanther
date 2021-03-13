@@ -18,15 +18,15 @@ PODS:
   - Firebase/Storage (7.3.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 7.3.0)
-  - firebase_analytics (7.1.0):
+  - firebase_analytics (7.1.1):
     - Firebase/Analytics (= 7.3.0)
     - firebase_core
     - Flutter
-  - firebase_auth (1.0.0):
+  - firebase_auth (1.0.1):
     - Firebase/Auth (= 7.3.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.0.0):
+  - firebase_core (1.0.1):
     - Firebase/CoreOnly (= 7.3.0)
     - Flutter
   - firebase_crashlytics (1.0.0):
@@ -186,9 +186,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
-  firebase_analytics: 205d78b0ee1d03ad55753bb5ea2720ac8f73c180
-  firebase_auth: f07f3ee03813d95157ee08ce763c649c656174b5
-  firebase_core: f47224dd6a9b928b4cf0128b0d004ec9e47d4bf2
+  firebase_analytics: ee4abb07bfa857e7c95d97144efe9eb68be414cd
+  firebase_auth: 9f6491ea8e44570323361ae713a2ae3175b3f21a
+  firebase_core: d2e03528e2a600891f6f460b5e92932624480d1d
   firebase_crashlytics: a62319db93baf2bfeca8a2384af3f29e3d62b09c
   firebase_messaging: fc1811236795c2313b8339c35d31295b1cd8486f
   firebase_storage: a4b292db6551a64c3697c7e67cb1df524b494bb1
@@ -207,7 +207,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 116c84c4bdeb76be2a7a46de51244368f9794eab
   GoogleUtilities: d866834472f1324d080496bc67ab3ce5d0d46027
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
-  image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
+  image_picker: 50e7c7ff960e5f58faa4d1f4af84a771c671bc4a
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
