@@ -102,10 +102,16 @@ extension ShipmentSizeExtension on ShipmentSize {
         return MdiIcons.accessPointMinus;
       case ShipmentSize.custom:
         return MdiIcons.accessPointMinus;
+      default:
+        return Icons.panorama_fish_eye;
     }
   }
 
   String get text {
+    // ignore: unnecessary_null_comparison
+    if (this == null) {
+      return '';
+    }
     return EnumToString.convertToString(this, camelCase: true);
   }
 }
