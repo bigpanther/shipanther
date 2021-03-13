@@ -53,13 +53,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Container(
                         height: 40,
                         width: 40,
-                        child: const Icon(
-                          Icons.add_a_photo,
-                          color: Colors.white,
-                        ),
                         decoration: const BoxDecoration(
                           color: Colors.grey,
                           borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: const Icon(
+                          Icons.add_a_photo,
+                          color: Colors.white,
                         ),
                       ))
                 ],

@@ -12,12 +12,12 @@ generate-from-arb:
 release-prod-android:
 	flutter build appbundle --flavor prod -t lib/main_prod.dart
 release-prod-ios:
-	flutter build ios --flavor prod -t lib/main_prod.dart --release
+	flutter build ipa --flavor prod -t lib/main_prod.dart --release
 release-prod: clean release-prod-android release-prod-ios
 release-dev-android:
 	flutter build appbundle --flavor dev --no-sound-null-safety
 release-dev-ios:
-	flutter build ios --flavor dev --release --no-sound-null-safety
+	flutter build ipa --flavor dev --release --no-sound-null-safety
 release-dev: clean release-dev-android release-dev-ios
 .PHONY: clean
 clean:

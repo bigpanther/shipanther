@@ -88,7 +88,6 @@ class TerminalList extends StatelessWidget {
     );
     final Widget floatingActionButton = FloatingActionButton(
       tooltip: ShipantherLocalizations.of(context)!.terminalAdd,
-      child: const Icon(Icons.add),
       onPressed: () {
         Navigator.push(
           context,
@@ -102,6 +101,7 @@ class TerminalList extends StatelessWidget {
           ),
         );
       },
+      child: const Icon(Icons.add),
     );
 
     return ShipantherScaffold(loggedInUser,

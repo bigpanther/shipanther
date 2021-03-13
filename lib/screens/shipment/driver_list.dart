@@ -64,13 +64,12 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
   Widget build(BuildContext context) {
     void showAlertDialog(BuildContext context, Shipment t) {
       final Widget cancelButton = TextButton(
-        child: Text(ShipantherLocalizations.of(context)!.shipmentCancel),
         onPressed: () {
           Navigator.of(context).pop();
         },
+        child: Text(ShipantherLocalizations.of(context)!.shipmentCancel),
       );
       final Widget continueButton = TextButton(
-        child: Text(ShipantherLocalizations.of(context)!.shipmentReject),
         style: TextButton.styleFrom(primary: Theme.of(context).errorColor),
         onPressed: () {
           t.status = ShipmentStatus.rejected;
@@ -78,6 +77,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
           widget.shipmentBloc.add(UpdateShipment(t.id, t));
           Navigator.of(context).pop();
         },
+        child: Text(ShipantherLocalizations.of(context)!.shipmentReject),
       );
 
       final alert = AlertDialog(

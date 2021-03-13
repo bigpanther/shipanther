@@ -95,13 +95,13 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: TextButton(
+                  onPressed: () => context.read<AuthBloc>().add(
+                        const ForgotPassword(),
+                      ),
                   child: Text(
                     localization.forgotPassword,
                     style: theme.textTheme.caption,
                   ),
-                  onPressed: () => context.read<AuthBloc>().add(
-                        const ForgotPassword(),
-                      ),
                 ),
               ),
             )
