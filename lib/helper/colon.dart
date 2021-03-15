@@ -9,7 +9,7 @@ Text displaySubtitle<T>(String key, T? value, {DateFormat? formatter}) {
     if (formatter == null) {
       throw ArgumentError.notNull();
     }
-    return Text('$key: ${formatter.format(value)}');
+    return Text('$key: ${formatter.format(value.toLocal())}');
   }
   return Text('$key: $value');
 }

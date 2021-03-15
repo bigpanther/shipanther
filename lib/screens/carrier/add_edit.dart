@@ -38,8 +38,9 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
     _name = TextEditingController(text: widget.carrier.name);
     _carrierType = widget.carrier.type;
     _eta = TextEditingController(
-        text:
-            widget.carrier.eta == null ? null : widget.carrier.eta.toString());
+        text: widget.carrier.eta == null
+            ? null
+            : widget.carrier.eta.toLocal().toString());
   }
 
   late CarrierType _carrierType;
