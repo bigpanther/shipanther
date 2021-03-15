@@ -16,6 +16,7 @@ import 'package:shipanther/screens/terminal/home.dart';
 import 'package:shipanther/screens/user/home.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ShipantherScaffold extends StatelessWidget {
   const ShipantherScaffold(
@@ -250,6 +251,24 @@ List<Widget> drawerItemsFor(BuildContext context, User? user) {
               ),
             ],
           );
+        },
+      ),
+    )
+    ..add(
+      _createDrawerItem(
+        icon: MdiIcons.license,
+        text: localization.whatsNew,
+        onTap: () async {
+          final packageInfo = await PackageInfo.fromPlatform();
+          final url =
+              'https://github.com/bigpanther/shipanther/releases/tag/v${packageInfo.version}';
+          await canLaunch(url)
+              ? await launch(url)
+              : ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Could not launch external link'),
+                  ),
+                );
         },
       ),
     );
