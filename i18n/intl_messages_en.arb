@@ -402,12 +402,6 @@
       }
     }
   },
-  "lfd": "LFD",
-  "@lfd": {
-    "description": "LFD ",
-    "type": "text",
-    "placeholders": {}
-  },
   "reservationTime": "Reservation time",
   "@reservationTime": {
     "description": "Reservation time ",

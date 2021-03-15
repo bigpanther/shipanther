@@ -436,13 +436,6 @@ class ShipantherLocalizations {
         locale: locale.toString(),
         examples: const {'param': 'Shipment'},
       );
-  //expandable
-  String get lfd => Intl.message(
-        'LFD',
-        name: 'lfd',
-        desc: 'LFD ',
-        locale: locale.toString(),
-      );
   String get reservationTime => Intl.message(
         'Reservation time',
         name: 'reservationTime',
