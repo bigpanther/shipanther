@@ -5,7 +5,7 @@ Manage your shipment business like a panther. Shipanther a cross platform app bu
 You can read more at the project wiki [here](https://github.com/bigpanther/shipanther/wiki).
 
 ```bash
-make run # Ensure flutter dev channel is activated
+make run # required fluttter 2.0
 ```
 
 Contributions are welcome. Please read our [contribution guide](./.github/CONTRIBUTING.md) to get started.
