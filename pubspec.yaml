@@ -27,7 +27,7 @@ dependencies:
   date_time_picker: ^2.0.0
   package_info_plus: ^1.0.0
   material_design_icons_flutter: ^5.0.5955-rc.1
-  percent_indicator: ^2.1.9+1
+  percent_indicator: ^3.3.0-nullsafety.1
   flex_color_scheme: ^2.0.0
   image_picker: ^0.7.2+1
 
