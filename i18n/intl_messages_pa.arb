@@ -402,12 +402,6 @@
       }
     }
   },
-  "lfd": "ਐਲ.ਐਫ.ਡੀ.",
-  "@lfd": {
-    "description": "LFD ",
-    "type": "text",
-    "placeholders": {}
-  },
   "reservationTime": "ਰਿਜ਼ਰਵੇਸ਼ਨ ਟਾਈਮ",
   "@reservationTime": {
     "description": "Reservation time ",

@@ -36,7 +36,6 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
   late ShipmentStatus _shipmentStatus;
   User? _driver;
   late TextEditingController _reservationTimeController;
-  late TextEditingController _lfdController;
 
   late TextEditingController _tenantTypeAheadController;
 
@@ -81,10 +80,6 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
         text: (widget.shipment.reservationTime == null)
             ? null
             : widget.shipment.reservationTime.toString());
-    _lfdController = TextEditingController(
-        text: (widget.shipment.lfd == null)
-            ? null
-            : widget.shipment.lfd.toString());
   }
 
   @override
@@ -141,10 +136,6 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                         ShipantherLocalizations.of(context)!
                             .shipmentReservationTime,
                         _reservationTimeController),
-                    dateTimePicker(
-                        context,
-                        ShipantherLocalizations.of(context)!.shipmentLFD,
-                        _lfdController),
                     smartSelect<ShipmentSize>(
                       title: ShipantherLocalizations.of(context)!.shipmentSize,
                       onChange: (state) => _shipmentSize = state.value,
@@ -210,7 +201,6 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
           if (formKey.currentState!.validate()) {
             widget.shipment.reservationTime =
                 DateTime.tryParse(_reservationTimeController.text);
-            widget.shipment.lfd = DateTime.tryParse(_lfdController.text);
             widget.shipment.serialNumber = _serialNumberController.text;
             widget.shipment.origin = _originController.text;
             widget.shipment.destination = _destinationController.text;
@@ -260,7 +250,6 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
     _orderTypeAheadController.dispose();
     _driverTypeAheadController.dispose();
     _reservationTimeController.dispose();
-    _lfdController.dispose();
     super.dispose();
   }
 }

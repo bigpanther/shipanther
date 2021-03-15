@@ -87,9 +87,6 @@ class ShipmentList extends StatelessWidget {
               subtitle: Text(ShipantherLocalizations.of(context)!
                   .paramFromTo(t.origin, t.destination)),
               children: [
-                displaySubtitle(ShipantherLocalizations.of(context)!.lfd, t.lfd,
-                    formatter:
-                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
                 displaySubtitle(
                     ShipantherLocalizations.of(context)!.reservationTime,
                     t.reservationTime,
