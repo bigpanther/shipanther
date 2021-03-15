@@ -529,6 +529,12 @@ class ShipantherLocalizations {
         desc: 'About Us',
         locale: locale.toString(),
       );
+  String get whatsNew => Intl.message(
+        'New in this update',
+        name: 'whatsNew',
+        desc: 'New in this version',
+        locale: locale.toString(),
+      );
 
   String get password => Intl.message(
         'Password',
