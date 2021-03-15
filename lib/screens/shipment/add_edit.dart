@@ -79,7 +79,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
     _reservationTimeController = TextEditingController(
         text: (widget.shipment.reservationTime == null)
             ? null
-            : widget.shipment.reservationTime.toString());
+            : widget.shipment.reservationTime.toLocal().toString());
   }
 
   @override
