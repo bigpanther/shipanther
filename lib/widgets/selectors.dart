@@ -12,6 +12,7 @@ TypeAheadFormField<Tenant> tenantSelector(
     void Function(Tenant) onSuggestionSelected,
     TextEditingController textEditingController) {
   return TypeAheadFormField<Tenant>(
+    autoFlipDirection: true,
     textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
           labelText: ShipantherLocalizations.of(context)!.selectParam(
@@ -53,6 +54,7 @@ List<Widget> customerSelector(
   }
   return [
     TypeAheadFormField<Customer>(
+      autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context)!.selectParam(
@@ -94,6 +96,7 @@ List<Widget> driverSelector(
   }
   return [
     TypeAheadFormField<User>(
+      autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
           decoration: InputDecoration(
               labelText: ShipantherLocalizations.of(context)!
@@ -135,6 +138,7 @@ List<Widget> terminalSelector(
   }
   return [
     TypeAheadFormField<Terminal>(
+      autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context)!.selectParam(
@@ -175,6 +179,7 @@ List<Widget> carrierSelector(
   }
   return [
     TypeAheadFormField<Carrier>(
+      autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context)!.selectParam(
@@ -215,6 +220,7 @@ List<Widget> orderSelector(
   }
   return [
     TypeAheadFormField<Order>(
+      autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context)!.selectParam(
