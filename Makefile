@@ -18,7 +18,9 @@ release-dev-android:
 	flutter build appbundle --flavor dev --no-sound-null-safety
 release-dev-ios:
 	flutter build ipa --flavor dev --release --no-sound-null-safety
-release-dev: clean release-dev-android release-dev-ios
+release-dev-web:
+	flutter build web --release --no-sound-null-safety
+release-dev: clean release-dev-android release-dev-ios release-dev-web
 .PHONY: clean
 clean:
 	flutter clean
