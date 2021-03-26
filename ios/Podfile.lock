@@ -26,13 +26,13 @@ PODS:
     - Firebase/Auth (= 7.3.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.0.1):
+  - firebase_core (1.0.2):
     - Firebase/CoreOnly (= 7.3.0)
     - Flutter
   - firebase_crashlytics (1.0.0):
     - Firebase/Crashlytics (= 7.3.0)
     - firebase_core
-  - firebase_messaging (9.0.0):
+  - firebase_messaging (9.0.1):
     - Firebase/Messaging (= 7.3.0)
     - firebase_core
     - Flutter
@@ -193,9 +193,9 @@ SPEC CHECKSUMS:
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
   firebase_analytics: ee4abb07bfa857e7c95d97144efe9eb68be414cd
   firebase_auth: 9f6491ea8e44570323361ae713a2ae3175b3f21a
-  firebase_core: d2e03528e2a600891f6f460b5e92932624480d1d
+  firebase_core: e6cbb0d1f7091edfcae31559e58224bfc1e455dc
   firebase_crashlytics: a62319db93baf2bfeca8a2384af3f29e3d62b09c
-  firebase_messaging: fc1811236795c2313b8339c35d31295b1cd8486f
+  firebase_messaging: 446f8b30023ace26f162a9309b5bd1fdff78c011
   firebase_storage: a4b292db6551a64c3697c7e67cb1df524b494bb1
   FirebaseAnalytics: 2580c2d62535ae7b644143d48941fcc239ea897a
   FirebaseAuth: c224a0cf1afa0949bd5c7bfcf154b4f5ce8ddef2

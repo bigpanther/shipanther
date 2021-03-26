@@ -15,11 +15,13 @@ class ShipmentAddEdit extends StatefulWidget {
     required this.shipment,
     required this.shipmentBloc,
     required this.isEdit,
+    this.imageURL,
   });
   final User loggedInUser;
   final Shipment shipment;
   final ShipmentBloc shipmentBloc;
   final bool isEdit;
+  final String? imageURL;
 
   @override
   _ShipmentAddEditState createState() => _ShipmentAddEditState();
@@ -31,6 +33,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
   Carrier? _carrier;
   Order? _order;
   Tenant? _tenant;
+
   late ShipmentSize _shipmentSize;
   late ShipmentType _shipmentType;
   late ShipmentStatus _shipmentStatus;
@@ -80,6 +83,18 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
         text: (widget.shipment.reservationTime == null)
             ? null
             : widget.shipment.reservationTime.toLocal().toString());
+  }
+
+  Container _imageContainer(String? imageURL) {
+    if (imageURL == null) {
+      return Container();
+    }
+    return Container(
+      child: FadeInImage.assetNetwork(
+        placeholder: 'assets/images/shipanther_logo.png',
+        image: imageURL,
+      ),
+    );
   }
 
   @override
@@ -188,7 +203,8 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                       _driver = suggestion;
                     },
                     _driverTypeAheadController,
-                  ),
+                  ) +
+                  [_imageContainer(widget.imageURL)],
             ),
           ),
         ),

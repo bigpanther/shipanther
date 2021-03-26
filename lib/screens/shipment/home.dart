@@ -43,6 +43,7 @@ class _ShipmentScreenState extends State<ShipmentScreen> {
                 isEdit: true,
                 shipmentBloc: bloc,
                 shipment: state.shipment,
+                imageURL: state.downloadURL,
               ),
             ),
           );

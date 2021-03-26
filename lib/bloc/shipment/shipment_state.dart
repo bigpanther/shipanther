@@ -10,8 +10,9 @@ class ShipmentInitial extends ShipmentState {}
 class ShipmentLoading extends ShipmentState {}
 
 class ShipmentLoaded extends ShipmentState {
-  const ShipmentLoaded(this.shipment);
+  const ShipmentLoaded(this.shipment, this.downloadURL);
   final Shipment shipment;
+  final String? downloadURL;
 }
 
 class ShipmentsLoaded extends ShipmentState {
