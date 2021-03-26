@@ -6,9 +6,9 @@ import 'package:trober_sdk/api.dart';
 extension ShipmentTypeExtension on ShipmentType {
   IconData get icon {
     switch (this) {
-      case ShipmentType.incoming:
+      case ShipmentType.inbound:
         return Icons.arrow_downward;
-      case ShipmentType.outGoing:
+      case ShipmentType.outbound:
         return Icons.arrow_upward;
     }
   }

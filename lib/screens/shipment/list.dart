@@ -119,7 +119,7 @@ class ShipmentList extends StatelessWidget {
               shipmentBloc: shipmentBloc,
               shipment: Shipment()
                 ..status = ShipmentStatus.unassigned
-                ..type = ShipmentType.incoming,
+                ..type = ShipmentType.inbound,
             ),
           ),
         );
