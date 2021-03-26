@@ -16,3 +16,8 @@ To signup for the early access program, follow the instructions [here](https://g
 
 
 *Google Play and the Google Play logo are trademarks of Google LLC.*
+
+## Credits
+
+Thanks for @martareg for designing the app logo and helping with the UX mockups.
+
