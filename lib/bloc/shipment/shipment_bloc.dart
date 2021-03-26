@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/shipment/shipment_repository.dart';
 import 'package:trober_sdk/api.dart';
@@ -19,7 +20,18 @@ class ShipmentBloc extends Bloc<ShipmentEvent, ShipmentState> {
     yield ShipmentLoading();
     try {
       if (event is GetShipment) {
-        yield ShipmentLoaded(await _shipmentRepository.fetchShipment(event.id));
+        final shipment = await _shipmentRepository.fetchShipment(event.id);
+        String? downloadURL;
+        try {
+          downloadURL = await FirebaseStorage.instance
+              .ref()
+              .child('files/${shipment.tenantId}/${shipment.customerId}')
+              .child('/${shipment.id}.jpg')
+              .getDownloadURL();
+        } catch (e) {
+          print('ignore');
+        }
+        yield ShipmentLoaded(shipment, downloadURL);
       }
       if (event is GetShipments) {
         final shipments = await _shipmentRepository.fetchShipments(
