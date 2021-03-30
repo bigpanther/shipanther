@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/shipment/shipment_repository.dart';
 import 'package:trober_sdk/api.dart';
@@ -29,7 +31,11 @@ class ShipmentBloc extends Bloc<ShipmentEvent, ShipmentState> {
               .child('/${shipment.id}.jpg')
               .getDownloadURL();
         } catch (e) {
-          print('ignore');
+          if (!kIsWeb) {
+            await FirebaseCrashlytics.instance.recordError(e, null);
+          } else {
+            print(e);
+          }
         }
         yield ShipmentLoaded(shipment, downloadURL);
       }
