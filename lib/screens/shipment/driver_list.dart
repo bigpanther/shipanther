@@ -250,28 +250,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
           icon: Stack(
             children: <Widget>[
               const Icon(Icons.pending),
-              Positioned(
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(1),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  constraints: const BoxConstraints(
-                    minWidth: 13,
-                    minHeight: 13,
-                  ),
-                  child: Text(
-                    totalPending.toString(),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 8,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              )
+              _getPendingBlock(totalPending),
             ],
           ),
         ),
@@ -292,5 +271,33 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
       actions: actions,
       body: body,
     );
+  }
+
+  Widget _getPendingBlock(int totalPendingItems) {
+    if (totalPendingItems > 0) {
+      return Positioned(
+        right: 0,
+        child: Container(
+          padding: const EdgeInsets.all(1),
+          decoration: BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          constraints: const BoxConstraints(
+            minWidth: 13,
+            minHeight: 13,
+          ),
+          child: Text(
+            totalPendingItems.toString(),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 8,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
+    return Container();
   }
 }

@@ -74,6 +74,7 @@ class _UserAddEditState extends State<UserAddEdit> {
                     : null,
               ),
               smartSelect<UserRole>(
+                context: context,
                 title: ShipantherLocalizations.of(context)!.userType,
                 onChange: (state) => _userRole = state.value,
                 choiceItems: S2Choice.listFrom<UserRole, UserRole>(

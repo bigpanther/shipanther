@@ -84,6 +84,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                   ),
                   if (!widget.loggedInUser.isCustomer)
                     smartSelect<OrderStatus>(
+                      context: context,
                       title: ShipantherLocalizations.of(context)!.orderStatus,
                       onChange: (state) => _orderStatus = state.value,
                       choiceItems: S2Choice.listFrom<OrderStatus, OrderStatus>(

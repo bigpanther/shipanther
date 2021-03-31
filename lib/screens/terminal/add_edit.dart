@@ -72,6 +72,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                   : null,
             ),
             smartSelect<TerminalType>(
+              context: context,
               title: ShipantherLocalizations.of(context)!.terminalType,
               onChange: (state) => _terminalType = state.value,
               choiceItems: S2Choice.listFrom<TerminalType, TerminalType>(

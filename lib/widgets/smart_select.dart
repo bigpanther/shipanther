@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smart_select/smart_select.dart';
 
 SmartSelect<T> smartSelect<T>(
-    {required String title,
+    {required BuildContext context,
+    required String title,
     required void Function(S2SingleState<T>) onChange,
     required List<S2Choice<T>> choiceItems,
     required T value}) {
@@ -11,8 +12,15 @@ SmartSelect<T> smartSelect<T>(
     onChange: onChange,
     choiceItems: choiceItems,
     modalType: S2ModalType.popupDialog,
-    modalStyle: const S2ModalStyle(
-      backgroundColor: Colors.grey,
+    modalStyle: S2ModalStyle(
+      backgroundColor: Theme.of(context).backgroundColor,
+    ),
+    modalHeaderStyle: S2ModalHeaderStyle(
+      backgroundColor: Theme.of(context).primaryColor,
+      textStyle: Theme.of(context).primaryTextTheme.headline5,
+    ),
+    choiceStyle: S2ChoiceStyle(
+      titleStyle: Theme.of(context).textTheme.bodyText1,
     ),
     modalHeader: true,
     tileBuilder: (context, state) {
