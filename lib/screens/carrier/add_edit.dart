@@ -80,6 +80,7 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
             dateTimePicker(context,
                 ShipantherLocalizations.of(context)!.carriersETA, _eta),
             smartSelect<CarrierType>(
+              context: context,
               title: ShipantherLocalizations.of(context)!.carrierType,
               onChange: (state) => _carrierType = state.value,
               choiceItems: S2Choice.listFrom<CarrierType, CarrierType>(

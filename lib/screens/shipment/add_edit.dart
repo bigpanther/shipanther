@@ -152,6 +152,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                             .shipmentReservationTime,
                         _reservationTimeController),
                     smartSelect<ShipmentSize>(
+                      context: context,
                       title: ShipantherLocalizations.of(context)!.shipmentSize,
                       onChange: (state) => _shipmentSize = state.value,
                       choiceItems:
@@ -163,6 +164,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                       value: widget.shipment.size,
                     ),
                     smartSelect<ShipmentType>(
+                      context: context,
                       title: ShipantherLocalizations.of(context)!.shipmentType,
                       onChange: (state) => _shipmentType = state.value,
                       choiceItems:
@@ -174,6 +176,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                       value: widget.shipment.type,
                     ),
                     smartSelect<ShipmentStatus>(
+                      context: context,
                       title:
                           ShipantherLocalizations.of(context)!.shipmentStatus,
                       onChange: (state) => _shipmentStatus = state.value,

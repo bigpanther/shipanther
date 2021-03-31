@@ -66,6 +66,7 @@ class _TenantAddEditState extends State<TenantAddEdit> {
                     : null,
               ),
               smartSelect<TenantType>(
+                context: context,
                 title: ShipantherLocalizations.of(context)!.tenantType,
                 onChange: (state) => _tenantType = state.value,
                 choiceItems: S2Choice.listFrom<TenantType, TenantType>(
