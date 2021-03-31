@@ -35,7 +35,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
     PickedFile? file;
     try {
       file = await ImagePicker()
-          .getImage(source: ImageSource.camera, imageQuality: 50);
+          .getImage(source: ImageSource.camera, imageQuality: 10);
     } catch (e) {
       print('hsm $e');
     }

@@ -32,7 +32,7 @@
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data android:name="flutterEmbedding" android:value="2" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
     <!-- For sdk 30+. See https://github.com/flutter/flutter/issues/62669 -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

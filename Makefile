@@ -15,7 +15,7 @@ release-prod-ios:
 	flutter build ipa --flavor prod -t lib/main_prod.dart --release
 release-prod: clean release-prod-android release-prod-ios
 release-dev-android:
-	flutter build appbundle --flavor dev --no-sound-null-safety
+	flutter build appbundle --flavor dev --no-sound-null-safety --no-shrink
 release-dev-ios:
 	flutter build ipa --flavor dev --release --no-sound-null-safety
 release-dev-web:
