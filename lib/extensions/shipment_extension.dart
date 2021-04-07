@@ -1,4 +1,3 @@
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:trober_sdk/trober_sdk.dart';
@@ -15,7 +14,7 @@ extension ShipmentTypeExtension on ShipmentType {
   }
 
   String get text {
-    return EnumToString.convertToString(this, camelCase: true);
+    return name;
   }
 }
 
@@ -88,7 +87,7 @@ extension ShipmentStatusExtension on ShipmentStatus {
   }
 
   String get text {
-    return EnumToString.convertToString(this, camelCase: true);
+    return name;
   }
 }
 
@@ -115,6 +114,6 @@ extension ShipmentSizeExtension on ShipmentSize {
     if (this == null) {
       return '';
     }
-    return EnumToString.convertToString(this, camelCase: true);
+    return name;
   }
 }

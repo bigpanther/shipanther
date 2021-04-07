@@ -86,7 +86,10 @@ class CarrierList extends StatelessWidget {
               loggedInUser,
               isEdit: false,
               carrierBloc: carrierBloc,
-              carrier: (CarrierBuilder()..type = CarrierType.vessel).build(),
+              carrier: (CarrierBuilder()
+                    ..type = CarrierType.vessel
+                    ..tenantId = '')
+                  .build(),
             ),
           ),
         );

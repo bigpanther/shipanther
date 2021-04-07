@@ -1,4 +1,3 @@
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:shipanther/screens/back_office_home.dart';
 import 'package:shipanther/screens/customer_home.dart';
@@ -76,6 +75,6 @@ extension UserRoleExtension on UserRole {
   }
 
   String get text {
-    return EnumToString.convertToString(this, camelCase: true);
+    return name;
   }
 }

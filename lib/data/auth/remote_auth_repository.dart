@@ -76,7 +76,7 @@ class RemoteAuthRepository extends AuthRepository {
             headers: authHeader,
           ),
         ),
-        api.serializers,
+        api.standardSerializers,
         authUser.uid);
   }
 
