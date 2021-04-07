@@ -16,7 +16,7 @@ class CustomerLoading extends CustomerState {}
 
 class CustomersLoaded extends CustomerState {
   const CustomersLoaded(this.customers);
-  final List<Customer> customers;
+  final Iterable<Customer> customers;
 }
 
 class CustomerFailure extends CustomerState {

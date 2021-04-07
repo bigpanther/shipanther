@@ -1,22 +1,24 @@
 import 'dart:async';
-import 'package:openapi_dart_common/openapi.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart' as api;
+import 'package:built_value/serializer.dart';
+import 'package:dio/dio.dart';
 
 abstract class AuthRepository {
   const AuthRepository();
-  Future<User> signIn(String username, String password);
-  Future<User> registerUser(String name, String username, String password);
-  Future<User> loggedInUser();
-  Future<User> logIn();
+  Future<api.User> signIn(String username, String password);
+  Future<api.User> registerUser(String name, String username, String password);
+  Future<api.User> loggedInUser();
+  Future<api.User> logIn();
   Future<void> logout();
-  Future<User> verifyEmail();
+  Future<api.User> verifyEmail();
   Future<void> forgotPassword(String email);
   Future<ApiWithUserId> apiClient();
   Future<String?> sendEmailForVerification();
 }
 
-class ApiWithUserId extends DefaultApi {
-  ApiWithUserId(ApiClient apiClient, this.userId) : super(apiClient);
+class ApiWithUserId extends api.DefaultApi {
+  ApiWithUserId(Dio dio, Serializers serializers, this.userId)
+      : super(dio, serializers);
   final String userId;
 }
 

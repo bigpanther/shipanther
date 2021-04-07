@@ -4,7 +4,7 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 import 'package:shipanther/extensions/terminal_extension.dart';
 
 class TerminalAddEdit extends StatefulWidget {
@@ -31,7 +31,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
   void initState() {
     super.initState();
     _name = TextEditingController(text: widget.terminal.name);
-    _terminalType = widget.terminal.type;
+    _terminalType = widget.terminal.type!;
   }
 
   late TerminalType _terminalType;
@@ -41,7 +41,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
   @override
   Widget build(BuildContext context) {
     if (widget.isEdit) {
-      _tenantTypeAheadController.text = widget.terminal.tenantId;
+      _tenantTypeAheadController.text = widget.terminal.tenantId ?? '';
     }
     return Scaffold(
       appBar: AppBar(
@@ -76,11 +76,11 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
               title: ShipantherLocalizations.of(context)!.terminalType,
               onChange: (state) => _terminalType = state.value,
               choiceItems: S2Choice.listFrom<TerminalType, TerminalType>(
-                source: TerminalType.values,
+                source: TerminalType.values.toList(),
                 value: (index, item) => item,
                 title: (index, item) => item.text,
               ),
-              value: widget.terminal.type,
+              value: widget.terminal.type!,
             ),
           ]),
         ),
@@ -91,13 +91,15 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
             : ShipantherLocalizations.of(context)!.create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.terminal.name = _name.text;
-            widget.terminal.type = _terminalType;
+            final tb = widget.terminal.toBuilder();
+
+            tb.name = _name.text;
+            tb.type = _terminalType;
             if (widget.isEdit) {
               widget.terminalBloc
-                  .add(UpdateTerminal(widget.terminal.id, widget.terminal));
+                  .add(UpdateTerminal(widget.terminal.id!, tb.build()));
             } else {
-              widget.terminalBloc.add(CreateTerminal(widget.terminal));
+              widget.terminalBloc.add(CreateTerminal(tb.build()));
             }
 
             Navigator.pop(context);

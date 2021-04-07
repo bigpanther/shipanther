@@ -1,34 +1,38 @@
 import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/data/terminal/terminal_repository.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class RemoteTerminalRepository extends TerminalRepository {
   const RemoteTerminalRepository(this._authRepository);
   final AuthRepository _authRepository;
 
   @override
-  Future<Terminal> fetchTerminal(String id) async {
+  Future<Terminal?> fetchTerminal(String id) async {
     final client = await _authRepository.apiClient();
-    return await client.terminalsIdGet(id);
+    final resp = await client.terminalsIdGet(id: id);
+    return resp.data;
   }
 
   @override
-  Future<List<Terminal>> fetchTerminals(
+  Future<Iterable<Terminal>> fetchTerminals(
       {int? page = 1, TerminalType? terminalType, String? name}) async {
     final client = await _authRepository.apiClient();
-    return await client.terminalsGet(
-        page: page, type: terminalType, name: name);
+    final resp =
+        await client.terminalsGet(page: page, type: terminalType, name: name);
+    return resp.data ?? [];
   }
 
   @override
-  Future<Terminal> createTerminal(Terminal terminal) async {
+  Future<Terminal?> createTerminal(Terminal terminal) async {
     final client = await _authRepository.apiClient();
-    return await client.terminalsPost(terminal: terminal);
+    final resp = await client.terminalsPost(terminal: terminal);
+    return resp.data;
   }
 
   @override
-  Future<Terminal> updateTerminal(String id, Terminal terminal) async {
+  Future<Terminal?> updateTerminal(String id, Terminal terminal) async {
     final client = await _authRepository.apiClient();
-    return await client.terminalsIdPut(id, terminal: terminal);
+    final resp = await client.terminalsIdPut(id: id, terminal: terminal);
+    return resp.data;
   }
 }

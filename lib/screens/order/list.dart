@@ -6,7 +6,7 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/order/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 import 'package:shipanther/extensions/order_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -49,16 +49,16 @@ class OrderList extends StatelessWidget {
             ),
             child: ExpansionTile(
               childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
-              leading: Icon(t.status.icon),
+              leading: Icon(t.status!.icon),
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
-                  orderBloc.add(GetOrder(t.id));
+                  orderBloc.add(GetOrder(t.id!));
                 },
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
               title: Text(
-                t.serialNumber,
+                t.serialNumber!,
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
@@ -69,7 +69,7 @@ class OrderList extends StatelessWidget {
                 if (t.customer != null)
                   displaySubtitle(
                       ShipantherLocalizations.of(context)!.customerName,
-                      t.customer.name)
+                      t.customer!.name)
                 else
                   Container(width: 0.0, height: 0.0),
                 displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
@@ -91,7 +91,7 @@ class OrderList extends StatelessWidget {
             builder: (_) => OrderAddEdit(loggedInUser,
                 isEdit: false,
                 orderBloc: orderBloc,
-                order: Order()..status = OrderStatus.open),
+                order: (OrderBuilder()..status = OrderStatus.open).build()),
           ),
         );
       },

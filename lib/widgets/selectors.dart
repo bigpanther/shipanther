@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 
@@ -25,7 +25,10 @@ TypeAheadFormField<Tenant> tenantSelector(
     enabled: shouldShow,
     suggestionsCallback: (pattern) async {
       final client = await context.read<AuthRepository>().apiClient();
-      return (await client.tenantsGet()).where(
+
+      final resp = await client.tenantsGet();
+      final tenants = resp.data ?? const Iterable<Tenant>.empty();
+      return tenants.where(
         (element) => element.name.toLowerCase().startsWith(pattern),
       );
     },
@@ -33,7 +36,7 @@ TypeAheadFormField<Tenant> tenantSelector(
       return ListTile(
         leading: const Icon(Icons.business),
         title: Text(tenant.name),
-        subtitle: Text(tenant.id),
+        subtitle: Text(tenant.id!),
       );
     },
     onSuggestionSelected: (suggestion) {
@@ -67,7 +70,10 @@ List<Widget> customerSelector(
       validator: validator,
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.customersGet()).where(
+        final resp = await client.customersGet();
+        final customers = resp.data ?? const Iterable<Customer>.empty();
+
+        return customers.where(
           (element) => element.name.toLowerCase().startsWith(pattern),
         );
       },
@@ -75,7 +81,7 @@ List<Widget> customerSelector(
         return ListTile(
           leading: const Icon(Icons.business),
           title: Text(customer.name),
-          subtitle: Text(customer.id),
+          subtitle: Text(customer.id!),
         );
       },
       onSuggestionSelected: (suggestion) {
@@ -107,7 +113,10 @@ List<Widget> driverSelector(
           }),
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.usersGet()).where(
+        final resp = await client.usersGet();
+        final users = resp.data ?? const Iterable<User>.empty();
+
+        return users.where(
           (element) =>
               element.isDriver &&
               element.name.toLowerCase().startsWith(pattern),
@@ -117,7 +126,7 @@ List<Widget> driverSelector(
         return ListTile(
           leading: const Icon(Icons.business),
           title: Text(user.name),
-          subtitle: Text(user.id),
+          subtitle: Text(user.id!),
         );
       },
       onSuggestionSelected: (suggestion) {
@@ -150,20 +159,22 @@ List<Widget> terminalSelector(
       ),
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.terminalsGet()).where(
-          (element) => element.name.toLowerCase().startsWith(pattern),
+        final resp = await client.terminalsGet();
+        final terminals = resp.data ?? const Iterable<Terminal>.empty();
+        return terminals.where(
+          (element) => element.name!.toLowerCase().startsWith(pattern),
         );
       },
       itemBuilder: (context, Terminal terminal) {
         return ListTile(
           leading: const Icon(Icons.business),
-          title: Text(terminal.name),
-          subtitle: Text(terminal.id),
+          title: Text(terminal.name!),
+          subtitle: Text(terminal.id!),
         );
       },
       onSuggestionSelected: (suggestion) {
         onSuggestionSelected(suggestion);
-        textEditingController.text = suggestion.name;
+        textEditingController.text = suggestion.name!;
       },
     ),
   ];
@@ -191,7 +202,11 @@ List<Widget> carrierSelector(
       ),
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.carriersGet()).where(
+
+        final resp = await client.carriersGet();
+        final carriers = resp.data ?? const Iterable<Carrier>.empty();
+
+        return carriers.where(
           (element) => element.name.toLowerCase().startsWith(pattern),
         );
       },
@@ -199,7 +214,7 @@ List<Widget> carrierSelector(
         return ListTile(
           leading: const Icon(Icons.business),
           title: Text(carrier.name),
-          subtitle: Text(carrier.id),
+          subtitle: Text(carrier.id!),
         );
       },
       onSuggestionSelected: (suggestion) {
@@ -232,20 +247,24 @@ List<Widget> orderSelector(
       ),
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.ordersGet()).where(
-          (element) => element.serialNumber.toLowerCase().startsWith(pattern),
+        final resp = await client.ordersGet();
+        final orders = resp.data ?? const Iterable<Order>.empty();
+
+        return orders.where(
+          (element) => element.serialNumber!.toLowerCase().startsWith(pattern),
         );
       },
       itemBuilder: (context, Order order) {
         return ListTile(
           leading: const Icon(Icons.business),
-          title: Text(order.serialNumber),
-          subtitle: Text(order.id),
+          title: Text(order.serialNumber!),
+          subtitle: Text(order.id!),
         );
       },
       onSuggestionSelected: (suggestion) {
         onSuggestionSelected(suggestion);
-        textEditingController.text = suggestion.serialNumber;
+        // hsm todo check nullables in this file ending with !
+        textEditingController.text = suggestion.serialNumber!;
       },
     ),
   ];

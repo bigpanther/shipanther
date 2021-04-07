@@ -7,7 +7,7 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/tenant/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 import 'package:shipanther/extensions/tenant_extension.dart';
 
 class TenantList extends StatelessWidget {
@@ -76,12 +76,12 @@ class TenantList extends StatelessWidget {
                     ShipantherLocalizations.of(context)!.createdAt,
                     ShipantherLocalizations.of(context)!
                         .dateFormatter
-                        .format(t.createdAt)),
+                        .format(t.createdAt!)),
                 displaySubtitle(
                     ShipantherLocalizations.of(context)!.lastUpdate,
                     ShipantherLocalizations.of(context)!
                         .dateFormatter
-                        .format(t.updatedAt)),
+                        .format(t.updatedAt!)),
               ],
             ),
           ),
@@ -98,7 +98,7 @@ class TenantList extends StatelessWidget {
             builder: (_) => TenantAddEdit(
               isEdit: false,
               tenantBloc: tenantBloc,
-              tenant: Tenant()..type = TenantType.test,
+              tenant: (TenantBuilder()..type = TenantType.test).build(),
             ),
           ),
         );

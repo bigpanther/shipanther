@@ -5,7 +5,7 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/shipment/driver_list.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class DriverHome extends StatefulWidget {
   const DriverHome(this.loggedInUser, {Key? key}) : super(key: key);

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/tenant/tenant_repository.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 part 'tenant_event.dart';
 part 'tenant_state.dart';
@@ -19,7 +19,11 @@ class TenantBloc extends Bloc<TenantEvent, TenantState> {
     yield TenantLoading();
     try {
       if (event is GetTenant) {
-        yield TenantLoaded(await _tenantRepository.fetchTenant(event.id));
+        final tenant = await _tenantRepository.fetchTenant(event.id);
+        if (tenant == null) {
+          throw 'tenant not found';
+        }
+        yield TenantLoaded(tenant);
       }
       if (event is GetTenants) {
         final tenants =

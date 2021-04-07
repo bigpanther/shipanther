@@ -5,7 +5,7 @@ import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 
 class UserAddEdit extends StatefulWidget {
@@ -78,7 +78,7 @@ class _UserAddEditState extends State<UserAddEdit> {
                 title: ShipantherLocalizations.of(context)!.userType,
                 onChange: (state) => _userRole = state.value,
                 choiceItems: S2Choice.listFrom<UserRole, UserRole>(
-                  source: UserRole.values,
+                  source: UserRole.values.toList(),
                   value: (index, item) => item,
                   title: (index, item) => item.text,
                 ),
@@ -99,15 +99,17 @@ class _UserAddEditState extends State<UserAddEdit> {
             : ShipantherLocalizations.of(context)!.create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.user.name = _nameController.text;
-            widget.user.role = _userRole ?? UserRole.driver;
+            final ub = widget.user.toBuilder();
+
+            ub.name = _nameController.text;
+            ub.role = _userRole ?? UserRole.driver;
             if (_tenant != null) {
-              widget.user.tenantId = _tenant!.id;
+              ub.tenantId = _tenant!.id;
             }
             if (widget.isEdit) {
-              widget.userBloc.add(UpdateUser(widget.user.id, widget.user));
+              widget.userBloc.add(UpdateUser(widget.user.id!, ub.build()));
             } else {
-              widget.userBloc.add(CreateUser(widget.user));
+              widget.userBloc.add(CreateUser(ub.build()));
             }
 
             Navigator.pop(context);

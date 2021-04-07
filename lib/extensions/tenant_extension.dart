@@ -1,6 +1,6 @@
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 extension TenantTypeExtension on TenantType {
   IconData get icon {
@@ -12,6 +12,7 @@ extension TenantTypeExtension on TenantType {
       case TenantType.test:
         return Icons.home_work;
     }
+    throw 'invalid TenantType';
   }
 
   String get text {

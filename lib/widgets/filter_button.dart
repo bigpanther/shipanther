@@ -12,7 +12,7 @@ class FilterButton<T> extends StatelessWidget {
     required this.tooltip,
   }) : super(key: key);
 
-  final List<T> possibleValues;
+  final Iterable<T> possibleValues;
   final PopupMenuItemSelected<T?> onSelected;
   final T? activeFilter;
   final bool isActive;
@@ -30,7 +30,7 @@ class FilterButton<T> extends StatelessWidget {
       activeFilter: activeFilter,
       activeStyle: activeStyle,
       defaultStyle: defaultStyle!,
-      possibleValues: possibleValues,
+      possibleValues: possibleValues.toList(),
       tooltip: tooltip,
     );
 

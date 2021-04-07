@@ -6,7 +6,7 @@ import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 import 'package:shipanther/extensions/shipment_extension.dart';
 
 class ShipmentAddEdit extends StatefulWidget {
@@ -29,7 +29,6 @@ class ShipmentAddEdit extends StatefulWidget {
 
 class _ShipmentAddEditState extends State<ShipmentAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Terminal? _terminal;
   Carrier? _carrier;
   Order? _order;
   Tenant? _tenant;
@@ -58,31 +57,31 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
     _originController = TextEditingController(text: widget.shipment.origin);
     _destinationController =
         TextEditingController(text: widget.shipment.destination);
-    _shipmentStatus = widget.shipment.status;
-    _shipmentSize = widget.shipment.size;
-    _shipmentType = widget.shipment.type;
+    _shipmentStatus = widget.shipment.status!;
+    _shipmentSize = widget.shipment.size ?? ShipmentSize.n20sT;
+    _shipmentType = widget.shipment.type ?? ShipmentType.inbound;
     _tenantTypeAheadController =
         TextEditingController(text: widget.shipment.tenantId);
     _driverTypeAheadController = TextEditingController(
         text: (widget.shipment.driver != null)
-            ? widget.shipment.driver.name
+            ? widget.shipment.driver!.name
             : widget.shipment.driverId);
-    _terminalTypeAheadController = TextEditingController(
-        text: (widget.shipment.terminal != null)
-            ? widget.shipment.terminal.name
-            : widget.shipment.terminalId);
+    // _terminalTypeAheadController = TextEditingController(
+    //     text: (widget.shipment.terminal != null)
+    //         ? widget.shipment.terminal!.name
+    //         : widget.shipment.terminalId ?? '');
     _carrierTypeAheadController = TextEditingController(
         text: (widget.shipment.carrier != null)
-            ? widget.shipment.carrier.name
+            ? widget.shipment.carrier!.name
             : widget.shipment.carrierId);
     _orderTypeAheadController = TextEditingController(
         text: (widget.shipment.order != null)
-            ? widget.shipment.order.serialNumber
+            ? widget.shipment.order!.serialNumber
             : widget.shipment.orderId);
     _reservationTimeController = TextEditingController(
         text: (widget.shipment.reservationTime == null)
             ? null
-            : widget.shipment.reservationTime.toLocal().toString());
+            : widget.shipment.reservationTime!.toLocal().toString());
   }
 
   Container _imageContainer(String? imageURL) {
@@ -157,11 +156,11 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                       onChange: (state) => _shipmentSize = state.value,
                       choiceItems:
                           S2Choice.listFrom<ShipmentSize, ShipmentSize>(
-                        source: ShipmentSize.values,
+                        source: ShipmentSize.values.toList(),
                         value: (index, item) => item,
                         title: (index, item) => item.text,
                       ),
-                      value: widget.shipment.size,
+                      value: widget.shipment.size!,
                     ),
                     smartSelect<ShipmentType>(
                       context: context,
@@ -169,11 +168,11 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                       onChange: (state) => _shipmentType = state.value,
                       choiceItems:
                           S2Choice.listFrom<ShipmentType, ShipmentType>(
-                        source: ShipmentType.values,
+                        source: ShipmentType.values.toList(),
                         value: (index, item) => item,
                         title: (index, item) => item.text,
                       ),
-                      value: widget.shipment.type,
+                      value: widget.shipment.type!,
                     ),
                     smartSelect<ShipmentStatus>(
                       context: context,
@@ -182,11 +181,11 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                       onChange: (state) => _shipmentStatus = state.value,
                       choiceItems:
                           S2Choice.listFrom<ShipmentStatus, ShipmentStatus>(
-                        source: ShipmentStatus.values,
+                        source: ShipmentStatus.values.toList(),
                         value: (index, item) => item,
                         title: (index, item) => item.text,
                       ),
-                      value: widget.shipment.status,
+                      value: widget.shipment.status!,
                     ),
                     const SizedBox(height: 8),
                   ] +
@@ -196,9 +195,6 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                   carrierSelector(context, true, (Carrier suggestion) {
                     _carrier = suggestion;
                   }, _carrierTypeAheadController) +
-                  terminalSelector(context, true, (Terminal suggestion) {
-                    _terminal = suggestion;
-                  }, _terminalTypeAheadController) +
                   driverSelector(
                     context,
                     true,
@@ -218,36 +214,35 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
             : ShipantherLocalizations.of(context)!.create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.shipment.reservationTime =
+            final sb = widget.shipment.toBuilder();
+
+            sb.reservationTime =
                 DateTime.tryParse(_reservationTimeController.text);
-            widget.shipment.serialNumber = _serialNumberController.text;
-            widget.shipment.origin = _originController.text;
-            widget.shipment.destination = _destinationController.text;
-            widget.shipment.type = _shipmentType;
-            widget.shipment.status = _shipmentStatus;
-            widget.shipment.size = _shipmentSize;
+            sb.serialNumber = _serialNumberController.text;
+            sb.origin = _originController.text;
+            sb.destination = _destinationController.text;
+            sb.type = _shipmentType;
+            sb.status = _shipmentStatus;
+            sb.size = _shipmentSize;
             if (_tenant != null) {
-              widget.shipment.tenantId = _tenant!.id;
+              sb.tenantId = _tenant!.id;
             }
             if (_driver != null) {
-              widget.shipment.driverId = _driver!.id;
+              sb.driverId = _driver!.id;
             }
             if (_order != null) {
-              widget.shipment.orderId = _order!.id;
+              sb.orderId = _order!.id;
             }
             if (_carrier != null) {
-              widget.shipment.carrierId = _carrier!.id;
+              sb.carrierId = _carrier!.id;
             }
-            if (_terminal != null) {
-              widget.shipment.terminalId = _terminal!.id;
-            }
-            widget.shipment.createdBy = widget.loggedInUser.id;
+            sb.createdBy = widget.loggedInUser.id;
 
             if (widget.isEdit) {
               widget.shipmentBloc
-                  .add(UpdateShipment(widget.shipment.id, widget.shipment));
+                  .add(UpdateShipment(widget.shipment.id!, sb.build()));
             } else {
-              widget.shipmentBloc.add(CreateShipment(widget.shipment));
+              widget.shipmentBloc.add(CreateShipment(sb.build()));
             }
 
             Navigator.pop(context);

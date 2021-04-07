@@ -4,7 +4,7 @@ import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/tenant/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class TenantScreen extends StatefulWidget {
   const TenantScreen(this.loggedInUser, {Key? key}) : super(key: key);

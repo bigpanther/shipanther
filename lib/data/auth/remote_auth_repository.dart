@@ -1,17 +1,14 @@
 import 'dart:async';
-import 'package:openapi_dart_common/openapi.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/trober_sdk.dart' as api;
 
 class RemoteAuthRepository extends AuthRepository {
-  RemoteAuthRepository(this._auth, this._firebaseMessaging, this._url) {
-    _d = api.DefaultApi(ApiClient(basePath: _url));
-  }
+  RemoteAuthRepository(this._auth, this._firebaseMessaging, this._url);
   final firebase.FirebaseAuth _auth;
   final String _url;
-  late api.DefaultApi _d;
   final FirebaseMessaging _firebaseMessaging;
   api.User? _self;
 
@@ -69,11 +66,18 @@ class RemoteAuthRepository extends AuthRepository {
       throw UnAuthenticatedException();
     }
     final token = await authUser.getIdToken(false);
-    _d.apiDelegate.apiClient.setDefaultHeader('X-TOKEN', token);
-    final auth = ApiKeyAuth('header', 'X-TOKEN');
-    auth.apiKey = token;
-    _d.apiDelegate.apiClient.setAuthentication('ApiKeyAuth', auth);
-    return ApiWithUserId(_d.apiDelegate.apiClient, authUser.uid);
+    final authHeader = {'X-TOKEN': token};
+    return ApiWithUserId(
+        Dio(
+          BaseOptions(
+            baseUrl: _url,
+            //  connectTimeout: 5000,
+            //  receiveTimeout: 5000,
+            headers: authHeader,
+          ),
+        ),
+        api.serializers,
+        authUser.uid);
   }
 
   @override
@@ -97,7 +101,8 @@ class RemoteAuthRepository extends AuthRepository {
       return _self!;
     }
     final client = await apiClient();
-    _self = await client.selfGet();
+    final resp = await client.selfGet();
+    _self = resp.data;
     return _self!;
   }
 
@@ -107,15 +112,17 @@ class RemoteAuthRepository extends AuthRepository {
     }
     final client = await apiClient();
     final deviceToken = await _firebaseMessaging.getToken();
-    return client.selfDeviceRegisterPost(
-        deviceId: api.DeviceId()..token = deviceToken);
+    final resp = await client.selfDeviceRegisterPost(
+        deviceId: (api.DeviceIdBuilder()..token = deviceToken).build());
+    return resp.data;
   }
 
   Future<void> _deleteDeviceToken() async {
     final client = await apiClient();
     final deviceToken = await _firebaseMessaging.getToken();
-    return client.selfDeviceRemovePost(
-        deviceId: api.DeviceId()..token = deviceToken);
+    final resp = await client.selfDeviceRemovePost(
+        deviceId: (api.DeviceIdBuilder()..token = deviceToken).build());
+    return resp.data;
   }
 
   @override

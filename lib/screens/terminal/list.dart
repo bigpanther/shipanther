@@ -7,7 +7,7 @@ import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/terminal/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TerminalList extends StatelessWidget {
@@ -49,7 +49,7 @@ class TerminalList extends StatelessWidget {
             ),
             child: ExpansionTile(
               childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
-              leading: Icon(t.type.icon),
+              leading: Icon(t.type!.icon),
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
@@ -68,7 +68,7 @@ class TerminalList extends StatelessWidget {
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
               title: Text(
-                t.name,
+                t.name!,
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
@@ -96,7 +96,7 @@ class TerminalList extends StatelessWidget {
               loggedInUser,
               isEdit: false,
               terminalBloc: terminalBloc,
-              terminal: Terminal()..type = TerminalType.port,
+              terminal: (TerminalBuilder()..type = TerminalType.port).build(),
             ),
           ),
         );

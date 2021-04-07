@@ -1,7 +1,7 @@
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 extension ShipmentTypeExtension on ShipmentType {
   IconData get icon {
@@ -11,6 +11,7 @@ extension ShipmentTypeExtension on ShipmentType {
       case ShipmentType.outbound:
         return Icons.arrow_upward;
     }
+    throw 'invalid ShipmentType';
   }
 
   String get text {
@@ -38,6 +39,7 @@ extension ShipmentPercent on ShipmentStatus {
       case ShipmentStatus.delivered:
         return 1;
     }
+    throw 'invalid ShipmentStatus';
   }
 }
 
@@ -61,6 +63,7 @@ extension ShipmentStatusExtension on ShipmentStatus {
       case ShipmentStatus.delivered:
         return MdiIcons.accessPointMinus;
     }
+    throw 'invalid ShipmentStatus';
   }
 
   Color? color({Color? baseColor}) {

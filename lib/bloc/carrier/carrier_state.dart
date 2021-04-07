@@ -16,7 +16,7 @@ class CarrierLoaded extends CarrierState {
 
 class CarriersLoaded extends CarrierState {
   const CarriersLoaded(this.carriers, this.carrierType);
-  final List<Carrier> carriers;
+  final Iterable<Carrier> carriers;
   final CarrierType? carrierType;
 }
 

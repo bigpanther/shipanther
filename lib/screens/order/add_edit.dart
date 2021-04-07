@@ -5,7 +5,7 @@ import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/extensions/order_extension.dart';
 
@@ -33,7 +33,7 @@ class _OrderAddEditState extends State<OrderAddEdit> {
   void initState() {
     super.initState();
     _serialNumber = TextEditingController(text: widget.order.serialNumber);
-    _orderStatus = widget.order.status;
+    _orderStatus = widget.order.status!;
   }
 
   late OrderStatus _orderStatus;
@@ -46,10 +46,10 @@ class _OrderAddEditState extends State<OrderAddEdit> {
   @override
   Widget build(BuildContext context) {
     if (widget.isEdit) {
-      _tenantTypeAheadController.text = widget.order.tenantId;
+      _tenantTypeAheadController.text = widget.order.tenantId!;
       _customerTypeAheadController.text = (widget.order.customer != null)
-          ? widget.order.customer.name
-          : widget.order.customerId;
+          ? widget.order.customer!.name
+          : widget.order.customerId ?? '';
     }
     return Scaffold(
       appBar: AppBar(
@@ -88,11 +88,11 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                       title: ShipantherLocalizations.of(context)!.orderStatus,
                       onChange: (state) => _orderStatus = state.value,
                       choiceItems: S2Choice.listFrom<OrderStatus, OrderStatus>(
-                        source: OrderStatus.values,
+                        source: OrderStatus.values.toList(),
                         value: (index, item) => item,
                         title: (index, item) => item.text,
                       ),
-                      value: widget.order.status,
+                      value: widget.order.status!,
                     )
                   else
                     Container(width: 0.0, height: 0.0),
@@ -121,19 +121,21 @@ class _OrderAddEditState extends State<OrderAddEdit> {
             : ShipantherLocalizations.of(context)!.create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.order.serialNumber = _serialNumber.text;
-            widget.order.status = _orderStatus;
+            final ob = widget.order.toBuilder();
+
+            ob.serialNumber = _serialNumber.text;
+            ob.status = _orderStatus;
             if (widget.loggedInUser.isCustomer) {
-              widget.order.customerId = widget.loggedInUser.customerId;
+              ob.customerId = widget.loggedInUser.customerId;
               _customer = null;
             }
             if (_customer != null) {
-              widget.order.customerId = _customer!.id;
+              ob.customerId = _customer!.id;
             }
             if (widget.isEdit) {
-              widget.orderBloc.add(UpdateOrder(widget.order.id, widget.order));
+              widget.orderBloc.add(UpdateOrder(widget.order.id!, ob.build()));
             } else {
-              widget.orderBloc.add(CreateOrder(widget.order));
+              widget.orderBloc.add(CreateOrder(ob.build()));
             }
             Navigator.pop(context);
           }

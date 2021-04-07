@@ -10,7 +10,7 @@ import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 import 'package:shipanther/extensions/shipment_extension.dart';
 
 class DriverShipmentList extends StatefulWidget {
@@ -56,8 +56,9 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
       uploadTask = ref.putFile(File(file.path), metadata);
     }
     await uploadTask;
-    t.status = ShipmentStatus.delivered;
-    widget.shipmentBloc.add(UpdateShipment(t.id, t));
+    final tb = t.toBuilder();
+    tb.status = ShipmentStatus.delivered;
+    widget.shipmentBloc.add(UpdateShipment(t.id!, tb.build()));
   }
 
   @override
@@ -72,9 +73,11 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
       final Widget continueButton = TextButton(
         style: TextButton.styleFrom(primary: Theme.of(context).errorColor),
         onPressed: () {
-          t.status = ShipmentStatus.rejected;
-          t.driverId = null;
-          widget.shipmentBloc.add(UpdateShipment(t.id, t));
+          final tb = t.toBuilder();
+
+          tb.status = ShipmentStatus.rejected;
+          tb.driverId = null;
+          widget.shipmentBloc.add(UpdateShipment(t.id!, tb.build()));
           Navigator.of(context).pop();
         },
         child: Text(ShipantherLocalizations.of(context)!.shipmentReject),
@@ -133,7 +136,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                         Text(
                           t.size == null
                               ? ShipmentSize.n20sT.text
-                              : t.size.text,
+                              : t.size!.text,
                           style: const TextStyle(
                             color: Color.fromRGBO(204, 255, 0, 1),
                           ),
@@ -167,9 +170,9 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                     title: Row(
                       children: [
                         Text(
-                          t.serialNumber,
+                          t.serialNumber!,
                           style: TextStyle(
-                              color: t.status.color(
+                              color: t.status!.color(
                                   baseColor: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
@@ -179,7 +182,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                       ],
                     ),
                     subtitle: Text(ShipantherLocalizations.of(context)!
-                        .paramFromTo(t.origin, t.destination)),
+                        .paramFromTo(t.origin ?? '', t.destination ?? '')),
                     children: [
                       if (t.status == ShipmentStatus.accepted)
                         TextButton(
@@ -206,8 +209,11 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                           style: TextButton.styleFrom(
                               primary: Theme.of(context).primaryColor),
                           onPressed: () {
-                            t.status = ShipmentStatus.accepted;
-                            widget.shipmentBloc.add(UpdateShipment(t.id, t));
+                            final tb = t.toBuilder();
+
+                            tb.status = ShipmentStatus.accepted;
+                            widget.shipmentBloc
+                                .add(UpdateShipment(t.id!, tb.build()));
                           },
                           child: Text(
                             ShipantherLocalizations.of(context)!.shipmentAccept,

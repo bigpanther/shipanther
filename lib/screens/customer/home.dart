@@ -4,7 +4,7 @@ import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/customer/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class CustomerHome extends StatefulWidget {
   const CustomerHome(this.loggedInUser, {Key? key}) : super(key: key);

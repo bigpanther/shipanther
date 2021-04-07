@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/user/user_repository.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';
@@ -20,7 +20,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     yield UserLoading();
     try {
       if (event is GetUser) {
-        yield UserLoaded(await _userRepository.fetchUser(event.id));
+        final user = await _userRepository.fetchUser(event.id);
+        if (user == null) {
+          throw 'user not found';
+        }
+        yield UserLoaded(user);
       }
       if (event is GetUsers) {
         final users =

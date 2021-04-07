@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class NoneHome extends StatelessWidget {
   const NoneHome(this.user, {Key? key}) : super(key: key);

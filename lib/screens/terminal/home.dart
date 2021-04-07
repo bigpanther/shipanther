@@ -5,7 +5,7 @@ import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/terminal/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class TerminalScreen extends StatefulWidget {
   const TerminalScreen(this.loggedInUser, {Key? key}) : super(key: key);

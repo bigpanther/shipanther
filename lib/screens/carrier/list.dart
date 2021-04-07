@@ -6,7 +6,7 @@ import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/shipanther_localization.dart';
 import 'package:shipanther/screens/carrier/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class CarrierList extends StatelessWidget {
   const CarrierList(this.loggedInUser,
@@ -86,7 +86,7 @@ class CarrierList extends StatelessWidget {
               loggedInUser,
               isEdit: false,
               carrierBloc: carrierBloc,
-              carrier: Carrier()..type = CarrierType.vessel,
+              carrier: (CarrierBuilder()..type = CarrierType.vessel).build(),
             ),
           ),
         );

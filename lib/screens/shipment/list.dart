@@ -7,7 +7,7 @@ import 'package:shipanther/screens/shipment/add_edit.dart';
 import 'package:shipanther/extensions/shipment_extension.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShipmentList extends StatelessWidget {
@@ -38,9 +38,9 @@ class ShipmentList extends StatelessWidget {
       return CircularPercentIndicator(
         radius: 35.0,
         lineWidth: 5.0,
-        percent: c.status.percentage,
+        percent: c.status!.percentage,
         progressColor: Colors.green,
-        center: Icon(c.type.icon),
+        center: Icon(c.type!.icon),
       );
     }
 
@@ -68,16 +68,16 @@ class ShipmentList extends StatelessWidget {
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
-                  shipmentBloc.add(GetShipment(t.id));
+                  shipmentBloc.add(GetShipment(t.id!));
                 },
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
               title: Row(
                 children: [
                   Text(
-                    t.serialNumber,
+                    t.serialNumber!,
                     style: TextStyle(
-                        color: t.status.color(
+                        color: t.status!.color(
                             baseColor:
                                 Theme.of(context).textTheme.bodyText1!.color),
                         fontSize: 20),
@@ -85,17 +85,17 @@ class ShipmentList extends StatelessWidget {
                 ],
               ),
               subtitle: Text(ShipantherLocalizations.of(context)!
-                  .paramFromTo(t.origin, t.destination)),
+                  .paramFromTo(t.origin ?? '', t.destination ?? '')),
               children: [
                 displaySubtitle(
                     ShipantherLocalizations.of(context)!.reservationTime,
                     t.reservationTime,
                     formatter:
                         ShipantherLocalizations.of(context)!.dateTimeFormatter),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context)!.size, t.size.text),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context)!.status, t.status.text),
+                displaySubtitle(ShipantherLocalizations.of(context)!.size,
+                    t.size?.text ?? ''),
+                displaySubtitle(ShipantherLocalizations.of(context)!.status,
+                    t.status!.text),
                 displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
                     t.updatedAt,
                     formatter:
@@ -113,14 +113,13 @@ class ShipmentList extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute<Widget>(
-            builder: (_) => ShipmentAddEdit(
-              loggedInUser,
-              isEdit: false,
-              shipmentBloc: shipmentBloc,
-              shipment: Shipment()
-                ..status = ShipmentStatus.unassigned
-                ..type = ShipmentType.inbound,
-            ),
+            builder: (_) => ShipmentAddEdit(loggedInUser,
+                isEdit: false,
+                shipmentBloc: shipmentBloc,
+                shipment: (ShipmentBuilder()
+                      ..status = ShipmentStatus.unassigned
+                      ..type = ShipmentType.inbound)
+                    .build()),
           ),
         );
       },

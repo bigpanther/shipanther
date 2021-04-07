@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget(

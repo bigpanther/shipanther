@@ -7,7 +7,7 @@ import 'package:shipanther/screens/shipment/add_edit.dart';
 import 'package:shipanther/screens/shipment/driver_list.dart';
 import 'package:shipanther/screens/shipment/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 
 class ShipmentScreen extends StatefulWidget {

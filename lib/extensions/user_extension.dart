@@ -5,7 +5,7 @@ import 'package:shipanther/screens/customer_home.dart';
 import 'package:shipanther/screens/driver_home.dart';
 import 'package:shipanther/screens/none_home.dart';
 import 'package:shipanther/screens/super_admin_home.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 extension UserExtension on User {
   bool get isAtleastBackOffice {
@@ -72,6 +72,7 @@ extension UserRoleExtension on UserRole {
       case UserRole.none:
         return Icons.not_accessible;
     }
+    throw 'invalid UserRole';
   }
 
   String get text {

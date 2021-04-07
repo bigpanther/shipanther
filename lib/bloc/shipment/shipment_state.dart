@@ -17,7 +17,7 @@ class ShipmentLoaded extends ShipmentState {
 
 class ShipmentsLoaded extends ShipmentState {
   const ShipmentsLoaded(this.shipments, this.shipmentStatus);
-  final List<Shipment> shipments;
+  final Iterable<Shipment> shipments;
   final ShipmentStatus? shipmentStatus;
 }
 

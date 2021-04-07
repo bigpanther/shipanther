@@ -6,7 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/shipment/shipment_repository.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 part 'shipment_event.dart';
 part 'shipment_state.dart';
@@ -23,6 +23,9 @@ class ShipmentBloc extends Bloc<ShipmentEvent, ShipmentState> {
     try {
       if (event is GetShipment) {
         final shipment = await _shipmentRepository.fetchShipment(event.id);
+        if (shipment == null) {
+          throw 'shipment not found';
+        }
         String? downloadURL;
         try {
           downloadURL = await FirebaseStorage.instance

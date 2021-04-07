@@ -1,6 +1,6 @@
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 extension CarrierTypeExtension on CarrierType {
   IconData get icon {
@@ -14,6 +14,7 @@ extension CarrierTypeExtension on CarrierType {
       case CarrierType.road:
         return Icons.local_shipping;
     }
+    throw 'invalid CarrierType';
   }
 
   String get text {

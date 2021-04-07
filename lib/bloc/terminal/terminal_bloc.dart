@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/terminal/terminal_repository.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 part 'terminal_event.dart';
 part 'terminal_state.dart';
@@ -19,7 +19,11 @@ class TerminalBloc extends Bloc<TerminalEvent, TerminalState> {
     yield TerminalLoading();
     try {
       if (event is GetTerminal) {
-        yield TerminalLoaded(await _terminalRepository.fetchTerminal(event.id));
+        final terminal = await _terminalRepository.fetchTerminal(event.id);
+        if (terminal == null) {
+          throw 'terminal not found';
+        }
+        yield TerminalLoaded(terminal);
       }
       if (event is GetTerminals) {
         final terminals = await _terminalRepository.fetchTerminals(
