@@ -38,7 +38,7 @@ class ShipmentList extends StatelessWidget {
       return CircularPercentIndicator(
         radius: 35.0,
         lineWidth: 5.0,
-        percent: c.status.percentage,
+        percent: c.status!.percentage,
         progressColor: Colors.green,
         center: Icon(c.type.icon),
       );
@@ -77,7 +77,7 @@ class ShipmentList extends StatelessWidget {
                   Text(
                     t.serialNumber,
                     style: TextStyle(
-                        color: t.status.color(
+                        color: t.status!.color(
                             baseColor:
                                 Theme.of(context).textTheme.bodyText1!.color),
                         fontSize: 20),
@@ -85,7 +85,7 @@ class ShipmentList extends StatelessWidget {
                 ],
               ),
               subtitle: Text(ShipantherLocalizations.of(context)!
-                  .paramFromTo(t.origin, t.destination)),
+                  .paramFromTo(t.origin ?? '', t.destination ?? '')),
               children: [
                 displaySubtitle(
                     ShipantherLocalizations.of(context)!.reservationTime,
@@ -93,9 +93,9 @@ class ShipmentList extends StatelessWidget {
                     formatter:
                         ShipantherLocalizations.of(context)!.dateTimeFormatter),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.size, t.size.text),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context)!.status, t.status.text),
+                    ShipantherLocalizations.of(context)!.size, t.size?.text),
+                displaySubtitle(ShipantherLocalizations.of(context)!.status,
+                    t.status?.text),
                 displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
                     t.updatedAt,
                     formatter:
@@ -113,14 +113,18 @@ class ShipmentList extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute<Widget>(
-            builder: (_) => ShipmentAddEdit(
-              loggedInUser,
-              isEdit: false,
-              shipmentBloc: shipmentBloc,
-              shipment: Shipment()
-                ..status = ShipmentStatus.unassigned
-                ..type = ShipmentType.inbound,
-            ),
+            builder: (_) => ShipmentAddEdit(loggedInUser,
+                isEdit: false,
+                shipmentBloc: shipmentBloc,
+                shipment: Shipment(
+                  status: ShipmentStatus.unassigned,
+                  type: ShipmentType.inbound,
+                  createdAt: DateTime.now(),
+                  updatedAt: DateTime.now(),
+                  id: '',
+                  serialNumber: '',
+                  tenantId: loggedInUser.tenantId,
+                )),
           ),
         );
       },

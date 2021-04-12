@@ -151,19 +151,19 @@ List<Widget> terminalSelector(
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
         return (await client.terminalsGet()).where(
-          (element) => element.name.toLowerCase().startsWith(pattern),
+          (element) => element.name!.toLowerCase().startsWith(pattern),
         );
       },
       itemBuilder: (context, Terminal terminal) {
         return ListTile(
           leading: const Icon(Icons.business),
-          title: Text(terminal.name),
-          subtitle: Text(terminal.id),
+          title: Text(terminal.name!),
+          subtitle: Text(terminal.id!),
         );
       },
       onSuggestionSelected: (suggestion) {
         onSuggestionSelected(suggestion);
-        textEditingController.text = suggestion.name;
+        textEditingController.text = suggestion.name!;
       },
     ),
   ];

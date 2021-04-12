@@ -49,7 +49,7 @@ class TerminalList extends StatelessWidget {
             ),
             child: ExpansionTile(
               childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
-              leading: Icon(t.type.icon),
+              leading: Icon(t.type!.icon),
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
@@ -68,7 +68,7 @@ class TerminalList extends StatelessWidget {
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
               title: Text(
-                t.name,
+                t.name!,
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [

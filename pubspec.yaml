@@ -14,22 +14,22 @@ dependencies:
 
   flutter_bloc: ^7.0.0
   firebase_analytics: ^7.1.1
-  firebase_auth: ^1.0.1
-  firebase_core: ^1.0.2
-  firebase_crashlytics: ^1.0.0
-  firebase_messaging: ^9.1.0
-  firebase_storage: ^8.0.1
+  firebase_auth: ^1.0.3
+  firebase_core: ^1.0.3
+  firebase_crashlytics: ^2.0.0
+  firebase_messaging: ^9.1.1
+  firebase_storage: ^8.0.3
   smart_select: ^4.3.2
   intl: ^0.17.0
   flutter_typeahead: ^3.1.1
   enum_to_string: ^2.0.1
-  trober_sdk: 0.0.41
+  trober_sdk: 0.0.46
   date_time_picker: ^2.0.0
   package_info_plus: ^1.0.0
   material_design_icons_flutter: ^5.0.5955-rc.1
   percent_indicator: ^3.3.0-nullsafety.1
-  flex_color_scheme: ^2.1.0
-  image_picker: ^0.7.3
+  flex_color_scheme: ^2.1.1
+  image_picker: ^0.7.4
   url_launcher: ^6.0.3
 
 dev_dependencies:

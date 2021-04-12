@@ -31,7 +31,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
   void initState() {
     super.initState();
     _name = TextEditingController(text: widget.terminal.name);
-    _terminalType = widget.terminal.type;
+    _terminalType = widget.terminal.type!;
   }
 
   late TerminalType _terminalType;
@@ -41,7 +41,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
   @override
   Widget build(BuildContext context) {
     if (widget.isEdit) {
-      _tenantTypeAheadController.text = widget.terminal.tenantId;
+      _tenantTypeAheadController.text = widget.terminal.tenantId!;
     }
     return Scaffold(
       appBar: AppBar(
@@ -80,7 +80,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
                 value: (index, item) => item,
                 title: (index, item) => item.text,
               ),
-              value: widget.terminal.type,
+              value: widget.terminal.type!,
             ),
           ]),
         ),
@@ -95,7 +95,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
             widget.terminal.type = _terminalType;
             if (widget.isEdit) {
               widget.terminalBloc
-                  .add(UpdateTerminal(widget.terminal.id, widget.terminal));
+                  .add(UpdateTerminal(widget.terminal.id!, widget.terminal));
             } else {
               widget.terminalBloc.add(CreateTerminal(widget.terminal));
             }

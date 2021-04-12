@@ -29,14 +29,13 @@ class ShipmentAddEdit extends StatefulWidget {
 
 class _ShipmentAddEditState extends State<ShipmentAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Terminal? _terminal;
   Carrier? _carrier;
   Order? _order;
   Tenant? _tenant;
 
-  late ShipmentSize _shipmentSize;
+  late ShipmentSize? _shipmentSize;
   late ShipmentType _shipmentType;
-  late ShipmentStatus _shipmentStatus;
+  late ShipmentStatus? _shipmentStatus;
   User? _driver;
   late TextEditingController _reservationTimeController;
 
@@ -58,31 +57,27 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
     _originController = TextEditingController(text: widget.shipment.origin);
     _destinationController =
         TextEditingController(text: widget.shipment.destination);
-    _shipmentStatus = widget.shipment.status;
+    _shipmentStatus = widget.shipment.status!;
     _shipmentSize = widget.shipment.size;
     _shipmentType = widget.shipment.type;
     _tenantTypeAheadController =
         TextEditingController(text: widget.shipment.tenantId);
     _driverTypeAheadController = TextEditingController(
         text: (widget.shipment.driver != null)
-            ? widget.shipment.driver.name
+            ? widget.shipment.driver!.name
             : widget.shipment.driverId);
-    _terminalTypeAheadController = TextEditingController(
-        text: (widget.shipment.terminal != null)
-            ? widget.shipment.terminal.name
-            : widget.shipment.terminalId);
     _carrierTypeAheadController = TextEditingController(
         text: (widget.shipment.carrier != null)
-            ? widget.shipment.carrier.name
+            ? widget.shipment.carrier!.name
             : widget.shipment.carrierId);
     _orderTypeAheadController = TextEditingController(
         text: (widget.shipment.order != null)
-            ? widget.shipment.order.serialNumber
+            ? widget.shipment.order!.serialNumber
             : widget.shipment.orderId);
     _reservationTimeController = TextEditingController(
         text: (widget.shipment.reservationTime == null)
             ? null
-            : widget.shipment.reservationTime.toLocal().toString());
+            : widget.shipment.reservationTime!.toLocal().toString());
   }
 
   Container _imageContainer(String? imageURL) {
@@ -161,7 +156,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                         value: (index, item) => item,
                         title: (index, item) => item.text,
                       ),
-                      value: widget.shipment.size,
+                      value: widget.shipment.size ?? ShipmentSize.n20sT,
                     ),
                     smartSelect<ShipmentType>(
                       context: context,
@@ -186,7 +181,7 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                         value: (index, item) => item,
                         title: (index, item) => item.text,
                       ),
-                      value: widget.shipment.status,
+                      value: widget.shipment.status!,
                     ),
                     const SizedBox(height: 8),
                   ] +
@@ -196,9 +191,6 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
                   carrierSelector(context, true, (Carrier suggestion) {
                     _carrier = suggestion;
                   }, _carrierTypeAheadController) +
-                  terminalSelector(context, true, (Terminal suggestion) {
-                    _terminal = suggestion;
-                  }, _terminalTypeAheadController) +
                   driverSelector(
                     context,
                     true,
@@ -237,9 +229,6 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
             }
             if (_carrier != null) {
               widget.shipment.carrierId = _carrier!.id;
-            }
-            if (_terminal != null) {
-              widget.shipment.terminalId = _terminal!.id;
             }
             widget.shipment.createdBy = widget.loggedInUser.id;
 

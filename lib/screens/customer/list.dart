@@ -82,7 +82,13 @@ class CustomerList extends StatelessWidget {
               loggedInUser,
               isEdit: false,
               customerBloc: customerBloc,
-              customer: Customer(),
+              customer: Customer(
+                createdAt: DateTime.now(),
+                updatedAt: DateTime.now(),
+                id: '',
+                name: '',
+                tenantId: loggedInUser.tenantId,
+              ),
             ),
           ),
         );

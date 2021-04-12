@@ -133,7 +133,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                         Text(
                           t.size == null
                               ? ShipmentSize.n20sT.text
-                              : t.size.text,
+                              : t.size?.text ?? '',
                           style: const TextStyle(
                             color: Color.fromRGBO(204, 255, 0, 1),
                           ),
@@ -169,7 +169,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                         Text(
                           t.serialNumber,
                           style: TextStyle(
-                              color: t.status.color(
+                              color: t.status!.color(
                                   baseColor: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
@@ -179,7 +179,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                       ],
                     ),
                     subtitle: Text(ShipantherLocalizations.of(context)!
-                        .paramFromTo(t.origin, t.destination)),
+                        .paramFromTo(t.origin ?? '', t.destination ?? '')),
                     children: [
                       if (t.status == ShipmentStatus.accepted)
                         TextButton(

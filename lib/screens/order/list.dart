@@ -69,7 +69,7 @@ class OrderList extends StatelessWidget {
                 if (t.customer != null)
                   displaySubtitle(
                       ShipantherLocalizations.of(context)!.customerName,
-                      t.customer.name)
+                      t.customer?.name)
                 else
                   Container(width: 0.0, height: 0.0),
                 displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
@@ -91,7 +91,14 @@ class OrderList extends StatelessWidget {
             builder: (_) => OrderAddEdit(loggedInUser,
                 isEdit: false,
                 orderBloc: orderBloc,
-                order: Order()..status = OrderStatus.open),
+                order: Order(
+                  status: OrderStatus.open,
+                  updatedAt: DateTime.now(),
+                  createdAt: DateTime.now(),
+                  id: '',
+                  serialNumber: '',
+                  tenantId: loggedInUser.tenantId,
+                )),
           ),
         );
       },

@@ -98,7 +98,14 @@ class TenantList extends StatelessWidget {
             builder: (_) => TenantAddEdit(
               isEdit: false,
               tenantBloc: tenantBloc,
-              tenant: Tenant()..type = TenantType.test,
+              tenant: Tenant(
+                name: '',
+                type: TenantType.test,
+                code: '',
+                createdAt: DateTime.now(),
+                updatedAt: DateTime.now(),
+                id: '',
+              ),
             ),
           ),
         );
