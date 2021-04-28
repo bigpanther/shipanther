@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 
@@ -22,20 +22,20 @@ class _ResetPasswordState extends State<ResetPassword> {
         child: Column(
           children: [
             ShipantherTextFormField(
-              labelText: ShipantherLocalizations.of(context)!.email,
+              labelText: ShipantherLocalizations.of(context).email,
               autocorrect: false,
               controller: _userEmail,
               enableSuggestions: false,
               keyboardType: TextInputType.emailAddress,
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
-                  return ShipantherLocalizations.of(context)!.paramRequired(
-                      ShipantherLocalizations.of(context)!.email);
+                  return ShipantherLocalizations.of(context)
+                      .paramRequired(ShipantherLocalizations.of(context).email);
                 }
                 return null;
               },
             ),
-            Text(ShipantherLocalizations.of(context)!.resetPasswordMessage),
+            Text(ShipantherLocalizations.of(context).resetPasswordMessage),
             ShipantherButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
@@ -45,7 +45,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   Navigator.pop(context);
                 }
               },
-              labelText: ShipantherLocalizations.of(context)!.resetPassword,
+              labelText: ShipantherLocalizations.of(context).resetPassword,
             ),
           ],
         ),

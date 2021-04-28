@@ -3,12 +3,9 @@ run:
 	flutter run --flavor dev --no-sound-null-safety
 run-prod:
 	flutter run --flavor prod -t lib/main_prod.dart
-extract-arb:
-	flutter pub run intl_translation:extract_to_arb --output-dir=i18n/ lib/l10n/shipanther_localization.dart
-	@echo "Don't forget to add @@locale on new locale file is when adding a new locale"
-generate-from-arb:
-	rm -f i18n/intl_messages.arb
-	flutter pub run intl_translation:generate_from_arb --output-dir=lib/l10n/locales --no-use-deferred-loading lib/l10n/shipanther_localization.dart i18n/intl_*.arb
+.PHONY: l10n
+l10n:
+	flutter pub run intl_utils:generate
 release-prod-android:
 	flutter build appbundle --flavor prod -t lib/main_prod.dart
 release-prod-ios:

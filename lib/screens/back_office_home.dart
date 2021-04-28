@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
 
@@ -12,7 +12,7 @@ class BackOfficeHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return ShipantherScaffold(
       user,
-      title: ShipantherLocalizations.of(context)!.welcome,
+      title: ShipantherLocalizations.of(context).welcome,
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: Column(

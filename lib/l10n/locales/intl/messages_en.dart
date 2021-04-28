@@ -90,6 +90,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "helloParam": m5,
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "homePageText": MessageLookupByLibrary.simpleMessage(
+            "Manage your shipping business with ease. Shipanther helps you track your deliveries, update customers and manage orders."),
         "iVerified": MessageLookupByLibrary.simpleMessage("I verified"),
         "lastUpdate": MessageLookupByLibrary.simpleMessage("Last update"),
         "loginError": MessageLookupByLibrary.simpleMessage(
@@ -179,6 +181,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Filter user type"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
         "usersTitle": m14,
-        "welcome": MessageLookupByLibrary.simpleMessage("Welcome to Shipanther")
+        "welcome":
+            MessageLookupByLibrary.simpleMessage("Welcome to Shipanther"),
+        "whatsNew": MessageLookupByLibrary.simpleMessage("New in this update")
       };
 }

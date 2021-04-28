@@ -52,7 +52,6 @@ extension UserExtension on User {
       case UserRole.none:
         return NoneHome(this);
     }
-    throw 'invalid role';
   }
 }
 

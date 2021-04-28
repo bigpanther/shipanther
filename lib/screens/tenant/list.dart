@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/helper/colon.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/tenant/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/tenant_extension.dart';
+import 'package:shipanther/l10n/locales/date_formatter.dart';
 
 class TenantList extends StatelessWidget {
   const TenantList(
@@ -23,7 +24,7 @@ class TenantList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context)!.tenantsTitle(2);
+    final title = ShipantherLocalizations.of(context).tenantsTitle(2);
     final actions = <Widget>[
       FilterButton<TenantType>(
         possibleValues: TenantType.values,
@@ -32,7 +33,7 @@ class TenantList extends StatelessWidget {
         onSelected: (t) => context.read<TenantBloc>().add(
               GetTenants(tenantType: t),
             ),
-        tooltip: ShipantherLocalizations.of(context)!.tenantTypeFilter,
+        tooltip: ShipantherLocalizations.of(context).tenantTypeFilter,
       )
     ];
     final Widget body = ListView.builder(
@@ -72,16 +73,10 @@ class TenantList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                displaySubtitle(
-                    ShipantherLocalizations.of(context)!.createdAt,
-                    ShipantherLocalizations.of(context)!
-                        .dateFormatter
-                        .format(t.createdAt)),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context)!.lastUpdate,
-                    ShipantherLocalizations.of(context)!
-                        .dateFormatter
-                        .format(t.updatedAt)),
+                displaySubtitle(ShipantherLocalizations.of(context).createdAt,
+                    dateFormatter.format(t.createdAt)),
+                displaySubtitle(ShipantherLocalizations.of(context).lastUpdate,
+                    dateFormatter.format(t.updatedAt)),
               ],
             ),
           ),
@@ -90,7 +85,7 @@ class TenantList extends StatelessWidget {
     );
 
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: ShipantherLocalizations.of(context)!.tenantAdd,
+      tooltip: ShipantherLocalizations.of(context).tenantAdd,
       onPressed: () {
         Navigator.push(
           context,
@@ -98,7 +93,14 @@ class TenantList extends StatelessWidget {
             builder: (_) => TenantAddEdit(
               isEdit: false,
               tenantBloc: tenantBloc,
-              tenant: Tenant()..type = TenantType.test,
+              tenant: Tenant(
+                name: '',
+                type: TenantType.test,
+                code: '',
+                createdAt: DateTime.now(),
+                updatedAt: DateTime.now(),
+                id: '',
+              ),
             ),
           ),
         );

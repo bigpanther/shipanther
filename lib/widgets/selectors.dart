@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/extensions/user_extension.dart';
@@ -15,8 +15,8 @@ TypeAheadFormField<Tenant> tenantSelector(
     autoFlipDirection: true,
     textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
-          labelText: ShipantherLocalizations.of(context)!.selectParam(
-              ShipantherLocalizations.of(context)!.tenantsTitle(1)),
+          labelText: ShipantherLocalizations.of(context)
+              .selectParam(ShipantherLocalizations.of(context).tenantsTitle(1)),
         ),
         controller: textEditingController,
         onTap: () {
@@ -57,8 +57,8 @@ List<Widget> customerSelector(
       autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
-            labelText: ShipantherLocalizations.of(context)!.selectParam(
-                ShipantherLocalizations.of(context)!.customersTitle(1))),
+            labelText: ShipantherLocalizations.of(context).selectParam(
+                ShipantherLocalizations.of(context).customersTitle(1))),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';
@@ -99,8 +99,8 @@ List<Widget> driverSelector(
       autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
           decoration: InputDecoration(
-              labelText: ShipantherLocalizations.of(context)!
-                  .selectParam(ShipantherLocalizations.of(context)!.driver)),
+              labelText: ShipantherLocalizations.of(context)
+                  .selectParam(ShipantherLocalizations.of(context).driver)),
           controller: textEditingController,
           onTap: () {
             textEditingController.text = '';
@@ -141,8 +141,8 @@ List<Widget> terminalSelector(
       autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
-            labelText: ShipantherLocalizations.of(context)!.selectParam(
-                ShipantherLocalizations.of(context)!.terminalsTitle(1))),
+            labelText: ShipantherLocalizations.of(context).selectParam(
+                ShipantherLocalizations.of(context).terminalsTitle(1))),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';
@@ -151,19 +151,19 @@ List<Widget> terminalSelector(
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
         return (await client.terminalsGet()).where(
-          (element) => element.name.toLowerCase().startsWith(pattern),
+          (element) => element.name!.toLowerCase().startsWith(pattern),
         );
       },
       itemBuilder: (context, Terminal terminal) {
         return ListTile(
           leading: const Icon(Icons.business),
-          title: Text(terminal.name),
-          subtitle: Text(terminal.id),
+          title: Text(terminal.name!),
+          subtitle: Text(terminal.id!),
         );
       },
       onSuggestionSelected: (suggestion) {
         onSuggestionSelected(suggestion);
-        textEditingController.text = suggestion.name;
+        textEditingController.text = suggestion.name!;
       },
     ),
   ];
@@ -182,8 +182,8 @@ List<Widget> carrierSelector(
       autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
-            labelText: ShipantherLocalizations.of(context)!.selectParam(
-                ShipantherLocalizations.of(context)!.carriersTitle(1))),
+            labelText: ShipantherLocalizations.of(context).selectParam(
+                ShipantherLocalizations.of(context).carriersTitle(1))),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';
@@ -223,8 +223,8 @@ List<Widget> orderSelector(
       autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
-            labelText: ShipantherLocalizations.of(context)!.selectParam(
-                ShipantherLocalizations.of(context)!.ordersTitle(1))),
+            labelText: ShipantherLocalizations.of(context).selectParam(
+                ShipantherLocalizations.of(context).ordersTitle(1))),
         controller: textEditingController,
         onTap: () {
           textEditingController.text = '';

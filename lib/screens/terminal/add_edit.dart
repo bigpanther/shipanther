@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
@@ -31,7 +31,7 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
   void initState() {
     super.initState();
     _name = TextEditingController(text: widget.terminal.name);
-    _terminalType = widget.terminal.type;
+    _terminalType = widget.terminal.type!;
   }
 
   late TerminalType _terminalType;
@@ -41,16 +41,16 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
   @override
   Widget build(BuildContext context) {
     if (widget.isEdit) {
-      _tenantTypeAheadController.text = widget.terminal.tenantId;
+      _tenantTypeAheadController.text = widget.terminal.tenantId!;
     }
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)!.editParam(
-                  ShipantherLocalizations.of(context)!.terminalsTitle(1))
-              : ShipantherLocalizations.of(context)!.addNewParam(
-                  ShipantherLocalizations.of(context)!.terminalsTitle(1)),
+              ? ShipantherLocalizations.of(context).editParam(
+                  ShipantherLocalizations.of(context).terminalsTitle(1))
+              : ShipantherLocalizations.of(context).addNewParam(
+                  ShipantherLocalizations.of(context).terminalsTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -65,37 +65,37 @@ class _TerminalAddEditState extends State<TerminalAddEdit> {
           child: ListView(children: [
             ShipantherTextFormField(
               controller: _name,
-              labelText: ShipantherLocalizations.of(context)!.terminalName,
+              labelText: ShipantherLocalizations.of(context).terminalName,
               validator: (val) => val == null || val.trim().isEmpty
-                  ? ShipantherLocalizations.of(context)!.paramEmpty(
-                      ShipantherLocalizations.of(context)!.terminalName)
+                  ? ShipantherLocalizations.of(context).paramEmpty(
+                      ShipantherLocalizations.of(context).terminalName)
                   : null,
             ),
             smartSelect<TerminalType>(
               context: context,
-              title: ShipantherLocalizations.of(context)!.terminalType,
+              title: ShipantherLocalizations.of(context).terminalType,
               onChange: (state) => _terminalType = state.value,
               choiceItems: S2Choice.listFrom<TerminalType, TerminalType>(
                 source: TerminalType.values,
                 value: (index, item) => item,
                 title: (index, item) => item.text,
               ),
-              value: widget.terminal.type,
+              value: widget.terminal.type!,
             ),
           ]),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context)!.edit
-            : ShipantherLocalizations.of(context)!.create,
+            ? ShipantherLocalizations.of(context).edit
+            : ShipantherLocalizations.of(context).create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.terminal.name = _name.text;
             widget.terminal.type = _terminalType;
             if (widget.isEdit) {
               widget.terminalBloc
-                  .add(UpdateTerminal(widget.terminal.id, widget.terminal));
+                  .add(UpdateTerminal(widget.terminal.id!, widget.terminal));
             } else {
               widget.terminalBloc.add(CreateTerminal(widget.terminal));
             }

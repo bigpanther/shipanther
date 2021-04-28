@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/helper/colon.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/customer/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
+import 'package:shipanther/l10n/locales/date_formatter.dart';
 
 import 'package:trober_sdk/api.dart';
 
@@ -17,7 +18,7 @@ class CustomerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context)!.customersTitle(2);
+    final title = ShipantherLocalizations.of(context).customersTitle(2);
     final actions = <Widget>[];
 
     final Widget body = ListView.builder(
@@ -59,13 +60,11 @@ class CustomerList extends StatelessWidget {
               ),
               children: [
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.createdAt, t.createdAt,
-                    formatter:
-                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
-                displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
-                    t.updatedAt,
-                    formatter:
-                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
+                    ShipantherLocalizations.of(context).createdAt, t.createdAt,
+                    formatter: dateTimeFormatter),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).lastUpdate, t.updatedAt,
+                    formatter: dateTimeFormatter),
               ],
             ),
           ),
@@ -73,7 +72,7 @@ class CustomerList extends StatelessWidget {
       },
     );
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: ShipantherLocalizations.of(context)!.addCustomer,
+      tooltip: ShipantherLocalizations.of(context).addCustomer,
       onPressed: () {
         Navigator.push(
           context,
@@ -82,7 +81,13 @@ class CustomerList extends StatelessWidget {
               loggedInUser,
               isEdit: false,
               customerBloc: customerBloc,
-              customer: Customer(),
+              customer: Customer(
+                createdAt: DateTime.now(),
+                updatedAt: DateTime.now(),
+                id: '',
+                name: '',
+                tenantId: loggedInUser.tenantId,
+              ),
             ),
           ),
         );

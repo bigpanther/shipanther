@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/extensions/carrier_extension.dart';
 import 'package:shipanther/helper/colon.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
+import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/screens/carrier/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
@@ -18,7 +19,7 @@ class CarrierList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context)!.carriersTitle(2);
+    final title = ShipantherLocalizations.of(context).carriersTitle(2);
     final actions = <Widget>[];
 
     final Widget body = ListView.builder(
@@ -59,17 +60,14 @@ class CarrierList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                displaySubtitle(ShipantherLocalizations.of(context)!.eta, t.eta,
-                    formatter:
-                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
+                displaySubtitle(ShipantherLocalizations.of(context).eta, t.eta,
+                    formatter: dateTimeFormatter),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.createdAt, t.createdAt,
-                    formatter:
-                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
-                displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
-                    t.updatedAt,
-                    formatter:
-                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
+                    ShipantherLocalizations.of(context).createdAt, t.createdAt,
+                    formatter: dateTimeFormatter),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).lastUpdate, t.updatedAt,
+                    formatter: dateTimeFormatter),
               ],
             ),
           ),
@@ -77,7 +75,7 @@ class CarrierList extends StatelessWidget {
       },
     );
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: ShipantherLocalizations.of(context)!.addCarrier,
+      tooltip: ShipantherLocalizations.of(context).addCarrier,
       onPressed: () {
         Navigator.push(
           context,
@@ -86,7 +84,12 @@ class CarrierList extends StatelessWidget {
               loggedInUser,
               isEdit: false,
               carrierBloc: carrierBloc,
-              carrier: Carrier()..type = CarrierType.vessel,
+              carrier: Carrier(
+                type: CarrierType.vessel,
+                name: '',
+                id: '',
+                tenantId: loggedInUser.tenantId,
+              ),
             ),
           ),
         );

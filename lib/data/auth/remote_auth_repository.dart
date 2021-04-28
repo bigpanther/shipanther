@@ -107,15 +107,23 @@ class RemoteAuthRepository extends AuthRepository {
     }
     final client = await apiClient();
     final deviceToken = await _firebaseMessaging.getToken();
+    if (deviceToken == null) {
+      print('failed to get device token');
+      return;
+    }
     return client.selfDeviceRegisterPost(
-        deviceId: api.DeviceId()..token = deviceToken);
+        deviceId: api.DeviceId(token: deviceToken));
   }
 
   Future<void> _deleteDeviceToken() async {
     final client = await apiClient();
     final deviceToken = await _firebaseMessaging.getToken();
+    if (deviceToken == null) {
+      print('failed to get device token');
+      return;
+    }
     return client.selfDeviceRemovePost(
-        deviceId: api.DeviceId()..token = deviceToken);
+        deviceId: api.DeviceId(token: deviceToken));
   }
 
   @override

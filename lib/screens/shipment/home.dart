@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/shipment/add_edit.dart';
 import 'package:shipanther/screens/shipment/driver_list.dart';
 import 'package:shipanther/screens/shipment/list.dart';
@@ -59,7 +59,7 @@ class _ShipmentScreenState extends State<ShipmentScreen> {
         }
         return LoadingWidget(
             loggedInUser: widget.loggedInUser,
-            title: ShipantherLocalizations.of(context)!.shipmentsTitle(2));
+            title: ShipantherLocalizations.of(context).shipmentsTitle(2));
       },
     );
   }

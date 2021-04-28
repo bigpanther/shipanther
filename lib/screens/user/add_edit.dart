@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
@@ -48,10 +48,10 @@ class _UserAddEditState extends State<UserAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)!
-                  .editParam(ShipantherLocalizations.of(context)!.usersTitle(1))
-              : ShipantherLocalizations.of(context)!.addNewParam(
-                  ShipantherLocalizations.of(context)!.usersTitle(1)),
+              ? ShipantherLocalizations.of(context)
+                  .editParam(ShipantherLocalizations.of(context).usersTitle(1))
+              : ShipantherLocalizations.of(context).addNewParam(
+                  ShipantherLocalizations.of(context).usersTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -67,15 +67,15 @@ class _UserAddEditState extends State<UserAddEdit> {
             children: [
               ShipantherTextFormField(
                 controller: _nameController,
-                labelText: ShipantherLocalizations.of(context)!.userName,
+                labelText: ShipantherLocalizations.of(context).userName,
                 validator: (val) => val == null || val.trim().isEmpty
-                    ? ShipantherLocalizations.of(context)!.paramEmpty(
-                        ShipantherLocalizations.of(context)!.userName)
+                    ? ShipantherLocalizations.of(context).paramEmpty(
+                        ShipantherLocalizations.of(context).userName)
                     : null,
               ),
               smartSelect<UserRole>(
                 context: context,
-                title: ShipantherLocalizations.of(context)!.userType,
+                title: ShipantherLocalizations.of(context).userType,
                 onChange: (state) => _userRole = state.value,
                 choiceItems: S2Choice.listFrom<UserRole, UserRole>(
                   source: UserRole.values,
@@ -95,8 +95,8 @@ class _UserAddEditState extends State<UserAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context)!.edit
-            : ShipantherLocalizations.of(context)!.create,
+            ? ShipantherLocalizations.of(context).edit
+            : ShipantherLocalizations.of(context).create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.user.name = _nameController.text;

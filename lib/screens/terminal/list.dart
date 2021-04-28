@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/extensions/terminal_extension.dart';
 import 'package:shipanther/helper/colon.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/terminal/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shipanther/l10n/locales/date_formatter.dart';
 
 class TerminalList extends StatelessWidget {
   const TerminalList(this.loggedInUser,
@@ -21,7 +22,7 @@ class TerminalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context)!.terminalsTitle(2);
+    final title = ShipantherLocalizations.of(context).terminalsTitle(2);
     final actions = <Widget>[
       FilterButton<TerminalType>(
         possibleValues: TerminalType.values,
@@ -30,7 +31,7 @@ class TerminalList extends StatelessWidget {
         onSelected: (t) => context.read<TerminalBloc>().add(
               GetTerminals(terminalType: t),
             ),
-        tooltip: ShipantherLocalizations.of(context)!.terminalTypeFilter,
+        tooltip: ShipantherLocalizations.of(context).terminalTypeFilter,
       )
     ];
 
@@ -49,7 +50,7 @@ class TerminalList extends StatelessWidget {
             ),
             child: ExpansionTile(
               childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
-              leading: Icon(t.type.icon),
+              leading: Icon(t.type!.icon),
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
@@ -68,18 +69,16 @@ class TerminalList extends StatelessWidget {
               ),
               expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
               title: Text(
-                t.name,
+                t.name!,
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.createdAt, t.createdAt,
-                    formatter:
-                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
-                displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
-                    t.updatedAt,
-                    formatter:
-                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
+                    ShipantherLocalizations.of(context).createdAt, t.createdAt,
+                    formatter: dateTimeFormatter),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).lastUpdate, t.updatedAt,
+                    formatter: dateTimeFormatter),
               ],
             ),
           ),
@@ -87,7 +86,7 @@ class TerminalList extends StatelessWidget {
       },
     );
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: ShipantherLocalizations.of(context)!.terminalAdd,
+      tooltip: ShipantherLocalizations.of(context).terminalAdd,
       onPressed: () {
         Navigator.push(
           context,

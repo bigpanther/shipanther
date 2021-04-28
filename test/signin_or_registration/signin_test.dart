@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:mockito/mockito.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 
@@ -27,13 +27,12 @@ void main() {
         value: AuthBloc(authRepository),
         child: MaterialApp(
           localizationsDelegates: const [
-            ShipantherLocalizationsDelegate(),
+            ShipantherLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales:
-              ShipantherLocalizations.supportedLocales.map((e) => Locale(e)),
+          supportedLocales: ShipantherLocalizations.delegate.supportedLocales,
           home: SignInOrRegistrationPage(),
         ),
       ));

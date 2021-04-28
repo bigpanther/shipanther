@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/customer/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
 import 'package:trober_sdk/api.dart';
@@ -40,7 +40,7 @@ class _CustomerHomeState extends State<CustomerHome> {
         }
         return LoadingWidget(
             loggedInUser: widget.loggedInUser,
-            title: ShipantherLocalizations.of(context)!.customersTitle(2));
+            title: ShipantherLocalizations.of(context).customersTitle(2));
       },
     );
   }

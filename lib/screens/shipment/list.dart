@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 import 'package:shipanther/helper/colon.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/shipment/add_edit.dart';
 import 'package:shipanther/extensions/shipment_extension.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shipanther/l10n/locales/date_formatter.dart';
 
 class ShipmentList extends StatelessWidget {
   const ShipmentList(
@@ -23,7 +24,7 @@ class ShipmentList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context)!.shipmentsTitle(2);
+    final title = ShipantherLocalizations.of(context).shipmentsTitle(2);
     final actions = <Widget>[
       FilterButton<ShipmentStatus>(
         possibleValues: ShipmentStatus.values,
@@ -31,7 +32,7 @@ class ShipmentList extends StatelessWidget {
         activeFilter: shipmentsLoadedState.shipmentStatus,
         onSelected: (t) =>
             context.read<ShipmentBloc>()..add(GetShipments(shipmentStatus: t)),
-        tooltip: ShipantherLocalizations.of(context)!.shipmentStatusFilter,
+        tooltip: ShipantherLocalizations.of(context).shipmentStatusFilter,
       )
     ];
     Widget circularIndicator(Shipment c) {
@@ -84,22 +85,20 @@ class ShipmentList extends StatelessWidget {
                   ),
                 ],
               ),
-              subtitle: Text(ShipantherLocalizations.of(context)!
-                  .paramFromTo(t.origin, t.destination)),
+              subtitle: Text(ShipantherLocalizations.of(context)
+                  .paramFromTo(t.origin ?? '', t.destination ?? '')),
               children: [
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.reservationTime,
+                    ShipantherLocalizations.of(context).reservationTime,
                     t.reservationTime,
-                    formatter:
-                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
+                    formatter: dateTimeFormatter),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.size, t.size.text),
+                    ShipantherLocalizations.of(context).size, t.size?.text),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.status, t.status.text),
-                displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
-                    t.updatedAt,
-                    formatter:
-                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
+                    ShipantherLocalizations.of(context).status, t.status.text),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).lastUpdate, t.updatedAt,
+                    formatter: dateTimeFormatter),
               ],
             ),
           ),
@@ -108,19 +107,23 @@ class ShipmentList extends StatelessWidget {
     );
 
     final Widget floatingActionButton = FloatingActionButton(
-      tooltip: ShipantherLocalizations.of(context)!.shipmentAdd,
+      tooltip: ShipantherLocalizations.of(context).shipmentAdd,
       onPressed: () {
         Navigator.push(
           context,
           MaterialPageRoute<Widget>(
-            builder: (_) => ShipmentAddEdit(
-              loggedInUser,
-              isEdit: false,
-              shipmentBloc: shipmentBloc,
-              shipment: Shipment()
-                ..status = ShipmentStatus.unassigned
-                ..type = ShipmentType.inbound,
-            ),
+            builder: (_) => ShipmentAddEdit(loggedInUser,
+                isEdit: false,
+                shipmentBloc: shipmentBloc,
+                shipment: Shipment(
+                  status: ShipmentStatus.unassigned,
+                  type: ShipmentType.inbound,
+                  createdAt: DateTime.now(),
+                  updatedAt: DateTime.now(),
+                  id: '',
+                  serialNumber: '',
+                  tenantId: loggedInUser.tenantId,
+                )),
           ),
         );
       },
