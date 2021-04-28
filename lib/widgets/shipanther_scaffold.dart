@@ -3,7 +3,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 
 import 'package:shipanther/screens/carrier/home.dart';
 import 'package:shipanther/screens/shipment/home.dart';
@@ -76,7 +76,7 @@ List<Widget> drawerItemsFor(BuildContext context, User? user) {
     return widgets;
   }
   final navigation = Navigator.of(context);
-  final localization = ShipantherLocalizations.of(context)!;
+  final localization = ShipantherLocalizations.of(context);
   widgets.add(
     _createDrawerItem(
       icon: Icons.home,

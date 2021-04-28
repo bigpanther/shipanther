@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:trober_sdk/api.dart';
@@ -31,7 +31,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return ShipantherScaffold(
       widget.user,
-      title: ShipantherLocalizations.of(context)!.profile,
+      title: ShipantherLocalizations.of(context).profile,
       body: ListView(
         children: [
           Column(
@@ -82,16 +82,15 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           ShipantherTextFormField(
                             controller: _username,
-                            labelText:
-                                ShipantherLocalizations.of(context)!.name,
+                            labelText: ShipantherLocalizations.of(context).name,
                             autocorrect: false,
                             enableSuggestions: false,
                             keyboardType: TextInputType.text,
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
-                                return ShipantherLocalizations.of(context)!
+                                return ShipantherLocalizations.of(context)
                                     .paramRequired(
-                                        ShipantherLocalizations.of(context)!
+                                        ShipantherLocalizations.of(context)
                                             .username);
                               }
                               return null;
@@ -106,8 +105,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     UpdateUser(widget.user.id, widget.user));
                               }
                             },
-                            labelText:
-                                ShipantherLocalizations.of(context)!.save,
+                            labelText: ShipantherLocalizations.of(context).save,
                           ),
                         ],
                       ),
@@ -121,7 +119,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.all(8.0),
                   child: ExpansionTile(
                     title: Text(
-                        ShipantherLocalizations.of(context)!.changePassword),
+                        ShipantherLocalizations.of(context).changePassword),
                     trailing: const Icon(Icons.edit),
                     childrenPadding: const EdgeInsets.all(8),
                     children: [
@@ -129,13 +127,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           ShipantherPasswordFormField(
                             controller: _oldPassword,
-                            labelText: ShipantherLocalizations.of(context)!
-                                .oldPassword,
+                            labelText:
+                                ShipantherLocalizations.of(context).oldPassword,
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
-                                return ShipantherLocalizations.of(context)!
+                                return ShipantherLocalizations.of(context)
                                     .paramRequired(
-                                        ShipantherLocalizations.of(context)!
+                                        ShipantherLocalizations.of(context)
                                             .password);
                               }
                               return null;
@@ -143,13 +141,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           ShipantherPasswordFormField(
                             controller: _password,
-                            labelText: ShipantherLocalizations.of(context)!
-                                .newPassword,
+                            labelText:
+                                ShipantherLocalizations.of(context).newPassword,
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
-                                return ShipantherLocalizations.of(context)!
+                                return ShipantherLocalizations.of(context)
                                     .paramRequired(
-                                        ShipantherLocalizations.of(context)!
+                                        ShipantherLocalizations.of(context)
                                             .password);
                               }
                               return null;
@@ -157,17 +155,17 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           ShipantherPasswordFormField(
                             controller: _confirmPassword,
-                            labelText: ShipantherLocalizations.of(context)!
+                            labelText: ShipantherLocalizations.of(context)
                                 .confirmPassword,
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
-                                return ShipantherLocalizations.of(context)!
+                                return ShipantherLocalizations.of(context)
                                     .paramRequired(
-                                        ShipantherLocalizations.of(context)!
+                                        ShipantherLocalizations.of(context)
                                             .password);
                               }
                               if (value != _password.text) {
-                                return ShipantherLocalizations.of(context)!
+                                return ShipantherLocalizations.of(context)
                                     .passwordDoesntMatch;
                               }
                               return null;
@@ -181,7 +179,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 //     _oldPassword.text, _password.text));
                               }
                             },
-                            labelText: ShipantherLocalizations.of(context)!
+                            labelText: ShipantherLocalizations.of(context)
                                 .changePassword,
                           ),
                         ],

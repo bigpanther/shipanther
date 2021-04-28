@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/helper/colon.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/user/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shipanther/l10n/locales/date_formatter.dart';
 
 class UserList extends StatelessWidget {
   const UserList(this.loggedInUser,
@@ -21,7 +22,7 @@ class UserList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = ShipantherLocalizations.of(context)!.usersTitle(2);
+    final title = ShipantherLocalizations.of(context).usersTitle(2);
     final actions = <Widget>[
       FilterButton<UserRole>(
         possibleValues: UserRole.values,
@@ -30,7 +31,7 @@ class UserList extends StatelessWidget {
         onSelected: (t) => context.read<UserBloc>().add(
               GetUsers(userRole: t),
             ),
-        tooltip: ShipantherLocalizations.of(context)!.userTypeFilter,
+        tooltip: ShipantherLocalizations.of(context).userTypeFilter,
       )
     ];
 
@@ -73,17 +74,15 @@ class UserList extends StatelessWidget {
               ),
               children: [
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.email, t.email),
+                    ShipantherLocalizations.of(context).email, t.email),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.role, t.role.text),
+                    ShipantherLocalizations.of(context).role, t.role.text),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context)!.createdAt, t.createdAt,
-                    formatter:
-                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
-                displaySubtitle(ShipantherLocalizations.of(context)!.lastUpdate,
-                    t.updatedAt,
-                    formatter:
-                        ShipantherLocalizations.of(context)!.dateTimeFormatter),
+                    ShipantherLocalizations.of(context).createdAt, t.createdAt,
+                    formatter: dateTimeFormatter),
+                displaySubtitle(
+                    ShipantherLocalizations.of(context).lastUpdate, t.updatedAt,
+                    formatter: dateTimeFormatter),
               ],
             ),
           ),

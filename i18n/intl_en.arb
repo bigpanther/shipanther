@@ -663,5 +663,17 @@
     "description": "Reach us at",
     "type": "text",
     "placeholders": {}
+  },
+  "whatsNew": "New in this update",
+  "@whatsNew": {
+    "description": "New in this update",
+    "type": "text",
+    "placeholders": {}
+  },
+  "homePageText": "Manage your shipping business with ease. Shipanther helps you track your deliveries, update customers and manage orders.",
+  "@homePageText": {
+    "description": "home page text",
+    "type": "text",
+    "placeholders": {}
   }
 }

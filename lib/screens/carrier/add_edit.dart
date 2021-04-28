@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/date_time_picker.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
@@ -51,10 +51,10 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)!.editParam(
-                  ShipantherLocalizations.of(context)!.carriersTitle(1))
-              : ShipantherLocalizations.of(context)!.addNewParam(
-                  ShipantherLocalizations.of(context)!.carriersTitle(1)),
+              ? ShipantherLocalizations.of(context).editParam(
+                  ShipantherLocalizations.of(context).carriersTitle(1))
+              : ShipantherLocalizations.of(context).addNewParam(
+                  ShipantherLocalizations.of(context).carriersTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -70,18 +70,18 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
             ShipantherTextFormField(
               maxLengthEnforcement: MaxLengthEnforcement.enforced,
               maxLength: 20,
-              labelText: ShipantherLocalizations.of(context)!.carrierName,
+              labelText: ShipantherLocalizations.of(context).carrierName,
               validator: (val) => val == null || val.trim().isEmpty
-                  ? ShipantherLocalizations.of(context)!.paramEmpty(
-                      ShipantherLocalizations.of(context)!.carrierName)
+                  ? ShipantherLocalizations.of(context).paramEmpty(
+                      ShipantherLocalizations.of(context).carrierName)
                   : null,
               controller: _name,
             ),
-            dateTimePicker(context,
-                ShipantherLocalizations.of(context)!.carriersETA, _eta),
+            dateTimePicker(
+                context, ShipantherLocalizations.of(context).carriersETA, _eta),
             smartSelect<CarrierType>(
               context: context,
-              title: ShipantherLocalizations.of(context)!.carrierType,
+              title: ShipantherLocalizations.of(context).carrierType,
               onChange: (state) => _carrierType = state.value,
               choiceItems: S2Choice.listFrom<CarrierType, CarrierType>(
                 source: CarrierType.values,
@@ -95,8 +95,8 @@ class _CarrierAddEditState extends State<CarrierAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context)!.edit
-            : ShipantherLocalizations.of(context)!.create,
+            ? ShipantherLocalizations.of(context).edit
+            : ShipantherLocalizations.of(context).create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.carrier.name = _name.text;

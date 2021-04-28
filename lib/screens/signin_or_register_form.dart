@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/extensions/auth_type_selector_extension.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 
@@ -22,7 +22,7 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
 
   @override
   Widget build(BuildContext context) {
-    final localization = ShipantherLocalizations.of(context)!;
+    final localization = ShipantherLocalizations.of(context);
     final theme = Theme.of(context);
     return Form(
       key: _formKey,

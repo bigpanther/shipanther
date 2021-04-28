@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/terminal/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
 import 'package:trober_sdk/api.dart';
@@ -42,7 +42,7 @@ class _TerminalScreenState extends State<TerminalScreen> {
         }
         return LoadingWidget(
             loggedInUser: widget.loggedInUser,
-            title: ShipantherLocalizations.of(context)!.terminalsTitle(2));
+            title: ShipantherLocalizations.of(context).terminalsTitle(2));
       },
     );
   }

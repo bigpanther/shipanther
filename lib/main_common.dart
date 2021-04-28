@@ -33,7 +33,7 @@ import 'package:shipanther/data/terminal/remote_terminal_repository.dart';
 import 'package:shipanther/data/terminal/terminal_repository.dart';
 import 'package:shipanther/data/user/remote_user_repository.dart';
 import 'package:shipanther/data/user/user_repository.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:shipanther/widgets/theme.dart';
@@ -83,8 +83,8 @@ Future<void> commonMain(String apiURL) async {
 ///
 /// Returns a [MaterialApp].
 class ShipantherApp extends StatelessWidget {
-  const ShipantherApp(this.apiURL);
-  final String apiURL;
+  const ShipantherApp(this._apiURL);
+  final String _apiURL;
   static FirebaseAnalytics analytics = FirebaseAnalytics();
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
@@ -92,7 +92,7 @@ class ShipantherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider<AuthRepository>(
       create: (context) => RemoteAuthRepository(
-          FirebaseAuth.instance, FirebaseMessaging.instance, apiURL),
+          FirebaseAuth.instance, FirebaseMessaging.instance, _apiURL),
       child: MultiRepositoryProvider(
         providers: [
           RepositoryProvider<UserRepository>(
@@ -144,7 +144,7 @@ class ShipantherApp extends StatelessWidget {
           ],
           child: MaterialApp(
             onGenerateTitle: (context) =>
-                ShipantherLocalizations.of(context)!.shipantherTitle,
+                ShipantherLocalizations.of(context).shipantherTitle,
             debugShowCheckedModeBanner: false,
             darkTheme: ShipantherTheme.darkTheme,
             theme: ShipantherTheme.lightTheme,
@@ -152,13 +152,12 @@ class ShipantherApp extends StatelessWidget {
             home: SignInOrRegistrationPage(),
             navigatorObservers: <NavigatorObserver>[observer],
             localizationsDelegates: const [
-              ShipantherLocalizationsDelegate(),
+              ShipantherLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales:
-                ShipantherLocalizations.supportedLocales.map((e) => Locale(e)),
+            supportedLocales: ShipantherLocalizations.delegate.supportedLocales,
           ),
         ),
       ),

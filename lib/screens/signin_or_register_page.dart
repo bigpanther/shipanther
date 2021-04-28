@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/screens/reset_password.dart';
 import 'package:shipanther/screens/signin_or_register_form.dart';
@@ -28,7 +28,7 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
   Widget build(BuildContext context) {
     return ShipantherScaffold(
       null,
-      title: ShipantherLocalizations.of(context)!.welcome,
+      title: ShipantherLocalizations.of(context).welcome,
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthFailure) {
@@ -40,7 +40,7 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  ShipantherLocalizations.of(context)!.emailSent(state.emailId),
+                  ShipantherLocalizations.of(context).emailSent(state.emailId),
                 ),
               ),
             );

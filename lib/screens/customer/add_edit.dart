@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
-import 'package:shipanther/l10n/shipanther_localization.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:trober_sdk/api.dart';
 
@@ -41,10 +41,10 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)!.editParam(
-                  ShipantherLocalizations.of(context)!.customersTitle(1))
-              : ShipantherLocalizations.of(context)!.addNewParam(
-                  ShipantherLocalizations.of(context)!.customersTitle(1)),
+              ? ShipantherLocalizations.of(context).editParam(
+                  ShipantherLocalizations.of(context).customersTitle(1))
+              : ShipantherLocalizations.of(context).addNewParam(
+                  ShipantherLocalizations.of(context).customersTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -58,10 +58,10 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
           },
           child: ListView(children: [
             ShipantherTextFormField(
-              labelText: ShipantherLocalizations.of(context)!.customerName,
+              labelText: ShipantherLocalizations.of(context).customerName,
               validator: (val) => val == null || val.trim().isEmpty
-                  ? ShipantherLocalizations.of(context)!.paramEmpty(
-                      ShipantherLocalizations.of(context)!.customerName)
+                  ? ShipantherLocalizations.of(context).paramEmpty(
+                      ShipantherLocalizations.of(context).customerName)
                   : null,
               controller: _name,
             ),
@@ -70,8 +70,8 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context)!.edit
-            : ShipantherLocalizations.of(context)!.create,
+            ? ShipantherLocalizations.of(context).edit
+            : ShipantherLocalizations.of(context).create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
             widget.customer.name = _name.text;
