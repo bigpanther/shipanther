@@ -35,15 +35,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  test: ^1.17.2
+  test: ^1.16.5
   mockito: ^5.0.6
   flutter_launcher_icons: ^0.9.0
   pedantic: ^1.11.0
   intl_utils: ^2.1.0
 
 
-dependency_overrides:
-  test_api: ^0.4.0
 
 flutter:
   uses-material-design: true
