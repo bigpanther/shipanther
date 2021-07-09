@@ -1,6 +1,6 @@
 # Shipanther
 
-Manage your shipment business like a panther. Shipanther a cross platform app built for android, ios and web (macos, linux and windows coming soon). This app is meant for small businesses in the shipment and logistics area. The app is built with Flutter.
+Manage your shipment business like a panther. Shipanther is a cross platform app built for android, ios and web (macos, linux and windows coming soon). This app is meant for small businesses in the shipment and logistics area. The app is built with Flutter.
 
 You can read more at the project wiki [here](https://github.com/bigpanther/shipanther/wiki).
 
