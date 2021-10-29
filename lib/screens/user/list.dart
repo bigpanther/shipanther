@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
+import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/helper/colon.dart';
+import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/user/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
-import 'package:shipanther/extensions/user_extension.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shipanther/l10n/locales/date_formatter.dart';
 
 class UserList extends StatelessWidget {
   const UserList(this.loggedInUser,

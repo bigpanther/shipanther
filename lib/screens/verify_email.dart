@@ -21,7 +21,7 @@ class VerifyEmail extends StatelessWidget {
           Icon(
             MdiIcons.emailSend,
             size: 100,
-            color: theme.accentColor,
+            color: theme.colorScheme.secondary,
           ),
           Text(
             localization.emailSent(emailId),

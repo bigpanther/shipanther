@@ -4,15 +4,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shipanther/l10n/locales/date_formatter.dart';
-
 import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
-
+import 'package:shipanther/extensions/shipment_extension.dart';
+import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';
-import 'package:shipanther/extensions/shipment_extension.dart';
 
 class DriverShipmentList extends StatefulWidget {
   const DriverShipmentList(
@@ -33,10 +30,10 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
   int _currentIndex = 0;
 
   Future<void> handleDelivery(User driver, Shipment t) async {
-    PickedFile? file;
+    XFile? file;
     try {
       file = await ImagePicker()
-          .getImage(source: ImageSource.camera, imageQuality: 10);
+          .pickImage(source: ImageSource.camera, imageQuality: 10);
     } catch (e) {
       print('hsm $e');
     }

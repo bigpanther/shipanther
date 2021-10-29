@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
+import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:trober_sdk/api.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shipanther/extensions/user_extension.dart';
 
 TypeAheadFormField<Tenant> tenantSelector(
     BuildContext context,
