@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-
 import 'package:shipanther/screens/carrier/home.dart';
-import 'package:shipanther/screens/shipment/home.dart';
 import 'package:shipanther/screens/customer/home.dart';
 import 'package:shipanther/screens/order/home.dart';
 import 'package:shipanther/screens/profile.dart';
-import 'package:shipanther/screens/super_admin_home.dart';
+import 'package:shipanther/screens/shipment/home.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
+import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/screens/terminal/home.dart';
 import 'package:shipanther/screens/user/home.dart';
 import 'package:trober_sdk/api.dart';
-import 'package:shipanther/extensions/user_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ShipantherScaffold extends StatelessWidget {

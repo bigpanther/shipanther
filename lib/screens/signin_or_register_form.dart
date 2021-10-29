@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
-import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/extensions/auth_type_selector_extension.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 
 class SignInOrRegistrationForm extends StatefulWidget {
@@ -36,7 +36,7 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                 Icon(
                   MdiIcons.truckDelivery,
                   size: 100,
-                  color: theme.accentColor,
+                  color: theme.colorScheme.secondary,
                 ),
                 Text(
                   localization.homePageText,

@@ -1,19 +1,20 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
-import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 import 'package:shipanther/bloc/order/order_bloc.dart';
+import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
@@ -23,10 +24,10 @@ import 'package:shipanther/data/carrier/carrier_repository.dart';
 import 'package:shipanther/data/carrier/remote_carrier_repository.dart';
 import 'package:shipanther/data/customer/customer_repository.dart';
 import 'package:shipanther/data/customer/remote_customer_repository.dart';
-import 'package:shipanther/data/shipment/shipment_repository.dart';
-import 'package:shipanther/data/shipment/remote_shipment_repository.dart';
 import 'package:shipanther/data/order/order_repository.dart';
 import 'package:shipanther/data/order/remote_order_repository.dart';
+import 'package:shipanther/data/shipment/remote_shipment_repository.dart';
+import 'package:shipanther/data/shipment/shipment_repository.dart';
 import 'package:shipanther/data/tenant/remote_tenant_repository.dart';
 import 'package:shipanther/data/tenant/tenant_repository.dart';
 import 'package:shipanther/data/terminal/remote_terminal_repository.dart';
@@ -35,7 +36,6 @@ import 'package:shipanther/data/user/remote_user_repository.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/signin_or_register_page.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:shipanther/widgets/theme.dart';
 
 Future<void> commonMain(String apiURL) async {

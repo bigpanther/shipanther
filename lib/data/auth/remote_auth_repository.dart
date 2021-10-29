@@ -1,7 +1,8 @@
 import 'dart:async';
-import 'package:openapi_dart_common/openapi.dart';
+
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:openapi_dart_common/openapi.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:trober_sdk/api.dart' as api;
 
@@ -26,7 +27,7 @@ class RemoteAuthRepository extends AuthRepository {
     if (user == null) {
       throw AuthenticationException();
     }
-    await user.updateProfile(displayName: name);
+    await user.updateDisplayName(name);
     await user.sendEmailVerification();
     return logIn();
   }

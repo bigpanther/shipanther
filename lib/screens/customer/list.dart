@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/helper/colon.dart';
+import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/customer/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:shipanther/l10n/locales/date_formatter.dart';
-
 import 'package:trober_sdk/api.dart';
 
 class CustomerList extends StatelessWidget {

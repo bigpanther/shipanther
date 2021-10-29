@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
+import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/shipment/add_edit.dart';
 import 'package:shipanther/screens/shipment/driver_list.dart';
 import 'package:shipanther/screens/shipment/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
 import 'package:trober_sdk/api.dart';
-import 'package:shipanther/extensions/user_extension.dart';
 
 class ShipmentScreen extends StatefulWidget {
   const ShipmentScreen(this.loggedInUser);

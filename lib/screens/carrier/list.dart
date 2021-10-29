@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/extensions/carrier_extension.dart';
 import 'package:shipanther/helper/colon.dart';
-import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/l10n/locales/date_formatter.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/carrier/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/api.dart';

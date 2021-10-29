@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
-import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/extensions/user_extension.dart';
+import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/reset_password.dart';
 import 'package:shipanther/screens/signin_or_register_form.dart';
 import 'package:shipanther/screens/verify_email.dart';

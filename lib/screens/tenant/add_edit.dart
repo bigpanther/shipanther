@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
+import 'package:shipanther/extensions/tenant_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:smart_select/smart_select.dart';
 import 'package:trober_sdk/api.dart';
-import 'package:shipanther/extensions/tenant_extension.dart';
 
 class TenantAddEdit extends StatefulWidget {
   const TenantAddEdit({

@@ -23,7 +23,7 @@ class FilterButton<T> extends StatelessWidget {
     final theme = Theme.of(context);
     final defaultStyle = theme.textTheme.bodyText2;
     final activeStyle = theme.textTheme.bodyText2!.copyWith(
-      color: theme.accentColor,
+      color: theme.colorScheme.secondary,
     );
     final button = _Button<T?>(
       onSelected: onSelected,
