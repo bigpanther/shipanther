@@ -7,14 +7,14 @@ import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:trober_sdk/api.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage(this.user);
+  const ProfilePage(this.user, {super.key});
 
   final User user;
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  ProfilePageState createState() => ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class ProfilePageState extends State<ProfilePage> {
   final GlobalKey<FormState> _formKeyPassword = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKeyName = GlobalKey<FormState>();
   final TextEditingController _password = TextEditingController();
@@ -174,7 +174,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ShipantherButton(
                             onPressed: () {
                               if (_formKeyPassword.currentState!.validate()) {
-                                print('not supported yet');
+                                //print('not supported yet');
                                 // context.read<AuthBloc>().add(UpdatePassword(
                                 //     _oldPassword.text, _password.text));
                               }

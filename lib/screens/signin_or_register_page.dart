@@ -10,12 +10,13 @@ import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 
 class SignInOrRegistrationPage extends StatefulWidget {
+  const SignInOrRegistrationPage({super.key});
   @override
-  _SignInOrRegistrationPageState createState() =>
-      _SignInOrRegistrationPageState();
+  SignInOrRegistrationPageState createState() =>
+      SignInOrRegistrationPageState();
 }
 
-class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
+class SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
   @override
   void initState() {
     super.initState();
@@ -70,7 +71,7 @@ class _SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
       return VerifyEmail(state.emailId);
     }
     if (state is ForgotPasswordRequested) {
-      return ResetPassword();
+      return const ResetPassword();
     }
     return const CenteredLoading();
   }

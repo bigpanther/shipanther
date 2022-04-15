@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/carrier/carrier_repository.dart';
@@ -9,38 +7,55 @@ part 'carrier_event.dart';
 part 'carrier_state.dart';
 
 class CarrierBloc extends Bloc<CarrierEvent, CarrierState> {
-  CarrierBloc(this._carrierRepository) : super(CarrierInitial());
   final CarrierRepository _carrierRepository;
-
-  @override
-  Stream<CarrierState> mapEventToState(
-    CarrierEvent event,
-  ) async* {
-    yield CarrierLoading();
-    try {
-      if (event is GetCarrier) {
-        yield CarrierLoaded(await _carrierRepository.fetchCarrier(event.id));
+  CarrierBloc(this._carrierRepository) : super(CarrierInitial()) {
+    on<GetCarrier>((event, emit) async {
+      emit(CarrierLoading());
+      try {
+        emit(CarrierLoaded(await _carrierRepository.fetchCarrier(event.id)));
+      } catch (e) {
+        emit(CarrierFailure('Request failed: $e'));
       }
-      if (event is GetCarriers) {
+    });
+
+    on<GetCarriers>((event, emit) async {
+      try {
+        emit(CarrierLoading());
+
         final carriers = await _carrierRepository.fetchCarriers(
             page: event.page, carrierType: event.carrierType);
-        yield CarriersLoaded(carriers, event.carrierType);
+        emit(CarriersLoaded(carriers, event.carrierType));
+      } catch (e) {
+        emit(CarrierFailure('Request failed: $e'));
       }
-      if (event is UpdateCarrier) {
+    });
+
+    on<UpdateCarrier>((event, emit) async {
+      try {
+        emit(CarrierLoading());
+
         await _carrierRepository.updateCarrier(event.id, event.carrier);
         final carriers = await _carrierRepository.fetchCarriers();
-        yield CarriersLoaded(carriers, null);
+        emit(CarriersLoaded(carriers, null));
+      } catch (e) {
+        emit(CarrierFailure('Request failed: $e'));
       }
-      if (event is CreateCarrier) {
+    });
+
+    on<CreateCarrier>((event, emit) async {
+      try {
+        emit(CarrierLoading());
+
         await _carrierRepository.createCarrier(event.carrier);
         final carriers = await _carrierRepository.fetchCarriers();
-        yield CarriersLoaded(carriers, null);
+        emit(CarriersLoaded(carriers, null));
+      } catch (e) {
+        emit(CarrierFailure('Request failed: $e'));
       }
-      if (event is DeleteCarrier) {
-        yield const CarrierFailure('Carrier deletion is not supported');
-      }
-    } catch (e) {
-      yield CarrierFailure('Request failed: $e');
-    }
+    });
+
+    on<DeleteCarrier>((event, emit) async {
+      emit(const CarrierFailure('Carrier deletion is not supported'));
+    });
   }
 }

@@ -13,10 +13,10 @@ class TerminalScreen extends StatefulWidget {
   final User loggedInUser;
 
   @override
-  _TerminalScreenState createState() => _TerminalScreenState();
+  TerminalScreenState createState() => TerminalScreenState();
 }
 
-class _TerminalScreenState extends State<TerminalScreen> {
+class TerminalScreenState extends State<TerminalScreen> {
   late TerminalBloc bloc;
   @override
   void initState() {

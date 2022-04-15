@@ -16,6 +16,7 @@ class ShipmentAddEdit extends StatefulWidget {
     required this.shipmentBloc,
     required this.isEdit,
     this.imageURL,
+    super.key,
   });
   final User loggedInUser;
   final Shipment shipment;
@@ -24,10 +25,10 @@ class ShipmentAddEdit extends StatefulWidget {
   final String? imageURL;
 
   @override
-  _ShipmentAddEditState createState() => _ShipmentAddEditState();
+  ShipmentAddEditState createState() => ShipmentAddEditState();
 }
 
-class _ShipmentAddEditState extends State<ShipmentAddEdit> {
+class ShipmentAddEditState extends State<ShipmentAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Carrier? _carrier;
   Order? _order;
@@ -79,15 +80,13 @@ class _ShipmentAddEditState extends State<ShipmentAddEdit> {
             : widget.shipment.reservationTime!.toLocal().toString());
   }
 
-  Container _imageContainer(String? imageURL) {
+  Widget _imageContainer(String? imageURL) {
     if (imageURL == null) {
       return Container();
     }
-    return Container(
-      child: FadeInImage.assetNetwork(
-        placeholder: 'assets/images/shipanther_logo.png',
-        image: imageURL,
-      ),
+    return FadeInImage.assetNetwork(
+      placeholder: 'assets/images/shipanther_logo.png',
+      image: imageURL,
     );
   }
 

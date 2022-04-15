@@ -186,7 +186,7 @@ List<Widget> drawerItemsFor(BuildContext context, User? user) {
             );
         navigation.pushReplacement(
           MaterialPageRoute<SignInOrRegistrationPage>(
-            builder: (_) => SignInOrRegistrationPage(),
+            builder: (_) => const SignInOrRegistrationPage(),
           ),
         );
       },
@@ -204,10 +204,10 @@ List<Widget> drawerItemsFor(BuildContext context, User? user) {
         icon: MdiIcons.license,
         text: localization.aboutUs,
         onTap: () async {
+          final themeData = Theme.of(context);
           final packageInfo = await PackageInfo.fromPlatform();
           final appName = packageInfo.appName;
           final version = packageInfo.version;
-          final themeData = Theme.of(context);
           final msgStyle = themeData.textTheme.bodyText1;
           final linkStyle = msgStyle!.copyWith(color: themeData.primaryColor);
           showAboutDialog(
@@ -258,12 +258,13 @@ List<Widget> drawerItemsFor(BuildContext context, User? user) {
         icon: MdiIcons.license,
         text: localization.whatsNew,
         onTap: () async {
+          final scaffold = ScaffoldMessenger.of(context);
           final packageInfo = await PackageInfo.fromPlatform();
-          final url =
-              'https://github.com/bigpanther/shipanther/releases/tag/v${packageInfo.version}';
-          await canLaunch(url)
-              ? await launch(url)
-              : ScaffoldMessenger.of(context).showSnackBar(
+          final url = Uri.parse(
+              'https://github.com/bigpanther/shipanther/releases/tag/v${packageInfo.version}');
+          await canLaunchUrl(url)
+              ? await launchUrl(url)
+              : scaffold.showSnackBar(
                   const SnackBar(
                     content: Text('Could not launch external link'),
                   ),
@@ -302,7 +303,7 @@ Widget _createDrawerItem(
 
 Widget _createHeader(BuildContext context, User? user) {
   if (user == null) {
-    return Container(
+    return const SizedBox(
       height: 0,
       width: 0,
     );

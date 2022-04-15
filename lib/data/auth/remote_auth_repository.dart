@@ -109,7 +109,7 @@ class RemoteAuthRepository extends AuthRepository {
     final client = await apiClient();
     final deviceToken = await _firebaseMessaging.getToken();
     if (deviceToken == null) {
-      print('failed to get device token');
+      //print('failed to get device token');
       return;
     }
     return client.selfDeviceRegisterPost(
@@ -120,7 +120,7 @@ class RemoteAuthRepository extends AuthRepository {
     final client = await apiClient();
     final deviceToken = await _firebaseMessaging.getToken();
     if (deviceToken == null) {
-      print('failed to get device token');
+      //print('failed to get device token');
       return;
     }
     return client.selfDeviceRemovePost(
@@ -142,12 +142,15 @@ class RemoteAuthRepository extends AuthRepository {
   }
 
   @override
-  Future<String?> sendEmailForVerification() async {
+  Future<String> sendEmailForVerification() async {
     final user = _auth.currentUser;
     if (user == null) {
       throw AuthenticationException();
     }
     await user.sendEmailVerification();
-    return user.email;
+    if (user.email == null) {
+      throw UnAuthenticatedException();
+    }
+    return user.email!;
   }
 }

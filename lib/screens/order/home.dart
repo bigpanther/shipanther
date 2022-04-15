@@ -12,10 +12,10 @@ class OrderScreen extends StatefulWidget {
   final User loggedInUser;
 
   @override
-  _OrderScreenState createState() => _OrderScreenState();
+  OrderScreenState createState() => OrderScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> {
+class OrderScreenState extends State<OrderScreen> {
   late OrderBloc bloc;
   @override
   void initState() {

@@ -12,10 +12,10 @@ class SuperAdminHome extends StatefulWidget {
   final User user;
 
   @override
-  _SuperAdminHomeState createState() => _SuperAdminHomeState();
+  SuperAdminHomeState createState() => SuperAdminHomeState();
 }
 
-class _SuperAdminHomeState extends State<SuperAdminHome> {
+class SuperAdminHomeState extends State<SuperAdminHome> {
   late TenantBloc bloc;
   @override
   void initState() {

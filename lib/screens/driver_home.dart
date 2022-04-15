@@ -12,10 +12,10 @@ class DriverHome extends StatefulWidget {
   final User loggedInUser;
 
   @override
-  _DriverHomeState createState() => _DriverHomeState();
+  DriverHomeState createState() => DriverHomeState();
 }
 
-class _DriverHomeState extends State<DriverHome> {
+class DriverHomeState extends State<DriverHome> {
   late ShipmentBloc bloc;
   @override
   void initState() {

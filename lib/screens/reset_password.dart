@@ -5,11 +5,12 @@ import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 
 class ResetPassword extends StatefulWidget {
+  const ResetPassword({super.key});
   @override
-  _ResetPasswordState createState() => _ResetPasswordState();
+  ResetPasswordState createState() => ResetPasswordState();
 }
 
-class _ResetPasswordState extends State<ResetPassword> {
+class ResetPasswordState extends State<ResetPassword> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _userEmail = TextEditingController();
 

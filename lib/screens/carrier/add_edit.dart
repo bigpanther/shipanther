@@ -15,6 +15,7 @@ class CarrierAddEdit extends StatefulWidget {
     required this.carrier,
     required this.carrierBloc,
     required this.isEdit,
+    super.key,
   });
   final User loggedInUser;
   final Carrier carrier;
@@ -22,10 +23,10 @@ class CarrierAddEdit extends StatefulWidget {
   final bool isEdit;
 
   @override
-  _CarrierAddEditState createState() => _CarrierAddEditState();
+  CarrierAddEditState createState() => CarrierAddEditState();
 }
 
-class _CarrierAddEditState extends State<CarrierAddEdit> {
+class CarrierAddEditState extends State<CarrierAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   late TextEditingController _name;

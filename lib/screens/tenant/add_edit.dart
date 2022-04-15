@@ -12,6 +12,7 @@ class TenantAddEdit extends StatefulWidget {
     required this.tenant,
     required this.tenantBloc,
     required this.isEdit,
+    super.key,
   });
 
   final Tenant tenant;
@@ -19,10 +20,10 @@ class TenantAddEdit extends StatefulWidget {
   final bool isEdit;
 
   @override
-  _TenantAddEditState createState() => _TenantAddEditState();
+  TenantAddEditState createState() => TenantAddEditState();
 }
 
-class _TenantAddEditState extends State<TenantAddEdit> {
+class TenantAddEditState extends State<TenantAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   late TenantType _tenantType;

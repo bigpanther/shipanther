@@ -7,7 +7,7 @@ import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 
 class SignInOrRegistrationForm extends StatefulWidget {
-  const SignInOrRegistrationForm(this.authTypeSelector);
+  const SignInOrRegistrationForm(this.authTypeSelector, {super.key});
   final AuthTypeSelector authTypeSelector;
 
   @override
@@ -63,7 +63,7 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
               },
             )
           else
-            Container(
+            const SizedBox(
               height: 0,
               width: 0,
             ),
@@ -106,7 +106,7 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
               ),
             )
           else
-            Container(
+            const SizedBox(
               height: 0,
               width: 0,
             ),

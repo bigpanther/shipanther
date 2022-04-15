@@ -7,7 +7,7 @@
     "type": "text",
     "placeholders": {
       "howMany": {
-        "example": 2
+        "example": "2"
       }
     }
   },
@@ -65,7 +65,7 @@
     "type": "text",
     "placeholders": {
       "howMany": {
-        "example": 2
+        "example": "2"
       }
     }
   },
@@ -99,7 +99,7 @@
     "type": "text",
     "placeholders": {
       "howMany": {
-        "example": 2
+        "example": "2"
       }
     }
   },
@@ -133,7 +133,7 @@
     "type": "text",
     "placeholders": {
       "howMany": {
-        "example": 2
+        "example": "2"
       }
     }
   },
@@ -161,7 +161,7 @@
     "type": "text",
     "placeholders": {
       "howMany": {
-        "example": 2
+        "example": "2"
       }
     }
   },
@@ -195,7 +195,7 @@
     "type": "text",
     "placeholders": {
       "howMany": {
-        "example": 2
+        "example": "2"
       }
     }
   },
@@ -313,7 +313,7 @@
     "type": "text",
     "placeholders": {
       "howMany": {
-        "example": 2
+        "example": "2"
       }
     }
   },
@@ -646,9 +646,9 @@
     "type": "text",
     "placeholders": {}
   },
-  "applicationLegalese": "©2020-2021 Big Panther Technologies Inc.",
+  "applicationLegalese": "©2020-2022 Big Panther Technologies Inc.",
   "@applicationLegalese": {
-    "description": "©2020-2021 Big Panther Technologies Inc.",
+    "description": "©2020-2022 Big Panther Technologies Inc.",
     "type": "text",
     "placeholders": {}
   },

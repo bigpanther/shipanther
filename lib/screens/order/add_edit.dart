@@ -15,6 +15,7 @@ class OrderAddEdit extends StatefulWidget {
     required this.order,
     required this.orderBloc,
     required this.isEdit,
+    super.key,
   });
   final User loggedInUser;
   final Order order;
@@ -22,10 +23,10 @@ class OrderAddEdit extends StatefulWidget {
   final bool isEdit;
 
   @override
-  _OrderAddEditState createState() => _OrderAddEditState();
+  OrderAddEditState createState() => OrderAddEditState();
 }
 
-class _OrderAddEditState extends State<OrderAddEdit> {
+class OrderAddEditState extends State<OrderAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   late TextEditingController _serialNumber;
@@ -95,9 +96,9 @@ class _OrderAddEditState extends State<OrderAddEdit> {
                       value: widget.order.status,
                     )
                   else
-                    Container(width: 0.0, height: 0.0),
+                    const SizedBox(width: 0.0, height: 0.0),
                   // Hack to avoid runtime type mismatch.
-                  Container(width: 0.0, height: 0.0),
+                  const SizedBox(width: 0.0, height: 0.0),
                 ] +
                 customerSelector(
                   context,

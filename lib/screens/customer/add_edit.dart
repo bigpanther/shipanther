@@ -10,6 +10,7 @@ class CustomerAddEdit extends StatefulWidget {
     required this.customer,
     required this.customerBloc,
     required this.isEdit,
+    super.key,
   });
   final User loggedInUser;
   final Customer customer;
@@ -17,10 +18,10 @@ class CustomerAddEdit extends StatefulWidget {
   final bool isEdit;
 
   @override
-  _CustomerAddEditState createState() => _CustomerAddEditState();
+  CustomerAddEditState createState() => CustomerAddEditState();
 }
 
-class _CustomerAddEditState extends State<CustomerAddEdit> {
+class CustomerAddEditState extends State<CustomerAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late TextEditingController _name;
   @override

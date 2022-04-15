@@ -13,6 +13,7 @@ class TerminalAddEdit extends StatefulWidget {
     required this.terminal,
     required this.terminalBloc,
     required this.isEdit,
+    super.key,
   });
 
   final User loggedInUser;
@@ -21,10 +22,10 @@ class TerminalAddEdit extends StatefulWidget {
   final bool isEdit;
 
   @override
-  _TerminalAddEditState createState() => _TerminalAddEditState();
+  TerminalAddEditState createState() => TerminalAddEditState();
 }
 
-class _TerminalAddEditState extends State<TerminalAddEdit> {
+class TerminalAddEditState extends State<TerminalAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late TextEditingController _name;
   @override

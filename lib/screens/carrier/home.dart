@@ -12,10 +12,10 @@ class CarrierScreen extends StatefulWidget {
   final User loggedInUser;
 
   @override
-  _CarrierScreenState createState() => _CarrierScreenState();
+  CarrierScreenState createState() => CarrierScreenState();
 }
 
-class _CarrierScreenState extends State<CarrierScreen> {
+class CarrierScreenState extends State<CarrierScreen> {
   late CarrierBloc bloc;
   @override
   void initState() {

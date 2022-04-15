@@ -23,10 +23,10 @@ class DriverShipmentList extends StatefulWidget {
   final User loggedInUser;
 
   @override
-  _DriverShipmentListState createState() => _DriverShipmentListState();
+  DriverShipmentListState createState() => DriverShipmentListState();
 }
 
-class _DriverShipmentListState extends State<DriverShipmentList> {
+class DriverShipmentListState extends State<DriverShipmentList> {
   int _currentIndex = 0;
 
   Future<void> handleDelivery(User driver, Shipment t) async {
@@ -35,7 +35,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
       file = await ImagePicker()
           .pickImage(source: ImageSource.camera, imageQuality: 10);
     } catch (e) {
-      print('hsm $e');
+      //print('hsm $e');
     }
     if (file == null) {
       return;
@@ -186,7 +186,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                               .shipmentDelivered),
                         )
                       else
-                        Container(
+                        const SizedBox(
                           width: 0,
                           height: 0,
                         ),
@@ -220,7 +220,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                       ],
                     )
                   else
-                    Container(
+                    const SizedBox(
                       width: 0,
                       height: 0,
                     ),

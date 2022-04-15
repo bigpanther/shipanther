@@ -13,10 +13,10 @@ class UserScreen extends StatefulWidget {
   final User loggedInUser;
 
   @override
-  _UserScreenState createState() => _UserScreenState();
+  UserScreenState createState() => UserScreenState();
 }
 
-class _UserScreenState extends State<UserScreen> {
+class UserScreenState extends State<UserScreen> {
   late UserBloc bloc;
   @override
   void initState() {

@@ -12,10 +12,10 @@ class CustomerHome extends StatefulWidget {
   final User user;
 
   @override
-  _CustomerHomeState createState() => _CustomerHomeState();
+  CustomerHomeState createState() => CustomerHomeState();
 }
 
-class _CustomerHomeState extends State<CustomerHome> {
+class CustomerHomeState extends State<CustomerHome> {
   late OrderBloc bloc;
   @override
   void initState() {

@@ -70,7 +70,7 @@ class OrderList extends StatelessWidget {
                       ShipantherLocalizations.of(context).customerName,
                       t.customer?.name)
                 else
-                  Container(width: 0.0, height: 0.0),
+                  const SizedBox(width: 0.0, height: 0.0),
                 displaySubtitle(
                     ShipantherLocalizations.of(context).lastUpdate, t.updatedAt,
                     formatter: dateTimeFormatter),

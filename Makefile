@@ -16,7 +16,7 @@ release-dev-android:
 release-dev-ios:
 	flutter build ipa --flavor dev --release --no-sound-null-safety
 release-dev-web:
-	flutter build web --release --no-sound-null-safety
+	flutter build web --base-href=/ --release --no-sound-null-safety
 release-dev: clean release-dev-android release-dev-ios release-dev-web
 .PHONY: clean
 clean:

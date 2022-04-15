@@ -33,7 +33,7 @@ void main() {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: ShipantherLocalizations.delegate.supportedLocales,
-          home: SignInOrRegistrationPage(),
+          home: const SignInOrRegistrationPage(),
         ),
       ));
       await tester.pumpAndSettle();

@@ -12,10 +12,10 @@ class TenantScreen extends StatefulWidget {
   final User loggedInUser;
 
   @override
-  _TenantScreenState createState() => _TenantScreenState();
+  TenantScreenState createState() => TenantScreenState();
 }
 
-class _TenantScreenState extends State<TenantScreen> {
+class TenantScreenState extends State<TenantScreen> {
   late TenantBloc bloc;
   @override
   void initState() {

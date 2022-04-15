@@ -12,14 +12,12 @@ class NoneHome extends StatelessWidget {
     return ShipantherScaffold(
       user,
       title: ShipantherLocalizations.of(context).shipantherTitle,
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(ShipantherLocalizations.of(context).helloParam(user.name)),
-            Text(ShipantherLocalizations.of(context).tenantLessUserMessage),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(ShipantherLocalizations.of(context).helloParam(user.name)),
+          Text(ShipantherLocalizations.of(context).tenantLessUserMessage),
+        ],
       ),
     );
   }

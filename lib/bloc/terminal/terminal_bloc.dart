@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/terminal/terminal_repository.dart';
@@ -9,38 +7,48 @@ part 'terminal_event.dart';
 part 'terminal_state.dart';
 
 class TerminalBloc extends Bloc<TerminalEvent, TerminalState> {
-  TerminalBloc(this._terminalRepository) : super(TerminalInitial());
   final TerminalRepository _terminalRepository;
-
-  @override
-  Stream<TerminalState> mapEventToState(
-    TerminalEvent event,
-  ) async* {
-    yield TerminalLoading();
-    try {
-      if (event is GetTerminal) {
-        yield TerminalLoaded(await _terminalRepository.fetchTerminal(event.id));
+  TerminalBloc(this._terminalRepository) : super(TerminalInitial()) {
+    on<GetTerminal>((event, emit) async {
+      emit(TerminalLoading());
+      try {
+        emit(TerminalLoaded(await _terminalRepository.fetchTerminal(event.id)));
+      } catch (e) {
+        emit(TerminalFailure('Request failed: $e'));
       }
-      if (event is GetTerminals) {
+    });
+    on<GetTerminals>((event, emit) async {
+      emit(TerminalLoading());
+      try {
         final terminals = await _terminalRepository.fetchTerminals(
             terminalType: event.terminalType);
-        yield TerminalsLoaded(terminals, event.terminalType);
+        emit(TerminalsLoaded(terminals, event.terminalType));
+      } catch (e) {
+        emit(TerminalFailure('Request failed: $e'));
       }
-      if (event is UpdateTerminal) {
+    });
+    on<UpdateTerminal>((event, emit) async {
+      emit(TerminalLoading());
+      try {
         await _terminalRepository.updateTerminal(event.id, event.terminal);
         final terminals = await _terminalRepository.fetchTerminals();
-        yield TerminalsLoaded(terminals, null);
+        emit(TerminalsLoaded(terminals, null));
+      } catch (e) {
+        emit(TerminalFailure('Request failed: $e'));
       }
-      if (event is CreateTerminal) {
+    });
+    on<CreateTerminal>((event, emit) async {
+      emit(TerminalLoading());
+      try {
         await _terminalRepository.createTerminal(event.terminal);
         final terminals = await _terminalRepository.fetchTerminals();
-        yield TerminalsLoaded(terminals, null);
+        emit(TerminalsLoaded(terminals, null));
+      } catch (e) {
+        emit(TerminalFailure('Request failed: $e'));
       }
-      if (event is DeleteTerminal) {
-        yield const TerminalFailure('Terminal deletion is not supported');
-      }
-    } catch (e) {
-      yield TerminalFailure('Request failed: $e');
-    }
+    });
+    on<DeleteTerminal>((event, emit) async {
+      emit(const TerminalFailure('Terminal deletion is not supported'));
+    });
   }
 }

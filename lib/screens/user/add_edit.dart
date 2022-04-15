@@ -14,6 +14,7 @@ class UserAddEdit extends StatefulWidget {
     required this.user,
     required this.userBloc,
     required this.isEdit,
+    super.key,
   });
   final User loggedInUser;
   final User user;
@@ -21,10 +22,10 @@ class UserAddEdit extends StatefulWidget {
   final bool isEdit;
 
   @override
-  _UserAddEditState createState() => _UserAddEditState();
+  UserAddEditState createState() => UserAddEditState();
 }
 
-class _UserAddEditState extends State<UserAddEdit> {
+class UserAddEditState extends State<UserAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   late TextEditingController _nameController;

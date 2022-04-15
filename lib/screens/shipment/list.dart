@@ -37,7 +37,7 @@ class ShipmentList extends StatelessWidget {
     ];
     Widget circularIndicator(Shipment c) {
       return CircularPercentIndicator(
-        radius: 35.0,
+        radius: 20.0,
         lineWidth: 5.0,
         percent: c.status.percentage,
         progressColor: Colors.green,
