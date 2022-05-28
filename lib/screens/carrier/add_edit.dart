@@ -6,7 +6,7 @@ import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/date_time_picker.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
-import 'package:smart_select/smart_select.dart';
+import 'package:flutter_awesome_select/flutter_awesome_select.dart';
 import 'package:trober_sdk/api.dart';
 
 class CarrierAddEdit extends StatefulWidget {

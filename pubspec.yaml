@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
   
   cupertino_icons: ^1.0.4
+  flutter_awesome_select: ^6.3.0
   flutter_bloc: ^8.0.1
   bloc: ^8.0.3
   meta: ^1.7.0
@@ -22,7 +23,6 @@ dependencies:
   firebase_crashlytics: ^2.8.1
   firebase_messaging: ^11.4.1
   firebase_storage: ^10.2.17
-  smart_select: ^4.3.2
   intl: ^0.17.0
   flutter_typeahead: ^4.0.0
   enum_to_string: ^2.0.1
