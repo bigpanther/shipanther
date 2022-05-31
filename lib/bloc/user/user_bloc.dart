@@ -1,47 +1,55 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/user/user_repository.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  UserBloc(this._userRepository) : super(UserInitial());
   final UserRepository _userRepository;
-
-  @override
-  Stream<UserState> mapEventToState(
-    UserEvent event,
-  ) async* {
-    yield UserLoading();
-    try {
-      if (event is GetUser) {
-        yield UserLoaded(await _userRepository.fetchUser(event.id));
+  UserBloc(this._userRepository) : super(UserInitial()) {
+    on<GetUser>((event, emit) async {
+      emit(UserLoading());
+      try {
+        emit(UserLoaded(await _userRepository.fetchUser(event.id)));
+      } catch (e) {
+        emit(UserFailure('Request failed: $e'));
       }
-      if (event is GetUsers) {
+    });
+    on<GetUsers>((event, emit) async {
+      emit(UserLoading());
+      try {
         final users =
             await _userRepository.fetchUsers(userRole: event.userRole);
-        yield UsersLoaded(users, event.userRole);
+        emit(UsersLoaded(users, event.userRole));
+      } catch (e) {
+        emit(UserFailure('Request failed: $e'));
       }
-      if (event is UpdateUser) {
+    });
+    on<UpdateUser>((event, emit) async {
+      emit(UserLoading());
+      try {
         await _userRepository.updateUser(event.id, event.user);
         final users = await _userRepository.fetchUsers();
-        yield UsersLoaded(users, null);
+        emit(UsersLoaded(users, null));
+      } catch (e) {
+        emit(UserFailure('Request failed: $e'));
       }
-      if (event is CreateUser) {
+    });
+    on<CreateUser>((event, emit) async {
+      emit(UserLoading());
+      try {
         await _userRepository.createUser(event.user);
         final users = await _userRepository.fetchUsers();
-        yield UsersLoaded(users, null);
+        emit(UsersLoaded(users, null));
+      } catch (e) {
+        emit(UserFailure('Request failed: $e'));
       }
-      if (event is DeleteUser) {
-        yield const UserFailure('User deletion is not supported');
-      }
-    } catch (e) {
-      yield UserFailure('Request failed: $e');
-    }
+    });
+    on<DeleteUser>((event, emit) async {
+      emit(const UserFailure('User deletion is not supported'));
+    });
   }
 }

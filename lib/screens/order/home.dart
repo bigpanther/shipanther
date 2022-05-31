@@ -5,17 +5,17 @@ import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/order/add_edit.dart';
 import 'package:shipanther/screens/order/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen(this.loggedInUser, {Key? key}) : super(key: key);
   final User loggedInUser;
 
   @override
-  _OrderScreenState createState() => _OrderScreenState();
+  OrderScreenState createState() => OrderScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> {
+class OrderScreenState extends State<OrderScreen> {
   late OrderBloc bloc;
   @override
   void initState() {

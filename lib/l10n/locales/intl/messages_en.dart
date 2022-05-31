@@ -7,64 +7,66 @@
 // ignore_for_file:unnecessary_brace_in_string_interps, unnecessary_new
 // ignore_for_file:prefer_single_quotes,comment_references, directives_ordering
 // ignore_for_file:annotate_overrides,prefer_generic_function_type_aliases
-// ignore_for_file:unused_import, file_names
+// ignore_for_file:unused_import, file_names, avoid_escaping_inner_quotes
+// ignore_for_file:unnecessary_string_interpolations, unnecessary_string_escapes
 
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
 
-final messages = new MessageLookup();
+final messages = MessageLookup();
 
-typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
+typedef MessageIfAbsent = String Function(
+    String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static m0(param) => "Add new ${param}";
+  static String m0(param) => "Add new ${param}";
 
-  static m1(howMany) =>
+  static String m1(howMany) =>
       "${Intl.plural(howMany, zero: 'Carrier', one: 'Carrier', other: 'Carriers')}";
 
-  static m2(howMany) =>
+  static String m2(howMany) =>
       "${Intl.plural(howMany, zero: 'Customer', one: 'Customer', other: 'Customers')}";
 
-  static m3(param) => "Edit ${param}";
+  static String m3(param) => "Edit ${param}";
 
-  static m4(emailId) =>
+  static String m4(emailId) =>
       "An Email has been sent to ${emailId}. Please check your inbox.";
 
-  static m5(param) => "Hello ${param}";
+  static String m5(param) => "Hello ${param}";
 
-  static m6(howMany) =>
+  static String m6(howMany) =>
       "${Intl.plural(howMany, zero: 'Order', one: 'Order', other: 'Orders')}";
 
-  static m7(param) => "${param} should not be empty";
+  static String m7(param) => "${param} should not be empty";
 
-  static m8(paramFrom, paramTo) => "${paramFrom} to ${paramTo}";
+  static String m8(paramFrom, paramTo) => "${paramFrom} to ${paramTo}";
 
-  static m9(param) => "${param} is required";
+  static String m9(param) => "${param} is required";
 
-  static m10(param) => "Select ${param}";
+  static String m10(param) => "Select ${param}";
 
-  static m11(howMany) =>
+  static String m11(howMany) =>
       "${Intl.plural(howMany, zero: 'Shipment', one: 'Shipment', other: 'Shipments')}";
 
-  static m12(howMany) =>
+  static String m12(howMany) =>
       "${Intl.plural(howMany, zero: 'Tenant', one: 'Tenant', other: 'Tenants')}";
 
-  static m13(howMany) =>
+  static String m13(howMany) =>
       "${Intl.plural(howMany, zero: 'Terminal', one: 'Terminal', other: 'Terminals')}";
 
-  static m14(howMany) =>
+  static String m14(howMany) =>
       "${Intl.plural(howMany, zero: 'User', one: 'User', other: 'Users')}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-  static _notInlinedMessages(_) => <String, Function>{
+  static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
         "addCarrier": MessageLookupByLibrary.simpleMessage("Add carrier"),
         "addCustomer": MessageLookupByLibrary.simpleMessage("Add customer"),
         "addNewParam": m0,
         "applicationLegalese": MessageLookupByLibrary.simpleMessage(
-            "©2020-2021 Big Panther Technologies Inc."),
+            "©2020-2022 Big Panther Technologies Inc."),
         "carrierName": MessageLookupByLibrary.simpleMessage("Carrier name"),
         "carrierType": MessageLookupByLibrary.simpleMessage("Carrier type"),
         "carriersETA": MessageLookupByLibrary.simpleMessage("ETA"),

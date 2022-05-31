@@ -1,46 +1,58 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/order/order_repository.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 part 'order_event.dart';
 part 'order_state.dart';
 
 class OrderBloc extends Bloc<OrderEvent, OrderState> {
-  OrderBloc(this._orderRepository) : super(OrderInitial());
   final OrderRepository _orderRepository;
-
-  @override
-  Stream<OrderState> mapEventToState(
-    OrderEvent event,
-  ) async* {
-    yield OrderLoading();
-    try {
-      if (event is GetOrder) {
-        yield OrderLoaded(await _orderRepository.fetchOrder(event.id));
+  OrderBloc(this._orderRepository) : super(OrderInitial()) {
+    on<GetOrder>((event, emit) async {
+      try {
+        emit(OrderLoading());
+        emit(OrderLoaded(await _orderRepository.fetchOrder(event.id)));
+      } catch (e) {
+        emit(OrderFailure('Request failed: $e'));
       }
-      if (event is GetOrders) {
+    });
+
+    on<GetOrders>((event, emit) async {
+      try {
+        emit(OrderLoading());
         final orders =
             await _orderRepository.fetchOrders(orderStatus: event.orderStatus);
-        yield OrdersLoaded(orders, event.orderStatus);
+        emit(OrdersLoaded(orders, event.orderStatus));
+      } catch (e) {
+        emit(OrderFailure('Request failed: $e'));
       }
-      if (event is UpdateOrder) {
+    });
+
+    on<UpdateOrder>((event, emit) async {
+      try {
+        emit(OrderLoading());
         await _orderRepository.updateOrder(event.id, event.order);
         final orders = await _orderRepository.fetchOrders();
-        yield OrdersLoaded(orders, null);
+        emit(OrdersLoaded(orders, null));
+      } catch (e) {
+        emit(OrderFailure('Request failed: $e'));
       }
-      if (event is CreateOrder) {
+    });
+
+    on<CreateOrder>((event, emit) async {
+      try {
+        emit(OrderLoading());
         await _orderRepository.createOrder(event.order);
         final orders = await _orderRepository.fetchOrders();
-        yield OrdersLoaded(orders, null);
+        emit(OrdersLoaded(orders, null));
+      } catch (e) {
+        emit(OrderFailure('Request failed: $e'));
       }
-      if (event is DeleteOrder) {
-        yield const OrderFailure('Order deletion is not supported');
-      }
-    } catch (e) {
-      yield OrderFailure('Request failed: $e');
-    }
+    });
+
+    on<DeleteOrder>((event, emit) async {
+      emit(const OrderFailure('Order deletion is not supported'));
+    });
   }
 }

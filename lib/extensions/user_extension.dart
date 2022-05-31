@@ -1,11 +1,10 @@
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:shipanther/screens/back_office_home.dart';
 import 'package:shipanther/screens/customer_home.dart';
 import 'package:shipanther/screens/driver_home.dart';
 import 'package:shipanther/screens/none_home.dart';
 import 'package:shipanther/screens/super_admin_home.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 extension UserExtension on User {
   bool get isAtleastBackOffice {
@@ -52,6 +51,7 @@ extension UserExtension on User {
       case UserRole.none:
         return NoneHome(this);
     }
+    throw 'noop';
   }
 }
 
@@ -71,9 +71,6 @@ extension UserRoleExtension on UserRole {
       case UserRole.none:
         return Icons.not_accessible;
     }
-  }
-
-  String get text {
-    return EnumToString.convertToString(this, camelCase: true);
+    throw 'noop';
   }
 }

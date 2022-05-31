@@ -8,7 +8,8 @@ import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/order/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:shipanther/widgets/uuid.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class OrderList extends StatelessWidget {
   const OrderList(this.loggedInUser,
@@ -24,7 +25,7 @@ class OrderList extends StatelessWidget {
     final title = ShipantherLocalizations.of(context).ordersTitle(2);
     final actions = <Widget>[
       FilterButton<OrderStatus>(
-          possibleValues: OrderStatus.values,
+          possibleValues: OrderStatus.values.toList(),
           isActive: true,
           activeFilter: orderLoadedState.orderStatus,
           onSelected: (t) => context.read<OrderBloc>()
@@ -62,17 +63,17 @@ class OrderList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).createdAt, t.createdAt,
+                displaySubtitle(ShipantherLocalizations.of(context).createdAt,
+                    t.createdAt.toLocal(),
                     formatter: dateTimeFormatter),
                 if (t.customer != null)
                   displaySubtitle(
                       ShipantherLocalizations.of(context).customerName,
                       t.customer?.name)
                 else
-                  Container(width: 0.0, height: 0.0),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).lastUpdate, t.updatedAt,
+                  const SizedBox(width: 0.0, height: 0.0),
+                displaySubtitle(ShipantherLocalizations.of(context).lastUpdate,
+                    t.updatedAt.toLocal(),
                     formatter: dateTimeFormatter),
               ],
             ),
@@ -89,14 +90,13 @@ class OrderList extends StatelessWidget {
             builder: (_) => OrderAddEdit(loggedInUser,
                 isEdit: false,
                 orderBloc: orderBloc,
-                order: Order(
-                  status: OrderStatus.open,
-                  updatedAt: DateTime.now(),
-                  createdAt: DateTime.now(),
-                  id: '',
-                  serialNumber: '',
-                  tenantId: loggedInUser.tenantId,
-                )),
+                order: Order((b) => b
+                  ..status = OrderStatus.open
+                  ..updatedAt = DateTime.now().toUtc()
+                  ..createdAt = DateTime.now().toUtc()
+                  ..id = uuid()
+                  ..serialNumber = ''
+                  ..tenantId = loggedInUser.tenantId)),
           ),
         );
       },

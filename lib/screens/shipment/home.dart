@@ -7,16 +7,16 @@ import 'package:shipanther/screens/shipment/add_edit.dart';
 import 'package:shipanther/screens/shipment/driver_list.dart';
 import 'package:shipanther/screens/shipment/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class ShipmentScreen extends StatefulWidget {
-  const ShipmentScreen(this.loggedInUser);
+  const ShipmentScreen(this.loggedInUser, {super.key});
   final User loggedInUser;
   @override
-  _ShipmentScreenState createState() => _ShipmentScreenState();
+  ShipmentScreenState createState() => ShipmentScreenState();
 }
 
-class _ShipmentScreenState extends State<ShipmentScreen> {
+class ShipmentScreenState extends State<ShipmentScreen> {
   late ShipmentBloc bloc;
   @override
   void initState() {

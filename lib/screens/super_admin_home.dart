@@ -5,17 +5,17 @@ import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/tenant/list.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class SuperAdminHome extends StatefulWidget {
   const SuperAdminHome(this.user, {Key? key}) : super(key: key);
   final User user;
 
   @override
-  _SuperAdminHomeState createState() => _SuperAdminHomeState();
+  SuperAdminHomeState createState() => SuperAdminHomeState();
 }
 
-class _SuperAdminHomeState extends State<SuperAdminHome> {
+class SuperAdminHomeState extends State<SuperAdminHome> {
   late TenantBloc bloc;
   @override
   void initState() {

@@ -5,7 +5,7 @@ import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/terminal/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class TerminalScreen extends StatefulWidget {
   const TerminalScreen(this.loggedInUser, {Key? key}) : super(key: key);
@@ -13,10 +13,10 @@ class TerminalScreen extends StatefulWidget {
   final User loggedInUser;
 
   @override
-  _TerminalScreenState createState() => _TerminalScreenState();
+  TerminalScreenState createState() => TerminalScreenState();
 }
 
-class _TerminalScreenState extends State<TerminalScreen> {
+class TerminalScreenState extends State<TerminalScreen> {
   late TerminalBloc bloc;
   @override
   void initState() {

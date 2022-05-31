@@ -5,17 +5,17 @@ import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/order/list.dart';
 import 'package:shipanther/widgets/centered_loading.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class CustomerHome extends StatefulWidget {
   const CustomerHome(this.user, {Key? key}) : super(key: key);
   final User user;
 
   @override
-  _CustomerHomeState createState() => _CustomerHomeState();
+  CustomerHomeState createState() => CustomerHomeState();
 }
 
-class _CustomerHomeState extends State<CustomerHome> {
+class CustomerHomeState extends State<CustomerHome> {
   late OrderBloc bloc;
   @override
   void initState() {

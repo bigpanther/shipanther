@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class BackOfficeHome extends StatelessWidget {
   const BackOfficeHome(this.user, {Key? key}) : super(key: key);
@@ -43,8 +43,8 @@ class BackOfficeHome extends StatelessWidget {
   }
 }
 
-Expanded card(BuildContext context, String _heading, String _subtitleOne,
-    String _subtitleTwo, Color subOneColor) {
+Expanded card(BuildContext context, String heading, String subtitleOne,
+    String subtitleTwo, Color subOneColor) {
   return Expanded(
     child: Card(
       shape: RoundedRectangleBorder(
@@ -60,7 +60,7 @@ Expanded card(BuildContext context, String _heading, String _subtitleOne,
               height: MediaQuery.of(context).size.height / 20,
               child: FittedBox(
                 child: Text(
-                  _heading,
+                  heading,
                 ),
               ),
             ),
@@ -79,7 +79,7 @@ Expanded card(BuildContext context, String _heading, String _subtitleOne,
               height: MediaQuery.of(context).size.height / 30,
               child: FittedBox(
                 child: Text(
-                  _subtitleOne,
+                  subtitleOne,
                 ),
               ),
             ),
@@ -98,7 +98,7 @@ Expanded card(BuildContext context, String _heading, String _subtitleOne,
               height: MediaQuery.of(context).size.height / 30,
               child: FittedBox(
                 child: Text(
-                  _subtitleTwo,
+                  subtitleTwo,
                 ),
               ),
             )

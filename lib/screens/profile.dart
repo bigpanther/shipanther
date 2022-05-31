@@ -4,17 +4,17 @@ import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage(this.user);
+  const ProfilePage(this.user, {super.key});
 
   final User user;
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  ProfilePageState createState() => ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class ProfilePageState extends State<ProfilePage> {
   final GlobalKey<FormState> _formKeyPassword = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKeyName = GlobalKey<FormState>();
   final TextEditingController _password = TextEditingController();
@@ -99,10 +99,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           ShipantherButton(
                             onPressed: () {
                               if (_formKeyName.currentState!.validate()) {
-                                widget.user.name = _username.text;
+                                var user = widget.user
+                                    .rebuild((b) => b..name = _username.text);
 
-                                context.read<UserBloc>().add(
-                                    UpdateUser(widget.user.id, widget.user));
+                                context
+                                    .read<UserBloc>()
+                                    .add(UpdateUser(user.id, user));
                               }
                             },
                             labelText: ShipantherLocalizations.of(context).save,
@@ -174,7 +176,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ShipantherButton(
                             onPressed: () {
                               if (_formKeyPassword.currentState!.validate()) {
-                                print('not supported yet');
+                                //print('not supported yet');
                                 // context.read<AuthBloc>().add(UpdatePassword(
                                 //     _oldPassword.text, _password.text));
                               }

@@ -1,6 +1,6 @@
 .PHONY: run
 run:
-	flutter run --flavor dev --no-sound-null-safety
+	flutter run --flavor dev
 run-prod:
 	flutter run --flavor prod -t lib/main_prod.dart
 .PHONY: l10n
@@ -12,11 +12,11 @@ release-prod-ios:
 	flutter build ipa --flavor prod -t lib/main_prod.dart --release
 release-prod: clean release-prod-android release-prod-ios
 release-dev-android:
-	flutter build appbundle --flavor dev --no-sound-null-safety --no-shrink
+	flutter build appbundle --flavor dev --no-shrink
 release-dev-ios:
-	flutter build ipa --flavor dev --release --no-sound-null-safety
+	flutter build ipa --flavor dev --release
 release-dev-web:
-	flutter build web --release --no-sound-null-safety
+	flutter build web --base-href=/ --release
 release-dev: clean release-dev-android release-dev-ios release-dev-web
 .PHONY: clean
 clean:
@@ -26,4 +26,7 @@ lint:
 	flutter analyze
 .PHONY: test
 test:
-	flutter test --no-sound-null-safety -v
+	flutter test -v
+.PHONY: gen-mock
+gen-mock:
+	flutter pub run build_runner build

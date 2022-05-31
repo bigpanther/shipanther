@@ -9,7 +9,7 @@ import 'package:shipanther/extensions/shipment_extension.dart';
 import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class DriverShipmentList extends StatefulWidget {
   const DriverShipmentList(
@@ -23,27 +23,27 @@ class DriverShipmentList extends StatefulWidget {
   final User loggedInUser;
 
   @override
-  _DriverShipmentListState createState() => _DriverShipmentListState();
+  DriverShipmentListState createState() => DriverShipmentListState();
 }
 
-class _DriverShipmentListState extends State<DriverShipmentList> {
+class DriverShipmentListState extends State<DriverShipmentList> {
   int _currentIndex = 0;
 
-  Future<void> handleDelivery(User driver, Shipment t) async {
+  Future<void> handleDelivery(User driver, Shipment shipment) async {
     XFile? file;
     try {
       file = await ImagePicker()
           .pickImage(source: ImageSource.camera, imageQuality: 10);
     } catch (e) {
-      print('hsm $e');
+      //print('hsm $e');
     }
     if (file == null) {
       return;
     }
     final ref = FirebaseStorage.instance
         .ref()
-        .child('files/${t.tenantId}/${t.customerId}')
-        .child('/${t.id}.jpg');
+        .child('files/${shipment.tenantId}/${shipment.customerId}')
+        .child('/${shipment.id}.jpg');
     final metadata = SettableMetadata(
         contentType: 'image/jpeg',
         customMetadata: {'picked-file-path': file.path});
@@ -54,13 +54,13 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
       uploadTask = ref.putFile(File(file.path), metadata);
     }
     await uploadTask;
-    t.status = ShipmentStatus.delivered;
-    widget.shipmentBloc.add(UpdateShipment(t.id, t));
+    shipment = shipment.rebuild((b) => b..status = ShipmentStatus.delivered);
+    widget.shipmentBloc.add(UpdateShipment(shipment.id, shipment));
   }
 
   @override
   Widget build(BuildContext context) {
-    void showAlertDialog(BuildContext context, Shipment t) {
+    void showAlertDialog(BuildContext context, Shipment shipment) {
       final Widget cancelButton = TextButton(
         onPressed: () {
           Navigator.of(context).pop();
@@ -70,9 +70,10 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
       final Widget continueButton = TextButton(
         style: TextButton.styleFrom(primary: Theme.of(context).errorColor),
         onPressed: () {
-          t.status = ShipmentStatus.rejected;
-          t.driverId = null;
-          widget.shipmentBloc.add(UpdateShipment(t.id, t));
+          shipment = shipment.rebuild((b) => b
+            ..status = ShipmentStatus.rejected
+            ..driverId = null);
+          widget.shipmentBloc.add(UpdateShipment(shipment.id, shipment));
           Navigator.of(context).pop();
         },
         child: Text(ShipantherLocalizations.of(context).shipmentReject),
@@ -120,7 +121,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
         : ListView.builder(
             itemCount: items.length,
             itemBuilder: (BuildContext context, int index) {
-              final t = items.elementAt(index);
+              var shipment = items.elementAt(index);
               return Column(
                 children: [
                   ExpansionTile(
@@ -129,9 +130,9 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                       children: [
                         const Icon(Icons.home_work),
                         Text(
-                          t.size == null
-                              ? ShipmentSize.n20sT.text
-                              : t.size?.text ?? '',
+                          shipment.size == null
+                              ? ShipmentSize.n20sT.name
+                              : shipment.size?.name ?? '',
                           style: const TextStyle(
                             color: Color.fromRGBO(204, 255, 0, 1),
                           ),
@@ -143,7 +144,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                       children: [
                         Text(
                           dateFormatter.format(
-                            t.reservationTime ?? DateTime.now(),
+                            shipment.reservationTime ?? DateTime.now().toUtc(),
                           ),
                           style: const TextStyle(
                             fontSize: 15,
@@ -152,7 +153,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                         ),
                         Text(
                           timeFormatter.format(
-                            t.reservationTime ?? DateTime.now(),
+                            shipment.reservationTime ?? DateTime.now().toUtc(),
                           ),
                           style: const TextStyle(fontSize: 15),
                         ),
@@ -161,9 +162,9 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                     title: Row(
                       children: [
                         Text(
-                          t.serialNumber,
+                          shipment.serialNumber,
                           style: TextStyle(
-                              color: t.status.color(
+                              color: shipment.status.color(
                                   baseColor: Theme.of(context)
                                       .textTheme
                                       .bodyText1!
@@ -173,26 +174,27 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                       ],
                     ),
                     subtitle: Text(ShipantherLocalizations.of(context)
-                        .paramFromTo(t.origin ?? '', t.destination ?? '')),
+                        .paramFromTo(
+                            shipment.origin ?? '', shipment.destination ?? '')),
                     children: [
-                      if (t.status == ShipmentStatus.accepted)
+                      if (shipment.status == ShipmentStatus.accepted)
                         TextButton(
                           style: TextButton.styleFrom(
                               primary: Theme.of(context).primaryColor),
                           onPressed: () {
-                            handleDelivery(widget.loggedInUser, t);
+                            handleDelivery(widget.loggedInUser, shipment);
                           },
                           child: Text(ShipantherLocalizations.of(context)
                               .shipmentDelivered),
                         )
                       else
-                        Container(
+                        const SizedBox(
                           width: 0,
                           height: 0,
                         ),
                     ],
                   ),
-                  if (t.status == ShipmentStatus.assigned)
+                  if (shipment.status == ShipmentStatus.assigned)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -200,8 +202,10 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                           style: TextButton.styleFrom(
                               primary: Theme.of(context).primaryColor),
                           onPressed: () {
-                            t.status = ShipmentStatus.accepted;
-                            widget.shipmentBloc.add(UpdateShipment(t.id, t));
+                            shipment = shipment.rebuild(
+                                (b) => b..status = ShipmentStatus.accepted);
+                            widget.shipmentBloc
+                                .add(UpdateShipment(shipment.id, shipment));
                           },
                           child: Text(
                             ShipantherLocalizations.of(context).shipmentAccept,
@@ -211,7 +215,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                           style: TextButton.styleFrom(
                               primary: Theme.of(context).errorColor),
                           onPressed: () {
-                            showAlertDialog(context, t);
+                            showAlertDialog(context, shipment);
                           },
                           child: Text(
                             ShipantherLocalizations.of(context).shipmentReject,
@@ -220,7 +224,7 @@ class _DriverShipmentListState extends State<DriverShipmentList> {
                       ],
                     )
                   else
-                    Container(
+                    const SizedBox(
                       width: 0,
                       height: 0,
                     ),

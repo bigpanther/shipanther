@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class CustomerAddEdit extends StatefulWidget {
   const CustomerAddEdit(
@@ -10,6 +10,7 @@ class CustomerAddEdit extends StatefulWidget {
     required this.customer,
     required this.customerBloc,
     required this.isEdit,
+    super.key,
   });
   final User loggedInUser;
   final Customer customer;
@@ -17,10 +18,10 @@ class CustomerAddEdit extends StatefulWidget {
   final bool isEdit;
 
   @override
-  _CustomerAddEditState createState() => _CustomerAddEditState();
+  CustomerAddEditState createState() => CustomerAddEditState();
 }
 
-class _CustomerAddEditState extends State<CustomerAddEdit> {
+class CustomerAddEditState extends State<CustomerAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late TextEditingController _name;
   @override
@@ -74,12 +75,11 @@ class _CustomerAddEditState extends State<CustomerAddEdit> {
             : ShipantherLocalizations.of(context).create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.customer.name = _name.text;
+            var customer = widget.customer.rebuild((b) => b..name = _name.text);
             if (widget.isEdit) {
-              widget.customerBloc
-                  .add(UpdateCustomer(widget.customer.id, widget.customer));
+              widget.customerBloc.add(UpdateCustomer(customer.id, customer));
             } else {
-              widget.customerBloc.add(CreateCustomer(widget.customer));
+              widget.customerBloc.add(CreateCustomer(customer));
             }
 
             Navigator.pop(context);

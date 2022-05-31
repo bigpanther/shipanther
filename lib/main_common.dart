@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -43,22 +42,16 @@ Future<void> commonMain(String apiURL) async {
   await Firebase.initializeApp();
   if (!kIsWeb) {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    final Function? originalOnError = FlutterError.onError;
-    FlutterError.onError = (FlutterErrorDetails errorDetails) async {
-      await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
-      // Forward to original handler.
-      if (originalOnError != null) {
-        originalOnError(errorDetails);
-      }
-    };
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    print('Got a message whilst in the foreground!');
-    print('Message data: ${message.data}');
+    //print('Got a message whilst in the foreground!');
+    //print('Message data: ${message.data}');
 
     if (message.notification != null) {
-      print('Message also contained a notification: ${message.notification}');
+      //    print('Message also contained a notification: ${message.notification}');
     }
   });
   await FirebaseMessaging.instance.requestPermission(
@@ -70,12 +63,21 @@ Future<void> commonMain(String apiURL) async {
     provisional: false,
     sound: true,
   );
+  runZonedGuarded<Future<void>>(() async {
+    if (!kIsWeb) {
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+      FlutterError.onError =
+          FirebaseCrashlytics.instance.recordFlutterFatalError;
 
-  runZonedGuarded(() {
+      FirebaseMessaging.onBackgroundMessage(
+          _firebaseMessagingBackgroundHandler);
+    }
     runApp(ShipantherApp(apiURL));
   }, (error, stackTrace) {
-    print('runZonedGuarded: Caught error in my root zone.');
-    FirebaseCrashlytics.instance.recordError(error, stackTrace);
+    if (!kIsWeb) {
+      // print('runZonedGuarded: Caught error in my root zone.');
+      FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
+    }
   });
 }
 
@@ -83,9 +85,9 @@ Future<void> commonMain(String apiURL) async {
 ///
 /// Returns a [MaterialApp].
 class ShipantherApp extends StatelessWidget {
-  const ShipantherApp(this._apiURL);
+  const ShipantherApp(this._apiURL, {super.key});
   final String _apiURL;
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
   @override
@@ -149,7 +151,7 @@ class ShipantherApp extends StatelessWidget {
             darkTheme: ShipantherTheme.darkTheme,
             theme: ShipantherTheme.lightTheme,
             themeMode: ThemeMode.system,
-            home: SignInOrRegistrationPage(),
+            home: const SignInOrRegistrationPage(),
             navigatorObservers: <NavigatorObserver>[observer],
             localizationsDelegates: const [
               ShipantherLocalizations.delegate,
@@ -167,5 +169,5 @@ class ShipantherApp extends StatelessWidget {
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print('Handling a background message: ${message.messageId}');
+  //print('Handling a background message: ${message.messageId}');
 }

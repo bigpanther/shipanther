@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:smart_select/smart_select.dart';
+import 'package:flutter_awesome_select/flutter_awesome_select.dart';
 
 SmartSelect<T> smartSelect<T>(
     {required BuildContext context,
     required String title,
-    required void Function(S2SingleState<T>) onChange,
+    required void Function(S2SingleSelected<T>) onChange,
     required List<S2Choice<T>> choiceItems,
     required T value}) {
   return SmartSelect<T>.single(
@@ -30,6 +30,6 @@ SmartSelect<T> smartSelect<T>(
         isTwoLine: true,
       );
     },
-    value: value,
+    selectedValue: value,
   );
 }

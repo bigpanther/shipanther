@@ -4,7 +4,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 TypeAheadFormField<Tenant> tenantSelector(
     BuildContext context,
@@ -24,10 +24,14 @@ TypeAheadFormField<Tenant> tenantSelector(
         }),
     enabled: shouldShow,
     suggestionsCallback: (pattern) async {
-      final client = await context.read<AuthRepository>().apiClient();
-      return (await client.tenantsGet()).where(
-        (element) => element.name.toLowerCase().startsWith(pattern),
-      );
+      try {
+        final client = await context.read<AuthRepository>().apiClient();
+        return (await client.tenantsGet()).data!.toList().where(
+              (element) => element.name.toLowerCase().startsWith(pattern),
+            );
+      } catch (e) {
+        return [];
+      }
     },
     itemBuilder: (context, Tenant tenant) {
       return ListTile(
@@ -67,9 +71,9 @@ List<Widget> customerSelector(
       validator: validator,
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.customersGet()).where(
-          (element) => element.name.toLowerCase().startsWith(pattern),
-        );
+        return (await client.customersGet()).data!.toList().where(
+              (element) => element.name.toLowerCase().startsWith(pattern),
+            );
       },
       itemBuilder: (context, Customer customer) {
         return ListTile(
@@ -107,11 +111,11 @@ List<Widget> driverSelector(
           }),
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.usersGet()).where(
-          (element) =>
-              element.isDriver &&
-              element.name.toLowerCase().startsWith(pattern),
-        );
+        return (await client.usersGet()).data!.toList().where(
+              (element) =>
+                  element.isDriver &&
+                  element.name.toLowerCase().startsWith(pattern),
+            );
       },
       itemBuilder: (context, User user) {
         return ListTile(
@@ -150,9 +154,9 @@ List<Widget> terminalSelector(
       ),
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.terminalsGet()).where(
-          (element) => element.name!.toLowerCase().startsWith(pattern),
-        );
+        return (await client.terminalsGet()).data!.toList().where(
+              (element) => element.name!.toLowerCase().startsWith(pattern),
+            );
       },
       itemBuilder: (context, Terminal terminal) {
         return ListTile(
@@ -191,9 +195,9 @@ List<Widget> carrierSelector(
       ),
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.carriersGet()).where(
-          (element) => element.name.toLowerCase().startsWith(pattern),
-        );
+        return (await client.carriersGet()).data!.toList().where(
+              (element) => element.name.toLowerCase().startsWith(pattern),
+            );
       },
       itemBuilder: (context, Carrier carrier) {
         return ListTile(
@@ -232,9 +236,10 @@ List<Widget> orderSelector(
       ),
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.ordersGet()).where(
-          (element) => element.serialNumber.toLowerCase().startsWith(pattern),
-        );
+        return (await client.ordersGet()).data!.toList().where(
+              (element) =>
+                  element.serialNumber.toLowerCase().startsWith(pattern),
+            );
       },
       itemBuilder: (context, Order order) {
         return ListTile(

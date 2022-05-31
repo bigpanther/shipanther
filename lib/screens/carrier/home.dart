@@ -5,17 +5,17 @@ import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/carrier/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class CarrierScreen extends StatefulWidget {
   const CarrierScreen(this.loggedInUser, {Key? key}) : super(key: key);
   final User loggedInUser;
 
   @override
-  _CarrierScreenState createState() => _CarrierScreenState();
+  CarrierScreenState createState() => CarrierScreenState();
 }
 
-class _CarrierScreenState extends State<CarrierScreen> {
+class CarrierScreenState extends State<CarrierScreen> {
   late CarrierBloc bloc;
   @override
   void initState() {

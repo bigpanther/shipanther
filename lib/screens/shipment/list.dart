@@ -9,7 +9,8 @@ import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/shipment/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:shipanther/widgets/uuid.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class ShipmentList extends StatelessWidget {
   const ShipmentList(
@@ -27,7 +28,7 @@ class ShipmentList extends StatelessWidget {
     final title = ShipantherLocalizations.of(context).shipmentsTitle(2);
     final actions = <Widget>[
       FilterButton<ShipmentStatus>(
-        possibleValues: ShipmentStatus.values,
+        possibleValues: ShipmentStatus.values.toList(),
         isActive: true,
         activeFilter: shipmentsLoadedState.shipmentStatus,
         onSelected: (t) =>
@@ -37,7 +38,7 @@ class ShipmentList extends StatelessWidget {
     ];
     Widget circularIndicator(Shipment c) {
       return CircularPercentIndicator(
-        radius: 35.0,
+        radius: 20.0,
         lineWidth: 5.0,
         percent: c.status.percentage,
         progressColor: Colors.green,
@@ -93,9 +94,9 @@ class ShipmentList extends StatelessWidget {
                     t.reservationTime,
                     formatter: dateTimeFormatter),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).size, t.size?.text),
+                    ShipantherLocalizations.of(context).size, t.size?.name),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).status, t.status.text),
+                    ShipantherLocalizations.of(context).status, t.status.name),
                 displaySubtitle(
                     ShipantherLocalizations.of(context).lastUpdate, t.updatedAt,
                     formatter: dateTimeFormatter),
@@ -115,15 +116,14 @@ class ShipmentList extends StatelessWidget {
             builder: (_) => ShipmentAddEdit(loggedInUser,
                 isEdit: false,
                 shipmentBloc: shipmentBloc,
-                shipment: Shipment(
-                  status: ShipmentStatus.unassigned,
-                  type: ShipmentType.inbound,
-                  createdAt: DateTime.now(),
-                  updatedAt: DateTime.now(),
-                  id: '',
-                  serialNumber: '',
-                  tenantId: loggedInUser.tenantId,
-                )),
+                shipment: Shipment((b) => b
+                  ..status = ShipmentStatus.unassigned
+                  ..type = ShipmentType.inbound
+                  ..createdAt = DateTime.now().toUtc()
+                  ..updatedAt = DateTime.now().toUtc()
+                  ..id = uuid()
+                  ..serialNumber = ''
+                  ..tenantId = loggedInUser.tenantId)),
           ),
         );
       },

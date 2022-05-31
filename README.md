@@ -5,7 +5,7 @@ Manage your shipment business like a panther. Shipanther is a cross platform app
 You can read more at the project wiki [here](https://github.com/bigpanther/shipanther/wiki).
 
 ```bash
-make run # required fluttter 2.0
+make run # requires fluttter 3.0.1
 ```
 
 Contributions are welcome. Please read our [contribution guide](./.github/CONTRIBUTING.md) to get started.
@@ -19,5 +19,5 @@ To signup for the early access program, follow the instructions [here](https://g
 
 ## Credits
 
-Thanks for @martareg for designing the app logo and helping with the UX mockups.
+Thanks to @martareg for designing the app logo and helping with the UX mockups.
 

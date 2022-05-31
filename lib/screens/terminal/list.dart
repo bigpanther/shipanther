@@ -8,7 +8,8 @@ import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/terminal/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:shipanther/widgets/uuid.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class TerminalList extends StatelessWidget {
   const TerminalList(this.loggedInUser,
@@ -24,7 +25,7 @@ class TerminalList extends StatelessWidget {
     final title = ShipantherLocalizations.of(context).terminalsTitle(2);
     final actions = <Widget>[
       FilterButton<TerminalType>(
-        possibleValues: TerminalType.values,
+        possibleValues: TerminalType.values.toList(),
         isActive: true,
         activeFilter: terminalLoadedState.terminalType,
         onSelected: (t) => context.read<TerminalBloc>().add(
@@ -72,11 +73,11 @@ class TerminalList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).createdAt, t.createdAt,
+                displaySubtitle(ShipantherLocalizations.of(context).createdAt,
+                    t.createdAt?.toLocal(),
                     formatter: dateTimeFormatter),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).lastUpdate, t.updatedAt,
+                displaySubtitle(ShipantherLocalizations.of(context).lastUpdate,
+                    t.updatedAt?.toLocal(),
                     formatter: dateTimeFormatter),
               ],
             ),
@@ -94,7 +95,9 @@ class TerminalList extends StatelessWidget {
               loggedInUser,
               isEdit: false,
               terminalBloc: terminalBloc,
-              terminal: Terminal()..type = TerminalType.port,
+              terminal: Terminal((b) => b
+                ..type = TerminalType.port
+                ..id = uuid()),
             ),
           ),
         );

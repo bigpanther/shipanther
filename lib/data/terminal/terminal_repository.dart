@@ -1,4 +1,4 @@
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 abstract class TerminalRepository {
   const TerminalRepository();
