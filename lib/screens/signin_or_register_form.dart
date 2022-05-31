@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
-import 'package:shipanther/extensions/auth_type_selector_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 
@@ -111,22 +110,23 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
               width: 0,
             ),
           ShipantherButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                if (widget.authTypeSelector == AuthTypeSelector.register) {
-                  context.read<AuthBloc>().add(
-                        AuthRegister(
-                            _username.text, _userEmail.text, _password.text),
-                      );
-                } else {
-                  context
-                      .read<AuthBloc>()
-                      .add(AuthSignIn(_userEmail.text, _password.text));
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  if (widget.authTypeSelector == AuthTypeSelector.register) {
+                    context.read<AuthBloc>().add(
+                          AuthRegister(
+                              _username.text, _userEmail.text, _password.text),
+                        );
+                  } else {
+                    context
+                        .read<AuthBloc>()
+                        .add(AuthSignIn(_userEmail.text, _password.text));
+                  }
                 }
-              }
-            },
-            labelText: widget.authTypeSelector.text,
-          ),
+              },
+              labelText: (widget.authTypeSelector == AuthTypeSelector.signIn)
+                  ? localization.signIn
+                  : localization.register),
           ShipantherButton(
             onPressed: () => context.read<AuthBloc>().add(
                   AuthTypeOtherRequest(widget.authTypeSelector),

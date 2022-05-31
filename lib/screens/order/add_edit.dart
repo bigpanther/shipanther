@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/order/order_bloc.dart';
-import 'package:shipanther/extensions/order_extension.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class OrderAddEdit extends StatefulWidget {
   const OrderAddEdit(
@@ -89,9 +88,9 @@ class OrderAddEditState extends State<OrderAddEdit> {
                       title: ShipantherLocalizations.of(context).orderStatus,
                       onChange: (state) => _orderStatus = state.value,
                       choiceItems: S2Choice.listFrom<OrderStatus, OrderStatus>(
-                        source: OrderStatus.values,
+                        source: OrderStatus.values.toList(),
                         value: (index, item) => item,
-                        title: (index, item) => item.text,
+                        title: (index, item) => item.name,
                       ),
                       value: widget.order.status,
                     )
@@ -121,19 +120,21 @@ class OrderAddEditState extends State<OrderAddEdit> {
             : ShipantherLocalizations.of(context).create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.order.serialNumber = _serialNumber.text;
-            widget.order.status = _orderStatus;
+            var order = widget.order.rebuild((b) => b
+              ..serialNumber = _serialNumber.text
+              ..status = _orderStatus);
             if (widget.loggedInUser.isCustomer) {
-              widget.order.customerId = widget.loggedInUser.customerId;
+              order = order.rebuild(
+                  (b) => b..customerId = widget.loggedInUser.customerId);
               _customer = null;
             }
             if (_customer != null) {
-              widget.order.customerId = _customer!.id;
+              order = order.rebuild((b) => b..customerId = _customer!.id);
             }
             if (widget.isEdit) {
-              widget.orderBloc.add(UpdateOrder(widget.order.id, widget.order));
+              widget.orderBloc.add(UpdateOrder(order.id, order));
             } else {
-              widget.orderBloc.add(CreateOrder(widget.order));
+              widget.orderBloc.add(CreateOrder(order));
             }
             Navigator.pop(context);
           }

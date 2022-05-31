@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
-import 'package:shipanther/extensions/terminal_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class TerminalAddEdit extends StatefulWidget {
   const TerminalAddEdit(
@@ -77,9 +76,9 @@ class TerminalAddEditState extends State<TerminalAddEdit> {
               title: ShipantherLocalizations.of(context).terminalType,
               onChange: (state) => _terminalType = state.value,
               choiceItems: S2Choice.listFrom<TerminalType, TerminalType>(
-                source: TerminalType.values,
+                source: TerminalType.values.toList(),
                 value: (index, item) => item,
-                title: (index, item) => item.text,
+                title: (index, item) => item.name,
               ),
               value: widget.terminal.type!,
             ),
@@ -92,13 +91,14 @@ class TerminalAddEditState extends State<TerminalAddEdit> {
             : ShipantherLocalizations.of(context).create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.terminal.name = _name.text;
-            widget.terminal.type = _terminalType;
+            var terminal = widget.terminal.rebuild((b) => b
+              ..name = _name.text
+              ..type = _terminalType);
+            widget.terminal;
             if (widget.isEdit) {
-              widget.terminalBloc
-                  .add(UpdateTerminal(widget.terminal.id!, widget.terminal));
+              widget.terminalBloc.add(UpdateTerminal(terminal.id!, terminal));
             } else {
-              widget.terminalBloc.add(CreateTerminal(widget.terminal));
+              widget.terminalBloc.add(CreateTerminal(terminal));
             }
 
             Navigator.pop(context);

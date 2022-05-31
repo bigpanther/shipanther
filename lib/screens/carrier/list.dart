@@ -6,7 +6,8 @@ import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/carrier/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:shipanther/widgets/uuid.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class CarrierList extends StatelessWidget {
   const CarrierList(this.loggedInUser,
@@ -61,11 +62,11 @@ class CarrierList extends StatelessWidget {
               children: [
                 displaySubtitle(ShipantherLocalizations.of(context).eta, t.eta,
                     formatter: dateTimeFormatter),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).createdAt, t.createdAt,
+                displaySubtitle(ShipantherLocalizations.of(context).createdAt,
+                    t.createdAt?.toLocal(),
                     formatter: dateTimeFormatter),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).lastUpdate, t.updatedAt,
+                displaySubtitle(ShipantherLocalizations.of(context).lastUpdate,
+                    t.updatedAt?.toLocal(),
                     formatter: dateTimeFormatter),
               ],
             ),
@@ -83,12 +84,11 @@ class CarrierList extends StatelessWidget {
               loggedInUser,
               isEdit: false,
               carrierBloc: carrierBloc,
-              carrier: Carrier(
-                type: CarrierType.vessel,
-                name: '',
-                id: '',
-                tenantId: loggedInUser.tenantId,
-              ),
+              carrier: Carrier((b) => b
+                ..type = CarrierType.vessel
+                ..name = ''
+                ..id = uuid()
+                ..tenantId = loggedInUser.tenantId),
             ),
           ),
         );

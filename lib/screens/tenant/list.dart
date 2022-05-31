@@ -8,7 +8,8 @@ import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/tenant/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:shipanther/widgets/uuid.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class TenantList extends StatelessWidget {
   const TenantList(
@@ -26,7 +27,7 @@ class TenantList extends StatelessWidget {
     final title = ShipantherLocalizations.of(context).tenantsTitle(2);
     final actions = <Widget>[
       FilterButton<TenantType>(
-        possibleValues: TenantType.values,
+        possibleValues: TenantType.values.toList(),
         isActive: true,
         activeFilter: tenantLoadedState.tenantType,
         onSelected: (t) => context.read<TenantBloc>().add(
@@ -73,9 +74,9 @@ class TenantList extends StatelessWidget {
               ),
               children: [
                 displaySubtitle(ShipantherLocalizations.of(context).createdAt,
-                    dateFormatter.format(t.createdAt)),
+                    dateFormatter.format(t.createdAt.toLocal())),
                 displaySubtitle(ShipantherLocalizations.of(context).lastUpdate,
-                    dateFormatter.format(t.updatedAt)),
+                    dateFormatter.format(t.updatedAt.toLocal())),
               ],
             ),
           ),
@@ -92,14 +93,13 @@ class TenantList extends StatelessWidget {
             builder: (_) => TenantAddEdit(
               isEdit: false,
               tenantBloc: tenantBloc,
-              tenant: Tenant(
-                name: '',
-                type: TenantType.test,
-                code: '',
-                createdAt: DateTime.now(),
-                updatedAt: DateTime.now(),
-                id: '',
-              ),
+              tenant: Tenant((b) => b
+                ..name = ''
+                ..type = TenantType.test
+                ..code = ''
+                ..createdAt = DateTime.now().toUtc()
+                ..updatedAt = DateTime.now().toUtc()
+                ..id = uuid()),
             ),
           ),
         );

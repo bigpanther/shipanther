@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/user/user_repository.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';

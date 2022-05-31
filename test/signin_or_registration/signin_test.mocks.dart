@@ -6,7 +6,7 @@ import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:shipanther/data/auth/auth_repository.dart' as _i3;
-import 'package:trober_sdk/api.dart' as _i2;
+import 'package:trober_sdk/trober_sdk.dart' as _i2;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -21,8 +21,6 @@ import 'package:trober_sdk/api.dart' as _i2;
 class _FakeUser_0 extends _i1.Fake implements _i2.User {}
 
 class _FakeApiWithUserId_1 extends _i1.Fake implements _i3.ApiWithUserId {}
-
-class _FakeDateTime_2 extends _i1.Fake implements DateTime {}
 
 /// A class which mocks [AuthRepository].
 ///
@@ -78,109 +76,4 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
   _i4.Future<String> sendEmailForVerification() =>
       (super.noSuchMethod(Invocation.method(#sendEmailForVerification, []),
           returnValue: Future<String>.value('')) as _i4.Future<String>);
-}
-
-/// A class which mocks [User].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockUser extends _i1.Mock implements _i2.User {
-  MockUser() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  String get id =>
-      (super.noSuchMethod(Invocation.getter(#id), returnValue: '') as String);
-  @override
-  set id(String? _id) => super.noSuchMethod(Invocation.setter(#id, _id),
-      returnValueForMissingStub: null);
-  @override
-  DateTime get createdAt => (super.noSuchMethod(Invocation.getter(#createdAt),
-      returnValue: _FakeDateTime_2()) as DateTime);
-  @override
-  set createdAt(DateTime? _createdAt) =>
-      super.noSuchMethod(Invocation.setter(#createdAt, _createdAt),
-          returnValueForMissingStub: null);
-  @override
-  DateTime get updatedAt => (super.noSuchMethod(Invocation.getter(#updatedAt),
-      returnValue: _FakeDateTime_2()) as DateTime);
-  @override
-  set updatedAt(DateTime? _updatedAt) =>
-      super.noSuchMethod(Invocation.setter(#updatedAt, _updatedAt),
-          returnValueForMissingStub: null);
-  @override
-  set createdBy(String? _createdBy) =>
-      super.noSuchMethod(Invocation.setter(#createdBy, _createdBy),
-          returnValueForMissingStub: null);
-  @override
-  String get tenantId =>
-      (super.noSuchMethod(Invocation.getter(#tenantId), returnValue: '')
-          as String);
-  @override
-  set tenantId(String? _tenantId) =>
-      super.noSuchMethod(Invocation.setter(#tenantId, _tenantId),
-          returnValueForMissingStub: null);
-  @override
-  set customerId(String? _customerId) =>
-      super.noSuchMethod(Invocation.setter(#customerId, _customerId),
-          returnValueForMissingStub: null);
-  @override
-  String get name =>
-      (super.noSuchMethod(Invocation.getter(#name), returnValue: '') as String);
-  @override
-  set name(String? _name) => super.noSuchMethod(Invocation.setter(#name, _name),
-      returnValueForMissingStub: null);
-  @override
-  String get username =>
-      (super.noSuchMethod(Invocation.getter(#username), returnValue: '')
-          as String);
-  @override
-  set username(String? _username) =>
-      super.noSuchMethod(Invocation.setter(#username, _username),
-          returnValueForMissingStub: null);
-  @override
-  String get email =>
-      (super.noSuchMethod(Invocation.getter(#email), returnValue: '')
-          as String);
-  @override
-  set email(String? _email) =>
-      super.noSuchMethod(Invocation.setter(#email, _email),
-          returnValueForMissingStub: null);
-  @override
-  _i2.UserRole get role => (super.noSuchMethod(Invocation.getter(#role),
-      returnValue: _i2.UserRole.superAdmin) as _i2.UserRole);
-  @override
-  set role(_i2.UserRole? _role) =>
-      super.noSuchMethod(Invocation.setter(#role, _role),
-          returnValueForMissingStub: null);
-  @override
-  Map<String, dynamic> toJson() =>
-      (super.noSuchMethod(Invocation.method(#toJson, []),
-          returnValue: <String, dynamic>{}) as Map<String, dynamic>);
-  @override
-  _i2.User copyWith(
-          {String? id,
-          DateTime? createdAt,
-          DateTime? updatedAt,
-          String? createdBy,
-          String? tenantId,
-          String? customerId,
-          String? name,
-          String? username,
-          String? email,
-          _i2.UserRole? role}) =>
-      (super.noSuchMethod(
-          Invocation.method(#copyWith, [], {
-            #id: id,
-            #createdAt: createdAt,
-            #updatedAt: updatedAt,
-            #createdBy: createdBy,
-            #tenantId: tenantId,
-            #customerId: customerId,
-            #name: name,
-            #username: username,
-            #email: email,
-            #role: role
-          }),
-          returnValue: _FakeUser_0()) as _i2.User);
 }

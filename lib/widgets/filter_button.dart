@@ -1,4 +1,3 @@
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 
@@ -72,7 +71,7 @@ class _Button<T> extends StatelessWidget {
               (e) => PopupMenuItem<T>(
                 value: e,
                 child: Text(
-                  EnumToString.convertToString(e, camelCase: true),
+                  e.toString(),
                   style: activeFilter == e ? activeStyle : defaultStyle,
                 ),
               ),

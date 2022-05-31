@@ -2,17 +2,16 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:openapi_dart_common/openapi.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/trober_sdk.dart' as api;
 
 class RemoteAuthRepository extends AuthRepository {
   RemoteAuthRepository(this._auth, this._firebaseMessaging, this._url) {
-    _d = api.DefaultApi(ApiClient(basePath: _url));
+    _d = api.TroberSdk(basePathOverride: _url);
   }
   final firebase.FirebaseAuth _auth;
   final String _url;
-  late api.DefaultApi _d;
+  late api.TroberSdk _d;
   final FirebaseMessaging _firebaseMessaging;
   api.User? _self;
 
@@ -70,11 +69,8 @@ class RemoteAuthRepository extends AuthRepository {
       throw UnAuthenticatedException();
     }
     final token = await authUser.getIdToken(false);
-    _d.apiDelegate.apiClient.setDefaultHeader('X-TOKEN', token);
-    final auth = ApiKeyAuth('header', 'X-TOKEN');
-    auth.apiKey = token;
-    _d.apiDelegate.apiClient.setAuthentication('ApiKeyAuth', auth);
-    return ApiWithUserId(_d.apiDelegate.apiClient, authUser.uid);
+    _d.setApiKey('ApiKeyAuth', token);
+    return ApiWithUserId(_d, authUser.uid);
   }
 
   @override
@@ -98,7 +94,7 @@ class RemoteAuthRepository extends AuthRepository {
       return _self!;
     }
     final client = await apiClient();
-    _self = await client.selfGet();
+    _self = (await client.selfGet()).data!;
     return _self!;
   }
 
@@ -112,8 +108,9 @@ class RemoteAuthRepository extends AuthRepository {
       //print('failed to get device token');
       return;
     }
-    return client.selfDeviceRegisterPost(
-        deviceId: api.DeviceId(token: deviceToken));
+    return (await client.selfDeviceRegisterPost(
+            deviceId: api.DeviceId(((b) => b..token = deviceToken))))
+        .data;
   }
 
   Future<void> _deleteDeviceToken() async {
@@ -123,8 +120,9 @@ class RemoteAuthRepository extends AuthRepository {
       //print('failed to get device token');
       return;
     }
-    return client.selfDeviceRemovePost(
-        deviceId: api.DeviceId(token: deviceToken));
+    return (await client.selfDeviceRemovePost(
+            deviceId: api.DeviceId(((b) => b..token = deviceToken))))
+        .data;
   }
 
   @override

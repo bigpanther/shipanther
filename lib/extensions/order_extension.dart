@@ -1,6 +1,5 @@
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 extension OrderStatusExtension on OrderStatus {
   IconData get icon {
@@ -20,9 +19,6 @@ extension OrderStatusExtension on OrderStatus {
       case OrderStatus.accepted:
         return Icons.check;
     }
-  }
-
-  String get text {
-    return EnumToString.convertToString(this, camelCase: true);
+    throw 'noop';
   }
 }

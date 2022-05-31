@@ -1,6 +1,5 @@
 import 'dart:async';
-import 'package:openapi_dart_common/openapi.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 abstract class AuthRepository {
   const AuthRepository();
@@ -16,7 +15,7 @@ abstract class AuthRepository {
 }
 
 class ApiWithUserId extends DefaultApi {
-  ApiWithUserId(ApiClient apiClient, this.userId) : super(apiClient);
+  ApiWithUserId(TroberSdk sdk, this.userId) : super(sdk.dio, sdk.serializers);
   final String userId;
 }
 

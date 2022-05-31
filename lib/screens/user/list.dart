@@ -8,7 +8,7 @@ import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/user/add_edit.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class UserList extends StatelessWidget {
   const UserList(this.loggedInUser,
@@ -24,7 +24,7 @@ class UserList extends StatelessWidget {
     final title = ShipantherLocalizations.of(context).usersTitle(2);
     final actions = <Widget>[
       FilterButton<UserRole>(
-        possibleValues: UserRole.values,
+        possibleValues: UserRole.values.toList(),
         isActive: true,
         activeFilter: userLoadedState.userRole,
         onSelected: (t) => context.read<UserBloc>().add(
@@ -75,12 +75,12 @@ class UserList extends StatelessWidget {
                 displaySubtitle(
                     ShipantherLocalizations.of(context).email, t.email),
                 displaySubtitle(
-                    ShipantherLocalizations.of(context).role, t.role.text),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).createdAt, t.createdAt,
+                    ShipantherLocalizations.of(context).role, t.role.name),
+                displaySubtitle(ShipantherLocalizations.of(context).createdAt,
+                    t.createdAt.toLocal(),
                     formatter: dateTimeFormatter),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).lastUpdate, t.updatedAt,
+                displaySubtitle(ShipantherLocalizations.of(context).lastUpdate,
+                    t.updatedAt.toLocal(),
                     formatter: dateTimeFormatter),
               ],
             ),

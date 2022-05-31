@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class CustomerAddEdit extends StatefulWidget {
   const CustomerAddEdit(
@@ -75,12 +75,11 @@ class CustomerAddEditState extends State<CustomerAddEdit> {
             : ShipantherLocalizations.of(context).create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.customer.name = _name.text;
+            var customer = widget.customer.rebuild((b) => b..name = _name.text);
             if (widget.isEdit) {
-              widget.customerBloc
-                  .add(UpdateCustomer(widget.customer.id, widget.customer));
+              widget.customerBloc.add(UpdateCustomer(customer.id, customer));
             } else {
-              widget.customerBloc.add(CreateCustomer(widget.customer));
+              widget.customerBloc.add(CreateCustomer(customer));
             }
 
             Navigator.pop(context);

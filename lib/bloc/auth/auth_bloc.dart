@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/extensions/auth_type_selector_extension.dart';
-import 'package:trober_sdk/api.dart' as api;
+import 'package:trober_sdk/trober_sdk.dart' as api;
 
 part 'auth_event.dart';
 part 'auth_state.dart';

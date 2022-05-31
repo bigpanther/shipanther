@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
-import 'package:shipanther/extensions/tenant_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class TenantAddEdit extends StatefulWidget {
   const TenantAddEdit({
@@ -71,9 +70,9 @@ class TenantAddEditState extends State<TenantAddEdit> {
                 title: ShipantherLocalizations.of(context).tenantType,
                 onChange: (state) => _tenantType = state.value,
                 choiceItems: S2Choice.listFrom<TenantType, TenantType>(
-                  source: TenantType.values,
+                  source: TenantType.values.toList(),
                   value: (index, item) => item,
-                  title: (index, item) => item.text,
+                  title: (index, item) => item.name,
                 ),
                 value: widget.tenant.type,
               ),
@@ -87,15 +86,16 @@ class TenantAddEditState extends State<TenantAddEdit> {
             : ShipantherLocalizations.of(context).create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.tenant.name = _name.text;
-            widget.tenant.type = _tenantType;
+            var tenant = widget.tenant.rebuild((b) => b
+              ..name = _name.text
+              ..type = _tenantType);
             if (widget.isEdit) {
               widget.tenantBloc.add(
-                UpdateTenant(widget.tenant.id, widget.tenant),
+                UpdateTenant(tenant.id, tenant),
               );
             } else {
               widget.tenantBloc.add(
-                CreateTenant(widget.tenant),
+                CreateTenant(tenant),
               );
             }
 

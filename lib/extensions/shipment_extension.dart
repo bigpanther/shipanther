@@ -1,7 +1,6 @@
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 extension ShipmentTypeExtension on ShipmentType {
   IconData get icon {
@@ -11,10 +10,7 @@ extension ShipmentTypeExtension on ShipmentType {
       case ShipmentType.outbound:
         return Icons.arrow_upward;
     }
-  }
-
-  String get text {
-    return EnumToString.convertToString(this, camelCase: true);
+    throw 'noop';
   }
 }
 
@@ -38,6 +34,7 @@ extension ShipmentPercent on ShipmentStatus {
       case ShipmentStatus.delivered:
         return 1;
     }
+    throw 'noop';
   }
 }
 
@@ -61,6 +58,7 @@ extension ShipmentStatusExtension on ShipmentStatus {
       case ShipmentStatus.delivered:
         return MdiIcons.accessPointMinus;
     }
+    throw 'noop';
   }
 
   Color? color({Color? baseColor}) {
@@ -82,10 +80,7 @@ extension ShipmentStatusExtension on ShipmentStatus {
       case ShipmentStatus.delivered:
         return Colors.green;
     }
-  }
-
-  String get text {
-    return EnumToString.convertToString(this, camelCase: true);
+    return null;
   }
 }
 
@@ -105,13 +100,5 @@ extension ShipmentSizeExtension on ShipmentSize {
       default:
         return Icons.panorama_fish_eye;
     }
-  }
-
-  String get text {
-    // ignore: unnecessary_null_comparison
-    if (this == null) {
-      return '';
-    }
-    return EnumToString.convertToString(this, camelCase: true);
   }
 }

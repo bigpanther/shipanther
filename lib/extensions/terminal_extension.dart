@@ -1,6 +1,5 @@
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 extension TerminalTypeExtension on TerminalType {
   IconData get icon {
@@ -18,9 +17,6 @@ extension TerminalTypeExtension on TerminalType {
       case TerminalType.airport:
         return Icons.airplanemode_on;
     }
-  }
-
-  String get text {
-    return EnumToString.convertToString(this, camelCase: true);
+    throw 'noop';
   }
 }

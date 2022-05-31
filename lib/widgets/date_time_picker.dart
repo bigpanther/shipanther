@@ -8,8 +8,8 @@ DateTimePicker dateTimePicker(
     type: DateTimePickerType.dateTime,
     dateMask: dateTimeFormatter.pattern,
     controller: controller,
-    firstDate: DateTime.now(),
-    lastDate: DateTime(2100),
+    firstDate: DateTime.now().toUtc(),
+    lastDate: DateTime(2100).toUtc(),
     icon: const Icon(Icons.event),
     dateLabelText: title,
   );

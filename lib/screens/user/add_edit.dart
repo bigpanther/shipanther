@@ -6,7 +6,7 @@ import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class UserAddEdit extends StatefulWidget {
   const UserAddEdit(
@@ -79,9 +79,9 @@ class UserAddEditState extends State<UserAddEdit> {
                 title: ShipantherLocalizations.of(context).userType,
                 onChange: (state) => _userRole = state.value,
                 choiceItems: S2Choice.listFrom<UserRole, UserRole>(
-                  source: UserRole.values,
+                  source: UserRole.values.toList(),
                   value: (index, item) => item,
-                  title: (index, item) => item.text,
+                  title: (index, item) => item.name,
                 ),
                 value: _userRole ?? widget.user.role,
               ),
@@ -100,15 +100,16 @@ class UserAddEditState extends State<UserAddEdit> {
             : ShipantherLocalizations.of(context).create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.user.name = _nameController.text;
-            widget.user.role = _userRole ?? UserRole.driver;
+            var user = widget.user.rebuild((b) => b
+              ..name = _nameController.text
+              ..role = _userRole ?? UserRole.driver);
             if (_tenant != null) {
-              widget.user.tenantId = _tenant!.id;
+              user = user.rebuild((b) => b..tenantId = _tenant!.id);
             }
             if (widget.isEdit) {
-              widget.userBloc.add(UpdateUser(widget.user.id, widget.user));
+              widget.userBloc.add(UpdateUser(user.id, user));
             } else {
-              widget.userBloc.add(CreateUser(widget.user));
+              widget.userBloc.add(CreateUser(user));
             }
 
             Navigator.pop(context);

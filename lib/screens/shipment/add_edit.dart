@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
-import 'package:shipanther/extensions/shipment_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/date_time_picker.dart';
 import 'package:shipanther/widgets/selectors.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class ShipmentAddEdit extends StatefulWidget {
   const ShipmentAddEdit(
@@ -150,9 +149,9 @@ class ShipmentAddEditState extends State<ShipmentAddEdit> {
                       onChange: (state) => _shipmentSize = state.value,
                       choiceItems:
                           S2Choice.listFrom<ShipmentSize, ShipmentSize>(
-                        source: ShipmentSize.values,
+                        source: ShipmentSize.values.toList(),
                         value: (index, item) => item,
-                        title: (index, item) => item.text,
+                        title: (index, item) => item.name,
                       ),
                       value: widget.shipment.size ?? ShipmentSize.n20sT,
                     ),
@@ -162,9 +161,9 @@ class ShipmentAddEditState extends State<ShipmentAddEdit> {
                       onChange: (state) => _shipmentType = state.value,
                       choiceItems:
                           S2Choice.listFrom<ShipmentType, ShipmentType>(
-                        source: ShipmentType.values,
+                        source: ShipmentType.values.toList(),
                         value: (index, item) => item,
-                        title: (index, item) => item.text,
+                        title: (index, item) => item.name,
                       ),
                       value: widget.shipment.type,
                     ),
@@ -174,9 +173,9 @@ class ShipmentAddEditState extends State<ShipmentAddEdit> {
                       onChange: (state) => _shipmentStatus = state.value,
                       choiceItems:
                           S2Choice.listFrom<ShipmentStatus, ShipmentStatus>(
-                        source: ShipmentStatus.values,
+                        source: ShipmentStatus.values.toList(),
                         value: (index, item) => item,
-                        title: (index, item) => item.text,
+                        title: (index, item) => item.name,
                       ),
                       value: widget.shipment.status,
                     ),
@@ -207,33 +206,34 @@ class ShipmentAddEditState extends State<ShipmentAddEdit> {
             : ShipantherLocalizations.of(context).create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.shipment.reservationTime =
-                DateTime.tryParse(_reservationTimeController.text);
-            widget.shipment.serialNumber = _serialNumberController.text;
-            widget.shipment.origin = _originController.text;
-            widget.shipment.destination = _destinationController.text;
-            widget.shipment.type = _shipmentType;
-            widget.shipment.status = _shipmentStatus;
-            widget.shipment.size = _shipmentSize;
+            var shipment = widget.shipment.rebuild((b) => b
+              ..reservationTime =
+                  DateTime.tryParse(_reservationTimeController.text)?.toUtc()
+              ..serialNumber = _serialNumberController.text
+              ..origin = _originController.text
+              ..destination = _destinationController.text
+              ..type = _shipmentType
+              ..status = _shipmentStatus
+              ..size = _shipmentSize);
             if (_tenant != null) {
-              widget.shipment.tenantId = _tenant!.id;
+              shipment = shipment.rebuild((b) => b..tenantId = _tenant!.id);
             }
             if (_driver != null) {
-              widget.shipment.driverId = _driver!.id;
+              shipment = shipment.rebuild((b) => b..driverId = _driver!.id);
             }
             if (_order != null) {
-              widget.shipment.orderId = _order!.id;
+              shipment = shipment.rebuild((b) => b..orderId = _order!.id);
             }
             if (_carrier != null) {
-              widget.shipment.carrierId = _carrier!.id;
+              shipment = shipment.rebuild((b) => b..carrierId = _carrier!.id);
             }
-            widget.shipment.createdBy = widget.loggedInUser.id;
+            shipment =
+                shipment.rebuild((b) => b..createdBy = widget.loggedInUser.id);
 
             if (widget.isEdit) {
-              widget.shipmentBloc
-                  .add(UpdateShipment(widget.shipment.id, widget.shipment));
+              widget.shipmentBloc.add(UpdateShipment(shipment.id, shipment));
             } else {
-              widget.shipmentBloc.add(CreateShipment(widget.shipment));
+              widget.shipmentBloc.add(CreateShipment(shipment));
             }
 
             Navigator.pop(context);

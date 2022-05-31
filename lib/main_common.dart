@@ -42,14 +42,8 @@ Future<void> commonMain(String apiURL) async {
   await Firebase.initializeApp();
   if (!kIsWeb) {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
-    final Function? originalOnError = FlutterError.onError;
-    FlutterError.onError = (FlutterErrorDetails errorDetails) async {
-      await FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
-      // Forward to original handler.
-      if (originalOnError != null) {
-        originalOnError(errorDetails);
-      }
-    };
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -69,12 +63,21 @@ Future<void> commonMain(String apiURL) async {
     provisional: false,
     sound: true,
   );
+  runZonedGuarded<Future<void>>(() async {
+    if (!kIsWeb) {
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+      FlutterError.onError =
+          FirebaseCrashlytics.instance.recordFlutterFatalError;
 
-  runZonedGuarded(() {
+      FirebaseMessaging.onBackgroundMessage(
+          _firebaseMessagingBackgroundHandler);
+    }
     runApp(ShipantherApp(apiURL));
   }, (error, stackTrace) {
-    // print('runZonedGuarded: Caught error in my root zone.');
-    FirebaseCrashlytics.instance.recordError(error, stackTrace);
+    if (!kIsWeb) {
+      // print('runZonedGuarded: Caught error in my root zone.');
+      FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
+    }
   });
 }
 

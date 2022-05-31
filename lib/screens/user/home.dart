@@ -5,7 +5,7 @@ import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/user/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen(this.loggedInUser, {Key? key}) : super(key: key);

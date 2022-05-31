@@ -5,7 +5,9 @@ import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/screens/customer/add_edit.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
+
+import 'package:shipanther/widgets/uuid.dart';
 
 class CustomerList extends StatelessWidget {
   const CustomerList(this.loggedInUser,
@@ -80,13 +82,12 @@ class CustomerList extends StatelessWidget {
               loggedInUser,
               isEdit: false,
               customerBloc: customerBloc,
-              customer: Customer(
-                createdAt: DateTime.now(),
-                updatedAt: DateTime.now(),
-                id: '',
-                name: '',
-                tenantId: loggedInUser.tenantId,
-              ),
+              customer: Customer((b) => b
+                ..createdAt = DateTime.now().toUtc()
+                ..updatedAt = DateTime.now().toUtc()
+                ..id = uuid()
+                ..name = ''
+                ..tenantId = loggedInUser.tenantId),
             ),
           ),
         );

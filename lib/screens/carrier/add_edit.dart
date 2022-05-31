@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
-import 'package:shipanther/extensions/carrier_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/date_time_picker.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 import 'package:shipanther/widgets/smart_select.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class CarrierAddEdit extends StatefulWidget {
   const CarrierAddEdit(
@@ -84,9 +83,9 @@ class CarrierAddEditState extends State<CarrierAddEdit> {
               title: ShipantherLocalizations.of(context).carrierType,
               onChange: (state) => _carrierType = state.value,
               choiceItems: S2Choice.listFrom<CarrierType, CarrierType>(
-                source: CarrierType.values,
+                source: CarrierType.values.toList(),
                 value: (index, item) => item,
-                title: (index, item) => item.text,
+                title: (index, item) => item.name,
               ),
               value: widget.carrier.type,
             ),
@@ -99,14 +98,14 @@ class CarrierAddEditState extends State<CarrierAddEdit> {
             : ShipantherLocalizations.of(context).create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            widget.carrier.name = _name.text;
-            widget.carrier.type = _carrierType;
-            widget.carrier.eta = DateTime.tryParse(_eta.text);
+            var carrier = widget.carrier.rebuild((b) => b
+              ..name = _name.text
+              ..type = _carrierType
+              ..eta = DateTime.tryParse(_eta.text)?.toUtc());
             if (widget.isEdit) {
-              widget.carrierBloc
-                  .add(UpdateCarrier(widget.carrier.id, widget.carrier));
+              widget.carrierBloc.add(UpdateCarrier(carrier.id, carrier));
             } else {
-              widget.carrierBloc.add(CreateCarrier(widget.carrier));
+              widget.carrierBloc.add(CreateCarrier(carrier));
             }
 
             Navigator.pop(context);

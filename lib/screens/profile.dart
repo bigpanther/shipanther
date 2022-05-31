@@ -4,7 +4,7 @@ import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage(this.user, {super.key});
@@ -99,10 +99,12 @@ class ProfilePageState extends State<ProfilePage> {
                           ShipantherButton(
                             onPressed: () {
                               if (_formKeyName.currentState!.validate()) {
-                                widget.user.name = _username.text;
+                                var user = widget.user
+                                    .rebuild((b) => b..name = _username.text);
 
-                                context.read<UserBloc>().add(
-                                    UpdateUser(widget.user.id, widget.user));
+                                context
+                                    .read<UserBloc>()
+                                    .add(UpdateUser(user.id, user));
                               }
                             },
                             labelText: ShipantherLocalizations.of(context).save,

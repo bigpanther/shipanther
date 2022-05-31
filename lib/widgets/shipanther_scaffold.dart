@@ -14,7 +14,7 @@ import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:shipanther/screens/super_admin_home.dart';
 import 'package:shipanther/screens/terminal/home.dart';
 import 'package:shipanther/screens/user/home.dart';
-import 'package:trober_sdk/api.dart';
+import 'package:trober_sdk/trober_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ShipantherScaffold extends StatelessWidget {
