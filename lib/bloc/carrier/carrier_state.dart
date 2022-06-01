@@ -11,13 +11,13 @@ class CarrierLoading extends CarrierState {}
 
 class CarrierLoaded extends CarrierState {
   const CarrierLoaded(this.carrier);
-  final Carrier carrier;
+  final api.Carrier carrier;
 }
 
 class CarriersLoaded extends CarrierState {
   const CarriersLoaded(this.carriers, this.carrierType);
-  final List<Carrier> carriers;
-  final CarrierType? carrierType;
+  final List<api.Carrier> carriers;
+  final api.CarrierType? carrierType;
 }
 
 class CarrierFailure extends CarrierState {

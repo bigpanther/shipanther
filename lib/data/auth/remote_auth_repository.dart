@@ -3,11 +3,15 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
+import 'package:shipanther/dio/shipanther_interceptor.dart';
 import 'package:trober_sdk/trober_sdk.dart' as api;
 
 class RemoteAuthRepository extends AuthRepository {
   RemoteAuthRepository(this._auth, this._firebaseMessaging, this._url) {
-    _d = api.TroberSdk(basePathOverride: _url);
+    _d = api.TroberSdk(basePathOverride: _url, interceptors: [
+      api.ApiKeyAuthInterceptor(),
+      ShipantherInterceptor(api.standardSerializers)
+    ]);
   }
   final firebase.FirebaseAuth _auth;
   final String _url;

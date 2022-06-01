@@ -13,12 +13,12 @@ class GetTenant extends TenantEvent {
 class UpdateTenant extends TenantEvent {
   const UpdateTenant(this.id, this.tenant);
   final String id;
-  final Tenant tenant;
+  final api.Tenant tenant;
 }
 
 class CreateTenant extends TenantEvent {
   const CreateTenant(this.tenant);
-  final Tenant tenant;
+  final api.Tenant tenant;
 }
 
 class DeleteTenant extends TenantEvent {
@@ -28,5 +28,5 @@ class DeleteTenant extends TenantEvent {
 
 class GetTenants extends TenantEvent {
   const GetTenants({this.tenantType});
-  final TenantType? tenantType;
+  final api.TenantType? tenantType;
 }

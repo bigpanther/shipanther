@@ -11,13 +11,13 @@ class OrderLoading extends OrderState {}
 
 class OrderLoaded extends OrderState {
   const OrderLoaded(this.order);
-  final Order order;
+  final api.Order order;
 }
 
 class OrdersLoaded extends OrderState {
   const OrdersLoaded(this.orders, this.orderStatus);
-  final List<Order> orders;
-  final OrderStatus? orderStatus;
+  final List<api.Order> orders;
+  final api.OrderStatus? orderStatus;
 }
 
 class OrderFailure extends OrderState {

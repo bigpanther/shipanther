@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/extensions/auth_type_selector_extension.dart';
@@ -24,6 +25,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       } on UnAuthenticatedException {
         emit(const AuthInitial());
+      } on DioError catch (e) {
+        emit(AuthFailure('Request failed: ${e.message}', event.authType));
       } catch (e) {
         emit(AuthFailure('Request failed: $e', event.authType));
       }
@@ -43,6 +46,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       } on UnAuthenticatedException {
         emit(const AuthInitial());
+      } on DioError catch (e) {
+        emit(AuthFailure('Request failed: ${e.message}', event.authType));
       } catch (e) {
         emit(AuthFailure('Request failed: $e', event.authType));
       }
@@ -65,6 +70,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       } on UnAuthenticatedException {
         emit(const AuthInitial());
+      } on DioError catch (e) {
+        emit(AuthFailure('Request failed: ${e.message}', event.authType));
       } catch (e) {
         emit(AuthFailure('Request failed: $e', event.authType));
       }
@@ -102,6 +109,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       } on UnAuthenticatedException {
         emit(const AuthInitial());
+      } on DioError catch (e) {
+        emit(AuthFailure('Request failed: ${e.message}', event.authType));
       } catch (e) {
         emit(AuthFailure('Request failed: $e', event.authType));
       }
@@ -126,6 +135,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       } on UnAuthenticatedException {
         emit(const AuthInitial());
+      } on DioError catch (e) {
+        emit(AuthFailure('Request failed: ${e.message}', event.authType));
       } catch (e) {
         emit(AuthFailure('Request failed: $e', event.authType));
       }
@@ -144,6 +155,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       } on UnAuthenticatedException {
         emit(const AuthInitial());
+      } on DioError catch (e) {
+        emit(AuthFailure('Request failed: ${e.message}', event.authType));
       } catch (e) {
         emit(AuthFailure('Request failed: $e', event.authType));
       }

@@ -11,14 +11,14 @@ class ShipmentLoading extends ShipmentState {}
 
 class ShipmentLoaded extends ShipmentState {
   const ShipmentLoaded(this.shipment, this.downloadURL);
-  final Shipment shipment;
+  final api.Shipment shipment;
   final String? downloadURL;
 }
 
 class ShipmentsLoaded extends ShipmentState {
   const ShipmentsLoaded(this.shipments, this.shipmentStatus);
-  final List<Shipment> shipments;
-  final ShipmentStatus? shipmentStatus;
+  final List<api.Shipment> shipments;
+  final api.ShipmentStatus? shipmentStatus;
 }
 
 class ShipmentFailure extends ShipmentState {

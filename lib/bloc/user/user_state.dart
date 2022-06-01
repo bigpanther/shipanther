@@ -11,13 +11,13 @@ class UserLoading extends UserState {}
 
 class UserLoaded extends UserState {
   const UserLoaded(this.user);
-  final User user;
+  final api.User user;
 }
 
 class UsersLoaded extends UserState {
   const UsersLoaded(this.users, this.userRole);
-  final List<User> users;
-  final UserRole? userRole;
+  final List<api.User> users;
+  final api.UserRole? userRole;
 }
 
 class UserFailure extends UserState {

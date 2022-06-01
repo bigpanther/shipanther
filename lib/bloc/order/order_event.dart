@@ -13,12 +13,12 @@ class GetOrder extends OrderEvent {
 class UpdateOrder extends OrderEvent {
   const UpdateOrder(this.id, this.order);
   final String id;
-  final Order order;
+  final api.Order order;
 }
 
 class CreateOrder extends OrderEvent {
   const CreateOrder(this.order);
-  final Order order;
+  final api.Order order;
 }
 
 class DeleteOrder extends OrderEvent {
@@ -28,5 +28,5 @@ class DeleteOrder extends OrderEvent {
 
 class GetOrders extends OrderEvent {
   const GetOrders({this.orderStatus});
-  final OrderStatus? orderStatus;
+  final api.OrderStatus? orderStatus;
 }
