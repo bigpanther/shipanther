@@ -91,7 +91,7 @@ flutter_icons:
   image_path: "assets/images/shipanther_logo.png"
   adaptive_icon_background: "#0896c9"
   adaptive_icon_foreground: assets/images/shipanther_logo.png
-
+  remove_alpha_ios: true
 flutter_intl:
   enabled: true
   class_name: ShipantherLocalizations
