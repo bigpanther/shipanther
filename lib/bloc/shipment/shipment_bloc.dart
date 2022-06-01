@@ -3,8 +3,8 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shipanther/data/shipment/shipment_repository.dart';
-import 'package:trober_sdk/trober_sdk.dart';
-
+import 'package:trober_sdk/trober_sdk.dart' as api;
+import 'package:dio/dio.dart';
 part 'shipment_event.dart';
 part 'shipment_state.dart';
 
@@ -28,6 +28,8 @@ class ShipmentBloc extends Bloc<ShipmentEvent, ShipmentState> {
           }
         }
         emit(ShipmentLoaded(shipment, downloadURL));
+      } on DioError catch (e) {
+        emit(ShipmentFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(ShipmentFailure('Request failed: $e'));
       }
@@ -38,6 +40,8 @@ class ShipmentBloc extends Bloc<ShipmentEvent, ShipmentState> {
         final shipments = await _shipmentRepository.fetchShipments(
             shipmentStatus: event.shipmentStatus);
         emit(ShipmentsLoaded(shipments, event.shipmentStatus));
+      } on DioError catch (e) {
+        emit(ShipmentFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(ShipmentFailure('Request failed: $e'));
       }
@@ -48,6 +52,8 @@ class ShipmentBloc extends Bloc<ShipmentEvent, ShipmentState> {
         await _shipmentRepository.updateShipment(event.id, event.shipment);
         final shipments = await _shipmentRepository.fetchShipments();
         emit(ShipmentsLoaded(shipments, null));
+      } on DioError catch (e) {
+        emit(ShipmentFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(ShipmentFailure('Request failed: $e'));
       }
@@ -58,6 +64,8 @@ class ShipmentBloc extends Bloc<ShipmentEvent, ShipmentState> {
         await _shipmentRepository.createShipment(event.shipment);
         final shipments = await _shipmentRepository.fetchShipments();
         emit(ShipmentsLoaded(shipments, null));
+      } on DioError catch (e) {
+        emit(ShipmentFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(ShipmentFailure('Request failed: $e'));
       }

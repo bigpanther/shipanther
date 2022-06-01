@@ -8,12 +8,12 @@ abstract class CustomerEvent {
 class UpdateCustomer extends CustomerEvent {
   const UpdateCustomer(this.id, this.customer);
   final String id;
-  final Customer customer;
+  final api.Customer customer;
 }
 
 class CreateCustomer extends CustomerEvent {
   const CreateCustomer(this.customer);
-  final Customer customer;
+  final api.Customer customer;
 }
 
 class DeleteCustomer extends CustomerEvent {

@@ -13,12 +13,12 @@ class GetCarrier extends CarrierEvent {
 class UpdateCarrier extends CarrierEvent {
   const UpdateCarrier(this.id, this.carrier);
   final String id;
-  final Carrier carrier;
+  final api.Carrier carrier;
 }
 
 class CreateCarrier extends CarrierEvent {
   const CreateCarrier(this.carrier);
-  final Carrier carrier;
+  final api.Carrier carrier;
 }
 
 class DeleteCarrier extends CarrierEvent {
@@ -28,6 +28,6 @@ class DeleteCarrier extends CarrierEvent {
 
 class GetCarriers extends CarrierEvent {
   const GetCarriers({this.page = 1, this.carrierType});
-  final CarrierType? carrierType;
+  final api.CarrierType? carrierType;
   final int page;
 }

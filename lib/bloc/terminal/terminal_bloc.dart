@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/terminal/terminal_repository.dart';
-import 'package:trober_sdk/trober_sdk.dart';
+import 'package:trober_sdk/trober_sdk.dart' as api;
+import 'package:dio/dio.dart';
 
 part 'terminal_event.dart';
 part 'terminal_state.dart';
@@ -13,6 +14,8 @@ class TerminalBloc extends Bloc<TerminalEvent, TerminalState> {
       emit(TerminalLoading());
       try {
         emit(TerminalLoaded(await _terminalRepository.fetchTerminal(event.id)));
+      } on DioError catch (e) {
+        emit(TerminalFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(TerminalFailure('Request failed: $e'));
       }
@@ -23,6 +26,8 @@ class TerminalBloc extends Bloc<TerminalEvent, TerminalState> {
         final terminals = await _terminalRepository.fetchTerminals(
             terminalType: event.terminalType);
         emit(TerminalsLoaded(terminals, event.terminalType));
+      } on DioError catch (e) {
+        emit(TerminalFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(TerminalFailure('Request failed: $e'));
       }
@@ -33,6 +38,8 @@ class TerminalBloc extends Bloc<TerminalEvent, TerminalState> {
         await _terminalRepository.updateTerminal(event.id, event.terminal);
         final terminals = await _terminalRepository.fetchTerminals();
         emit(TerminalsLoaded(terminals, null));
+      } on DioError catch (e) {
+        emit(TerminalFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(TerminalFailure('Request failed: $e'));
       }
@@ -43,6 +50,8 @@ class TerminalBloc extends Bloc<TerminalEvent, TerminalState> {
         await _terminalRepository.createTerminal(event.terminal);
         final terminals = await _terminalRepository.fetchTerminals();
         emit(TerminalsLoaded(terminals, null));
+      } on DioError catch (e) {
+        emit(TerminalFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(TerminalFailure('Request failed: $e'));
       }

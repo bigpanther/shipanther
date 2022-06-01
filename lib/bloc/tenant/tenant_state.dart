@@ -11,13 +11,13 @@ class TenantLoading extends TenantState {}
 
 class TenantLoaded extends TenantState {
   const TenantLoaded(this.tenant);
-  final Tenant tenant;
+  final api.Tenant tenant;
 }
 
 class TenantsLoaded extends TenantState {
   const TenantsLoaded(this.tenants, this.tenantType);
-  final List<Tenant> tenants;
-  final TenantType? tenantType;
+  final List<api.Tenant> tenants;
+  final api.TenantType? tenantType;
 }
 
 class TenantFailure extends TenantState {

@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/carrier/carrier_repository.dart';
-import 'package:trober_sdk/trober_sdk.dart';
+import 'package:trober_sdk/trober_sdk.dart' as api;
+import 'package:dio/dio.dart';
 
 part 'carrier_event.dart';
 part 'carrier_state.dart';
@@ -13,6 +14,8 @@ class CarrierBloc extends Bloc<CarrierEvent, CarrierState> {
       emit(CarrierLoading());
       try {
         emit(CarrierLoaded(await _carrierRepository.fetchCarrier(event.id)));
+      } on DioError catch (e) {
+        emit(CarrierFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(CarrierFailure('Request failed: $e'));
       }
@@ -25,6 +28,8 @@ class CarrierBloc extends Bloc<CarrierEvent, CarrierState> {
         final carriers = await _carrierRepository.fetchCarriers(
             page: event.page, carrierType: event.carrierType);
         emit(CarriersLoaded(carriers, event.carrierType));
+      } on DioError catch (e) {
+        emit(CarrierFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(CarrierFailure('Request failed: $e'));
       }
@@ -37,6 +42,8 @@ class CarrierBloc extends Bloc<CarrierEvent, CarrierState> {
         await _carrierRepository.updateCarrier(event.id, event.carrier);
         final carriers = await _carrierRepository.fetchCarriers();
         emit(CarriersLoaded(carriers, null));
+      } on DioError catch (e) {
+        emit(CarrierFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(CarrierFailure('Request failed: $e'));
       }
@@ -49,6 +56,8 @@ class CarrierBloc extends Bloc<CarrierEvent, CarrierState> {
         await _carrierRepository.createCarrier(event.carrier);
         final carriers = await _carrierRepository.fetchCarriers();
         emit(CarriersLoaded(carriers, null));
+      } on DioError catch (e) {
+        emit(CarrierFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(CarrierFailure('Request failed: $e'));
       }

@@ -17,6 +17,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   bloc: ^8.0.3
   meta: ^1.7.0
+  dio: ^4.0.6
   firebase_analytics: ^9.1.9
   firebase_auth: ^3.3.19
   firebase_core: ^1.17.1
@@ -25,7 +26,7 @@ dependencies:
   firebase_storage: ^10.2.17
   intl: ^0.17.0
   flutter_typeahead: ^4.0.0
-  trober_sdk: 0.0.49
+  trober_sdk: 0.0.50
   date_time_picker: ^2.1.0
   package_info_plus: ^1.4.2
   material_design_icons_flutter: ^5.0.6595
@@ -35,6 +36,7 @@ dependencies:
   url_launcher: ^6.1.2
   openapi_dart_common: ^4.1.1
   uuid: ^3.0.6
+  built_value: ^8.3.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

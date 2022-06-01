@@ -25,7 +25,7 @@ class AuthenticationException implements Exception {}
 // UnAuthenticatedException is thrown when the user is not signed in
 class UnAuthenticatedException implements Exception {}
 
-//EmailNotVerifiedException is thrown when the user's email is not verified
+// EmailNotVerifiedException is thrown when the user's email is not verified
 class EmailNotVerifiedException implements Exception {
   const EmailNotVerifiedException(this.emailId);
   final String? emailId;

@@ -13,12 +13,12 @@ class GetUser extends UserEvent {
 class UpdateUser extends UserEvent {
   const UpdateUser(this.id, this.user);
   final String id;
-  final User user;
+  final api.User user;
 }
 
 class CreateUser extends UserEvent {
   const CreateUser(this.user);
-  final User user;
+  final api.User user;
 }
 
 class DeleteUser extends UserEvent {
@@ -28,5 +28,5 @@ class DeleteUser extends UserEvent {
 
 class GetUsers extends UserEvent {
   const GetUsers({this.userRole});
-  final UserRole? userRole;
+  final api.UserRole? userRole;
 }

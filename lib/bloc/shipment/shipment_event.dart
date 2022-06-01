@@ -13,12 +13,12 @@ class GetShipment extends ShipmentEvent {
 class UpdateShipment extends ShipmentEvent {
   const UpdateShipment(this.id, this.shipment);
   final String id;
-  final Shipment shipment;
+  final api.Shipment shipment;
 }
 
 class CreateShipment extends ShipmentEvent {
   const CreateShipment(this.shipment);
-  final Shipment shipment;
+  final api.Shipment shipment;
 }
 
 class DeleteShipment extends ShipmentEvent {
@@ -28,5 +28,5 @@ class DeleteShipment extends ShipmentEvent {
 
 class GetShipments extends ShipmentEvent {
   const GetShipments({this.shipmentStatus});
-  final ShipmentStatus? shipmentStatus;
+  final api.ShipmentStatus? shipmentStatus;
 }

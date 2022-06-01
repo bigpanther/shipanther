@@ -13,12 +13,12 @@ class GetTerminal extends TerminalEvent {
 class UpdateTerminal extends TerminalEvent {
   const UpdateTerminal(this.id, this.terminal);
   final String id;
-  final Terminal terminal;
+  final api.Terminal terminal;
 }
 
 class CreateTerminal extends TerminalEvent {
   const CreateTerminal(this.terminal);
-  final Terminal terminal;
+  final api.Terminal terminal;
 }
 
 class DeleteTerminal extends TerminalEvent {
@@ -28,5 +28,5 @@ class DeleteTerminal extends TerminalEvent {
 
 class GetTerminals extends TerminalEvent {
   const GetTerminals({this.terminalType});
-  final TerminalType? terminalType;
+  final api.TerminalType? terminalType;
 }

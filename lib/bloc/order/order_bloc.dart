@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:shipanther/data/order/order_repository.dart';
-import 'package:trober_sdk/trober_sdk.dart';
-
+import 'package:trober_sdk/trober_sdk.dart' as api;
+import 'package:dio/dio.dart';
 part 'order_event.dart';
 part 'order_state.dart';
 
@@ -13,6 +13,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       try {
         emit(OrderLoading());
         emit(OrderLoaded(await _orderRepository.fetchOrder(event.id)));
+      } on DioError catch (e) {
+        emit(OrderFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(OrderFailure('Request failed: $e'));
       }
@@ -24,6 +26,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         final orders =
             await _orderRepository.fetchOrders(orderStatus: event.orderStatus);
         emit(OrdersLoaded(orders, event.orderStatus));
+      } on DioError catch (e) {
+        emit(OrderFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(OrderFailure('Request failed: $e'));
       }
@@ -35,6 +39,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         await _orderRepository.updateOrder(event.id, event.order);
         final orders = await _orderRepository.fetchOrders();
         emit(OrdersLoaded(orders, null));
+      } on DioError catch (e) {
+        emit(OrderFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(OrderFailure('Request failed: $e'));
       }
@@ -46,6 +52,8 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         await _orderRepository.createOrder(event.order);
         final orders = await _orderRepository.fetchOrders();
         emit(OrdersLoaded(orders, null));
+      } on DioError catch (e) {
+        emit(OrderFailure('Request failed: ${e.message}'));
       } catch (e) {
         emit(OrderFailure('Request failed: $e'));
       }
