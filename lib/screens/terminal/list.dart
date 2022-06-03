@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
@@ -5,7 +6,7 @@ import 'package:shipanther/extensions/terminal_extension.dart';
 import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-import 'package:shipanther/screens/terminal/add_edit.dart';
+import 'package:shipanther/router/router.gr.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:shipanther/widgets/uuid.dart';
@@ -54,15 +55,12 @@ class TerminalList extends StatelessWidget {
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<Widget>(
-                      builder: (_) => TerminalAddEdit(
-                        loggedInUser,
-                        isEdit: true,
-                        terminalBloc: terminalBloc,
-                        terminal: t,
-                      ),
+                  context.pushRoute(
+                    TerminalAddEdit(
+                      loggedInUser: loggedInUser,
+                      isEdit: true,
+                      terminalBloc: terminalBloc,
+                      terminal: t,
                     ),
                   );
                 },
@@ -88,17 +86,14 @@ class TerminalList extends StatelessWidget {
     final Widget floatingActionButton = FloatingActionButton(
       tooltip: ShipantherLocalizations.of(context).terminalAdd,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute<Widget>(
-            builder: (_) => TerminalAddEdit(
-              loggedInUser,
-              isEdit: false,
-              terminalBloc: terminalBloc,
-              terminal: Terminal((b) => b
-                ..type = TerminalType.port
-                ..id = uuid()),
-            ),
+        context.pushRoute(
+          TerminalAddEdit(
+            loggedInUser: loggedInUser,
+            isEdit: false,
+            terminalBloc: terminalBloc,
+            terminal: Terminal((b) => b
+              ..type = TerminalType.port
+              ..id = uuid()),
           ),
         );
       },

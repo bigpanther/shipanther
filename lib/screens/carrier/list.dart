@@ -1,10 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/extensions/carrier_extension.dart';
 import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-import 'package:shipanther/screens/carrier/add_edit.dart';
+import 'package:shipanther/router/router.gr.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:shipanther/widgets/uuid.dart';
 import 'package:trober_sdk/trober_sdk.dart';
@@ -41,15 +42,12 @@ class CarrierList extends StatelessWidget {
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<Widget>(
-                      builder: (_) => CarrierAddEdit(
-                        loggedInUser,
-                        isEdit: true,
-                        carrierBloc: carrierBloc,
-                        carrier: t,
-                      ),
+                  context.pushRoute(
+                    CarrierAddEdit(
+                      loggedInUser: loggedInUser,
+                      isEdit: true,
+                      carrierBloc: carrierBloc,
+                      carrier: t,
                     ),
                   );
                 },
@@ -77,19 +75,16 @@ class CarrierList extends StatelessWidget {
     final Widget floatingActionButton = FloatingActionButton(
       tooltip: ShipantherLocalizations.of(context).addCarrier,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute<Widget>(
-            builder: (_) => CarrierAddEdit(
-              loggedInUser,
-              isEdit: false,
-              carrierBloc: carrierBloc,
-              carrier: Carrier((b) => b
-                ..type = CarrierType.vessel
-                ..name = ''
-                ..id = uuid()
-                ..tenantId = loggedInUser.tenantId),
-            ),
+        context.pushRoute(
+          CarrierAddEdit(
+            loggedInUser: loggedInUser,
+            isEdit: false,
+            carrierBloc: carrierBloc,
+            carrier: Carrier((b) => b
+              ..type = CarrierType.vessel
+              ..name = ''
+              ..id = uuid()
+              ..tenantId = loggedInUser.tenantId),
           ),
         );
       },

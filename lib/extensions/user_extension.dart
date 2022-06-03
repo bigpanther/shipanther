@@ -1,9 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:shipanther/screens/back_office_home.dart';
-import 'package:shipanther/screens/customer_home.dart';
-import 'package:shipanther/screens/driver_home.dart';
-import 'package:shipanther/screens/none_home.dart';
-import 'package:shipanther/screens/super_admin_home.dart';
+import 'package:shipanther/router/router.gr.dart';
 import 'package:trober_sdk/trober_sdk.dart';
 
 extension UserExtension on User {
@@ -36,20 +33,20 @@ extension UserExtension on User {
     return role == UserRole.backOffice;
   }
 
-  Widget get homePage {
+  PageRouteInfo get homePage {
     switch (role) {
       case UserRole.superAdmin:
-        return SuperAdminHome(this);
+        return SuperAdminHome(user: this);
       case UserRole.admin:
-        return BackOfficeHome(this);
+        return BackOfficeHome(user: this);
       case UserRole.backOffice:
-        return BackOfficeHome(this);
+        return BackOfficeHome(user: this);
       case UserRole.driver:
-        return DriverHome(this);
+        return DriverHome(user: this);
       case UserRole.customer:
-        return CustomerHome(this);
+        return CustomerHome(user: this);
       case UserRole.none:
-        return NoneHome(this);
+        return NoneHome(user: this);
     }
     throw 'noop';
   }

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/extensions/user_extension.dart';
@@ -112,7 +113,7 @@ class UserAddEditState extends State<UserAddEdit> {
               widget.userBloc.add(CreateUser(user));
             }
 
-            Navigator.pop(context);
+            context.popRoute();
           }
         },
         child: const Icon(Icons.check),

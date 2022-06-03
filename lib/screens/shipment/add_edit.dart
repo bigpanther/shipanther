@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
@@ -235,8 +236,7 @@ class ShipmentAddEditState extends State<ShipmentAddEdit> {
             } else {
               widget.shipmentBloc.add(CreateShipment(shipment));
             }
-
-            Navigator.pop(context);
+            context.popRoute();
           }
         },
         child: const Icon(Icons.check),

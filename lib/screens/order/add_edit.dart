@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/order/order_bloc.dart';
 import 'package:shipanther/extensions/user_extension.dart';
@@ -136,7 +137,7 @@ class OrderAddEditState extends State<OrderAddEdit> {
             } else {
               widget.orderBloc.add(CreateOrder(order));
             }
-            Navigator.pop(context);
+            context.popRoute();
           }
         },
         child: const Icon(Icons.check),

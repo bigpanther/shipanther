@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
@@ -47,11 +48,7 @@ class SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
             );
           }
           if (state is AuthFinished) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute<Widget>(builder: (_) {
-                return state.user.homePage;
-              }),
-            );
+            AutoRouter.of(context).replace(state.user.homePage);
           }
         },
         builder: (context, state) {

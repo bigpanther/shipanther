@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
@@ -43,7 +44,7 @@ class ResetPasswordState extends State<ResetPassword> {
                   context
                       .read<AuthBloc>()
                       .add(ForgotPassword(email: _userEmail.text));
-                  Navigator.pop(context);
+                  AutoRouter.of(context).pop();
                 }
               },
               labelText: ShipantherLocalizations.of(context).resetPassword,

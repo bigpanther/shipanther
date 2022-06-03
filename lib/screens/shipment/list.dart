@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -6,7 +7,7 @@ import 'package:shipanther/extensions/shipment_extension.dart';
 import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-import 'package:shipanther/screens/shipment/add_edit.dart';
+import 'package:shipanther/router/router.gr.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:shipanther/widgets/uuid.dart';
@@ -110,21 +111,19 @@ class ShipmentList extends StatelessWidget {
     final Widget floatingActionButton = FloatingActionButton(
       tooltip: ShipantherLocalizations.of(context).shipmentAdd,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute<Widget>(
-            builder: (_) => ShipmentAddEdit(loggedInUser,
-                isEdit: false,
-                shipmentBloc: shipmentBloc,
-                shipment: Shipment((b) => b
-                  ..status = ShipmentStatus.unassigned
-                  ..type = ShipmentType.inbound
-                  ..createdAt = DateTime.now().toUtc()
-                  ..updatedAt = DateTime.now().toUtc()
-                  ..id = uuid()
-                  ..serialNumber = ''
-                  ..tenantId = loggedInUser.tenantId)),
-          ),
+        context.pushRoute(
+          ShipmentAddEdit(
+              loggedInUser: loggedInUser,
+              isEdit: false,
+              shipmentBloc: shipmentBloc,
+              shipment: Shipment((b) => b
+                ..status = ShipmentStatus.unassigned
+                ..type = ShipmentType.inbound
+                ..createdAt = DateTime.now().toUtc()
+                ..updatedAt = DateTime.now().toUtc()
+                ..id = uuid()
+                ..serialNumber = ''
+                ..tenantId = loggedInUser.tenantId)),
         );
       },
       child: const Icon(Icons.add),

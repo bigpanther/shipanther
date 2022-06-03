@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
@@ -82,7 +83,7 @@ class CustomerAddEditState extends State<CustomerAddEdit> {
               widget.customerBloc.add(CreateCustomer(customer));
             }
 
-            Navigator.pop(context);
+            context.popRoute();
           }
         },
         child: const Icon(Icons.check),

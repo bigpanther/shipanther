@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
@@ -5,7 +6,7 @@ import 'package:shipanther/extensions/tenant_extension.dart';
 import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-import 'package:shipanther/screens/tenant/add_edit.dart';
+import 'package:shipanther/router/router.gr.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:shipanther/widgets/uuid.dart';
@@ -55,14 +56,11 @@ class TenantList extends StatelessWidget {
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<Widget>(
-                      builder: (_) => TenantAddEdit(
-                        isEdit: true,
-                        tenantBloc: tenantBloc,
-                        tenant: t,
-                      ),
+                  context.pushRoute(
+                    TenantAddEdit(
+                      isEdit: true,
+                      tenantBloc: tenantBloc,
+                      tenant: t,
                     ),
                   );
                 },
@@ -87,20 +85,17 @@ class TenantList extends StatelessWidget {
     final Widget floatingActionButton = FloatingActionButton(
       tooltip: ShipantherLocalizations.of(context).tenantAdd,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute<Widget>(
-            builder: (_) => TenantAddEdit(
-              isEdit: false,
-              tenantBloc: tenantBloc,
-              tenant: Tenant((b) => b
-                ..name = ''
-                ..type = TenantType.test
-                ..code = ''
-                ..createdAt = DateTime.now().toUtc()
-                ..updatedAt = DateTime.now().toUtc()
-                ..id = uuid()),
-            ),
+        context.pushRoute(
+          TenantAddEdit(
+            isEdit: false,
+            tenantBloc: tenantBloc,
+            tenant: Tenant((b) => b
+              ..name = ''
+              ..type = TenantType.test
+              ..code = ''
+              ..createdAt = DateTime.now().toUtc()
+              ..updatedAt = DateTime.now().toUtc()
+              ..id = uuid()),
           ),
         );
       },

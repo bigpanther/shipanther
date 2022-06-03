@@ -27,6 +27,6 @@ lint:
 .PHONY: test
 test:
 	flutter test -v
-.PHONY: gen-mock
-gen-mock:
-	flutter pub run build_runner build
+.PHONY: gen
+gen:
+	flutter packages pub run build_runner build  --delete-conflicting-outputs

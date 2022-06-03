@@ -8,8 +8,8 @@ import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/trober_sdk.dart';
 
 class DriverHome extends StatefulWidget {
-  const DriverHome(this.loggedInUser, {Key? key}) : super(key: key);
-  final User loggedInUser;
+  const DriverHome(this.user, {Key? key}) : super(key: key);
+  final User user;
 
   @override
   DriverHomeState createState() => DriverHomeState();
@@ -37,13 +37,13 @@ class DriverHomeState extends State<DriverHome> {
       builder: (context, state) {
         if (state is ShipmentsLoaded) {
           return DriverShipmentList(
-            widget.loggedInUser,
+            widget.user,
             shipmentsLoadedState: state,
             shipmentBloc: bloc,
           );
         }
         return ShipantherScaffold(
-          widget.loggedInUser,
+          widget.user,
           title: ShipantherLocalizations.of(context).shipmentsTitle(2),
           body: const CenteredLoading(),
         );

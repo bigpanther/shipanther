@@ -37,6 +37,7 @@ dependencies:
   openapi_dart_common: ^4.1.1
   uuid: ^3.0.6
   built_value: ^8.3.2
+  auto_route: ^4.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -47,7 +48,7 @@ dev_dependencies:
   intl_utils: ^2.6.1
   flutter_lints: ^2.0.1
   build_runner: ^2.1.11
-
+  auto_route_generator: ^4.0.0
 flutter:
   uses-material-design: true
   assets:

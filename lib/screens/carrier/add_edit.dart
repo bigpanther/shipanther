@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
@@ -108,7 +109,7 @@ class CarrierAddEditState extends State<CarrierAddEdit> {
               widget.carrierBloc.add(CreateCarrier(carrier));
             }
 
-            Navigator.pop(context);
+            context.popRoute();
           }
         },
         child: const Icon(Icons.check),
