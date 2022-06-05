@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/order/order_bloc.dart';
@@ -5,7 +6,7 @@ import 'package:shipanther/extensions/order_extension.dart';
 import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-import 'package:shipanther/screens/order/add_edit.dart';
+import 'package:shipanther/router/router.gr.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:shipanther/widgets/uuid.dart';
@@ -84,20 +85,18 @@ class OrderList extends StatelessWidget {
     final Widget floatingActionButton = FloatingActionButton(
       tooltip: ShipantherLocalizations.of(context).orderAdd,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute<Widget>(
-            builder: (_) => OrderAddEdit(loggedInUser,
-                isEdit: false,
-                orderBloc: orderBloc,
-                order: Order((b) => b
-                  ..status = OrderStatus.open
-                  ..updatedAt = DateTime.now().toUtc()
-                  ..createdAt = DateTime.now().toUtc()
-                  ..id = uuid()
-                  ..serialNumber = ''
-                  ..tenantId = loggedInUser.tenantId)),
-          ),
+        context.pushRoute(
+          OrderAddEdit(
+              loggedInUser: loggedInUser,
+              isEdit: false,
+              orderBloc: orderBloc,
+              order: Order((b) => b
+                ..status = OrderStatus.open
+                ..updatedAt = DateTime.now().toUtc()
+                ..createdAt = DateTime.now().toUtc()
+                ..id = uuid()
+                ..serialNumber = ''
+                ..tenantId = loggedInUser.tenantId)),
         );
       },
       child: const Icon(Icons.add),

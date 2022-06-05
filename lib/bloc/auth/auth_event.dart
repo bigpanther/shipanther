@@ -16,10 +16,10 @@ class AuthLogout extends AuthEvent {
 }
 
 class AuthRegister extends AuthEvent {
-  const AuthRegister(this.name, this.username, this.password)
+  const AuthRegister(this.name, this.email, this.password)
       : super(authType: AuthTypeSelector.register);
   final String name;
-  final String username;
+  final String email;
   final String password;
 }
 
@@ -47,7 +47,7 @@ class ForgotPassword extends AuthEvent {
 // }
 
 class AuthSignIn extends AuthEvent {
-  const AuthSignIn(this.username, this.password) : super();
-  final String username;
+  const AuthSignIn(this.email, this.password) : super();
+  final String email;
   final String password;
 }

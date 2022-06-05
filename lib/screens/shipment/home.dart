@@ -1,9 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-import 'package:shipanther/screens/shipment/add_edit.dart';
+import 'package:shipanther/router/router.gr.dart';
 import 'package:shipanther/screens/shipment/driver_list.dart';
 import 'package:shipanther/screens/shipment/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
@@ -35,15 +36,13 @@ class ShipmentScreenState extends State<ShipmentScreen> {
           ));
         }
         if (state is ShipmentLoaded) {
-          Navigator.of(context).push(
-            MaterialPageRoute<Widget>(
-              builder: (_) => ShipmentAddEdit(
-                widget.loggedInUser,
-                isEdit: true,
-                shipmentBloc: bloc,
-                shipment: state.shipment,
-                imageURL: state.downloadURL,
-              ),
+          context.pushRoute(
+            ShipmentAddEdit(
+              loggedInUser: widget.loggedInUser,
+              isEdit: true,
+              shipmentBloc: bloc,
+              shipment: state.shipment,
+              imageURL: state.downloadURL,
             ),
           );
         }

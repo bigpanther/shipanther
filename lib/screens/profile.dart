@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
@@ -17,14 +18,31 @@ class ProfilePage extends StatefulWidget {
 class ProfilePageState extends State<ProfilePage> {
   final GlobalKey<FormState> _formKeyPassword = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKeyName = GlobalKey<FormState>();
-  final TextEditingController _password = TextEditingController();
-  final TextEditingController _oldPassword = TextEditingController();
-  final TextEditingController _confirmPassword = TextEditingController();
-  late TextEditingController _username;
+  late FormGroup usernameFormGroup;
+  late FormGroup passwordFormGroup;
   @override
   void initState() {
     super.initState();
-    _username = TextEditingController(text: widget.user.name);
+    usernameFormGroup = FormGroup({
+      'name': FormControl<String>(
+        value: widget.user.name,
+        validators: [Validators.required],
+      ),
+    });
+    usernameFormGroup = FormGroup(
+      {
+        'oldPassword': FormControl<String>(
+          validators: [Validators.required],
+        ),
+        'newPassword': FormControl<String>(
+          validators: [Validators.required],
+        ),
+        'confirmPassword': FormControl<String>(
+          validators: [Validators.required],
+        ),
+      },
+      validators: [Validators.mustMatch('newPassword', 'confirmPassword')],
+    );
   }
 
   @override
@@ -64,8 +82,9 @@ class ProfilePageState extends State<ProfilePage> {
                       ))
                 ],
               ),
-              Form(
+              ReactiveForm(
                 key: _formKeyName,
+                formGroup: usernameFormGroup,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ExpansionTile(
@@ -80,27 +99,27 @@ class ProfilePageState extends State<ProfilePage> {
                     children: [
                       Column(
                         children: [
-                          ShipantherTextFormField(
-                            controller: _username,
+                          ShipantherTextFormField<String>(
+                            formControlName: 'username',
                             labelText: ShipantherLocalizations.of(context).name,
                             autocorrect: false,
                             enableSuggestions: false,
                             keyboardType: TextInputType.text,
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return ShipantherLocalizations.of(context)
-                                    .paramRequired(
-                                        ShipantherLocalizations.of(context)
-                                            .username);
-                              }
-                              return null;
+                            validationMessages: {
+                              ValidationMessage.required:
+                                  ShipantherLocalizations.of(context)
+                                      .paramRequired(
+                                          ShipantherLocalizations.of(context)
+                                              .username),
                             },
                           ),
                           ShipantherButton(
                             onPressed: () {
-                              if (_formKeyName.currentState!.validate()) {
-                                var user = widget.user
-                                    .rebuild((b) => b..name = _username.text);
+                              if (usernameFormGroup.valid) {
+                                var user = widget.user.rebuild((b) => b
+                                  ..name = usernameFormGroup
+                                      .control('username')
+                                      .value);
 
                                 context
                                     .read<UserBloc>()
@@ -115,8 +134,9 @@ class ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-              Form(
+              ReactiveForm(
                 key: _formKeyPassword,
+                formGroup: passwordFormGroup,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ExpansionTile(
@@ -128,54 +148,44 @@ class ProfilePageState extends State<ProfilePage> {
                       Column(
                         children: [
                           ShipantherPasswordFormField(
-                            controller: _oldPassword,
+                            formControlName: 'oldPassword',
                             labelText:
                                 ShipantherLocalizations.of(context).oldPassword,
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return ShipantherLocalizations.of(context)
-                                    .paramRequired(
-                                        ShipantherLocalizations.of(context)
-                                            .password);
-                              }
-                              return null;
+                            validationMessages: {
+                              ValidationMessage.required:
+                                  ShipantherLocalizations.of(context)
+                                      .paramRequired(
+                                          ShipantherLocalizations.of(context)
+                                              .password)
                             },
                           ),
                           ShipantherPasswordFormField(
-                            controller: _password,
+                            formControlName: 'newPassword',
                             labelText:
                                 ShipantherLocalizations.of(context).newPassword,
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return ShipantherLocalizations.of(context)
-                                    .paramRequired(
-                                        ShipantherLocalizations.of(context)
-                                            .password);
-                              }
-                              return null;
+                            validationMessages: {
+                              ValidationMessage.required:
+                                  ShipantherLocalizations.of(context)
+                                      .paramRequired(
+                                          ShipantherLocalizations.of(context)
+                                              .password)
                             },
                           ),
                           ShipantherPasswordFormField(
-                            controller: _confirmPassword,
+                            formControlName: 'confirmPassword',
                             labelText: ShipantherLocalizations.of(context)
                                 .confirmPassword,
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return ShipantherLocalizations.of(context)
-                                    .paramRequired(
-                                        ShipantherLocalizations.of(context)
-                                            .password);
-                              }
-                              if (value != _password.text) {
-                                return ShipantherLocalizations.of(context)
-                                    .passwordDoesntMatch;
-                              }
-                              return null;
+                            validationMessages: {
+                              ValidationMessage.required:
+                                  ShipantherLocalizations.of(context)
+                                      .paramRequired(
+                                          ShipantherLocalizations.of(context)
+                                              .password)
                             },
                           ),
                           ShipantherButton(
                             onPressed: () {
-                              if (_formKeyPassword.currentState!.validate()) {
+                              if (passwordFormGroup.valid) {
                                 //print('not supported yet');
                                 // context.read<AuthBloc>().add(UpdatePassword(
                                 //     _oldPassword.text, _password.text));
@@ -195,14 +205,5 @@ class ProfilePageState extends State<ProfilePage> {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _username.dispose();
-    _password.dispose();
-    _confirmPassword.dispose();
-    _oldPassword.dispose();
-    super.dispose();
   }
 }

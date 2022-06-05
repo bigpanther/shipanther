@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shipanther/bloc/order/order_bloc.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
@@ -27,65 +29,61 @@ class OrderAddEdit extends StatefulWidget {
 
 class OrderAddEditState extends State<OrderAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  late TextEditingController _serialNumber;
+  late FormGroup formGroup;
   @override
   void initState() {
     super.initState();
-    _serialNumber = TextEditingController(text: widget.order.serialNumber);
+    formGroup = FormGroup({
+      'serialNumber': FormControl<String>(
+        value: widget.order.serialNumber,
+        validators: [Validators.required],
+      ),
+      'customer': FormControl<Customer>(
+        value: widget.order.customer,
+        validators: [Validators.required],
+      ),
+    });
     _orderStatus = widget.order.status;
   }
 
   late OrderStatus _orderStatus;
-  Customer? _customer;
-  final TextEditingController _tenantTypeAheadController =
-      TextEditingController();
-  final TextEditingController _customerTypeAheadController =
-      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isEdit) {
-      _tenantTypeAheadController.text = widget.order.tenantId;
-      _customerTypeAheadController.text = (widget.order.customer != null)
-          ? widget.order.customer!.name
-          : widget.order.customerId ?? '';
-    }
+    var l10n = ShipantherLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)
-                  .editParam(ShipantherLocalizations.of(context).ordersTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).ordersTitle(1)),
+              ? l10n.editParam(l10n.ordersTitle(1))
+              : l10n.addNewParam(l10n.ordersTitle(1)),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
+        child: ReactiveForm(
+          formGroup: formGroup,
           key: formKey,
-          autovalidateMode: AutovalidateMode.disabled,
           onWillPop: () {
             widget.orderBloc.add(const GetOrders());
             return Future(() => true);
           },
           child: ListView(
             children: [
-                  ShipantherTextFormField(
-                    controller: _serialNumber,
-                    labelText: ShipantherLocalizations.of(context).orderNumber,
+                  ShipantherTextFormField<String>(
+                    formControlName: 'serialNumber',
+                    labelText: l10n.orderNumber,
                     maxLength: 15,
-                    validator: (val) => val == null || val.trim().isEmpty
-                        ? ShipantherLocalizations.of(context).paramEmpty(
-                            ShipantherLocalizations.of(context).orderNumber)
-                        : null,
+                    validationMessages: {
+                      ValidationMessage.required:
+                          l10n.paramEmpty(l10n.orderNumber)
+                    },
                   ),
                   if (!widget.loggedInUser.isCustomer)
                     smartSelect<OrderStatus>(
                       context: context,
-                      title: ShipantherLocalizations.of(context).orderStatus,
+                      title: l10n.orderStatus,
                       onChange: (state) => _orderStatus = state.value,
                       choiceItems: S2Choice.listFrom<OrderStatus, OrderStatus>(
                         source: OrderStatus.values.toList(),
@@ -100,43 +98,36 @@ class OrderAddEditState extends State<OrderAddEdit> {
                   const SizedBox(width: 0.0, height: 0.0),
                 ] +
                 customerSelector(
-                  context,
-                  !widget.loggedInUser.isCustomer,
-                  (Customer suggestion) {
-                    _customer = suggestion;
-                  },
-                  (val) => (val == null || val.trim().isEmpty)
-                      ? ShipantherLocalizations.of(context).paramEmpty(
-                          ShipantherLocalizations.of(context).customersTitle(1))
-                      : null,
-                  _customerTypeAheadController,
-                ),
+                    context, 'customer', !widget.loggedInUser.isCustomer, {
+                  ValidationMessage.required:
+                      l10n.paramEmpty(l10n.customersTitle(1))
+                }),
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+        tooltip: widget.isEdit ? l10n.edit : l10n.create,
         onPressed: () {
-          if (formKey.currentState!.validate()) {
+          if (formGroup.valid) {
             var order = widget.order.rebuild((b) => b
-              ..serialNumber = _serialNumber.text
+              ..serialNumber = formGroup.control('serialNumber').value
               ..status = _orderStatus);
             if (widget.loggedInUser.isCustomer) {
               order = order.rebuild(
                   (b) => b..customerId = widget.loggedInUser.customerId);
-              _customer = null;
+            } else {
+              order = order.rebuild((b) =>
+                  b..customerId = formGroup.control('customer').value.id);
             }
-            if (_customer != null) {
-              order = order.rebuild((b) => b..customerId = _customer!.id);
-            }
+
             if (widget.isEdit) {
               widget.orderBloc.add(UpdateOrder(order.id, order));
             } else {
               widget.orderBloc.add(CreateOrder(order));
             }
-            Navigator.pop(context);
+            context.popRoute();
+          } else {
+            formGroup.markAllAsTouched();
           }
         },
         child: const Icon(Icons.check),
@@ -146,9 +137,6 @@ class OrderAddEditState extends State<OrderAddEdit> {
 
   @override
   void dispose() {
-    _serialNumber.dispose();
-    _tenantTypeAheadController.dispose();
-    _customerTypeAheadController.dispose();
     super.dispose();
   }
 }

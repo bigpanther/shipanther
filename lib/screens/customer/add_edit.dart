@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shipanther/bloc/customer/customer_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
@@ -23,77 +25,70 @@ class CustomerAddEdit extends StatefulWidget {
 
 class CustomerAddEditState extends State<CustomerAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  late TextEditingController _name;
+  late FormGroup formGroup;
   @override
   void initState() {
     super.initState();
-    _name = TextEditingController(text: widget.customer.name);
+    formGroup = FormGroup({
+      'name': FormControl<String>(
+        value: widget.customer.name,
+        validators: [Validators.required],
+      ),
+    });
   }
-
-  final TextEditingController _tenantTypeAheadController =
-      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isEdit) {
-      _tenantTypeAheadController.text = widget.customer.tenantId;
-    }
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.isEdit
-              ? ShipantherLocalizations.of(context).editParam(
-                  ShipantherLocalizations.of(context).customersTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).customersTitle(1)),
+    var l10n = ShipantherLocalizations.of(context);
+    return ReactiveForm(
+      formGroup: formGroup,
+      key: formKey,
+      onWillPop: () {
+        return Future(() => true);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            widget.isEdit
+                ? l10n.editParam(l10n.customersTitle(1))
+                : l10n.addNewParam(l10n.customersTitle(1)),
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: formKey,
-          autovalidateMode: AutovalidateMode.disabled,
-          onWillPop: () {
-            return Future(() => true);
-          },
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: ListView(children: [
-            ShipantherTextFormField(
-              labelText: ShipantherLocalizations.of(context).customerName,
-              validator: (val) => val == null || val.trim().isEmpty
-                  ? ShipantherLocalizations.of(context).paramEmpty(
-                      ShipantherLocalizations.of(context).customerName)
-                  : null,
-              controller: _name,
+            ShipantherTextFormField<String>(
+              formControlName: 'name',
+              validationMessages: {
+                ValidationMessage.required: l10n.paramEmpty(l10n.customerName),
+              },
+              labelText: l10n.customerName,
             ),
           ]),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
-        onPressed: () {
-          if (formKey.currentState!.validate()) {
-            var customer = widget.customer.rebuild((b) => b..name = _name.text);
-            if (widget.isEdit) {
-              widget.customerBloc.add(UpdateCustomer(customer.id, customer));
-            } else {
-              widget.customerBloc.add(CreateCustomer(customer));
-            }
+        floatingActionButton:
+            ReactiveFormConsumer(builder: (context, form, child) {
+          return FloatingActionButton(
+            tooltip: widget.isEdit ? l10n.edit : l10n.create,
+            onPressed: form.valid
+                ? () {
+                    var customer = widget.customer
+                        .rebuild((b) => b..name = form.control('name').value);
+                    if (widget.isEdit) {
+                      widget.customerBloc
+                          .add(UpdateCustomer(customer.id, customer));
+                    } else {
+                      widget.customerBloc.add(CreateCustomer(customer));
+                    }
 
-            Navigator.pop(context);
-          }
-        },
-        child: const Icon(Icons.check),
+                    context.popRoute();
+                  }
+                : null,
+            child: const Icon(Icons.check),
+          );
+        }),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _name.dispose();
-    _tenantTypeAheadController.dispose();
-    super.dispose();
   }
 }

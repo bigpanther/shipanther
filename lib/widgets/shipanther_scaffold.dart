@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -5,15 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-import 'package:shipanther/screens/carrier/home.dart';
-import 'package:shipanther/screens/customer/home.dart';
-import 'package:shipanther/screens/order/home.dart';
-import 'package:shipanther/screens/profile.dart';
-import 'package:shipanther/screens/shipment/home.dart';
-import 'package:shipanther/screens/signin_or_register_page.dart';
-import 'package:shipanther/screens/super_admin_home.dart';
-import 'package:shipanther/screens/terminal/home.dart';
-import 'package:shipanther/screens/user/home.dart';
+import 'package:shipanther/router/router.gr.dart';
 import 'package:trober_sdk/trober_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -74,124 +67,78 @@ List<Widget> drawerItemsFor(BuildContext context, User? user) {
   if (user == null) {
     return widgets;
   }
-  final navigation = Navigator.of(context);
+  final router = AutoRouter.of(context);
   final localization = ShipantherLocalizations.of(context);
   widgets.add(
     _createDrawerItem(
       icon: Icons.home,
       text: localization.home,
-      onTap: () => navigation.pushReplacement(
-        MaterialPageRoute<Widget>(
-          builder: (_) => user.homePage,
-        ),
-      ),
+      onTap: () => router.replace(user.homePage),
     ),
   );
 
   if (user.isSuperAdmin) {
     widgets.add(
       _createDrawerItem(
-        icon: Icons.business,
-        text: localization.tenantsTitle(2),
-        onTap: () => navigation.pushReplacement(
-          MaterialPageRoute<SuperAdminHome>(
-            builder: (_) => SuperAdminHome(user),
-          ),
-        ),
-      ),
+          icon: Icons.business,
+          text: localization.tenantsTitle(2),
+          onTap: () => router.replace(SuperAdminHome(user: user))),
     );
   }
 
   if (user.isAtleastBackOffice) {
     widgets.add(
       _createDrawerItem(
-        icon: Icons.people,
-        text: localization.usersTitle(2),
-        onTap: () => navigation.pushReplacement(
-          MaterialPageRoute<UserScreen>(
-            builder: (_) => UserScreen(user),
-          ),
-        ),
-      ),
+          icon: Icons.people,
+          text: localization.usersTitle(2),
+          onTap: () => router.replace(UserScreen(loggedInUser: user))),
     );
 
     widgets.add(
       _createDrawerItem(
-        icon: Icons.connect_without_contact,
-        text: localization.customersTitle(2),
-        onTap: () => navigation.pushReplacement(
-          MaterialPageRoute<CustomerHome>(
-            builder: (_) => CustomerHome(user),
-          ),
-        ),
-      ),
+          icon: Icons.connect_without_contact,
+          text: localization.customersTitle(2),
+          onTap: () => router.replace(CustomerScreen(loggedInUser: user))),
     );
 
     widgets.add(
       _createDrawerItem(
-        icon: Icons.account_balance,
-        text: localization.terminalsTitle(2),
-        onTap: () => navigation.pushReplacement(
-          MaterialPageRoute<TerminalScreen>(
-            builder: (_) => TerminalScreen(user),
-          ),
-        ),
-      ),
+          icon: Icons.account_balance,
+          text: localization.terminalsTitle(2),
+          onTap: () => router.replace(TerminalScreen(loggedInUser: user))),
     );
 
     widgets.add(
       _createDrawerItem(
-        icon: Icons.local_shipping,
-        text: localization.carriersTitle(2),
-        onTap: () => navigation.pushReplacement(
-          MaterialPageRoute<CarrierScreen>(
-            builder: (_) => CarrierScreen(user),
-          ),
-        ),
-      ),
+          icon: Icons.local_shipping,
+          text: localization.carriersTitle(2),
+          onTap: () => router.replace(CarrierScreen(loggedInUser: user))),
     );
 
     widgets.add(
       _createDrawerItem(
-        icon: MdiIcons.dresser,
-        text: localization.shipmentsTitle(2),
-        onTap: () => navigation.pushReplacement(
-          MaterialPageRoute<ShipmentScreen>(
-            builder: (_) => ShipmentScreen(user),
-          ),
-        ),
-      ),
+          icon: MdiIcons.dresser,
+          text: localization.shipmentsTitle(2),
+          onTap: () => router.replace(ShipmentScreen(loggedInUser: user))),
     );
   }
   if (user.role != UserRole.driver && user.role != UserRole.none) {
     widgets.add(
       _createDrawerItem(
-        icon: Icons.fact_check,
-        text: localization.ordersTitle(2),
-        onTap: () => navigation.pushReplacement(
-          MaterialPageRoute<OrderScreen>(
-            builder: (_) => OrderScreen(user),
-          ),
-        ),
-      ),
+          icon: Icons.fact_check,
+          text: localization.ordersTitle(2),
+          onTap: () => router.replace(OrderScreen(loggedInUser: user))),
     );
   }
-  widgets.add(
-    _createDrawerItem(
+  widgets.add(_createDrawerItem(
       icon: Icons.logout,
       text: localization.logout,
       onTap: () {
         context.read<AuthBloc>().add(
               const AuthLogout(),
             );
-        navigation.pushReplacement(
-          MaterialPageRoute<SignInOrRegistrationPage>(
-            builder: (_) => const SignInOrRegistrationPage(),
-          ),
-        );
-      },
-    ),
-  );
+        context.replaceRoute(const SignInOrRegistrationRoute());
+      }));
 
   widgets
     ..add(
@@ -310,11 +257,8 @@ Widget _createHeader(BuildContext context, User? user) {
   }
   return UserAccountsDrawerHeader(
     accountEmail: Text(user.email),
-    onDetailsPressed: () => Navigator.of(context).pushReplacement(
-      MaterialPageRoute<ProfilePage>(
-        builder: (_) => ProfilePage(user),
-      ),
-    ),
+    onDetailsPressed: () =>
+        AutoRouter.of(context).replace(ProfileRoute(user: user)),
     currentAccountPicture: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,

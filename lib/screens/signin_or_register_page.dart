@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
@@ -41,17 +42,13 @@ class SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  ShipantherLocalizations.of(context).emailSent(state.emailId),
+                  ShipantherLocalizations.of(context).emailSent(state.email),
                 ),
               ),
             );
           }
           if (state is AuthFinished) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute<Widget>(builder: (_) {
-                return state.user.homePage;
-              }),
-            );
+            AutoRouter.of(context).replace(state.user.homePage);
           }
         },
         builder: (context, state) {
@@ -65,13 +62,18 @@ class SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
     if (state is AuthRequested ||
         state is AuthInitial ||
         state is AuthFailure) {
-      return SignInOrRegistrationForm(state.authType);
+      return SignInOrRegistrationForm(
+        authTypeSelector: state.authType,
+        email: state.email,
+        password: state.password,
+        name: state.name,
+      );
     }
     if (state is AuthVerification) {
-      return VerifyEmail(state.emailId);
+      return VerifyEmail(state.email);
     }
     if (state is ForgotPasswordRequested) {
-      return const ResetPassword();
+      return ResetPassword(email: state.email);
     }
     return const CenteredLoading();
   }

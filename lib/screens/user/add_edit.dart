@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
@@ -27,56 +29,56 @@ class UserAddEdit extends StatefulWidget {
 
 class UserAddEditState extends State<UserAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late FormGroup formGroup;
 
-  late TextEditingController _nameController;
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: widget.user.name);
+    formGroup = FormGroup({
+      'name': FormControl<String>(
+        value: widget.user.name,
+        validators: [Validators.required],
+      ),
+      'tenant': FormControl<Tenant>(
+        // value: widget.user.tenant,
+        validators: [Validators.required],
+      ),
+    });
   }
 
   UserRole? _userRole;
-  Tenant? _tenant;
-  final TextEditingController _tenantTypeAheadController =
-      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isEdit) {
-      _tenantTypeAheadController.text = widget.user.tenantId;
-    }
+    var l10n = ShipantherLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context)
-                  .editParam(ShipantherLocalizations.of(context).usersTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).usersTitle(1)),
+              ? l10n.editParam(l10n.usersTitle(1))
+              : l10n.addNewParam(l10n.usersTitle(1)),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
+        child: ReactiveForm(
           key: formKey,
-          autovalidateMode: AutovalidateMode.disabled,
+          formGroup: formGroup,
           onWillPop: () {
             return Future(() => true);
           },
           child: ListView(
             children: [
-              ShipantherTextFormField(
-                controller: _nameController,
-                labelText: ShipantherLocalizations.of(context).userName,
-                validator: (val) => val == null || val.trim().isEmpty
-                    ? ShipantherLocalizations.of(context).paramEmpty(
-                        ShipantherLocalizations.of(context).userName)
-                    : null,
-              ),
+              ShipantherTextFormField<String>(
+                  formControlName: 'name',
+                  labelText: l10n.userName,
+                  validationMessages: {
+                    ValidationMessage.required: l10n.paramEmpty(l10n.userName)
+                  }),
               smartSelect<UserRole>(
                 context: context,
-                title: ShipantherLocalizations.of(context).userType,
+                title: l10n.userType,
                 onChange: (state) => _userRole = state.value,
                 choiceItems: S2Choice.listFrom<UserRole, UserRole>(
                   source: UserRole.values.toList(),
@@ -86,25 +88,24 @@ class UserAddEditState extends State<UserAddEdit> {
                 value: _userRole ?? widget.user.role,
               ),
               tenantSelector(
-                  context, widget.isEdit && widget.loggedInUser.isSuperAdmin,
-                  (Tenant suggestion) {
-                _tenant = suggestion;
-              }, _tenantTypeAheadController),
+                context,
+                'tenant',
+                !(widget.isEdit && widget.loggedInUser.isSuperAdmin),
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+        tooltip: widget.isEdit ? l10n.edit : l10n.create,
         onPressed: () {
-          if (formKey.currentState!.validate()) {
+          if (formGroup.valid) {
             var user = widget.user.rebuild((b) => b
-              ..name = _nameController.text
+              ..name = formGroup.control('name').value
               ..role = _userRole ?? UserRole.driver);
-            if (_tenant != null) {
-              user = user.rebuild((b) => b..tenantId = _tenant!.id);
+            if (widget.loggedInUser.isSuperAdmin) {
+              user = user.rebuild(
+                  (b) => b..tenantId = formGroup.control('tenant').value.id);
             }
             if (widget.isEdit) {
               widget.userBloc.add(UpdateUser(user.id, user));
@@ -112,18 +113,13 @@ class UserAddEditState extends State<UserAddEdit> {
               widget.userBloc.add(CreateUser(user));
             }
 
-            Navigator.pop(context);
+            context.popRoute();
+          } else {
+            formGroup.markAllAsTouched();
           }
         },
         child: const Icon(Icons.check),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _tenantTypeAheadController.dispose();
-    super.dispose();
   }
 }

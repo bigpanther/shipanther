@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
@@ -5,7 +6,7 @@ import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-import 'package:shipanther/screens/user/add_edit.dart';
+import 'package:shipanther/router/router.gr.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/trober_sdk.dart';
@@ -53,15 +54,12 @@ class UserList extends StatelessWidget {
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<Widget>(
-                      builder: (_) => UserAddEdit(
-                        loggedInUser,
-                        isEdit: true,
-                        userBloc: userBloc,
-                        user: t,
-                      ),
+                  context.pushRoute(
+                    UserAddEdit(
+                      loggedInUser: loggedInUser,
+                      isEdit: true,
+                      userBloc: userBloc,
+                      user: t,
                     ),
                   );
                 },

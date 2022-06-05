@@ -1,8 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/order/order_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-import 'package:shipanther/screens/order/add_edit.dart';
+import 'package:shipanther/router/router.gr.dart';
 import 'package:shipanther/screens/order/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
 import 'package:trober_sdk/trober_sdk.dart';
@@ -34,14 +35,12 @@ class OrderScreenState extends State<OrderScreen> {
           ));
         }
         if (state is OrderLoaded) {
-          Navigator.of(context).push(
-            MaterialPageRoute<Widget>(
-              builder: (_) => OrderAddEdit(
-                widget.loggedInUser,
-                isEdit: true,
-                orderBloc: bloc,
-                order: state.order,
-              ),
+          context.pushRoute(
+            OrderAddEdit(
+              loggedInUser: widget.loggedInUser,
+              isEdit: true,
+              orderBloc: bloc,
+              order: state.order,
             ),
           );
         }

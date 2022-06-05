@@ -45,3 +45,5 @@ ios/config/prod/GoogleService-Info.plist
 ios/build
 android/settings_aar.gradle
 .firebase
+*.gr.dart
+*.mocks.dart

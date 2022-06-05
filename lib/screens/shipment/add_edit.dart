@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/date_time_picker.dart';
@@ -29,54 +31,46 @@ class ShipmentAddEdit extends StatefulWidget {
 
 class ShipmentAddEditState extends State<ShipmentAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Carrier? _carrier;
-  Order? _order;
-  Tenant? _tenant;
 
   late ShipmentSize? _shipmentSize;
   late ShipmentType _shipmentType;
   late ShipmentStatus _shipmentStatus;
-  User? _driver;
-  late TextEditingController _reservationTimeController;
 
-  late TextEditingController _tenantTypeAheadController;
+  late FormGroup formGroup;
 
-  late TextEditingController _driverTypeAheadController;
-  late TextEditingController _orderTypeAheadController;
-  late TextEditingController _carrierTypeAheadController;
-
-  late TextEditingController _originController;
-  late TextEditingController _destinationController;
-  late TextEditingController _serialNumberController;
   @override
   void initState() {
     super.initState();
-    _serialNumberController =
-        TextEditingController(text: widget.shipment.serialNumber);
-    _originController = TextEditingController(text: widget.shipment.origin);
-    _destinationController =
-        TextEditingController(text: widget.shipment.destination);
+    formGroup = FormGroup({
+      'serialNumber': FormControl<String>(
+        value: widget.shipment.serialNumber,
+        validators: [Validators.required],
+      ),
+      'origin': FormControl<String>(
+        value: widget.shipment.origin,
+      ),
+      'destination': FormControl<String>(
+        value: widget.shipment.destination,
+      ),
+      'reservationTime': FormControl<DateTime>(
+        value: widget.shipment.reservationTime?.toLocal(),
+      ),
+      'order': FormControl<Order>(
+          //value: widget.shipment.order,
+          //  validators: [Validators.required],
+          ),
+      'carrier': FormControl<Carrier>(
+          //value: widget.shipment.order,
+          //  validators: [Validators.required],
+          ),
+      'driver': FormControl<User>(
+          //value: widget.shipment.order,
+          // validators: [Validators.required],
+          ),
+    });
     _shipmentStatus = widget.shipment.status;
     _shipmentSize = widget.shipment.size;
     _shipmentType = widget.shipment.type;
-    _tenantTypeAheadController =
-        TextEditingController(text: widget.shipment.tenantId);
-    _driverTypeAheadController = TextEditingController(
-        text: (widget.shipment.driver != null)
-            ? widget.shipment.driver!.name
-            : widget.shipment.driverId);
-    _carrierTypeAheadController = TextEditingController(
-        text: (widget.shipment.carrier != null)
-            ? widget.shipment.carrier!.name
-            : widget.shipment.carrierId);
-    _orderTypeAheadController = TextEditingController(
-        text: (widget.shipment.order != null)
-            ? widget.shipment.order!.serialNumber
-            : widget.shipment.orderId);
-    _reservationTimeController = TextEditingController(
-        text: (widget.shipment.reservationTime == null)
-            ? null
-            : widget.shipment.reservationTime!.toLocal().toString());
   }
 
   Widget _imageContainer(String? imageURL) {
@@ -91,14 +85,14 @@ class ShipmentAddEditState extends State<ShipmentAddEdit> {
 
   @override
   Widget build(BuildContext context) {
+    var l10n = ShipantherLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context).editParam(
-                  ShipantherLocalizations.of(context).shipmentsTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).shipmentsTitle(1)),
+              ? l10n.editParam(l10n.shipmentsTitle(1))
+              : l10n.addNewParam(l10n.shipmentsTitle(1)),
         ),
         centerTitle: true,
       ),
@@ -106,46 +100,38 @@ class ShipmentAddEditState extends State<ShipmentAddEdit> {
         child: Padding(
           padding:
               const EdgeInsets.only(left: 16.0, right: 16, top: 16, bottom: 16),
-          child: Form(
+          child: ReactiveForm(
             key: formKey,
-            autovalidateMode: AutovalidateMode.disabled,
+            formGroup: formGroup,
             onWillPop: () {
               widget.shipmentBloc.add(const GetShipments());
               return Future(() => true);
             },
             child: ListView(
               children: [
-                    ShipantherTextFormField(
-                      maxLength: 15,
-                      controller: _serialNumberController,
-                      labelText: ShipantherLocalizations.of(context)
-                          .shipmentSerialNumber,
-                      validator: (val) => val == null || val.trim().isEmpty
-                          ? ShipantherLocalizations.of(context).paramEmpty(
-                              ShipantherLocalizations.of(context)
-                                  .shipmentSerialNumber)
-                          : null,
-                    ),
-                    ShipantherTextFormField(
-                      controller: _originController,
+                    ShipantherTextFormField<String>(
+                        formControlName: 'serialNumber',
+                        maxLength: 15,
+                        labelText: l10n.shipmentSerialNumber,
+                        validationMessages: {
+                          ValidationMessage.required:
+                              l10n.paramEmpty(l10n.shipmentSerialNumber)
+                        }),
+                    ShipantherTextFormField<String>(
+                      formControlName: 'origin',
                       maxLength: 50,
-                      labelText:
-                          ShipantherLocalizations.of(context).shipmentOrigin,
+                      labelText: l10n.shipmentOrigin,
                     ),
-                    ShipantherTextFormField(
-                      controller: _destinationController,
+                    ShipantherTextFormField<String>(
+                      formControlName: 'destination',
                       maxLength: 50,
-                      labelText: ShipantherLocalizations.of(context)
-                          .shipmentDestination,
+                      labelText: l10n.shipmentDestination,
                     ),
-                    dateTimePicker(
-                        context,
-                        ShipantherLocalizations.of(context)
-                            .shipmentReservationTime,
-                        _reservationTimeController),
+                    dateTimePicker(context, l10n.shipmentReservationTime,
+                        'reservationTime'),
                     smartSelect<ShipmentSize>(
                       context: context,
-                      title: ShipantherLocalizations.of(context).shipmentSize,
+                      title: l10n.shipmentSize,
                       onChange: (state) => _shipmentSize = state.value,
                       choiceItems:
                           S2Choice.listFrom<ShipmentSize, ShipmentSize>(
@@ -157,7 +143,7 @@ class ShipmentAddEditState extends State<ShipmentAddEdit> {
                     ),
                     smartSelect<ShipmentType>(
                       context: context,
-                      title: ShipantherLocalizations.of(context).shipmentType,
+                      title: l10n.shipmentType,
                       onChange: (state) => _shipmentType = state.value,
                       choiceItems:
                           S2Choice.listFrom<ShipmentType, ShipmentType>(
@@ -169,7 +155,7 @@ class ShipmentAddEditState extends State<ShipmentAddEdit> {
                     ),
                     smartSelect<ShipmentStatus>(
                       context: context,
-                      title: ShipantherLocalizations.of(context).shipmentStatus,
+                      title: l10n.shipmentStatus,
                       onChange: (state) => _shipmentStatus = state.value,
                       choiceItems:
                           S2Choice.listFrom<ShipmentStatus, ShipmentStatus>(
@@ -181,19 +167,20 @@ class ShipmentAddEditState extends State<ShipmentAddEdit> {
                     ),
                     const SizedBox(height: 8),
                   ] +
-                  orderSelector(context, true, (Order suggestion) {
-                    _order = suggestion;
-                  }, _orderTypeAheadController) +
-                  carrierSelector(context, true, (Carrier suggestion) {
-                    _carrier = suggestion;
-                  }, _carrierTypeAheadController) +
+                  orderSelector(
+                    context,
+                    'order',
+                    false,
+                  ) +
+                  carrierSelector(
+                    context,
+                    'carrier',
+                    false,
+                  ) +
                   driverSelector(
                     context,
-                    true,
-                    (User suggestion) {
-                      _driver = suggestion;
-                    },
-                    _driverTypeAheadController,
+                    'driver',
+                    false,
                   ) +
                   [_imageContainer(widget.imageURL)],
             ),
@@ -201,32 +188,31 @@ class ShipmentAddEditState extends State<ShipmentAddEdit> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+        tooltip: widget.isEdit ? l10n.edit : l10n.create,
         onPressed: () {
-          if (formKey.currentState!.validate()) {
+          if (formGroup.valid) {
             var shipment = widget.shipment.rebuild((b) => b
               ..reservationTime =
-                  DateTime.tryParse(_reservationTimeController.text)?.toUtc()
-              ..serialNumber = _serialNumberController.text
-              ..origin = _originController.text
-              ..destination = _destinationController.text
+                  formGroup.control('reservationTime').value?.toUtc()
+              ..serialNumber = formGroup.control('serialNumber').value
+              ..origin = formGroup.control('origin').value
+              ..destination = formGroup.control('destination').value
               ..type = _shipmentType
               ..status = _shipmentStatus
               ..size = _shipmentSize);
-            if (_tenant != null) {
-              shipment = shipment.rebuild((b) => b..tenantId = _tenant!.id);
-            }
-            if (_driver != null) {
-              shipment = shipment.rebuild((b) => b..driverId = _driver!.id);
-            }
-            if (_order != null) {
-              shipment = shipment.rebuild((b) => b..orderId = _order!.id);
-            }
-            if (_carrier != null) {
-              shipment = shipment.rebuild((b) => b..carrierId = _carrier!.id);
-            }
+
+            shipment = shipment.rebuild(
+                (b) => b..tenantId = formGroup.control('tenant').value?.id);
+
+            shipment = shipment.rebuild(
+                (b) => b..driverId = formGroup.control('driver').value?.id);
+
+            shipment = shipment.rebuild(
+                (b) => b..orderId = formGroup.control('order').value?.id);
+
+            shipment = shipment.rebuild(
+                (b) => b..carrierId = formGroup.control('carrier').value?.id);
+
             shipment =
                 shipment.rebuild((b) => b..createdBy = widget.loggedInUser.id);
 
@@ -235,25 +221,13 @@ class ShipmentAddEditState extends State<ShipmentAddEdit> {
             } else {
               widget.shipmentBloc.add(CreateShipment(shipment));
             }
-
-            Navigator.pop(context);
+            context.popRoute();
+          } else {
+            formGroup.markAllAsTouched();
           }
         },
         child: const Icon(Icons.check),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _serialNumberController.dispose();
-    _originController.dispose();
-    _destinationController.dispose();
-    _tenantTypeAheadController.dispose();
-    _carrierTypeAheadController.dispose();
-    _orderTypeAheadController.dispose();
-    _driverTypeAheadController.dispose();
-    _reservationTimeController.dispose();
-    super.dispose();
   }
 }

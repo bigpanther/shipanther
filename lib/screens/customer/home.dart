@@ -6,15 +6,15 @@ import 'package:shipanther/screens/customer/list.dart';
 import 'package:shipanther/widgets/loading_widget.dart';
 import 'package:trober_sdk/trober_sdk.dart';
 
-class CustomerHome extends StatefulWidget {
-  const CustomerHome(this.loggedInUser, {Key? key}) : super(key: key);
+class CustomerScreen extends StatefulWidget {
+  const CustomerScreen(this.loggedInUser, {Key? key}) : super(key: key);
   final User loggedInUser;
 
   @override
-  CustomerHomeState createState() => CustomerHomeState();
+  CustomerScreenState createState() => CustomerScreenState();
 }
 
-class CustomerHomeState extends State<CustomerHome> {
+class CustomerScreenState extends State<CustomerScreen> {
   late CustomerBloc bloc;
   @override
   void initState() {

@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shipanther/bloc/terminal/terminal_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
@@ -26,54 +28,51 @@ class TerminalAddEdit extends StatefulWidget {
 
 class TerminalAddEditState extends State<TerminalAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  late TextEditingController _name;
+  late FormGroup formGroup;
   @override
   void initState() {
     super.initState();
-    _name = TextEditingController(text: widget.terminal.name);
+    formGroup = FormGroup({
+      'name': FormControl<String>(
+        value: widget.terminal.name,
+        validators: [Validators.required],
+      ),
+    });
     _terminalType = widget.terminal.type!;
   }
 
   late TerminalType _terminalType;
-  final TextEditingController _tenantTypeAheadController =
-      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    if (widget.isEdit) {
-      _tenantTypeAheadController.text = widget.terminal.tenantId!;
-    }
+    var l10n = ShipantherLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context).editParam(
-                  ShipantherLocalizations.of(context).terminalsTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).terminalsTitle(1)),
+              ? l10n.editParam(l10n.terminalsTitle(1))
+              : l10n.addNewParam(l10n.terminalsTitle(1)),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
+        child: ReactiveForm(
           key: formKey,
-          autovalidateMode: AutovalidateMode.disabled,
+          formGroup: formGroup,
           onWillPop: () {
             return Future(() => true);
           },
           child: ListView(children: [
-            ShipantherTextFormField(
-              controller: _name,
-              labelText: ShipantherLocalizations.of(context).terminalName,
-              validator: (val) => val == null || val.trim().isEmpty
-                  ? ShipantherLocalizations.of(context).paramEmpty(
-                      ShipantherLocalizations.of(context).terminalName)
-                  : null,
-            ),
+            ShipantherTextFormField<String>(
+                formControlName: 'name',
+                labelText: l10n.terminalName,
+                validationMessages: {
+                  ValidationMessage.required: l10n.paramEmpty(l10n.terminalName)
+                }),
             smartSelect<TerminalType>(
               context: context,
-              title: ShipantherLocalizations.of(context).terminalType,
+              title: l10n.terminalType,
               onChange: (state) => _terminalType = state.value,
               choiceItems: S2Choice.listFrom<TerminalType, TerminalType>(
                 source: TerminalType.values.toList(),
@@ -86,13 +85,11 @@ class TerminalAddEditState extends State<TerminalAddEdit> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+        tooltip: widget.isEdit ? l10n.edit : l10n.create,
         onPressed: () {
           if (formKey.currentState!.validate()) {
             var terminal = widget.terminal.rebuild((b) => b
-              ..name = _name.text
+              ..name = formGroup.control('name').value
               ..type = _terminalType);
             widget.terminal;
             if (widget.isEdit) {
@@ -101,18 +98,11 @@ class TerminalAddEditState extends State<TerminalAddEdit> {
               widget.terminalBloc.add(CreateTerminal(terminal));
             }
 
-            Navigator.pop(context);
+            context.popRoute();
           }
         },
         child: const Icon(Icons.check),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _name.dispose();
-    _tenantTypeAheadController.dispose();
-    super.dispose();
   }
 }

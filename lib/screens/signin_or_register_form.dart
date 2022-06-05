@@ -1,29 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shipanther/bloc/auth/auth_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
 
 class SignInOrRegistrationForm extends StatefulWidget {
-  const SignInOrRegistrationForm(this.authTypeSelector, {super.key});
+  const SignInOrRegistrationForm(
+      {required this.authTypeSelector,
+      this.email = '',
+      this.name = '',
+      this.password = '',
+      super.key});
   final AuthTypeSelector authTypeSelector;
+  final String name;
+  final String email;
+  final String password;
 
   @override
-  State<StatefulWidget> createState() => _SignInOrRegistrationFormState();
+  State<StatefulWidget> createState() => SignInOrRegistrationFormState();
 }
 
-class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
+class SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _password = TextEditingController();
-  final TextEditingController _username = TextEditingController();
-  final TextEditingController _userEmail = TextEditingController();
+  late FormGroup signInFormGroup;
+  late FormGroup registerFormGroup;
+  @override
+  void initState() {
+    super.initState();
+    signInFormGroup = FormGroup({
+      'email': FormControl<String>(
+        value: widget.email,
+        validators: [Validators.required, Validators.email],
+      ),
+      'password': FormControl<String>(
+        validators: [Validators.required],
+      ),
+    });
+    // Add email control
+    registerFormGroup = FormGroup({
+      'email': FormControl<String>(
+        value: widget.email,
+        validators: [Validators.required, Validators.email],
+      ),
+      'password': FormControl<String>(
+        validators: [Validators.required],
+      ),
+      'name': FormControl<String>(
+        validators: [Validators.required],
+      ),
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final localization = ShipantherLocalizations.of(context);
+    final l10n = ShipantherLocalizations.of(context);
     final theme = Theme.of(context);
-    return Form(
+    return ReactiveForm(
+      formGroup: (widget.authTypeSelector == AuthTypeSelector.register)
+          ? registerFormGroup
+          : signInFormGroup,
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,7 +75,7 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
                   color: theme.colorScheme.secondary,
                 ),
                 Text(
-                  localization.homePageText,
+                  l10n.homePageText,
                   style: theme.textTheme.bodyText1!.copyWith(
                     color: theme.hintColor,
                   ),
@@ -48,57 +85,46 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
             ),
           ),
           if (widget.authTypeSelector == AuthTypeSelector.register)
-            ShipantherTextFormField(
-              controller: _username,
-              labelText: localization.name,
+            ShipantherTextFormField<String>(
+              formControlName: 'name',
               autocorrect: false,
               enableSuggestions: false,
-              keyboardType: TextInputType.emailAddress,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return localization.paramRequired(localization.name);
-                }
-                return null;
+              keyboardType: TextInputType.name,
+              validationMessages: {
+                ValidationMessage.required: l10n.paramEmpty(l10n.name),
               },
+              labelText: l10n.name,
             )
           else
             const SizedBox(
               height: 0,
               width: 0,
             ),
-          ShipantherTextFormField(
-            labelText: localization.email,
+          ShipantherTextFormField<String>(
+            formControlName: 'email',
             autocorrect: false,
-            controller: _userEmail,
             enableSuggestions: false,
             keyboardType: TextInputType.emailAddress,
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return localization.paramRequired(localization.email);
-              }
-              return null;
+            validationMessages: {
+              ValidationMessage.required: l10n.paramEmpty(l10n.email),
             },
+            labelText: l10n.email,
           ),
           ShipantherPasswordFormField(
-            labelText: localization.password,
-            validator: (String? value) {
-              if (value == null || value.isEmpty) {
-                return localization.paramRequired(localization.password);
-              }
-              return null;
-            },
-            controller: _password,
-          ),
+              formControlName: 'password',
+              labelText: l10n.password,
+              validationMessages: {
+                ValidationMessage.required: l10n.paramRequired(l10n.password),
+              }),
           if (widget.authTypeSelector == AuthTypeSelector.signIn)
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: TextButton(
-                  onPressed: () => context.read<AuthBloc>().add(
-                        const ForgotPassword(),
-                      ),
+                  onPressed: () =>
+                      context.read<AuthBloc>().add(const ForgotPassword()),
                   child: Text(
-                    localization.forgotPassword,
+                    l10n.forgotPassword,
                     style: theme.textTheme.caption,
                   ),
                 ),
@@ -111,41 +137,41 @@ class _SignInOrRegistrationFormState extends State<SignInOrRegistrationForm> {
             ),
           ShipantherButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  if (widget.authTypeSelector == AuthTypeSelector.register) {
+                if (widget.authTypeSelector == AuthTypeSelector.register) {
+                  if (registerFormGroup.valid) {
                     context.read<AuthBloc>().add(
                           AuthRegister(
-                              _username.text, _userEmail.text, _password.text),
+                            registerFormGroup.control('name').value,
+                            registerFormGroup.control('email').value,
+                            registerFormGroup.control('password').value,
+                          ),
                         );
                   } else {
-                    context
-                        .read<AuthBloc>()
-                        .add(AuthSignIn(_userEmail.text, _password.text));
+                    registerFormGroup.markAllAsTouched();
                   }
+                } else if (signInFormGroup.valid) {
+                  context.read<AuthBloc>().add(
+                        AuthSignIn(signInFormGroup.control('email').value,
+                            signInFormGroup.control('password').value),
+                      );
+                } else {
+                  signInFormGroup.markAllAsTouched();
                 }
               },
               labelText: (widget.authTypeSelector == AuthTypeSelector.signIn)
-                  ? localization.signIn
-                  : localization.register),
+                  ? l10n.signIn
+                  : l10n.register),
           ShipantherButton(
             onPressed: () => context.read<AuthBloc>().add(
                   AuthTypeOtherRequest(widget.authTypeSelector),
                 ),
             labelText: (widget.authTypeSelector == AuthTypeSelector.signIn)
-                ? localization.register
-                : localization.signIn,
+                ? l10n.register
+                : l10n.signIn,
             secondary: true,
           ),
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _username.dispose();
-    _userEmail.dispose();
-    _password.dispose();
-    super.dispose();
   }
 }

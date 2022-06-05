@@ -34,7 +34,8 @@ import 'package:shipanther/data/terminal/terminal_repository.dart';
 import 'package:shipanther/data/user/remote_user_repository.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-import 'package:shipanther/screens/signin_or_register_page.dart';
+import 'package:shipanther/router/router.gr.dart';
+//import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:shipanther/widgets/theme.dart';
 
 Future<void> commonMain(String apiURL) async {
@@ -72,7 +73,7 @@ Future<void> commonMain(String apiURL) async {
       FirebaseMessaging.onBackgroundMessage(
           _firebaseMessagingBackgroundHandler);
     }
-    runApp(ShipantherApp(apiURL));
+    runApp(ShipantherApp(apiURL, AppRouter()));
   }, (error, stackTrace) {
     if (!kIsWeb) {
       // print('runZonedGuarded: Caught error in my root zone.');
@@ -85,16 +86,17 @@ Future<void> commonMain(String apiURL) async {
 ///
 /// Returns a [MaterialApp].
 class ShipantherApp extends StatelessWidget {
-  const ShipantherApp(this._apiURL, {super.key});
-  final String _apiURL;
+  const ShipantherApp(this.apiURL, this.appRouter, {super.key});
+  final String apiURL;
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
+  final AppRouter appRouter;
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider<AuthRepository>(
       create: (context) => RemoteAuthRepository(
-          FirebaseAuth.instance, FirebaseMessaging.instance, _apiURL),
+          FirebaseAuth.instance, FirebaseMessaging.instance, apiURL),
       child: MultiRepositoryProvider(
         providers: [
           RepositoryProvider<UserRepository>(
@@ -144,15 +146,17 @@ class ShipantherApp extends StatelessWidget {
                 create: (context) =>
                     OrderBloc(context.read<OrderRepository>())),
           ],
-          child: MaterialApp(
+          child: MaterialApp.router(
             onGenerateTitle: (context) =>
                 ShipantherLocalizations.of(context).shipantherTitle,
             debugShowCheckedModeBanner: false,
             darkTheme: ShipantherTheme.darkTheme,
             theme: ShipantherTheme.lightTheme,
             themeMode: ThemeMode.system,
-            home: const SignInOrRegistrationPage(),
-            navigatorObservers: <NavigatorObserver>[observer],
+            //home: const SignInOrRegistrationPage(),
+            //navigatorObservers: <NavigatorObserver>[observer],
+            routerDelegate: appRouter.delegate(),
+            routeInformationParser: appRouter.defaultRouteParser(),
             localizationsDelegates: const [
               ShipantherLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

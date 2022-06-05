@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shipanther/bloc/carrier/carrier_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/date_time_picker.dart';
@@ -28,59 +30,59 @@ class CarrierAddEdit extends StatefulWidget {
 class CarrierAddEditState extends State<CarrierAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  late TextEditingController _name;
-  late TextEditingController _eta;
+  late FormGroup formGroup;
 
   @override
   void initState() {
     super.initState();
-    _name = TextEditingController(text: widget.carrier.name);
+    formGroup = FormGroup({
+      'name': FormControl<String>(
+        value: widget.carrier.name,
+        validators: [Validators.required],
+      ),
+      'eta': FormControl<DateTime>(
+        value: widget.carrier.eta?.toLocal(),
+      ),
+    });
     _carrierType = widget.carrier.type;
-    _eta = TextEditingController(
-        text: widget.carrier.eta == null
-            ? null
-            : widget.carrier.eta!.toLocal().toString());
   }
 
   late CarrierType _carrierType;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = ShipantherLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context).editParam(
-                  ShipantherLocalizations.of(context).carriersTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).carriersTitle(1)),
+              ? l10n.editParam(l10n.carriersTitle(1))
+              : l10n.addNewParam(l10n.carriersTitle(1)),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
+        child: ReactiveForm(
           key: formKey,
-          autovalidateMode: AutovalidateMode.disabled,
+          formGroup: formGroup,
           onWillPop: () {
             return Future(() => true);
           },
           child: ListView(children: [
-            ShipantherTextFormField(
-              maxLengthEnforcement: MaxLengthEnforcement.enforced,
-              maxLength: 20,
-              labelText: ShipantherLocalizations.of(context).carrierName,
-              validator: (val) => val == null || val.trim().isEmpty
-                  ? ShipantherLocalizations.of(context).paramEmpty(
-                      ShipantherLocalizations.of(context).carrierName)
-                  : null,
-              controller: _name,
-            ),
-            dateTimePicker(
-                context, ShipantherLocalizations.of(context).carriersETA, _eta),
+            ShipantherTextFormField<String>(
+                formControlName: 'name',
+                maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                maxLength: 20,
+                labelText: l10n.carrierName,
+                validationMessages: {
+                  ValidationMessage.required: l10n.paramEmpty(l10n.carrierName)
+                }),
+            dateTimePicker(context, l10n.carriersETA, 'eta'),
             smartSelect<CarrierType>(
               context: context,
-              title: ShipantherLocalizations.of(context).carrierType,
+              title: l10n.carrierType,
               onChange: (state) => _carrierType = state.value,
               choiceItems: S2Choice.listFrom<CarrierType, CarrierType>(
                 source: CarrierType.values.toList(),
@@ -93,33 +95,26 @@ class CarrierAddEditState extends State<CarrierAddEdit> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+        tooltip: widget.isEdit ? l10n.edit : l10n.create,
         onPressed: () {
-          if (formKey.currentState!.validate()) {
+          if (formGroup.valid) {
             var carrier = widget.carrier.rebuild((b) => b
-              ..name = _name.text
+              ..name = formGroup.control('name').value
               ..type = _carrierType
-              ..eta = DateTime.tryParse(_eta.text)?.toUtc());
+              ..eta = formGroup.control('eta').value?.toUtc());
             if (widget.isEdit) {
               widget.carrierBloc.add(UpdateCarrier(carrier.id, carrier));
             } else {
               widget.carrierBloc.add(CreateCarrier(carrier));
             }
 
-            Navigator.pop(context);
+            context.popRoute();
+          } else {
+            formGroup.markAllAsTouched();
           }
         },
         child: const Icon(Icons.check),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _name.dispose();
-    _eta.dispose();
-    super.dispose();
   }
 }

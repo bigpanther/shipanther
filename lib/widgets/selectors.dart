@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:reactive_flutter_typeahead/reactive_flutter_typeahead.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
 import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:trober_sdk/trober_sdk.dart';
 
-TypeAheadFormField<Tenant> tenantSelector(
-    BuildContext context,
-    bool shouldShow,
-    void Function(Tenant) onSuggestionSelected,
-    TextEditingController textEditingController) {
-  return TypeAheadFormField<Tenant>(
+ReactiveTypeAhead<Tenant, Tenant> tenantSelector(
+  BuildContext context,
+  String formControlName,
+  bool readonly,
+) {
+  return ReactiveTypeAhead<Tenant, Tenant>(
+    formControlName: formControlName,
+    stringify: (tenant) => tenant.name,
     autoFlipDirection: true,
     textFieldConfiguration: TextFieldConfiguration(
-        decoration: InputDecoration(
-          labelText: ShipantherLocalizations.of(context)
-              .selectParam(ShipantherLocalizations.of(context).tenantsTitle(1)),
-        ),
-        controller: textEditingController,
-        onTap: () {
-          textEditingController.text = '';
-        }),
-    enabled: shouldShow,
+      decoration: InputDecoration(
+        labelText: ShipantherLocalizations.of(context)
+            .selectParam(ShipantherLocalizations.of(context).tenantsTitle(1)),
+      ),
+    ),
+    readOnly: readonly,
     suggestionsCallback: (pattern) async {
       try {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.tenantsGet()).data!.toList().where(
-              (element) => element.name.toLowerCase().startsWith(pattern),
+        return (await client.tenantsGet()).data!.asList().where(
+              (element) =>
+                  element.name.toLowerCase().startsWith(pattern.toLowerCase()),
             );
       } catch (e) {
         return [];
@@ -40,39 +40,31 @@ TypeAheadFormField<Tenant> tenantSelector(
         subtitle: Text(tenant.id),
       );
     },
-    onSuggestionSelected: (suggestion) {
-      onSuggestionSelected(suggestion);
-      textEditingController.text = suggestion.name;
-    },
   );
 }
 
-List<Widget> customerSelector(
-    BuildContext context,
-    bool shouldShow,
-    void Function(Customer) onSuggestionSelected,
-    FormFieldValidator<String> validator,
-    TextEditingController textEditingController) {
-  if (!shouldShow) {
+List<Widget> customerSelector(BuildContext context, String formControlName,
+    bool readonly, Map<String, String> validationMessages) {
+  if (readonly) {
     return [];
   }
   return [
-    TypeAheadFormField<Customer>(
+    ReactiveTypeAhead<Customer, Customer>(
+      formControlName: formControlName,
+      stringify: (customer) => customer.name,
       autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context).selectParam(
                 ShipantherLocalizations.of(context).customersTitle(1))),
-        controller: textEditingController,
-        onTap: () {
-          textEditingController.text = '';
-        },
       ),
-      validator: validator,
+      readOnly: readonly,
+      validationMessages: (control) => validationMessages,
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.customersGet()).data!.toList().where(
-              (element) => element.name.toLowerCase().startsWith(pattern),
+        return (await client.customersGet()).data!.asList().where(
+              (element) =>
+                  element.name.toLowerCase().startsWith(pattern.toLowerCase()),
             );
       },
       itemBuilder: (context, Customer customer) {
@@ -82,39 +74,34 @@ List<Widget> customerSelector(
           subtitle: Text(customer.id),
         );
       },
-      onSuggestionSelected: (suggestion) {
-        onSuggestionSelected(suggestion);
-        textEditingController.text = suggestion.name;
-      },
     ),
   ];
 }
 
 List<Widget> driverSelector(
-    BuildContext context,
-    bool shouldShow,
-    void Function(User) onSuggestionSelected,
-    TextEditingController textEditingController) {
-  if (!shouldShow) {
+  BuildContext context,
+  String formControlName,
+  bool readonly,
+) {
+  if (readonly) {
     return [];
   }
   return [
-    TypeAheadFormField<User>(
+    ReactiveTypeAhead<User, User>(
+      formControlName: formControlName,
+      stringify: (user) => user.name,
       autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
-          decoration: InputDecoration(
-              labelText: ShipantherLocalizations.of(context)
-                  .selectParam(ShipantherLocalizations.of(context).driver)),
-          controller: textEditingController,
-          onTap: () {
-            textEditingController.text = '';
-          }),
+        decoration: InputDecoration(
+            labelText: ShipantherLocalizations.of(context)
+                .selectParam(ShipantherLocalizations.of(context).driver)),
+      ),
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.usersGet()).data!.toList().where(
+        return (await client.usersGet()).data!.asList().where(
               (element) =>
                   element.isDriver &&
-                  element.name.toLowerCase().startsWith(pattern),
+                  element.name.toLowerCase().startsWith(pattern.toLowerCase()),
             );
       },
       itemBuilder: (context, User user) {
@@ -124,38 +111,33 @@ List<Widget> driverSelector(
           subtitle: Text(user.id),
         );
       },
-      onSuggestionSelected: (suggestion) {
-        onSuggestionSelected(suggestion);
-        textEditingController.text = suggestion.name;
-      },
     ),
   ];
 }
 
 List<Widget> terminalSelector(
-    BuildContext context,
-    bool shouldShow,
-    void Function(Terminal) onSuggestionSelected,
-    TextEditingController textEditingController) {
-  if (!shouldShow) {
+  BuildContext context,
+  String formControlName,
+  bool readonly,
+) {
+  if (readonly) {
     return [];
   }
   return [
-    TypeAheadFormField<Terminal>(
+    ReactiveTypeAhead<Terminal, Terminal>(
+      formControlName: formControlName,
+      stringify: (terminal) => terminal.name ?? 'noname',
       autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context).selectParam(
                 ShipantherLocalizations.of(context).terminalsTitle(1))),
-        controller: textEditingController,
-        onTap: () {
-          textEditingController.text = '';
-        },
       ),
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.terminalsGet()).data!.toList().where(
-              (element) => element.name!.toLowerCase().startsWith(pattern),
+        return (await client.terminalsGet()).data!.asList().where(
+              (element) =>
+                  element.name!.toLowerCase().startsWith(pattern.toLowerCase()),
             );
       },
       itemBuilder: (context, Terminal terminal) {
@@ -165,38 +147,33 @@ List<Widget> terminalSelector(
           subtitle: Text(terminal.id!),
         );
       },
-      onSuggestionSelected: (suggestion) {
-        onSuggestionSelected(suggestion);
-        textEditingController.text = suggestion.name!;
-      },
     ),
   ];
 }
 
 List<Widget> carrierSelector(
-    BuildContext context,
-    bool shouldShow,
-    void Function(Carrier) onSuggestionSelected,
-    TextEditingController textEditingController) {
-  if (!shouldShow) {
+  BuildContext context,
+  String formControlName,
+  bool readonly,
+) {
+  if (readonly) {
     return [];
   }
   return [
-    TypeAheadFormField<Carrier>(
+    ReactiveTypeAhead<Carrier, Carrier>(
+      formControlName: formControlName,
+      stringify: (carrier) => carrier.name,
       autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context).selectParam(
                 ShipantherLocalizations.of(context).carriersTitle(1))),
-        controller: textEditingController,
-        onTap: () {
-          textEditingController.text = '';
-        },
       ),
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.carriersGet()).data!.toList().where(
-              (element) => element.name.toLowerCase().startsWith(pattern),
+        return (await client.carriersGet()).data!.asList().where(
+              (element) =>
+                  element.name.toLowerCase().startsWith(pattern.toLowerCase()),
             );
       },
       itemBuilder: (context, Carrier carrier) {
@@ -206,39 +183,34 @@ List<Widget> carrierSelector(
           subtitle: Text(carrier.id),
         );
       },
-      onSuggestionSelected: (suggestion) {
-        onSuggestionSelected(suggestion);
-        textEditingController.text = suggestion.name;
-      },
     ),
   ];
 }
 
 List<Widget> orderSelector(
-    BuildContext context,
-    bool shouldShow,
-    void Function(Order) onSuggestionSelected,
-    TextEditingController textEditingController) {
-  if (!shouldShow) {
+  BuildContext context,
+  String formControlName,
+  bool readonly,
+) {
+  if (readonly) {
     return [];
   }
   return [
-    TypeAheadFormField<Order>(
+    ReactiveTypeAhead<Order, Order>(
+      formControlName: formControlName,
+      stringify: (order) => order.serialNumber,
       autoFlipDirection: true,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context).selectParam(
                 ShipantherLocalizations.of(context).ordersTitle(1))),
-        controller: textEditingController,
-        onTap: () {
-          textEditingController.text = '';
-        },
       ),
       suggestionsCallback: (pattern) async {
         final client = await context.read<AuthRepository>().apiClient();
-        return (await client.ordersGet()).data!.toList().where(
-              (element) =>
-                  element.serialNumber.toLowerCase().startsWith(pattern),
+        return (await client.ordersGet()).data!.asList().where(
+              (element) => element.serialNumber
+                  .toLowerCase()
+                  .startsWith(pattern.toLowerCase()),
             );
       },
       itemBuilder: (context, Order order) {
@@ -247,10 +219,6 @@ List<Widget> orderSelector(
           title: Text(order.serialNumber),
           subtitle: Text(order.id),
         );
-      },
-      onSuggestionSelected: (suggestion) {
-        onSuggestionSelected(suggestion);
-        textEditingController.text = suggestion.serialNumber;
       },
     ),
   ];

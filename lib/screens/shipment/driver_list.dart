@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class DriverShipmentListState extends State<DriverShipmentList> {
     void showAlertDialog(BuildContext context, Shipment shipment) {
       final Widget cancelButton = TextButton(
         onPressed: () {
-          Navigator.of(context).pop();
+          AutoRouter.of(context).pop();
         },
         child: Text(ShipantherLocalizations.of(context).shipmentCancel),
       );
@@ -74,7 +75,7 @@ class DriverShipmentListState extends State<DriverShipmentList> {
             ..status = ShipmentStatus.rejected
             ..driverId = null);
           widget.shipmentBloc.add(UpdateShipment(shipment.id, shipment));
-          Navigator.of(context).pop();
+          AutoRouter.of(context).pop();
         },
         child: Text(ShipantherLocalizations.of(context).shipmentReject),
       );
