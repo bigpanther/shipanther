@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 
-class ShipantherTextFormField extends StatelessWidget {
+class ShipantherTextFormField<T> extends StatelessWidget {
   const ShipantherTextFormField({
     Key? key,
-    required this.controller,
+    required this.formControlName,
     required this.labelText,
     this.keyboardType,
-    this.validator,
-    this.autocorrect = true,
+    this.validationMessages = const {},
+    this.autocorrect = false,
     this.enableSuggestions = true,
     this.obscureText = false,
     this.isPasswordField = false,
@@ -21,10 +22,10 @@ class ShipantherTextFormField extends StatelessWidget {
   }) : super(
           key: key,
         );
-  final TextEditingController controller;
+  final String formControlName;
   final String labelText;
   final TextInputType? keyboardType;
-  final String? Function(String?)? validator;
+  final Map<String, String> validationMessages;
   final bool autocorrect;
   final bool enableSuggestions;
   final bool obscureText;
@@ -60,17 +61,16 @@ class ShipantherTextFormField extends StatelessWidget {
     );
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: TextFormField(
-        controller: controller,
+      child: ReactiveTextField<T>(
+        formControlName: formControlName,
+        validationMessages: (control) => validationMessages,
         decoration: decoration,
+        maxLength: maxLength,
+        maxLengthEnforcement: maxLengthEnforcement,
         autocorrect: autocorrect,
         enableSuggestions: enableSuggestions,
         keyboardType: keyboardType,
         obscureText: obscureText,
-        autovalidateMode: autovalidateMode,
-        maxLengthEnforcement: maxLengthEnforcement,
-        maxLength: maxLength,
-        validator: validator,
       ),
     );
   }
@@ -80,14 +80,14 @@ class ShipantherPasswordFormField extends StatefulWidget {
   const ShipantherPasswordFormField({
     Key? key,
     required this.labelText,
-    required this.controller,
-    this.validator,
+    required this.formControlName,
+    this.validationMessages = const {},
   }) : super(
           key: key,
         );
   final String labelText;
-  final TextEditingController controller;
-  final String? Function(String?)? validator;
+  final String formControlName;
+  final Map<String, String> validationMessages;
   @override
   ShipantherPasswordFormFieldState createState() =>
       ShipantherPasswordFormFieldState();
@@ -98,8 +98,9 @@ class ShipantherPasswordFormFieldState
   var _visible = false;
   @override
   Widget build(BuildContext context) {
-    return ShipantherTextFormField(
-      controller: widget.controller,
+    return ShipantherTextFormField<String>(
+      formControlName: widget.formControlName,
+      validationMessages: widget.validationMessages,
       labelText: widget.labelText,
       suffixIconData: _visible ? MdiIcons.eyeOff : MdiIcons.eye,
       onSuffixButtonPressed: () {
@@ -110,7 +111,6 @@ class ShipantherPasswordFormFieldState
       isPasswordField: true,
       enableSuggestions: false,
       autocorrect: false,
-      validator: widget.validator,
       obscureText: !_visible,
     );
   }

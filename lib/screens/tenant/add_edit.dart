@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:reactive_forms/reactive_forms.dart';
 import 'package:shipanther/bloc/tenant/tenant_bloc.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/widgets/shipanther_text_form_field.dart';
@@ -27,48 +28,51 @@ class TenantAddEditState extends State<TenantAddEdit> {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   late TenantType _tenantType;
-  late TextEditingController _name;
+  late FormGroup formGroup;
+
   @override
   void initState() {
     super.initState();
-    _tenantType = widget.tenant.type;
-    _name = TextEditingController(text: widget.tenant.name);
+    formGroup = FormGroup({
+      'name': FormControl<String>(
+        value: widget.tenant.name,
+        validators: [Validators.required],
+      ),
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    var l10n = ShipantherLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.isEdit
-              ? ShipantherLocalizations.of(context).editParam(
-                  ShipantherLocalizations.of(context).tenantsTitle(1))
-              : ShipantherLocalizations.of(context).addNewParam(
-                  ShipantherLocalizations.of(context).tenantsTitle(1)),
+              ? l10n.editParam(l10n.tenantsTitle(1))
+              : l10n.addNewParam(l10n.tenantsTitle(1)),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
+        child: ReactiveForm(
           key: formKey,
-          autovalidateMode: AutovalidateMode.disabled,
+          formGroup: formGroup,
           onWillPop: () {
             return Future(() => true);
           },
           child: ListView(
             children: [
-              ShipantherTextFormField(
-                controller: _name,
-                labelText: ShipantherLocalizations.of(context).tenantName,
-                validator: (val) => val == null || val.trim().isEmpty
-                    ? ShipantherLocalizations.of(context).paramEmpty(
-                        ShipantherLocalizations.of(context).tenantName)
-                    : null,
-              ),
+              ShipantherTextFormField<String>(
+                  formControlName: 'name',
+                  labelText: l10n.tenantName,
+                  validationMessages: {
+                    ValidationMessage.required: l10n.paramEmpty(l10n.tenantName)
+                  }),
               smartSelect<TenantType>(
                 context: context,
-                title: ShipantherLocalizations.of(context).tenantType,
+                title: l10n.tenantType,
                 onChange: (state) => _tenantType = state.value,
                 choiceItems: S2Choice.listFrom<TenantType, TenantType>(
                   source: TenantType.values.toList(),
@@ -82,13 +86,11 @@ class TenantAddEditState extends State<TenantAddEdit> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: widget.isEdit
-            ? ShipantherLocalizations.of(context).edit
-            : ShipantherLocalizations.of(context).create,
+        tooltip: widget.isEdit ? l10n.edit : l10n.create,
         onPressed: () {
-          if (formKey.currentState!.validate()) {
+          if (formGroup.valid) {
             var tenant = widget.tenant.rebuild((b) => b
-              ..name = _name.text
+              ..name = formGroup.control('name').value
               ..type = _tenantType);
             if (widget.isEdit) {
               widget.tenantBloc.add(
@@ -106,11 +108,5 @@ class TenantAddEditState extends State<TenantAddEdit> {
         child: const Icon(Icons.check),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _name.dispose();
-    super.dispose();
   }
 }

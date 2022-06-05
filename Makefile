@@ -28,5 +28,9 @@ lint:
 test:
 	flutter test -v
 .PHONY: gen
-gen:
+gen: get
 	flutter pub run build_runner build  --delete-conflicting-outputs
+
+.PHONY: get
+get:
+	flutter pub get

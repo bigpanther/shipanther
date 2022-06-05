@@ -11,73 +11,105 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this._authRepository) : super(const AuthInitial()) {
     on<AuthRegister>((event, emit) async {
-      emit(AuthLoading(event.authType));
+      emit(AuthLoading(authType: event.authType));
       try {
         final user = await _authRepository.registerUser(
-            event.name, event.username, event.password);
+            event.name, event.email, event.password);
         emit(AuthFinished(user));
       } on EmailNotVerifiedException catch (e) {
         final email = e.emailId;
         if (email == null) {
-          emit(const AuthInitial());
+          emit(AuthInitial(
+              authType: event.authType,
+              name: event.name,
+              email: event.email,
+              password: event.password));
         } else {
-          emit(AuthVerification(email));
+          emit(AuthVerification(email: email));
         }
       } on UnAuthenticatedException {
         emit(const AuthInitial());
       } on DioError catch (e) {
-        emit(AuthFailure('Request failed: ${e.message}', event.authType));
+        emit(AuthFailure('Request failed: ${e.message}',
+            authType: event.authType,
+            name: event.name,
+            email: event.email,
+            password: event.password));
       } catch (e) {
-        emit(AuthFailure('Request failed: $e', event.authType));
+        emit(AuthFailure('Request failed: $e',
+            authType: event.authType,
+            name: event.name,
+            email: event.email,
+            password: event.password));
       }
     });
     on<AuthSignIn>((event, emit) async {
-      emit(AuthLoading(event.authType));
+      emit(AuthLoading(
+          authType: event.authType,
+          name: '',
+          email: event.email,
+          password: event.password));
       try {
-        final user =
-            await _authRepository.signIn(event.username, event.password);
+        final user = await _authRepository.signIn(event.email, event.password);
         emit(AuthFinished(user));
       } on EmailNotVerifiedException catch (e) {
         final email = e.emailId;
         if (email == null) {
           emit(const AuthInitial());
         } else {
-          emit(AuthVerification(email));
+          emit(AuthVerification(
+            email: email,
+          ));
         }
       } on UnAuthenticatedException {
-        emit(const AuthInitial());
+        emit(AuthInitial(
+            authType: event.authType,
+            name: '',
+            email: event.email,
+            password: event.password));
       } on DioError catch (e) {
-        emit(AuthFailure('Request failed: ${e.message}', event.authType));
+        emit(AuthFailure('Request failed: ${e.message}',
+            authType: event.authType,
+            email: event.email,
+            password: event.password));
       } catch (e) {
-        emit(AuthFailure('Request failed: $e', event.authType));
+        emit(AuthFailure('Request failed: $e',
+            authType: event.authType,
+            email: event.email,
+            password: event.password));
       }
     });
     on<AuthTypeOtherRequest>((event, emit) async {
-      emit(AuthLoading(event.authType));
-      emit(AuthRequested(event.authType.other));
+      emit(AuthLoading(
+        authType: event.authType,
+      ));
+      emit(AuthRequested(authType: event.authType.other));
     });
     on<AuthLogout>((event, emit) async {
-      emit(AuthLoading(event.authType));
+      emit(AuthLoading(authType: event.authType));
       try {
         await _authRepository.logout();
-        emit(const AuthInitial());
+        emit(AuthInitial(
+          authType: event.authType,
+        ));
       } on EmailNotVerifiedException catch (e) {
         final email = e.emailId;
         if (email == null) {
           emit(const AuthInitial());
         } else {
-          emit(AuthVerification(email));
+          emit(AuthVerification(email: email));
         }
       } on UnAuthenticatedException {
         emit(const AuthInitial());
       } on DioError catch (e) {
-        emit(AuthFailure('Request failed: ${e.message}', event.authType));
+        emit(AuthFailure('Request failed: ${e.message}',
+            authType: event.authType));
       } catch (e) {
-        emit(AuthFailure('Request failed: $e', event.authType));
+        emit(AuthFailure('Request failed: $e', authType: event.authType));
       }
     });
     on<AuthCheck>((event, emit) async {
-      emit(AuthLoading(event.authType));
+      emit(AuthLoading(authType: event.authType));
       try {
         final user = await _authRepository.logIn();
         emit(AuthFinished(user));
@@ -86,17 +118,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (email == null) {
           emit(const AuthInitial());
         } else {
-          emit(AuthVerification(email));
+          emit(AuthVerification(email: email));
         }
       } on UnAuthenticatedException {
         emit(const AuthInitial());
       } catch (e) {
-        emit(AuthFailure('Request failed: $e', event.authType));
+        emit(AuthFailure('Request failed: $e', authType: event.authType));
       }
     });
 
     on<CheckVerified>((event, emit) async {
-      emit(AuthLoading(event.authType));
+      emit(AuthLoading(authType: event.authType));
       try {
         final user = await _authRepository.verifyEmail();
         emit(AuthFinished(user));
@@ -105,19 +137,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (email == null) {
           emit(const AuthInitial());
         } else {
-          emit(AuthVerification(email));
+          emit(AuthVerification(email: email));
         }
       } on UnAuthenticatedException {
         emit(const AuthInitial());
       } on DioError catch (e) {
-        emit(AuthFailure('Request failed: ${e.message}', event.authType));
+        emit(AuthFailure('Request failed: ${e.message}',
+            authType: event.authType));
       } catch (e) {
-        emit(AuthFailure('Request failed: $e', event.authType));
+        emit(AuthFailure('Request failed: $e', authType: event.authType));
       }
     });
 
     on<ForgotPassword>((event, emit) async {
-      emit(AuthLoading(event.authType));
+      emit(AuthLoading(authType: event.authType));
 
       if (event.email == null) {
         emit(const ForgotPasswordRequested());
@@ -131,34 +164,36 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (email == null) {
           emit(const AuthInitial());
         } else {
-          emit(AuthVerification(email));
+          emit(AuthVerification(email: email));
         }
       } on UnAuthenticatedException {
         emit(const AuthInitial());
       } on DioError catch (e) {
-        emit(AuthFailure('Request failed: ${e.message}', event.authType));
+        emit(AuthFailure('Request failed: ${e.message}',
+            authType: event.authType));
       } catch (e) {
-        emit(AuthFailure('Request failed: $e', event.authType));
+        emit(AuthFailure('Request failed: $e', authType: event.authType));
       }
     });
     on<ResendEmail>((event, emit) async {
-      emit(AuthLoading(event.authType));
+      emit(AuthLoading(authType: event.authType));
       try {
         final emailId = await _authRepository.sendEmailForVerification();
-        emit(AuthEmailResent(emailId));
+        emit(AuthEmailResent(email: emailId));
       } on EmailNotVerifiedException catch (e) {
         final email = e.emailId;
         if (email == null) {
           emit(const AuthInitial());
         } else {
-          emit(AuthVerification(email));
+          emit(AuthVerification(email: email));
         }
       } on UnAuthenticatedException {
         emit(const AuthInitial());
       } on DioError catch (e) {
-        emit(AuthFailure('Request failed: ${e.message}', event.authType));
+        emit(AuthFailure('Request failed: ${e.message}',
+            authType: event.authType));
       } catch (e) {
-        emit(AuthFailure('Request failed: $e', event.authType));
+        emit(AuthFailure('Request failed: $e', authType: event.authType));
       }
     });
 //     on<UpdatePassword>((event, emit) async {

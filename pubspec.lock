@@ -211,13 +211,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.1"
-  date_time_picker:
-    dependency: "direct main"
-    description:
-      name: date_time_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.0"
   dio:
     dependency: "direct main"
     description:
@@ -451,7 +444,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_typeahead:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_typeahead
       url: "https://pub.dartlang.org"
@@ -770,6 +763,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  reactive_date_time_picker:
+    dependency: "direct main"
+    description:
+      name: reactive_date_time_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
+  reactive_flutter_typeahead:
+    dependency: "direct main"
+    description:
+      name: reactive_flutter_typeahead
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
+  reactive_forms:
+    dependency: "direct main"
+    description:
+      name: reactive_forms
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "13.0.0"
   shelf:
     dependency: transitive
     description:

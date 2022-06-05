@@ -42,7 +42,7 @@ class SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  ShipantherLocalizations.of(context).emailSent(state.emailId),
+                  ShipantherLocalizations.of(context).emailSent(state.email),
                 ),
               ),
             );
@@ -62,13 +62,18 @@ class SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
     if (state is AuthRequested ||
         state is AuthInitial ||
         state is AuthFailure) {
-      return SignInOrRegistrationForm(state.authType);
+      return SignInOrRegistrationForm(
+        authTypeSelector: state.authType,
+        email: state.email,
+        password: state.password,
+        name: state.name,
+      );
     }
     if (state is AuthVerification) {
-      return VerifyEmail(state.emailId);
+      return VerifyEmail(state.email);
     }
     if (state is ForgotPasswordRequested) {
-      return const ResetPassword();
+      return ResetPassword(email: state.email);
     }
     return const CenteredLoading();
   }
