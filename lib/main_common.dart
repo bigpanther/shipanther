@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,7 +34,6 @@ import 'package:shipanther/data/user/remote_user_repository.dart';
 import 'package:shipanther/data/user/user_repository.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/router/router.gr.dart';
-//import 'package:shipanther/screens/signin_or_register_page.dart';
 import 'package:shipanther/widgets/theme.dart';
 
 Future<void> commonMain(String apiURL) async {
@@ -152,11 +150,12 @@ class ShipantherApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             darkTheme: ShipantherTheme.darkTheme,
             theme: ShipantherTheme.lightTheme,
-            themeMode: ThemeMode.system,
+            themeMode: ThemeMode.light,
             //home: const SignInOrRegistrationPage(),
             //navigatorObservers: <NavigatorObserver>[observer],
             routerDelegate: appRouter.delegate(),
-            routeInformationParser: appRouter.defaultRouteParser(),
+            routeInformationParser:
+                appRouter.defaultRouteParser(includePrefixMatches: true),
             localizationsDelegates: const [
               ShipantherLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

@@ -30,6 +30,9 @@ class ShipantherScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    const breakpoint = 600.0;
+    var isBig = screenWidth >= breakpoint;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -39,27 +42,40 @@ class ShipantherScaffold extends StatelessWidget {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: body,
+        child: isBig && (user != null)
+            ? Row(children: [
+                // use SizedBox to constrain to a fixed width
+                SizedBox(
+                  width: 240,
+                  child: drawerItems(context, user),
+                ),
+                Expanded(
+                  child: body,
+                ),
+              ])
+            : body,
       ),
       floatingActionButton: floatingActionButton,
-      drawer: (user == null)
+      drawer: (user == null) || isBig
           ? null
-          : Drawer(
-              child: ListView(
-                // Important: Remove any padding from the ListView.
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                      _createHeader(context, user),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                    ] +
-                    drawerItemsFor(context, user),
-              ),
-            ),
+          : Drawer(child: drawerItems(context, user)),
       bottomNavigationBar: bottomNavigationBar,
     );
   }
+}
+
+ListView drawerItems(BuildContext context, User? user) {
+  return ListView(
+    // Important: Remove any padding from the ListView.
+    padding: EdgeInsets.zero,
+    children: <Widget>[
+          _createHeader(context, user),
+          const SizedBox(
+            height: 10,
+          ),
+        ] +
+        drawerItemsFor(context, user),
+  );
 }
 
 List<Widget> drawerItemsFor(BuildContext context, User? user) {

@@ -5,12 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "shipanther",
+            "name": "shipanther-ios",
             "request": "launch",
             "type": "dart",
             "args": [
                 "--flavor",
-                "dev"
+                "dev",
+                "-d",
+                "ios"
+            ]
+        },
+        {
+            "name": "shipanther-chrome",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--flavor",
+                "dev",
+                "-d",
+                "chrome"
             ]
         }
     ]

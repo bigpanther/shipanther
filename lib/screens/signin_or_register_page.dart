@@ -60,8 +60,8 @@ class SignInOrRegistrationPageState extends State<SignInOrRegistrationPage> {
 
   Widget _body(BuildContext context, AuthState state) {
     if (state is AuthRequested ||
-        state is AuthInitial ||
-        state is AuthFailure) {
+        state is AuthFailure ||
+        state is AuthInitial) {
       return SignInOrRegistrationForm(
         authTypeSelector: state.authType,
         email: state.email,

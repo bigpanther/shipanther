@@ -24,6 +24,10 @@ class UserList extends StatelessWidget {
   Widget build(BuildContext context) {
     final title = ShipantherLocalizations.of(context).usersTitle(2);
     final actions = <Widget>[
+      IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.search),
+      ),
       FilterButton<UserRole>(
         possibleValues: UserRole.values.toList(),
         isActive: true,
@@ -35,51 +39,64 @@ class UserList extends StatelessWidget {
       )
     ];
 
-    final Widget body = ListView.builder(
+    final Widget body = GridView.builder(
+      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: 500,
+      ),
       itemCount: userLoadedState.users.length,
       itemBuilder: (BuildContext context, int index) {
         final t = userLoadedState.users.elementAt(index);
         return Padding(
           padding: const EdgeInsets.all(3.0),
           child: Card(
-            elevation: 1,
+            elevation: 3,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(8.0),
               ),
             ),
-            child: ExpansionTile(
-              childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
-              leading: Icon(t.role.icon),
-              trailing: IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  context.pushRoute(
-                    UserAddEdit(
-                      loggedInUser: loggedInUser,
-                      isEdit: true,
-                      userBloc: userBloc,
-                      user: t,
-                    ),
-                  );
-                },
-              ),
-              expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-              title: Text(
-                t.name,
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              children: [
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).email, t.email),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).role, t.role.name),
-                displaySubtitle(ShipantherLocalizations.of(context).createdAt,
-                    t.createdAt.toLocal(),
-                    formatter: dateTimeFormatter),
-                displaySubtitle(ShipantherLocalizations.of(context).lastUpdate,
-                    t.updatedAt.toLocal(),
-                    formatter: dateTimeFormatter),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(t.role.icon),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.edit),
+                    onPressed: () {
+                      context.pushRoute(
+                        UserAddEdit(
+                          loggedInUser: loggedInUser,
+                          isEdit: true,
+                          userBloc: userBloc,
+                          user: t,
+                        ),
+                      );
+                    },
+                  ),
+                  title: Text(
+                    t.name,
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    displaySubtitle(
+                        ShipantherLocalizations.of(context).email, t.email),
+                    displaySubtitle(
+                        ShipantherLocalizations.of(context).role, t.role.name),
+                    displaySubtitle(
+                        ShipantherLocalizations.of(context).createdAt,
+                        t.createdAt.toLocal(),
+                        formatter: dateTimeFormatter),
+                    displaySubtitle(
+                        ShipantherLocalizations.of(context).lastUpdate,
+                        t.updatedAt.toLocal(),
+                        formatter: dateTimeFormatter),
+                  ],
+                ),
               ],
             ),
           ),

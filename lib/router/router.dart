@@ -25,7 +25,8 @@ import 'package:shipanther/screens/user/home.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
-    AutoRoute(page: SignInOrRegistrationPage, initial: true),
+    AutoRoute(path: '/login', page: SignInOrRegistrationPage, initial: true),
+    //AutoRoute(path: '/', page: HomePage, children: [
     AutoRoute(page: DriverHome),
     AutoRoute(page: BackOfficeHome),
     AutoRoute(page: CustomerHome),
@@ -48,6 +49,7 @@ import 'package:shipanther/screens/user/home.dart';
     AutoRoute(page: UserScreen),
     AutoRoute(page: UserAddEdit),
     AutoRoute(page: ProfilePage),
+    //   ]),
   ],
 )
 class $AppRouter {}
