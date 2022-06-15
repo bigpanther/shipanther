@@ -1091,6 +1091,16 @@ class ShipantherLocalizations {
       args: [],
     );
   }
+
+  /// `Not found`
+  String get notFound {
+    return Intl.message(
+      'Not found',
+      name: 'notFound',
+      desc: 'not found text',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate

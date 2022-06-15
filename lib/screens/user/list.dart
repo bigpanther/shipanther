@@ -1,12 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/user/user_bloc.dart';
-import 'package:shipanther/extensions/user_extension.dart';
-import 'package:shipanther/helper/colon.dart';
-import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
-import 'package:shipanther/router/router.gr.dart';
+import 'package:shipanther/screens/user/user_search_delegate.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:trober_sdk/trober_sdk.dart';
@@ -25,7 +21,15 @@ class UserList extends StatelessWidget {
     final title = ShipantherLocalizations.of(context).usersTitle(2);
     final actions = <Widget>[
       IconButton(
-        onPressed: () {},
+        onPressed: () {
+          showSearch(
+            context: context,
+            delegate: UserSearchDelegate(
+              loggedInUser,
+              context.read<UserBloc>(),
+            ),
+          );
+        },
         icon: const Icon(Icons.search),
       ),
       FilterButton<UserRole>(
@@ -38,71 +42,7 @@ class UserList extends StatelessWidget {
         tooltip: ShipantherLocalizations.of(context).userTypeFilter,
       )
     ];
-
-    final Widget body = GridView.builder(
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 500,
-      ),
-      itemCount: userLoadedState.users.length,
-      itemBuilder: (BuildContext context, int index) {
-        final t = userLoadedState.users.elementAt(index);
-        return Padding(
-          padding: const EdgeInsets.all(3.0),
-          child: Card(
-            elevation: 3,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(8.0),
-              ),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                ListTile(
-                  leading: Icon(t.role.icon),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.edit),
-                    onPressed: () {
-                      context.pushRoute(
-                        UserAddEdit(
-                          loggedInUser: loggedInUser,
-                          isEdit: true,
-                          userBloc: userBloc,
-                          user: t,
-                        ),
-                      );
-                    },
-                  ),
-                  title: Text(
-                    t.name,
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    displaySubtitle(
-                        ShipantherLocalizations.of(context).email, t.email),
-                    displaySubtitle(
-                        ShipantherLocalizations.of(context).role, t.role.name),
-                    displaySubtitle(
-                        ShipantherLocalizations.of(context).createdAt,
-                        t.createdAt.toLocal(),
-                        formatter: dateTimeFormatter),
-                    displaySubtitle(
-                        ShipantherLocalizations.of(context).lastUpdate,
-                        t.updatedAt.toLocal(),
-                        formatter: dateTimeFormatter),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+    final body = listbody(context, loggedInUser, userBloc, userLoadedState);
 
     return ShipantherScaffold(loggedInUser,
         title: title, actions: actions, body: body, floatingActionButton: null);

@@ -26,7 +26,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       try {
         final users =
             await _userRepository.fetchUsers(userRole: event.userRole);
-        emit(UsersLoaded(users, event.userRole));
+        if (users.isNotEmpty) {
+          emit(UsersLoaded(users, event.userRole));
+        } else {
+          emit(UserNotFound());
+        }
       } on DioError catch (e) {
         emit(UserFailure('Request failed: ${e.message}'));
       } catch (e) {
@@ -51,6 +55,21 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         await _userRepository.createUser(event.user);
         final users = await _userRepository.fetchUsers();
         emit(UsersLoaded(users, null));
+      } on DioError catch (e) {
+        emit(UserFailure('Request failed: ${e.message}'));
+      } catch (e) {
+        emit(UserFailure('Request failed: $e'));
+      }
+    });
+    on<SearchUser>((event, emit) async {
+      emit(UserLoading());
+      try {
+        final users = await _userRepository.fetchUsers(name: event.name);
+        if (users.isNotEmpty) {
+          emit(UsersLoaded(users, null));
+        } else {
+          emit(UserNotFound());
+        }
       } on DioError catch (e) {
         emit(UserFailure('Request failed: ${e.message}'));
       } catch (e) {

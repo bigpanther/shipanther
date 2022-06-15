@@ -675,5 +675,11 @@
     "description": "home page text",
     "type": "text",
     "placeholders": {}
+  },
+  "notFound": "Not found",
+  "@notFound": {
+    "description": "not found text",
+    "type": "text",
+    "placeholders": {}
   }
 }

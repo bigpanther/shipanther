@@ -70,6 +70,22 @@ class ShipmentBloc extends Bloc<ShipmentEvent, ShipmentState> {
         emit(ShipmentFailure('Request failed: $e'));
       }
     });
+    on<SearchShipment>((event, emit) async {
+      emit(ShipmentLoading());
+      try {
+        final shipments =
+            await _shipmentRepository.fetchShipments(serialNumber: event.name);
+        if (shipments.isNotEmpty) {
+          emit(ShipmentsLoaded(shipments, null));
+        } else {
+          emit(ShipmentNotFound());
+        }
+      } on DioError catch (e) {
+        emit(ShipmentFailure('Request failed: ${e.message}'));
+      } catch (e) {
+        emit(ShipmentFailure('Request failed: $e'));
+      }
+    });
     on<DeleteShipment>((event, emit) async {
       emit(const ShipmentFailure('Shipment deletion is not supported'));
     });
