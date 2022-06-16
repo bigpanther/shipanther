@@ -39,7 +39,7 @@ class ShipantherTextFormField<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget? suffixIcon;
-    if (isPasswordField) {
+    if (suffixIconData != null) {
       suffixIcon = Padding(
         padding: const EdgeInsetsDirectional.only(
           start: 8.0,
