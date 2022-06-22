@@ -2,11 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shipanther/bloc/order/order_bloc.dart';
-import 'package:shipanther/extensions/order_extension.dart';
-import 'package:shipanther/helper/colon.dart';
-import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/router/router.gr.dart';
+import 'package:shipanther/screens/order/order_search_delegate.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:shipanther/widgets/uuid.dart';
@@ -25,6 +23,18 @@ class OrderList extends StatelessWidget {
   Widget build(BuildContext context) {
     final title = ShipantherLocalizations.of(context).ordersTitle(2);
     final actions = <Widget>[
+      IconButton(
+        onPressed: () {
+          showSearch(
+            context: context,
+            delegate: OrderSearchDelegate(
+              loggedInUser,
+              context.read<OrderBloc>(),
+            ),
+          );
+        },
+        icon: const Icon(Icons.search),
+      ),
       FilterButton<OrderStatus>(
           possibleValues: OrderStatus.values.toList(),
           isActive: true,
@@ -35,53 +45,9 @@ class OrderList extends StatelessWidget {
             ),
           tooltip: ShipantherLocalizations.of(context).orderStatusFilter)
     ];
+    final Widget body =
+        listbody(context, loggedInUser, orderBloc, orderLoadedState);
 
-    final Widget body = ListView.builder(
-      itemCount: orderLoadedState.orders.length,
-      itemBuilder: (BuildContext context, int index) {
-        final t = orderLoadedState.orders.elementAt(index);
-        return Padding(
-          padding: const EdgeInsets.all(3.0),
-          child: Card(
-            elevation: 1,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(8.0),
-              ),
-            ),
-            child: ExpansionTile(
-              childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
-              leading: Icon(t.status.icon),
-              trailing: IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  orderBloc.add(GetOrder(t.id));
-                },
-              ),
-              expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-              title: Text(
-                t.serialNumber,
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              children: [
-                displaySubtitle(ShipantherLocalizations.of(context).createdAt,
-                    t.createdAt.toLocal(),
-                    formatter: dateTimeFormatter),
-                if (t.customer != null)
-                  displaySubtitle(
-                      ShipantherLocalizations.of(context).customerName,
-                      t.customer?.name)
-                else
-                  const SizedBox(width: 0.0, height: 0.0),
-                displaySubtitle(ShipantherLocalizations.of(context).lastUpdate,
-                    t.updatedAt.toLocal(),
-                    formatter: dateTimeFormatter),
-              ],
-            ),
-          ),
-        );
-      },
-    );
     final Widget floatingActionButton = FloatingActionButton(
       tooltip: ShipantherLocalizations.of(context).orderAdd,
       onPressed: () {

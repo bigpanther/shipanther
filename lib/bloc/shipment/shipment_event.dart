@@ -30,3 +30,8 @@ class GetShipments extends ShipmentEvent {
   const GetShipments({this.shipmentStatus});
   final api.ShipmentStatus? shipmentStatus;
 }
+
+class SearchShipment extends ShipmentEvent {
+  const SearchShipment(this.name);
+  final String name;
+}

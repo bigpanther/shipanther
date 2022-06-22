@@ -1,13 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shipanther/bloc/shipment/shipment_bloc.dart';
-import 'package:shipanther/extensions/shipment_extension.dart';
-import 'package:shipanther/helper/colon.dart';
-import 'package:shipanther/l10n/locales/date_formatter.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/router/router.gr.dart';
+import 'package:shipanther/screens/shipment/shipment_search_delegate.dart';
 import 'package:shipanther/widgets/filter_button.dart';
 import 'package:shipanther/widgets/shipanther_scaffold.dart';
 import 'package:shipanther/widgets/uuid.dart';
@@ -28,6 +25,18 @@ class ShipmentList extends StatelessWidget {
   Widget build(BuildContext context) {
     final title = ShipantherLocalizations.of(context).shipmentsTitle(2);
     final actions = <Widget>[
+      IconButton(
+        onPressed: () {
+          showSearch(
+            context: context,
+            delegate: ShipmentSearchDelegate(
+              loggedInUser,
+              context.read<ShipmentBloc>(),
+            ),
+          );
+        },
+        icon: const Icon(Icons.search),
+      ),
       FilterButton<ShipmentStatus>(
         possibleValues: ShipmentStatus.values.toList(),
         isActive: true,
@@ -37,76 +46,9 @@ class ShipmentList extends StatelessWidget {
         tooltip: ShipantherLocalizations.of(context).shipmentStatusFilter,
       )
     ];
-    Widget circularIndicator(Shipment c) {
-      return CircularPercentIndicator(
-        radius: 20.0,
-        lineWidth: 5.0,
-        percent: c.status.percentage,
-        progressColor: Colors.green,
-        center: Icon(c.type.icon),
-      );
-    }
 
-    final Widget body = ListView.builder(
-      itemCount: shipmentsLoadedState.shipments.length,
-      itemBuilder: (BuildContext context, int index) {
-        final t = shipmentsLoadedState.shipments.elementAt(index);
-        return Padding(
-          padding: const EdgeInsets.all(3.0),
-          child: Card(
-            elevation: 1,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(8.0),
-              ),
-            ),
-            child: ExpansionTile(
-              childrenPadding: const EdgeInsets.only(left: 20, bottom: 10),
-              leading: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  circularIndicator(t),
-                ],
-              ),
-              trailing: IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  shipmentBloc.add(GetShipment(t.id));
-                },
-              ),
-              expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
-              title: Row(
-                children: [
-                  Text(
-                    t.serialNumber,
-                    style: TextStyle(
-                        color: t.status.color(
-                            baseColor:
-                                Theme.of(context).textTheme.bodyText1!.color),
-                        fontSize: 20),
-                  ),
-                ],
-              ),
-              subtitle: Text(ShipantherLocalizations.of(context)
-                  .paramFromTo(t.origin ?? '', t.destination ?? '')),
-              children: [
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).reservationTime,
-                    t.reservationTime,
-                    formatter: dateTimeFormatter),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).size, t.size?.name),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).status, t.status.name),
-                displaySubtitle(
-                    ShipantherLocalizations.of(context).lastUpdate, t.updatedAt,
-                    formatter: dateTimeFormatter),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+    final Widget body =
+        listbody(context, loggedInUser, shipmentBloc, shipmentsLoadedState);
 
     final Widget floatingActionButton = FloatingActionButton(
       tooltip: ShipantherLocalizations.of(context).shipmentAdd,

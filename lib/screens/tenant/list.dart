@@ -71,9 +71,13 @@ class TenantList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                displaySubtitle(ShipantherLocalizations.of(context).createdAt,
+                displayProperty(
+                    context,
+                    ShipantherLocalizations.of(context).createdAt,
                     dateFormatter.format(t.createdAt.toLocal())),
-                displaySubtitle(ShipantherLocalizations.of(context).lastUpdate,
+                displayProperty(
+                    context,
+                    ShipantherLocalizations.of(context).lastUpdate,
                     dateFormatter.format(t.updatedAt.toLocal())),
               ],
             ),

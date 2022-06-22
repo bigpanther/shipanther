@@ -9,6 +9,8 @@ class ShipmentInitial extends ShipmentState {}
 
 class ShipmentLoading extends ShipmentState {}
 
+class ShipmentNotFound extends ShipmentState {}
+
 class ShipmentLoaded extends ShipmentState {
   const ShipmentLoaded(this.shipment, this.downloadURL);
   final api.Shipment shipment;

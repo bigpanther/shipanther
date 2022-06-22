@@ -9,6 +9,8 @@ class OrderInitial extends OrderState {}
 
 class OrderLoading extends OrderState {}
 
+class OrderNotFound extends OrderState {}
+
 class OrderLoaded extends OrderState {
   const OrderLoaded(this.order);
   final api.Order order;

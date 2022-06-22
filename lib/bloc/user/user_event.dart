@@ -30,3 +30,8 @@ class GetUsers extends UserEvent {
   const GetUsers({this.userRole});
   final api.UserRole? userRole;
 }
+
+class SearchUser extends UserEvent {
+  const SearchUser(this.name);
+  final String name;
+}

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shipanther/data/auth/auth_repository.dart';
@@ -8,10 +9,17 @@ import 'package:trober_sdk/trober_sdk.dart' as api;
 
 class RemoteAuthRepository extends AuthRepository {
   RemoteAuthRepository(this._auth, this._firebaseMessaging, this._url) {
-    _d = api.TroberSdk(basePathOverride: _url, interceptors: [
-      api.ApiKeyAuthInterceptor(),
-      ShipantherInterceptor(api.standardSerializers)
-    ]);
+    _d = api.TroberSdk(
+        basePathOverride: _url,
+        dio: Dio(BaseOptions(
+          baseUrl: _url,
+          connectTimeout: 10000,
+          receiveTimeout: 5000,
+        )),
+        interceptors: [
+          api.ApiKeyAuthInterceptor(),
+          ShipantherInterceptor(api.standardSerializers)
+        ]);
   }
   final firebase.FirebaseAuth _auth;
   final String _url;
@@ -53,11 +61,12 @@ class RemoteAuthRepository extends AuthRepository {
     await _firebaseMessaging.setAutoInitEnabled(false);
     try {
       await _deleteDeviceToken();
+      await _firebaseMessaging.deleteToken();
+      await _auth.signOut();
     } catch (_) {
+      _self = null;
       //ignore
     }
-    await _firebaseMessaging.deleteToken();
-    await _auth.signOut();
     _self = null;
   }
 
@@ -80,7 +89,7 @@ class RemoteAuthRepository extends AuthRepository {
   @override
   Future<api.User> logIn() async {
     await _firebaseMessaging.setAutoInitEnabled(true);
-    final u = _auth.currentUser;
+    var u = _auth.currentUser ?? await _auth.authStateChanges().first;
     if (u == null) {
       throw UnAuthenticatedException();
     }

@@ -30,3 +30,8 @@ class GetOrders extends OrderEvent {
   const GetOrders({this.orderStatus});
   final api.OrderStatus? orderStatus;
 }
+
+class SearchOrder extends OrderEvent {
+  const SearchOrder(this.name);
+  final String name;
+}

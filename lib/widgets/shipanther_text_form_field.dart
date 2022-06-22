@@ -6,7 +6,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 class ShipantherTextFormField<T> extends StatelessWidget {
   const ShipantherTextFormField({
     Key? key,
-    required this.formControlName,
+    this.formControlName,
     required this.labelText,
     this.keyboardType,
     this.validationMessages = const {},
@@ -19,10 +19,11 @@ class ShipantherTextFormField<T> extends StatelessWidget {
     this.maxLength,
     this.suffixIconData,
     this.onSuffixButtonPressed,
+    this.formControl,
   }) : super(
           key: key,
         );
-  final String formControlName;
+  final String? formControlName;
   final String labelText;
   final TextInputType? keyboardType;
   final Map<String, String> validationMessages;
@@ -35,11 +36,12 @@ class ShipantherTextFormField<T> extends StatelessWidget {
   final int? maxLength;
   final IconData? suffixIconData;
   final void Function()? onSuffixButtonPressed;
+  final FormControl<T>? formControl;
 
   @override
   Widget build(BuildContext context) {
     Widget? suffixIcon;
-    if (isPasswordField) {
+    if (suffixIconData != null) {
       suffixIcon = Padding(
         padding: const EdgeInsetsDirectional.only(
           start: 8.0,
@@ -58,11 +60,13 @@ class ShipantherTextFormField<T> extends StatelessWidget {
       ),
       labelText: labelText,
       suffixIcon: suffixIcon,
+      counterText: '',
     );
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ReactiveTextField<T>(
         formControlName: formControlName,
+        formControl: formControl,
         validationMessages: (control) => validationMessages,
         decoration: decoration,
         maxLength: maxLength,
