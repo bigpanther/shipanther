@@ -71,10 +71,14 @@ class TerminalList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                displaySubtitle(ShipantherLocalizations.of(context).createdAt,
+                displayProperty(
+                    context,
+                    ShipantherLocalizations.of(context).createdAt,
                     t.createdAt?.toLocal(),
                     formatter: dateTimeFormatter),
-                displaySubtitle(ShipantherLocalizations.of(context).lastUpdate,
+                displayProperty(
+                    context,
+                    ShipantherLocalizations.of(context).lastUpdate,
                     t.updatedAt?.toLocal(),
                     formatter: dateTimeFormatter),
               ],

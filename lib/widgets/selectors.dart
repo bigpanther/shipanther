@@ -106,11 +106,8 @@ List<Widget> driverSelector(
   ];
 }
 
-List<Widget> terminalSelector(
-  BuildContext context,
-  String formControlName,
-  bool readonly,
-) {
+List<Widget> terminalSelector(BuildContext context, String formControlName,
+    bool readonly, Map<String, String> validationMessages) {
   if (readonly) {
     return [];
   }
@@ -119,6 +116,7 @@ List<Widget> terminalSelector(
       formControlName: formControlName,
       stringify: (terminal) => terminal.name ?? 'noname',
       autoFlipDirection: true,
+      validationMessages: (control) => validationMessages,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context).selectParam(
@@ -139,11 +137,8 @@ List<Widget> terminalSelector(
   ];
 }
 
-List<Widget> carrierSelector(
-  BuildContext context,
-  String formControlName,
-  bool readonly,
-) {
+List<Widget> carrierSelector(BuildContext context, String formControlName,
+    bool readonly, Map<String, String> validationMessages) {
   if (readonly) {
     return [];
   }
@@ -152,6 +147,7 @@ List<Widget> carrierSelector(
       formControlName: formControlName,
       stringify: (carrier) => carrier.name,
       autoFlipDirection: true,
+      validationMessages: (control) => validationMessages,
       textFieldConfiguration: TextFieldConfiguration(
         decoration: InputDecoration(
             labelText: ShipantherLocalizations.of(context).selectParam(

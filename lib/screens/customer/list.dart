@@ -58,10 +58,10 @@ class CustomerList extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
               ),
               children: [
-                displaySubtitle(
+                displayProperty(context,
                     ShipantherLocalizations.of(context).createdAt, t.createdAt,
                     formatter: dateTimeFormatter),
-                displaySubtitle(
+                displayProperty(context,
                     ShipantherLocalizations.of(context).lastUpdate, t.updatedAt,
                     formatter: dateTimeFormatter),
               ],

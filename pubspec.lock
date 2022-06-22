@@ -107,7 +107,7 @@ packages:
     source: hosted
     version: "7.2.3"
   built_collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: built_collection
       url: "https://pub.dartlang.org"
@@ -773,16 +773,20 @@ packages:
   reactive_flutter_typeahead:
     dependency: "direct main"
     description:
-      name: reactive_flutter_typeahead
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "packages/reactive_flutter_typeahead"
+      ref: stringify-initial
+      resolved-ref: "5b4f46746eef4ad12becbe91f7c67b66b2294bb5"
+      url: "https://github.com/harsimranmaan/reactive_forms_widgets.git"
+    source: git
     version: "0.4.0"
   reactive_forms:
     dependency: "direct main"
     description:
-      name: reactive_forms
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: stringify
+      resolved-ref: f392736e91244df77549ba9b0a7dc65e838a550b
+      url: "https://github.com/harsimranmaan/reactive_forms.git"
+    source: git
     version: "13.0.0"
   shelf:
     dependency: transitive
@@ -914,7 +918,7 @@ packages:
       name: trober_sdk
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.50"
+    version: "0.0.52"
   typed_data:
     dependency: transitive
     description:

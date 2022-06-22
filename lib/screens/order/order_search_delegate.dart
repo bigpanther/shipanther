@@ -1,19 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shipanther/bloc/user/user_bloc.dart';
+import 'package:shipanther/bloc/order/order_bloc.dart';
+import 'package:shipanther/extensions/shipment_extension.dart';
 import 'package:shipanther/l10n/locales/l10n.dart';
 import 'package:shipanther/router/router.gr.dart';
 import 'package:trober_sdk/trober_sdk.dart';
-import 'package:shipanther/extensions/user_extension.dart';
 import 'package:shipanther/helper/colon.dart';
 import 'package:shipanther/l10n/locales/date_formatter.dart';
 
-class UserSearchDelegate extends SearchDelegate<User?> {
-  final UserBloc bloc;
+class OrderSearchDelegate extends SearchDelegate<Shipment?> {
+  final OrderBloc bloc;
   final User loggedInUser;
 
-  UserSearchDelegate(
+  OrderSearchDelegate(
     this.loggedInUser,
     this.bloc,
   );
@@ -44,24 +44,24 @@ class UserSearchDelegate extends SearchDelegate<User?> {
     if (query.length < 3) {
       return Container();
     }
-    bloc.add(SearchUser(query));
+    bloc.add(SearchOrder(query));
     return BlocBuilder(
       bloc: bloc,
-      builder: (BuildContext context, UserState state) {
-        if (state is UserLoading) {
+      builder: (BuildContext context, OrderState state) {
+        if (state is OrderLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
-        if (state is UserFailure) {
+        if (state is OrderFailure) {
           return Center(
             child: Text(state.message),
           );
         }
-        if (state is UsersLoaded) {
+        if (state is OrdersLoaded) {
           return listbody(context, loggedInUser, bloc, state);
         }
-        if (state is UserNotFound) {
+        if (state is OrderNotFound) {
           return notFoundBody(context);
         }
         return Container();
@@ -81,15 +81,16 @@ Widget notFoundBody(BuildContext context) {
   );
 }
 
-Widget listbody(
-    BuildContext context, User loggedInUser, UserBloc bloc, UsersLoaded state) {
+Widget listbody(BuildContext context, User loggedInUser, OrderBloc bloc,
+    OrdersLoaded state) {
   return GridView.builder(
     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
       maxCrossAxisExtent: 500,
     ),
-    itemCount: state.users.length,
+    itemCount: state.orders.length,
     itemBuilder: (BuildContext context, int index) {
-      final t = state.users.elementAt(index);
+      final t = state.orders.elementAt(index);
+      final l10n = ShipantherLocalizations.of(context);
       return Padding(
         padding: const EdgeInsets.all(3.0),
         child: Card(
@@ -104,22 +105,22 @@ Widget listbody(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               ListTile(
-                leading: Icon(t.role.icon),
+                leading: Icon(t.type?.icon),
                 trailing: IconButton(
                   icon: const Icon(Icons.edit),
                   onPressed: () {
                     context.pushRoute(
-                      UserAddEdit(
+                      OrderAddEdit(
                         loggedInUser: loggedInUser,
                         isEdit: true,
-                        userBloc: bloc,
-                        user: t,
+                        orderBloc: bloc,
+                        order: t,
                       ),
                     );
                   },
                 ),
                 title: Text(
-                  t.name,
+                  t.serialNumber,
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
@@ -127,19 +128,51 @@ Widget listbody(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  displayProperty(context,
-                      ShipantherLocalizations.of(context).email, t.email),
-                  displayProperty(context,
-                      ShipantherLocalizations.of(context).role, t.role.name),
                   displayProperty(
-                      context,
-                      ShipantherLocalizations.of(context).createdAt,
-                      t.createdAt.toLocal(),
-                      formatter: dateTimeFormatter),
+                    context,
+                    'Container Status',
+                    t.containerStatus,
+                  ),
                   displayProperty(
+                    context,
+                    'Shipline',
+                    t.shipline,
+                  ),
+                  if (t.type == ShipmentType.inbound)
+                    displayProperty(
                       context,
-                      ShipantherLocalizations.of(context).lastUpdate,
-                      t.updatedAt.toLocal(),
+                      'ETA',
+                      t.eta,
+                      formatter: dateTimeFormatter,
+                      icon: Icons.timer,
+                    )
+                  else
+                    displayProperty(
+                      context,
+                      'ERD',
+                      t.erd,
+                      formatter: dateTimeFormatter,
+                      icon: Icons.timer,
+                    ),
+                  if (t.type == ShipmentType.inbound)
+                    displayProperty(
+                      context,
+                      'LFD',
+                      t.lfd,
+                      formatter: dateTimeFormatter,
+                      icon: Icons.timer,
+                    )
+                  else
+                    displayProperty(
+                      context,
+                      'DOC C/O',
+                      t.docco,
+                      formatter: dateTimeFormatter,
+                      icon: Icons.timer,
+                    ),
+                  displayProperty(context, l10n.status, t.status.name),
+                  displayProperty(context, 'SO#', t.soNumber),
+                  displayProperty(context, l10n.lastUpdate, t.updatedAt,
                       formatter: dateTimeFormatter),
                 ],
               ),

@@ -45,7 +45,22 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         emit(OrderFailure('Request failed: $e'));
       }
     });
-
+    on<SearchOrder>((event, emit) async {
+      emit(OrderLoading());
+      try {
+        final orders =
+            await _orderRepository.fetchOrders(serialNumber: event.name);
+        if (orders.isNotEmpty) {
+          emit(OrdersLoaded(orders, null));
+        } else {
+          emit(OrderNotFound());
+        }
+      } on DioError catch (e) {
+        emit(OrderFailure('Request failed: ${e.message}'));
+      } catch (e) {
+        emit(OrderFailure('Request failed: $e'));
+      }
+    });
     on<CreateOrder>((event, emit) async {
       try {
         emit(OrderLoading());

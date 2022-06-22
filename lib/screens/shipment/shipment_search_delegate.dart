@@ -91,6 +91,8 @@ Widget listbody(BuildContext context, User loggedInUser, ShipmentBloc bloc,
     itemCount: state.shipments.length,
     itemBuilder: (BuildContext context, int index) {
       final t = state.shipments.elementAt(index);
+      final l10n = ShipantherLocalizations.of(context);
+
       return Padding(
         padding: const EdgeInsets.all(3.0),
         child: Card(
@@ -128,17 +130,17 @@ Widget listbody(BuildContext context, User loggedInUser, ShipmentBloc bloc,
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  displaySubtitle(
-                      ShipantherLocalizations.of(context).reservationTime,
-                      t.reservationTime,
-                      formatter: dateTimeFormatter),
-                  displaySubtitle(
-                      ShipantherLocalizations.of(context).size, t.size?.name),
-                  displaySubtitle(ShipantherLocalizations.of(context).status,
-                      t.status.name),
-                  displaySubtitle(
-                      ShipantherLocalizations.of(context).lastUpdate,
-                      t.updatedAt,
+                  displayProperty(
+                    context,
+                    l10n.reservationTime,
+                    t.reservationTime,
+                    formatter: dateTimeFormatter,
+                    icon: Icons.timer,
+                  ),
+                  displayProperty(context, l10n.size, t.size?.name,
+                      icon: Icons.photo_size_select_small),
+                  displayProperty(context, l10n.status, t.status.name),
+                  displayProperty(context, l10n.lastUpdate, t.updatedAt,
                       formatter: dateTimeFormatter),
                 ],
               ),

@@ -13,5 +13,7 @@ ReactiveDateTimePicker dateTimePicker(
     decoration: const InputDecoration(icon: Icon(Icons.event)),
     // icon: ,
     fieldLabelText: title,
+    helpText: title,
+    fieldHintText: title,
   );
 }
