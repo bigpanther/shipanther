@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 mixin ShipantherTheme {
   static ThemeData get lightTheme => FlexColorScheme.light(
-        colors: FlexColor.schemes[FlexScheme.indigo]!.light,
+        colors: FlexSchemeColor.from(primary: const Color(0xFF9540FC)),
         // Use comfortable on desktops instead of compact, devices use default.
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
         fontFamily: 'Roboto',
       ).toTheme;
   static ThemeData get darkTheme => FlexColorScheme.dark(
-        colors: FlexColor.schemes[FlexScheme.indigo]!.dark,
+        colors: FlexSchemeColor.from(primary: const Color(0xFFBB86FC)),
         // Use comfortable on desktops instead of compact, devices use default.
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
         darkIsTrueBlack: true,
